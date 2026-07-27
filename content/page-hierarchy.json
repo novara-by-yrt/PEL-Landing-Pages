@@ -1,0 +1,16 @@
+{
+  "description": "Maps MDX filename (without .mdx) to the canonical WordPress URL path segments. Only child pages (those with a parent) are listed here. All other pages use their slug directly as a single-segment path.",
+  "childPages": {
+    "philosophy": ["dr-sabrina-shah-desai", "philosophy"],
+    "non-surgical-terms-conditions": ["dr-sabrina-shah-desai", "non-surgical-terms-conditions"],
+    "artificial-eye-implants": ["eyeball-removal", "artificial-eye-implants"],
+    "ellanse": ["non-surgical-injectables-medical-aesthetic", "ellanse"],
+    "profhilo": ["non-surgical-injectables-medical-aesthetic", "profhilo"],
+    "superior-sulcus-filler": ["non-surgical-injectables-medical-aesthetic", "superior-sulcus-filler"],
+    "tear-trough-treatment-london": ["non-surgical-injectables-medical-aesthetic", "tear-trough-treatment-london"],
+    "medication-driven-weight-loss-face-restoration-the-perfect-360-approach": ["non-surgical-facial-contouring", "medication-driven-weight-loss-face-restoration-the-perfect-360-approach"],
+    "morpheus-8-radio-frequency-skin-tightening-treatment": ["non-surgical-skin-restoration-medical-aesthetic", "morpheus-8-radio-frequency-skin-tightening-treatment"],
+    "dry-eye-treatments": ["wellness-skin-optimisation", "dry-eye-treatments"],
+    "hydrafacial-perk": ["wellness-skin-optimisation", "hydrafacial-perk"]
+  }
+}
