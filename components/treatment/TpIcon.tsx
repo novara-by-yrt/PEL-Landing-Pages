@@ -20,6 +20,11 @@ const TP_ICON_PATHS: Record<string, string> = {
   check: "M4.5 12.5l4.7 4.7L19.5 6.9",
   star: "M12 3.3l2.5 5.3 5.7.8-4.1 4.1 1 5.7-5.1-2.8-5.1 2.8 1-5.7-4.1-4.1 5.7-.8L12 3.3z",
   mail: "M4 6h16v12H4zM4 6.5l8 6.5 8-6.5",
+  menu: "M4 7h16M4 12h16M4 17h16",
+  close: "M6 6l12 12M18 6L6 18",
+  plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  search: "M11 4.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM20.5 20.5L16 16",
 };
 
 // Maps at-a-glance labels (from treatment-meta.json) to an icon key above.

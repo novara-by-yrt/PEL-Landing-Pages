@@ -4,6 +4,8 @@
 /*  vanilla CSS design system targeting 100 Web Vitals.                      */
 /* ========================================================================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&display=swap');
+
 /* ── 1. Custom Properties (Design Tokens) ───────────────────────────────── */
 :root {
   /* Colour palette */
@@ -75,6 +77,39 @@
   --duration-fast: 150ms;
   --duration: 250ms;
   --duration-slow: 400ms;
+
+  /* Indigo/lavender design system (treatment, blog pages, header/footer) */
+  --tp-indigo-950: #121036;
+  --tp-indigo-900: #1A1850;
+  --tp-indigo-800: #232169;
+  --tp-indigo-700: #2C2A7A;
+  --tp-indigo-600: #453D9B;
+  --tp-lavender-500: #736CAB;
+  --tp-lavender-400: #8A84BA;
+  --tp-lavender-300: #BCA0DD;
+  --tp-lavender-200: #D8CCEE;
+  --tp-lavender-100: #ECE6F7;
+  --tp-lavender-050: #F6F3FC;
+  --tp-ink: #17162E;
+  --tp-slate: #56555E;
+  --tp-mist: #98979E;
+  --tp-line: #E6E4EE;
+  --tp-paper: #FFFFFF;
+  --tp-fog: #F4F3F9;
+  --tp-gold: #B08A4F;
+  --tp-hairline: rgba(44,42,122,0.1);
+  --tp-shadow-xs: 0 1px 2px rgba(24,22,34,0.05);
+  --tp-shadow-sm: 0 4px 18px -8px rgba(36,28,78,0.14);
+  --tp-shadow-md: 0 18px 44px -20px rgba(36,28,78,0.2);
+  --tp-shadow-lg: 0 40px 90px -34px rgba(36,28,78,0.28);
+  --tp-radius-md: 14px;
+  --tp-radius-lg: 22px;
+  --tp-radius-xl: 32px;
+  --tp-ease: cubic-bezier(.22,.61,.36,1);
+  --tp-display: 'Newsreader', Georgia, serif;
+  --tp-body: var(--font-inter), 'Work Sans', system-ui, sans-serif;
+  --tp-glass-bg: rgba(255,255,255,0.72);
+  --tp-glass-bg-deep: rgba(18,16,54,0.55);
 }
 
 /* ── 2. Reset ────────────────────────────────────────────────────────────── */

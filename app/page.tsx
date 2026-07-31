@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
@@ -444,6 +445,7 @@ export default function HomePage() {
 
       {/* ── 4. SPECIALIST TREATMENTS ─────────────────────────────────────── */}
       <section
+        id="treatments"
         aria-label="Our Specialist Treatments"
         className="section"
         style={{ background: "#fff", paddingTop: "4rem", paddingBottom: "3rem" }}
@@ -581,9 +583,8 @@ export default function HomePage() {
               { icon: "/uploads/2024/09/2bx.svg", text: "Use our simple booking form to confirm your consultation or request a FREE call back." },
               { icon: "/uploads/2024/09/3bc.svg", text: "Look forward to coming in for your bespoke appointment." },
             ].map((step, i) => (
-              <>
+              <Fragment key={step.text}>
                 <div
-                  key={step.text}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -612,7 +613,6 @@ export default function HomePage() {
                 </div>
                 {i < 2 && (
                   <Image
-                    key={`arrow-${i}`}
                     src="/uploads/2024/05/Arrow-16.svg"
                     alt=""
                     width={32}
@@ -621,7 +621,7 @@ export default function HomePage() {
                     aria-hidden
                   />
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
 

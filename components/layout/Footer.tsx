@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TpIcon } from "@/components/treatment/TpIcon";
 
 const FOOTER_COLS = [
   {
@@ -42,54 +43,68 @@ const FOOTER_COLS = [
   },
 ];
 
+const SOCIALS = [
+  { label: "Instagram", href: "https://www.instagram.com/drsabrinashahdesaiofficial/" },
+  { label: "X / Twitter", href: "https://twitter.com/perfecteyesltd" },
+];
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="site-footer" role="contentinfo">
-      <div className="container">
-        <div className="footer-grid" style={{ gridTemplateColumns: "1.5fr repeat(3, 1fr)" }}>
-          {/* Brand */}
-          <div className="footer-brand">
-            <h2>Perfect Eyes Ltd</h2>
-            <p>
-              London&rsquo;s leading cosmetic eye surgery and non-surgical aesthetic clinic.
-              Expert care from Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth.
+    <footer className="pel-footer" role="contentinfo">
+      <style>{`
+        .pel-footer { background: linear-gradient(160deg, var(--tp-indigo-950), var(--tp-indigo-800)); color: var(--tp-lavender-200); }
+        .pel-footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 4rem 1.5rem 1.75rem; }
+        .pel-footer-grid { display: grid; grid-template-columns: minmax(260px,1.5fr) repeat(3,1fr); gap: 2.5rem; }
+        .pel-footer-brand { font-family: var(--tp-display); font-size: 27px; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
+        .pel-footer-tagline { font-family: var(--tp-body); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--tp-lavender-400); margin: 9px 0 22px; }
+        .pel-footer-desc { font-size: 0.875rem; line-height: 1.6; color: var(--tp-lavender-200); max-width: 300px; margin-bottom: 20px; }
+        .pel-footer-contact { display: flex; flex-direction: column; gap: 14px; }
+        .pel-footer-row { display: flex; gap: 11px; align-items: flex-start; font-size: 0.875rem; line-height: 1.5; color: var(--tp-lavender-200); text-decoration: none; max-width: 280px; transition: color 160ms var(--tp-ease); }
+        a.pel-footer-row:hover { color: #fff; }
+        .pel-footer-row-icon { color: var(--tp-lavender-400); flex-shrink: 0; margin-top: 1px; }
+        .pel-footer-col-head { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp-lavender-400); margin-bottom: 18px; }
+        .pel-footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+        .pel-footer-col a { font-size: 0.875rem; color: var(--tp-lavender-200); text-decoration: none; transition: color 160ms var(--tp-ease); }
+        .pel-footer-col a:hover { color: #fff; }
+        .pel-footer-bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .pel-footer-copy { font-size: 0.75rem; color: var(--tp-lavender-300); }
+        .pel-footer-copy p + p { margin-top: 4px; }
+        .pel-footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .pel-footer-legal a { font-size: 0.75rem; color: var(--tp-lavender-300); text-decoration: none; transition: color 160ms var(--tp-ease); }
+        .pel-footer-legal a:hover { color: #fff; }
+        @media (max-width: 860px) { .pel-footer-grid { grid-template-columns: 1fr 1fr; } .pel-footer-brand-col { grid-column: 1 / -1; } }
+        @media (max-width: 560px) { .pel-footer-grid { grid-template-columns: 1fr; } }
+      `}</style>
+
+      <div className="pel-footer-inner">
+        <div className="pel-footer-grid">
+          <div className="pel-footer-brand-col">
+            <div className="pel-footer-brand">Perfect Eyes Ltd</div>
+            <div className="pel-footer-tagline">Eyes · Face · Skin</div>
+            <p className="pel-footer-desc">
+              London&rsquo;s leading cosmetic eye surgery and non-surgical aesthetic clinic. Expert care from Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth.
             </p>
-            <div style={{ marginTop: "1.5rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              <a
-                href="tel:+442074864886"
-                style={{ fontSize: "var(--text-sm)", color: "hsl(0 0% 100% / 0.7)", transition: "color 0.15s ease" }}
-              >
-                📞 020 7486 4886
-              </a>
-              <a
-                href="mailto:perfecteyesltd@gmail.com"
-                style={{ fontSize: "var(--text-sm)", color: "hsl(0 0% 100% / 0.7)", transition: "color 0.15s ease" }}
-              >
-                ✉ perfecteyesltd@gmail.com
-              </a>
-              <p style={{ fontSize: "var(--text-sm)", color: "hsl(0 0% 100% / 0.6)", marginTop: "0.25rem" }}>
+            <div className="pel-footer-contact">
+              <span className="pel-footer-row">
+                <span className="pel-footer-row-icon"><TpIcon name="pin" size={16} /></span>
                 9 Harley Street, London, W1G 9QY
-              </p>
-            </div>
-            <div style={{ marginTop: "1.25rem", display: "flex", gap: "1rem" }}>
-              <a
-                href="https://www.instagram.com/drsabrinashahdesaiofficial/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                style={{ color: "hsl(0 0% 100% / 0.5)", fontSize: "1.25rem", lineHeight: 1 }}
-              >
-                Instagram
+              </span>
+              <a href="tel:+442074864886" className="pel-footer-row">
+                <span className="pel-footer-row-icon"><TpIcon name="phone" size={16} /></span>
+                020 7486 4886
+              </a>
+              <a href="mailto:perfecteyesltd@gmail.com" className="pel-footer-row">
+                <span className="pel-footer-row-icon"><TpIcon name="mail" size={16} /></span>
+                perfecteyesltd@gmail.com
               </a>
             </div>
           </div>
 
-          {/* Link columns */}
           {FOOTER_COLS.map((col) => (
-            <div key={col.heading} className="footer-col">
-              <h3>{col.heading}</h3>
+            <div key={col.heading} className="pel-footer-col">
+              <div className="pel-footer-col-head">{col.heading}</div>
               <ul>
                 {col.links.map((link) => (
                   <li key={link.href}>
@@ -101,51 +116,19 @@ export default function Footer() {
           ))}
         </div>
 
-        <div
-          style={{
-            borderTop: "1px solid hsl(0 0% 100% / 0.1)",
-            paddingTop: "var(--space-6)",
-            marginTop: "var(--space-8)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "1rem",
-            fontSize: "var(--text-xs)",
-            color: "hsl(0 0% 100% / 0.5)",
-          }}
-        >
-          <div>
-            <p>© {currentYear} Perfect Eyes Ltd. All rights reserved.</p>
-            <p style={{ marginTop: "0.25rem" }}>
-              Registered in England & Wales. Company No. 10036376.
-            </p>
+        <div className="pel-footer-bottom">
+          <div className="pel-footer-copy">
+            <p>© {currentYear} Perfect Eyes Ltd · Harley Street, London. All rights reserved.</p>
+            <p>Registered in England &amp; Wales. Company No. 10036376.</p>
           </div>
-          <nav aria-label="Legal links" style={{ display: "flex", gap: "1.5rem" }}>
-            <Link
-              href="/privacy-notice"
-              style={{ color: "hsl(0 0% 100% / 0.5)", transition: "color 0.15s ease" }}
-            >
-              Privacy Notice
-            </Link>
-            <Link
-              href="/non-surgical-terms-conditions"
-              style={{ color: "hsl(0 0% 100% / 0.5)", transition: "color 0.15s ease" }}
-            >
-              Terms & Conditions
-            </Link>
-            <Link
-              href="/before-after"
-              style={{ color: "hsl(0 0% 100% / 0.5)", transition: "color 0.15s ease" }}
-            >
-              Before & After
-            </Link>
-            <Link
-              href="/publications"
-              style={{ color: "hsl(0 0% 100% / 0.5)", transition: "color 0.15s ease" }}
-            >
-              Publications
-            </Link>
+          <nav aria-label="Legal and social links" className="pel-footer-legal">
+            <Link href="/privacy-notice">Privacy Notice</Link>
+            <Link href="/non-surgical-terms-conditions">Terms &amp; Conditions</Link>
+            <Link href="/before-after">Before &amp; After</Link>
+            <Link href="/publications">Publications</Link>
+            {SOCIALS.map((s) => (
+              <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+            ))}
           </nav>
         </div>
       </div>

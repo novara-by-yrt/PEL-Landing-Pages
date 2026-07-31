@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PublicationsList from "@/components/PublicationsList";
 import { getAllPosts } from "@/lib/mdx";
+import { TreatmentStyles, TpIcon } from "@/components/treatment";
+import { BlogCTA } from "@/components/blog/BlogCTA";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -115,194 +117,71 @@ export default function PublicationsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
 
-      {/* Hero Header */}
-      <div
-        className="hero"
-        style={{
-          padding: "4.5rem 0 4rem",
-          background: "linear-gradient(135deg, hsl(220 25% 12%) 0%, hsl(199 90% 18%) 100%)",
-          color: "#fff",
-        }}
-      >
-        <div className="container">
-          {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" style={{ marginBottom: "1.5rem" }}>
-            <ol
-              style={{
-                display: "flex",
-                gap: "0.5rem",
-                listStyle: "none",
-                fontSize: "0.875rem",
-                color: "hsl(0 0% 100% / 0.75)",
-                padding: 0,
-                margin: 0,
-              }}
-            >
-              <li>
-                <Link href="/" style={{ color: "hsl(0 0% 100% / 0.8)", textDecoration: "none" }}>
-                  Home
-                </Link>
-              </li>
-              <li>/</li>
-              <li style={{ color: "#fff", fontWeight: 600 }}>Publications</li>
-            </ol>
-          </nav>
+      <TreatmentStyles />
+      <div className="tp">
+        <style>{`
+          .pub-hero {
+            position: relative; overflow: hidden; color: #fff;
+            background:
+              linear-gradient(160deg, rgba(18,16,54,0.92), rgba(69,61,155,0.85)),
+              url('/uploads/2024/07/blog-bg.jpg') center / cover no-repeat;
+            padding: clamp(3.5rem, 7vw, 5.5rem) 1.5rem 3rem;
+          }
+          .pub-hero-glow { position: absolute; top: -180px; right: -100px; width: 520px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(188,160,221,0.32), transparent 70%); pointer-events: none; }
+          .pub-hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+          .pub-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+          .pub-breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+          .pub-breadcrumb a:hover { color: #fff; }
+          .pub-hero h1 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(2.1rem, 5vw, 3.25rem); line-height: 1.15; color: #fff; margin: 16px 0 0; max-width: 20ch; }
+          .pub-hero p.pub-lead { font-size: 1.0625rem; color: rgba(255,255,255,0.82); max-width: 60ch; margin: 1.1rem 0 0; line-height: 1.6; }
+          .pub-stats { display: flex; gap: clamp(1.5rem, 5vw, 3rem); flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid rgba(255,255,255,0.14); }
+          .pub-stat-value { font-family: var(--tp-display); font-size: 1.75rem; font-weight: 600; color: var(--tp-lavender-300); }
+          .pub-stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
 
-          {/* Badge */}
-          <div style={{ marginBottom: "1rem" }}>
-            <span
-              style={{
-                display: "inline-block",
-                padding: "0.35rem 1rem",
-                borderRadius: "9999px",
-                fontSize: "0.8125rem",
-                fontWeight: 600,
-                letterSpacing: "0.03em",
-                backgroundColor: "hsl(38 92% 58% / 0.2)",
-                color: "var(--clr-accent)",
-                border: "1px solid hsl(38 92% 58% / 0.4)",
-              }}
-            >
-              Clinical Research & Publications
-            </span>
-          </div>
+          .pub-body { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; }
+        `}</style>
 
-          <h1
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
-              color: "#fff",
-              lineHeight: 1.15,
-              maxWidth: "22ch",
-              marginBottom: "1rem",
-            }}
-          >
-            Publications & Scientific Papers
-          </h1>
+        {/* Hero */}
+        <section className="pub-hero">
+          <div className="pub-hero-glow" />
+          <div className="pub-hero-inner">
+            <nav aria-label="Breadcrumb" className="pub-breadcrumb">
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <span style={{ color: "rgba(255,255,255,0.9)" }}>Publications</span>
+            </nav>
 
-          <p
-            style={{
-              fontSize: "1.125rem",
-              color: "hsl(0 0% 100% / 0.85)",
-              maxWidth: "60ch",
-              lineHeight: 1.6,
-              marginBottom: "2.5rem",
-            }}
-          >
-            Explore peer-reviewed scientific publications, medical research, and academic journal articles authored by Oculoplastic Surgeon Dr Sabrina Shah-Desai.
-          </p>
+            <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />Clinical Research &amp; Publications</span>
 
-          {/* Stats Bar */}
-          <div
-            style={{
-              display: "flex",
-              gap: "2.5rem",
-              flexWrap: "wrap",
-              paddingTop: "1.5rem",
-              borderTop: "1px solid hsl(0 0% 100% / 0.15)",
-            }}
-          >
-            <div>
-              <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--clr-accent)" }}>
-                32+
+            <h1>Publications &amp; Scientific Papers</h1>
+
+            <p className="pub-lead">
+              Explore peer-reviewed scientific publications, medical research, and academic journal articles authored by Oculoplastic Surgeon Dr Sabrina Shah-Desai.
+            </p>
+
+            <div className="pub-stats">
+              <div>
+                <div className="pub-stat-value">32+</div>
+                <div className="pub-stat-label">Published Papers</div>
               </div>
-              <div style={{ fontSize: "0.875rem", color: "hsl(0 0% 100% / 0.75)" }}>
-                Published Papers
+              <div>
+                <div className="pub-stat-value">20+ Years</div>
+                <div className="pub-stat-label">Oculoplastic Innovation</div>
               </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--clr-accent)" }}>
-                20+ Years
-              </div>
-              <div style={{ fontSize: "0.875rem", color: "hsl(0 0% 100% / 0.75)" }}>
-                Oculoplastic Innovation
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--clr-accent)" }}>
-                Global
-              </div>
-              <div style={{ fontSize: "0.875rem", color: "hsl(0 0% 100% / 0.75)" }}>
-                Medical Journals & PubMed
+              <div>
+                <div className="pub-stat-value">Global</div>
+                <div className="pub-stat-label">Medical Journals &amp; PubMed</div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Main Content Area */}
-      <div className="container" style={{ padding: "4rem 1.5rem 6rem" }}>
-        <PublicationsList initialPublications={publicationsData} />
-
-        {/* CTA Banner (Matching original site banner) */}
-        <section
-          id="publications-cta"
-          style={{
-            marginTop: "6rem",
-            padding: "4rem 2rem",
-            borderRadius: "24px",
-            background: "linear-gradient(135deg, hsl(199 90% 22%) 0%, hsl(220 25% 12%) 100%)",
-            color: "#fff",
-            textAlign: "center",
-            boxShadow: "0 20px 50px hsl(220 25% 12% / 0.15)",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-              marginBottom: "1rem",
-              color: "#fff",
-            }}
-          >
-            Book your Treatment Experience
-          </h2>
-          <p
-            style={{
-              fontSize: "1.125rem",
-              color: "hsl(0 0% 100% / 0.8)",
-              maxWidth: "50ch",
-              margin: "0 auto 2rem",
-              lineHeight: 1.6,
-            }}
-          >
-            Call or email us today — we would be delighted to answer your questions and discuss your personal treatment plan.
-          </p>
-
-          <Link
-            href="/contact"
-            id="btn-publications-cta-appointment"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              padding: "0.875rem 2.25rem",
-              borderRadius: "9999px",
-              backgroundColor: "var(--clr-accent)",
-              color: "hsl(220 25% 12%)",
-              fontSize: "1rem",
-              fontWeight: 600,
-              textDecoration: "none",
-              boxShadow: "0 4px 16px hsl(38 92% 58% / 0.3)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
-          >
-            Book an Appointment
-            <svg
-              style={{ width: "18px", height: "18px" }}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </Link>
         </section>
+
+        {/* Publications list + CTA */}
+        <div className="pub-body">
+          <PublicationsList initialPublications={publicationsData} />
+        </div>
+
+        <BlogCTA />
       </div>
     </>
   );
