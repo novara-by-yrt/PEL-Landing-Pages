@@ -3,7 +3,7 @@ import { FaqItem, PostFrontmatter } from "./mdx";
 // ─── Site-wide defaults ────────────────────────────────────────────────────────
 
 const SITE_NAME = "Skynology";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skynology.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 const ORG_LOGO = `${SITE_URL}/uploads/logo.png`;
 
 // ─── JSON-LD Builders ─────────────────────────────────────────────────────────

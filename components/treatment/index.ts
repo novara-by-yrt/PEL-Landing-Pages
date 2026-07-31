@@ -1,0 +1,15 @@
+export { TreatmentStyles } from "./TreatmentStyles";
+export { TreatmentHero } from "./TreatmentHero";
+export { TreatmentFactBar } from "./TreatmentFactBar";
+export { TreatmentAdvantages } from "./TreatmentAdvantages";
+export { TreatmentContent } from "./TreatmentContent";
+export { TreatmentExpert } from "./TreatmentExpert";
+export { TreatmentPricing } from "./TreatmentPricing";
+export { TreatmentFAQ } from "./TreatmentFAQ";
+export { TreatmentReviews } from "./TreatmentReviews";
+export { RealSelfWidget } from "./RealSelfWidget";
+export { TreatmentSimilar } from "./TreatmentSimilar";
+export { RelatedBlogs } from "./RelatedBlogs";
+export { TreatmentCTA } from "./TreatmentCTA";
+export { TpIcon, glanceIconKey } from "./TpIcon";
+export type { TreatmentMeta, GlanceItem, AdvantageItem, SimilarTreatmentItem, ReviewItem, BreadcrumbItem } from "./types";

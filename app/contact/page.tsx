@@ -216,10 +216,10 @@ export default function ContactPage() {
             <p style={{ fontSize: "0.9375rem", marginBottom: "0.5rem" }}>
               📧{" "}
               <a
-                href="mailto:info@skynology.com"
+                href="mailto:perfecteyesltd@gmail.com"
                 style={{ color: "var(--clr-primary)" }}
               >
-                info@skynology.com
+                perfecteyesltd@gmail.com
               </a>
             </p>
           </div>

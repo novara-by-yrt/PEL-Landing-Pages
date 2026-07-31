@@ -68,28 +68,43 @@ export function getPostSlugs(folder: string): string[] {
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
+import urlMapData from "@/content/url-map.json";
+
+const urlToMdxMap: Record<string, string> = urlMapData.urlToMdx;
+
 /**
  * Resolve candidate filename for a single or multi-segment slug.
  */
 function resolveMdxFilename(folder: string, slugInput: string | string[]): string | null {
   const segments = Array.isArray(slugInput) ? slugInput : [slugInput];
+  const fullPath = segments.join("/");
   const fullHyphen = segments.join("-");
   const lastSegment = segments[segments.length - 1];
 
   const dir = path.join(contentDir, folder);
   if (!fs.existsSync(dir)) return null;
 
-  // 1. Direct match with fullHyphen
+  // 1. Check exact URL map for fullPath
+  if (urlToMdxMap[fullPath] && fs.existsSync(path.join(dir, `${urlToMdxMap[fullPath]}.mdx`))) {
+    return urlToMdxMap[fullPath];
+  }
+
+  // 2. Check exact URL map for lastSegment
+  if (urlToMdxMap[lastSegment] && fs.existsSync(path.join(dir, `${urlToMdxMap[lastSegment]}.mdx`))) {
+    return urlToMdxMap[lastSegment];
+  }
+
+  // 3. Direct match with fullHyphen
   if (fs.existsSync(path.join(dir, `${fullHyphen}.mdx`))) {
     return fullHyphen;
   }
 
-  // 2. Direct match with lastSegment
+  // 4. Direct match with lastSegment
   if (fs.existsSync(path.join(dir, `${lastSegment}.mdx`))) {
     return lastSegment;
   }
 
-  // 3. Scan frontmatter slug
+  // 5. Scan frontmatter slug
   const files = fs.readdirSync(dir);
   for (const f of files) {
     if (!f.endsWith(".mdx")) continue;
@@ -97,12 +112,12 @@ function resolveMdxFilename(folder: string, slugInput: string | string[]): strin
     const raw = fs.readFileSync(filePath, "utf8");
     const parsed = matter(raw);
     const fmSlug = parsed.data.slug;
-    if (fmSlug === fullHyphen || fmSlug === lastSegment) {
+    if (fmSlug === fullPath || fmSlug === fullHyphen || fmSlug === lastSegment) {
       return f.replace(/\.mdx$/, "");
     }
   }
 
-  // 4. Fuzzy fallback (e.g. 'blepharoplasty-uk' -> 'blepharoplasty-treatment-in-london')
+  // 6. Fuzzy fallback (e.g. 'blepharoplasty-uk' -> 'blepharoplasty-treatment-in-london')
   const baseKeyword = lastSegment.replace(/-uk$/, "").replace(/^surgical-/, "").replace(/^eyelid-surgery-/, "");
   for (const f of files) {
     if (!f.endsWith(".mdx")) continue;

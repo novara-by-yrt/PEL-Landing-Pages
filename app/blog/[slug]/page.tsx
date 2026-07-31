@@ -9,7 +9,7 @@ import {
   buildFaqSchema,
 } from "@/lib/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skynology.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 // ── Static params — generates a page for every blog post at build time ─────
 export async function generateStaticParams() {
@@ -234,7 +234,7 @@ export default async function BlogPostPage({
                     {item.question}
                     <span className="faq-icon" aria-hidden="true">+</span>
                   </summary>
-                  <div className="faq-answer">{item.answer}</div>
+                  <div className="faq-answer" dangerouslySetInnerHTML={{ __html: item.answer }} />
                 </details>
               ))}
             </div>

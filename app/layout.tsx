@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 });
 
 // ── Site-wide default metadata ─────────────────────────────────────────────
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skynology.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

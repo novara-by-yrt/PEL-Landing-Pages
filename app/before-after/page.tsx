@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/lib/mdx";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skynology.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
   title: "Before & After Gallery",

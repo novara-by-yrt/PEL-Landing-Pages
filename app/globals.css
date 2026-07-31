@@ -914,11 +914,282 @@ textarea.form-input {
   border-radius: var(--radius-sm);
 }
 
-/* ── 20. Reduced motion ──────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* ── 21. WPBakery & Legacy Shortcode Design Component Styling ─────────────── */
+.des-box {
+  background: linear-gradient(135deg, hsl(210 20% 97%) 0%, hsl(210 30% 95%) 100%);
+  border: 1px solid var(--clr-border);
+  border-left: 5px solid var(--clr-primary);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin: 2.5rem 0;
+  box-shadow: 0 4px 16px hsl(220 25% 12% / 0.04);
 }
+
+.des-head h5 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem 0;
+}
+
+.des-head small {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  font-weight: 500;
+}
+
+.des-box p {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.9375rem;
+  color: var(--clr-text);
+  line-height: 1.6;
+}
+
+.eye-lid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: hsl(199 90% 95%);
+  color: var(--clr-primary);
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.eye-lid img {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+  margin: 0 !important;
+}
+
+.take-surg-butt,
+.btn-appointment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  background: var(--clr-primary);
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none !important;
+  box-shadow: 0 4px 16px hsl(199 90% 32% / 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.take-surg-butt:hover,
+.btn-appointment:hover {
+  background: var(--clr-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px hsl(199 90% 32% / 0.35);
+}
+
+/* ── 22. Treatment Info Table ─────────────────────────────────────────────── */
+.treatment-info {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.treatment-info tbody tr:nth-child(odd) {
+  background: hsl(210 20% 97%);
+}
+.treatment-info tbody tr:nth-child(even) {
+  background: #fff;
+}
+
+.treatment-info td {
+  padding: 0.75rem 1.25rem;
+  font-size: var(--text-sm);
+  color: var(--clr-text);
+  border-bottom: 1px solid var(--clr-border);
+  border-right: none;
+}
+
+.treatment-info td:first-child {
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  width: 45%;
+}
+
+.treatment-info tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── 23. Consultation Steps ──────────────────────────────────────────────── */
+.step-outer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: hsl(210 20% 97%);
+  border-radius: var(--radius-xl);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 180px;
+  gap: 0.75rem;
+}
+
+.step.arrow {
+  max-width: 40px;
+  padding-top: 1.5rem;
+}
+
+.step img.nm {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0;
+}
+
+.step p {
+  font-size: var(--text-sm);
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── 24. Logo Gallery ────────────────────────────────────────────────────── */
+.logo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+  padding: 2rem 0;
+}
+
+.logo-itm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-itm img {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  margin: 0;
+}
+
+.logo-itm img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* ── 25. Treatment Card Hero Banner ──────────────────────────────────────── */
+.treatment-hero-banner {
+  position: relative;
+  background: hsl(199 90% 18%);
+  padding: 3.5rem 0 2.5rem;
+}
+
+/* ── 26. Before/After Gallery Grid ──────────────────────────────────────── */
+.ba-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.5rem;
+}
+
+/* ── 27. Blog/Post Cards ─────────────────────────────────────────────────── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+  gap: 2rem;
+}
+
+/* ── 28. Section utility ─────────────────────────────────────────────────── */
+.section {
+  padding: var(--space-20) 0;
+}
+
+.section-header {
+  margin-bottom: var(--space-12);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-primary);
+  margin-bottom: var(--space-3);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  color: var(--clr-text);
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--clr-text-muted);
+  max-width: 56ch;
+  line-height: 1.6;
+}
+
+/* treatment-card used in old homepage */
+.treatment-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--clr-text);
+  text-align: center;
+  transition: box-shadow var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+  text-decoration: none;
+}
+.treatment-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  color: var(--clr-primary);
+}
+
+/* Important VAT notice box */
+.prose em[data-renderer-mark="true"] {
+  display: block;
+  padding: 1.25rem 1.5rem;
+  background: hsl(38 92% 96%);
+  border: 1px solid hsl(38 92% 80%);
+  border-left: 4px solid var(--clr-accent-dark);
+  border-radius: 12px;
+  font-style: normal;
+  font-size: 0.9375rem;
+  color: hsl(38 92% 20%);
+  margin: 2rem 0;
+}
+

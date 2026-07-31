@@ -25,8 +25,8 @@ export async function POST(request: Request) {
     // import { Resend } from "resend";
     // const resend = new Resend(process.env.RESEND_API_KEY);
     // await resend.emails.send({
-    //   from: "noreply@skynology.com",
-    //   to: "info@skynology.com",
+    //   from: "noreply@perfecteyesltd.com",
+    //   to: "perfecteyesltd@gmail.com",
     //   subject: `New enquiry from ${name}`,
     //   html: `<p><strong>Name:</strong> ${name}</p>
     //          <p><strong>Email:</strong> ${email}</p>

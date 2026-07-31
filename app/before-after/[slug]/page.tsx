@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skynology.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export async function generateStaticParams() {
   return getPostSlugs("before-after").map((slug) => ({ slug }));
