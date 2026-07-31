@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+// Origin that backs /uploads/* when a file isn't present in the local
+// public/ directory (e.g. in production, where the 2GB uploads folder is
+// gitignored and never deployed). Point this at Cloudflare R2 (or any other
+// host) later by changing this one value — no other code needs to change.
+const UPLOADS_ORIGIN =
+  process.env.UPLOADS_ORIGIN || "https://perfecteyesltd.com/wp-content/uploads";
+
 const nextConfig: NextConfig = {
   // Static export support — pre-render all pages at build time
   output: "standalone",
@@ -9,6 +16,18 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     // No external domains needed — all images are local
     remotePatterns: [],
+  },
+
+  // Fall back to the external uploads origin for any /uploads/* path not
+  // found locally. Next.js checks the filesystem (public/) before applying
+  // these, so local dev still serves from disk when the file exists there.
+  async rewrites() {
+    return [
+      {
+        source: "/uploads/:path*",
+        destination: `${UPLOADS_ORIGIN}/:path*`,
+      },
+    ];
   },
 
   // Permanent redirects from old WordPress URL structure
