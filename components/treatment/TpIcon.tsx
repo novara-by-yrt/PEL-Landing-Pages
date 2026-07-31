@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 // Minimal hand-drawn line-icon set (1.6px stroke) shared across treatment page sections.
 const TP_ICON_PATHS: Record<string, string> = {
   clock: "M12 7v5l3.2 1.9M20.5 12a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0z",
@@ -17,6 +19,7 @@ const TP_ICON_PATHS: Record<string, string> = {
   phone: "M20.7 16.6v2.7a1.8 1.8 0 0 1-2 1.8 17.9 17.9 0 0 1-7.8-2.8 17.6 17.6 0 0 1-5.4-5.4A17.9 17.9 0 0 1 2.7 5.1 1.8 1.8 0 0 1 4.4 3.3h2.7a1.8 1.8 0 0 1 1.8 1.5c.1.8.4 1.7.7 2.4a1.8 1.8 0 0 1-.4 1.9L8 10.4a14.4 14.4 0 0 0 5.4 5.4l1.3-1.2a1.8 1.8 0 0 1 1.9-.4c.8.3 1.6.6 2.4.7a1.8 1.8 0 0 1 1.7 1.7z",
   check: "M4.5 12.5l4.7 4.7L19.5 6.9",
   star: "M12 3.3l2.5 5.3 5.7.8-4.1 4.1 1 5.7-5.1-2.8-5.1 2.8 1-5.7-4.1-4.1 5.7-.8L12 3.3z",
+  mail: "M4 6h16v12H4zM4 6.5l8 6.5 8-6.5",
 };
 
 // Maps at-a-glance labels (from treatment-meta.json) to an icon key above.
@@ -48,11 +51,13 @@ export function TpIcon({
   size = 20,
   stroke = 1.6,
   filled = false,
+  style,
 }: {
   name: string;
   size?: number;
   stroke?: number;
   filled?: boolean;
+  style?: CSSProperties;
 }) {
   const d = TP_ICON_PATHS[name] || TP_ICON_PATHS.clock;
   return (
@@ -66,7 +71,7 @@ export function TpIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ display: "block", flexShrink: 0 }}
+      style={{ display: "block", flexShrink: 0, ...style }}
     >
       <path d={d} />
     </svg>
