@@ -41,6 +41,12 @@ const nextConfig: NextConfig = {
       // Common WP feed/xmlrpc
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/xmlrpc.php", destination: "/", permanent: true },
+
+      // Legacy WordPress paths that the live site has redirected to
+      // droopy-ptosis-eye for years — real production URLs, unlike the flat
+      // Next.js-only slugs below, so worth preserving.
+      { source: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", destination: "/condition/droopy-ptosis-eye", permanent: true },
+      { source: "/surgical/droopy-eyelid/ptosis-surgery-uk", destination: "/condition/droopy-ptosis-eye", permanent: true },
     ];
   },
 

@@ -150,13 +150,21 @@ function resolveMdxFilename(folder: string, slugInput: string | string[]): strin
     }
   }
 
-  // 6. Fuzzy fallback (e.g. 'blepharoplasty-uk' -> 'blepharoplasty-treatment-in-london')
-  const baseKeyword = lastSegment.replace(/-uk$/, "").replace(/^surgical-/, "").replace(/^eyelid-surgery-/, "");
-  for (const f of files) {
-    if (!f.endsWith(".mdx")) continue;
-    const name = f.replace(/\.mdx$/, "");
-    if (name.includes(baseKeyword) || name.includes(lastSegment)) {
-      return name;
+  // 6. Fuzzy fallback — only for slugs that look like legacy multi-segment WP
+  // paths (e.g. 'surgical/eyelid-surgery/blepharoplasty-uk' -> the file
+  // 'blepharoplasty-treatment-in-london'). A bare single-word slug like
+  // "chalazion" must NOT hit this: substring matching would happily "resolve"
+  // it to an unrelated file (e.g. surgical-eyelid-surgery-chalazion-removal-uk)
+  // instead of correctly 404ing when no page owns that slug.
+  const looksLikeLegacyPath = segments.length > 1 || /-uk$/.test(lastSegment);
+  if (looksLikeLegacyPath) {
+    const baseKeyword = lastSegment.replace(/-uk$/, "").replace(/^surgical-/, "").replace(/^eyelid-surgery-/, "");
+    for (const f of files) {
+      if (!f.endsWith(".mdx")) continue;
+      const name = f.replace(/\.mdx$/, "");
+      if (name.includes(baseKeyword) || name.includes(lastSegment)) {
+        return name;
+      }
     }
   }
 

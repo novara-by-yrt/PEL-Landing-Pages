@@ -35,5 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...posts, ...pages, ...beforeAfter];
+  // Eye Conditions
+  const conditions = getAllPosts("condition").map((post) => ({
+    url: `${SITE_URL}/condition/${post.slug}`,
+    lastModified: new Date(post.frontmatter.modified || post.frontmatter.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...posts, ...pages, ...beforeAfter, ...conditions];
 }

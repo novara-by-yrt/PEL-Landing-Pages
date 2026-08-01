@@ -31,14 +31,14 @@ const FOOTER_COLS = [
   {
     heading: "Eye Conditions",
     links: [
-      { href: "/condition-hooded-eyelids", label: "Hooded Eyelids" },
-      { href: "/eye-bags", label: "Eye Bags" },
-      { href: "/droopy-ptosis-eye", label: "Droopy Eyelids" },
-      { href: "/dark-circles-under-eyes", label: "Dark Circles" },
-      { href: "/chalazion", label: "Chalazion" },
-      { href: "/xanthelasma", label: "Xanthelasma" },
-      { href: "/crows-feet", label: "Crow's Feet" },
-      { href: "/eyelid-cancer", label: "Eyelid Cancer" },
+      { href: "/condition/hooded-eyelids", label: "Hooded Eyelids" },
+      { href: "/condition/eye-bags", label: "Eye Bags" },
+      { href: "/condition/droopy-ptosis-eye", label: "Droopy Eyelids" },
+      { href: "/condition/dark-circles-under-eyes", label: "Dark Circles" },
+      { href: "/condition/chalazion", label: "Chalazion" },
+      { href: "/condition/xanthelasma", label: "Xanthelasma" },
+      { href: "/condition/crows-feet", label: "Crow's Feet" },
+      { href: "/condition/eyelid-cancer", label: "Eyelid Cancer" },
     ],
   },
 ];

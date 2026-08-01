@@ -62,7 +62,7 @@ export function PageHero({
         <div>
           <nav aria-label="Breadcrumb" className="tp-page-breadcrumb">
             {breadcrumbItems.map((item, index) => (
-              <span key={item.url} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 {index > 0 && <span aria-hidden="true">/</span>}
                 {index === breadcrumbItems.length - 1 ? (
                   <span style={{ color: "rgba(255,255,255,0.9)" }}>{item.name}</span>

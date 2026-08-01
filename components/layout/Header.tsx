@@ -48,18 +48,18 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
 ];
 
 const EYE_CONDITIONS: SimpleLink[] = [
-  { label: "Hooded Eyelids", href: "/condition-hooded-eyelids" },
-  { label: "Eye Bags", href: "/eye-bags" },
-  { label: "Droopy Eyelids", href: "/droopy-ptosis-eye" },
-  { label: "Dark Circles", href: "/dark-circles-under-eyes" },
-  { label: "Hollow/Sunken Eyes", href: "/condition-hollow-sunken-eyes" },
-  { label: "Crow's Feet", href: "/crows-feet" },
-  { label: "Swollen Eyelids", href: "/condition-swollen-eyelids" },
-  { label: "Chalazion", href: "/chalazion" },
-  { label: "Xanthelasma", href: "/xanthelasma" },
-  { label: "Monolids", href: "/monolids" },
-  { label: "Thyroid Puffy Eyes", href: "/thyroid-disease-puffy-eyes" },
-  { label: "Eyelid Cancer", href: "/eyelid-cancer" },
+  { label: "Hooded Eyelids", href: "/condition/hooded-eyelids" },
+  { label: "Eye Bags", href: "/condition/eye-bags" },
+  { label: "Droopy Eyelids", href: "/condition/droopy-ptosis-eye" },
+  { label: "Dark Circles", href: "/condition/dark-circles-under-eyes" },
+  { label: "Hollow/Sunken Eyes", href: "/condition/hollow-sunken-eyes" },
+  { label: "Crow's Feet", href: "/condition/crows-feet" },
+  { label: "Swollen Eyelids", href: "/condition/swollen-eyelids" },
+  { label: "Chalazion", href: "/condition/chalazion" },
+  { label: "Xanthelasma", href: "/condition/xanthelasma" },
+  { label: "Monolids", href: "/condition/monolids" },
+  { label: "Thyroid Puffy Eyes", href: "/condition/thyroid-disease-puffy-eyes" },
+  { label: "Eyelid Cancer", href: "/condition/eyelid-cancer" },
 ];
 
 const NAV: NavItem[] = [
@@ -75,7 +75,7 @@ const NAV: NavItem[] = [
       { label: "Advanced Periorbital Skincare", href: "https://drsabrina.com/collections/all", external: true },
     ],
   },
-  { label: "Eye Conditions", href: "/condition-hooded-eyelids", variant: "grid", children: EYE_CONDITIONS },
+  { label: "Eye Conditions", href: "/condition/hooded-eyelids", variant: "grid", children: EYE_CONDITIONS },
   {
     label: "Treatments",
     href: "/upper-eyelid-lift-surgery-blepharoplasty",
