@@ -1,4 +1,4 @@
-.tpSimilarGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+.tpSimilarGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
 .tpSimilarCard { border-radius: var(--tp-radius-lg); overflow: hidden; background: #fff; border: 1px solid var(--tp-line); box-shadow: var(--tp-shadow-xs); text-decoration: none; color: inherit; display: block; transition: transform 240ms var(--tp-ease), box-shadow 240ms var(--tp-ease); }
 .tpSimilarCard:hover { transform: translateY(-4px); box-shadow: var(--tp-shadow-md); }
 .tpSimilarImg { aspect-ratio: 4/3; position: relative; overflow: hidden; background: var(--tp-lavender-050); }

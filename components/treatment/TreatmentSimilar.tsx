@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TpIcon } from "./TpIcon";
 import type { SimilarTreatmentItem } from "./types";
 import styles from "./TreatmentSimilar.module.css";
@@ -35,7 +36,7 @@ export function TreatmentSimilar({
               </>
             );
             return t.href ? (
-              <a key={t.title} href={t.href} className={styles.tpSimilarCard}>{card}</a>
+              <Link key={t.title} href={t.href} className={styles.tpSimilarCard}>{card}</Link>
             ) : (
               <div key={t.title} className={styles.tpSimilarCard}>{card}</div>
             );
