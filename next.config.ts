@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import treatmentPaths from "./content/treatment-paths.json";
+
+const TREATMENT_PATHS: Record<string, string> = treatmentPaths.paths;
 
 // Origin that backs /uploads/* when a file isn't present in the local
 // public/ directory (e.g. in production, where the 2GB uploads folder is
@@ -42,11 +45,22 @@ const nextConfig: NextConfig = {
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/xmlrpc.php", destination: "/", permanent: true },
 
-      // Legacy WordPress paths that the live site has redirected to
-      // droopy-ptosis-eye for years — real production URLs, unlike the flat
-      // Next.js-only slugs below, so worth preserving.
-      { source: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", destination: "/condition/droopy-ptosis-eye", permanent: true },
-      { source: "/surgical/droopy-eyelid/ptosis-surgery-uk", destination: "/condition/droopy-ptosis-eye", permanent: true },
+      // Treatment pages are canonical at the nested paths the previous site
+      // published. The flat slugs the migration produced 301 to them so each
+      // treatment has exactly one indexable URL.
+      ...Object.entries(TREATMENT_PATHS).map(([flatSlug, nestedPath]) => ({
+        source: `/${flatSlug}`,
+        destination: `/${nestedPath}`,
+        permanent: true,
+      })),
+
+      // Legacy alias: the previous site serves this URL but points its
+      // rel="canonical" at the eyelid-surgery path, so mirror that.
+      {
+        source: "/surgical/droopy-eyelid/ptosis-surgery-uk",
+        destination: `/${TREATMENT_PATHS["ptosis-surgery"]}`,
+        permanent: true,
+      },
     ];
   },
 

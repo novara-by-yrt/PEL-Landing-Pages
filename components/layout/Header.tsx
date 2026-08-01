@@ -24,27 +24,27 @@ interface NavItem {
 }
 
 const SURGICAL_TREATMENTS: SimpleLink[] = [
-  { label: "Upper Lid Blepharoplasty", href: "/upper-eyelid-lift-surgery-blepharoplasty" },
-  { label: "Eye Bag Removal", href: "/eye-bag-removal-blepharoplasty-uk" },
-  { label: "Double Eyelid Surgery", href: "/double-eyelid-surgery" },
-  { label: "Ptosis Surgery", href: "/ptosis-surgery" },
-  { label: "Brow Lift", href: "/surgical-brow-lift-uk" },
-  { label: "Eyelid Lump Removal", href: "/eyelid-lump-bump-removal" },
-  { label: "Festoons & Malar Bags", href: "/surgical-festoons-malar-bags-treatment-uk" },
-  { label: "Chalazion Removal", href: "/surgical-eyelid-surgery-chalazion-removal-uk" },
-  { label: "Revision Blepharoplasty", href: "/surgical-eyelid-surgery-revision-blepharoplasty-uk" },
-  { label: "Thyroid Lid Lowering", href: "/surgical-thyroid-lid-lowering-surgery" },
+  { label: "Upper Lid Blepharoplasty", href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk" },
+  { label: "Eye Bag Removal", href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk" },
+  { label: "Double Eyelid Surgery", href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk" },
+  { label: "Ptosis Surgery", href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk" },
+  { label: "Brow Lift", href: "/surgical/browlift-treatment-uk" },
+  { label: "Eyelid Lump Removal", href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk" },
+  { label: "Festoons & Malar Bags", href: "/surgical/festoons-malar-bags-treatment-uk" },
+  { label: "Chalazion Removal", href: "/surgical/eyelid-surgery/chalazion-removal-uk" },
+  { label: "Revision Blepharoplasty", href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk" },
+  { label: "Thyroid Lid Lowering", href: "/surgical/thyroid-lid-lowering-surgery" },
 ];
 
 const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
-  { label: "Tear Trough Fillers", href: "/non-surgical-tear-trough-fillers-uk" },
-  { label: "Polynucleotides", href: "/polynucleotides" },
-  { label: "Morpheus8", href: "/morpheus8" },
-  { label: "Endolift®", href: "/endolift" },
-  { label: "Sofwave™", href: "/sofwave" },
-  { label: "UltraClear Laser", href: "/non-surgical-ultraclear-laser-treatment-uk" },
-  { label: "Chemical Peel", href: "/chemical-peel" },
-  { label: "EMFACE", href: "/emface" },
+  { label: "Tear Trough Fillers", href: "/non-surgical/tear-trough-fillers-uk" },
+  { label: "Polynucleotides", href: "/non-surgical/polynucleotide-treatment-uk" },
+  { label: "Morpheus8", href: "/non-surgical/morpheus8-treatment-uk" },
+  { label: "Endolift®", href: "/non-surgical/endolift-for-malar-bags-uk" },
+  { label: "Sofwave™", href: "/non-surgical/sofwave-treatment-uk" },
+  { label: "UltraClear Laser", href: "/non-surgical/ultraclear-laser-treatment-uk" },
+  { label: "Chemical Peel", href: "/non-surgical/chemical-peel-treatment-uk" },
+  { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
 ];
 
 const EYE_CONDITIONS: SimpleLink[] = [
@@ -78,7 +78,7 @@ const NAV: NavItem[] = [
   { label: "Eye Conditions", href: "/condition/hooded-eyelids", variant: "grid", children: EYE_CONDITIONS },
   {
     label: "Treatments",
-    href: "/upper-eyelid-lift-surgery-blepharoplasty",
+    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
     variant: "mega",
     groups: [
       { label: "Surgical Treatments", sub: SURGICAL_TREATMENTS },
@@ -148,10 +148,10 @@ export default function Header() {
         </Link>
 
         <nav className="pel-links" aria-label="Main navigation" ref={navRef}>
-          {NAV.map((item) => {
+          {NAV.map((item, navIndex) => {
             if (!item.variant) {
               return (
-                <Link key={item.href} href={item.href} className="pel-link">
+                <Link key={`${item.href}-${navIndex}`} href={item.href} className="pel-link">
                   {item.label}
                 </Link>
               );

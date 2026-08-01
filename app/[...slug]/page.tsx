@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs, type PostFrontmatter } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, pageExistsExact, type PostFrontmatter } from "@/lib/mdx";
 import {
   buildWebPageSchema,
   buildProductSchema,
@@ -11,6 +11,7 @@ import { resolveHeroImage } from "@/lib/page-utils";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
+import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentStyles,
@@ -37,10 +38,27 @@ const urlToMdxMap: Record<string, string> = urlMapData.urlToMdx;
 const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMeta>;
 const TREATMENT_SLUGS = new Set(Object.keys(treatmentMeta));
 
+/** "upper-eyelid-blepharoplasty-uk" -> "Upper Eyelid Blepharoplasty UK" */
+const ACRONYMS = new Set(["uk", "usa", "ipl", "rf", "prp"]);
+function humaniseSegment(seg: string): string {
+  return seg
+    .split("-")
+    .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(" ");
+}
+
 export async function generateStaticParams() {
   const fileSlugs = getPostSlugs("pages");
   const paramsList: { slug: string[] }[] = [];
   const addedPaths = new Set<string>();
+
+  // Canonical treatment paths first — these are the indexable URLs.
+  for (const urlPath of Object.values(TREATMENT_PATHS)) {
+    if (!addedPaths.has(urlPath)) {
+      addedPaths.add(urlPath);
+      paramsList.push({ slug: urlPath.split("/") });
+    }
+  }
 
   for (const urlPath of Object.keys(urlToMdxMap)) {
     if (!addedPaths.has(urlPath)) {
@@ -77,7 +95,9 @@ export async function generateMetadata({
   if (!page) return {};
 
   const { frontmatter } = page;
-  const canonicalPath = slugSegments.join("/");
+  // Treatments are canonical at their nested WordPress path, not the flat slug.
+  const metaFileSlug = frontmatter.slug || slugSegments[slugSegments.length - 1];
+  const canonicalPath = TREATMENT_PATHS[metaFileSlug] ?? slugSegments.join("/");
   const url = `${SITE_URL}/${canonicalPath}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
 
@@ -114,17 +134,26 @@ export default async function CatchAllPageRoute({
   if (!page) notFound();
 
   const { frontmatter, content } = page;
-  const canonicalPath = slugSegments.join("/");
-  const url = `${SITE_URL}/${canonicalPath}`;
   const fileSlug = frontmatter.slug || slugSegments[slugSegments.length - 1];
+  // Treatments are canonical at their nested WordPress path, not the flat slug.
+  const canonicalPath = TREATMENT_PATHS[fileSlug] ?? slugSegments.join("/");
+  const url = `${SITE_URL}/${canonicalPath}`;
   const treatment = TREATMENT_SLUGS.has(fileSlug) ? treatmentMeta[fileSlug] : null;
 
+  const canonicalSegments = canonicalPath.split("/");
   const breadcrumbItems = [
     { name: "Home", url: SITE_URL },
-    ...slugSegments.map((seg, i) => ({
-      name: seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-      url: `${SITE_URL}/${slugSegments.slice(0, i + 1).join("/")}`,
-    })),
+    ...canonicalSegments.map((seg, i) => {
+      const segPath = canonicalSegments.slice(0, i + 1);
+      const isLast = i === canonicalSegments.length - 1;
+      // Only link intermediate crumbs that lead to a real page — the previous
+      // site's category pages (/surgical, /non-surgical) aren't migrated yet.
+      const linkable = isLast || pageExistsExact("pages", segPath);
+      return {
+        name: humaniseSegment(seg),
+        url: linkable ? `${SITE_URL}/${segPath.join("/")}` : "",
+      };
+    }),
   ];
 
   const pageSchema = buildWebPageSchema(frontmatter, url);

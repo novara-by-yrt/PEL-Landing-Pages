@@ -74,9 +74,9 @@ export function TreatmentHero({
         <div>
           <nav aria-label="Breadcrumb" className="tp-breadcrumb">
             {breadcrumbItems.map((item, index) => (
-              <span key={item.url} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 ? (
+                {index === breadcrumbItems.length - 1 || !item.url ? (
                   <span style={{ color: "var(--tp-slate)" }}>{item.name}</span>
                 ) : (
                   <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>

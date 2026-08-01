@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/lib/mdx";
+import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -19,9 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Pages
+  // Pages — treatments are listed at their canonical nested path, not the flat slug.
   const pages = getAllPosts("pages").map((page) => ({
-    url: `${SITE_URL}/${page.slug}`,
+    url: `${SITE_URL}/${TREATMENT_PATHS[page.slug] ?? page.slug}`,
     lastModified: new Date(page.frontmatter.modified || page.frontmatter.date),
     changeFrequency: "monthly" as const,
     priority: 0.8,

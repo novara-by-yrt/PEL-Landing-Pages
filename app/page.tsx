@@ -36,27 +36,27 @@ const SURGICAL_TREATMENTS = [
   {
     image: "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg",
     title: "Upper Lid Blepharoplasty",
-    href: "/upper-eyelid-lift-surgery-blepharoplasty",
+    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
   },
   {
     image: "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg",
     title: "Eye Bag Surgery",
-    href: "/eye-bag-removal-blepharoplasty-uk",
+    href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
   },
   {
     image: "/uploads/2018/10/eyeboost.jpg",
     title: "Festoons & Malar Bags",
-    href: "/surgical-festoons-malar-bags-treatment-uk",
+    href: "/surgical/festoons-malar-bags-treatment-uk",
   },
   {
     image: "/uploads/2018/11/Ptosis-surgery-uk.jpg",
     title: "Ptosis Surgery",
-    href: "/ptosis-surgery",
+    href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk",
   },
   {
     image: "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
     title: "Double Eyelid Surgery",
-    href: "/double-eyelid-surgery",
+    href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk",
   },
   {
     image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
@@ -66,17 +66,17 @@ const SURGICAL_TREATMENTS = [
   {
     image: "/uploads/2024/07/eyelid-lump.jpg",
     title: "Eyelid Lump & Bump Removal",
-    href: "/eyelid-lump-bump-removal",
+    href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
   },
   {
     image: "/uploads/2025/03/revision-surgeyr-1-min.jpg",
     title: "Revision Blepharoplasty",
-    href: "/surgical-eyelid-surgery-revision-blepharoplasty-uk",
+    href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
   },
   {
     image: "/uploads/2025/03/browlift-min.jpg",
     title: "Brow Lift",
-    href: "/surgical-brow-lift-uk",
+    href: "/surgical/browlift-treatment-uk",
   },
 ];
 
@@ -84,12 +84,12 @@ const NONSURGICAL_TREATMENTS = [
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
-    href: "/endolift",
+    href: "/non-surgical/endolift-for-malar-bags-uk",
   },
   {
     image: "/uploads/2025/03/Morpheus-min.jpg",
     title: "Morpheus8",
-    href: "/morpheus8",
+    href: "/non-surgical/morpheus8-treatment-uk",
   },
   {
     image: "/uploads/2024/09/supeor-sulcus.jpg",
@@ -99,7 +99,7 @@ const NONSURGICAL_TREATMENTS = [
   {
     image: "/uploads/2018/10/tear-trough-treatment-london.jpg",
     title: "Tear Trough Fillers",
-    href: "/non-surgical-tear-trough-fillers-uk",
+    href: "/non-surgical/tear-trough-fillers-uk",
   },
   {
     image: "/uploads/2018/10/Ultherapy-london.jpg",
@@ -109,7 +109,7 @@ const NONSURGICAL_TREATMENTS = [
   {
     image: "/uploads/2024/09/ultraclear-laser.jpg",
     title: "UltraClear Laser",
-    href: "/non-surgical-ultraclear-laser-treatment-uk",
+    href: "/non-surgical/ultraclear-laser-treatment-uk",
   },
   {
     image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
@@ -119,7 +119,7 @@ const NONSURGICAL_TREATMENTS = [
   {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
-    href: "/sofwave",
+    href: "/non-surgical/sofwave-treatment-uk",
   },
   {
     image: "/uploads/2025/06/Plasma-Pen.jpg",

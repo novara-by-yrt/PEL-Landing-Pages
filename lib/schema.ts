@@ -111,11 +111,13 @@ export function buildBreadcrumbSchema(items: BreadcrumbItem[], pageUrl: string) 
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "@id": `${pageUrl}#breadcrumb`,
+    // A crumb with no URL (a category level that has no page of its own) is
+    // emitted name-only — schema.org allows that, but `item: ""` is invalid.
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url,
+      ...(item.url ? { item: item.url } : {}),
     })),
   };
 }

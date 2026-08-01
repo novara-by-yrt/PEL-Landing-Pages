@@ -1,0 +1,23 @@
+{
+  "description": "Canonical URL path for each treatment page, mirroring the previous WordPress site's nested structure (verified against its page-sitemap.xml and per-page rel=canonical). Key = MDX filename / treatment-meta.json key; value = canonical path without leading or trailing slash. Single source of truth: imported by lib/treatment-urls.ts and next.config.ts.",
+  "paths": {
+    "surgical-brow-lift-uk": "surgical/browlift-treatment-uk",
+    "upper-eyelid-lift-surgery-blepharoplasty": "surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
+    "eye-bag-removal-blepharoplasty-uk": "surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
+    "ptosis-surgery": "surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk",
+    "double-eyelid-surgery": "surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk",
+    "surgical-festoons-malar-bags-treatment-uk": "surgical/festoons-malar-bags-treatment-uk",
+    "surgical-eyelid-surgery-chalazion-removal-uk": "surgical/eyelid-surgery/chalazion-removal-uk",
+    "eyelid-lump-bump-removal": "surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
+    "surgical-thyroid-lid-lowering-surgery": "surgical/thyroid-lid-lowering-surgery",
+    "surgical-eyelid-surgery-revision-blepharoplasty-uk": "surgical/eyelid-surgery/revision-blepharoplasty-uk",
+    "non-surgical-tear-trough-fillers-uk": "non-surgical/tear-trough-fillers-uk",
+    "polynucleotides": "non-surgical/polynucleotide-treatment-uk",
+    "morpheus8": "non-surgical/morpheus8-treatment-uk",
+    "endolift": "non-surgical/endolift-for-malar-bags-uk",
+    "sofwave": "non-surgical/sofwave-treatment-uk",
+    "non-surgical-ultraclear-laser-treatment-uk": "non-surgical/ultraclear-laser-treatment-uk",
+    "chemical-peel": "non-surgical/chemical-peel-treatment-uk",
+    "emface": "non-surgical/emface-treatment-uk"
+  }
+}

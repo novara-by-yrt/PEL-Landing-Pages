@@ -114,13 +114,25 @@ export function getPostSlugs(folder: string): string[] {
 }
 
 import urlMapData from "@/content/url-map.json";
+import treatmentPathsData from "@/content/treatment-paths.json";
 
 const urlToMdxMap: Record<string, string> = urlMapData.urlToMdx;
+
+/** Canonical nested treatment path -> MDX filename. */
+const treatmentPathToMdx: Record<string, string> = Object.fromEntries(
+  Object.entries(treatmentPathsData.paths as Record<string, string>).map(
+    ([fileSlug, urlPath]) => [urlPath, fileSlug]
+  )
+);
 
 /**
  * Resolve candidate filename for a single or multi-segment slug.
  */
-function resolveMdxFilename(folder: string, slugInput: string | string[]): string | null {
+function resolveMdxFilename(
+  folder: string,
+  slugInput: string | string[],
+  { allowFuzzy = true }: { allowFuzzy?: boolean } = {}
+): string | null {
   const segments = Array.isArray(slugInput) ? slugInput : [slugInput];
   const fullPath = segments.join("/");
   const fullHyphen = segments.join("-");
@@ -128,6 +140,13 @@ function resolveMdxFilename(folder: string, slugInput: string | string[]): strin
 
   const dir = path.join(contentDir, folder);
   if (!fs.existsSync(dir)) return null;
+
+  // 0. Canonical treatment path (authoritative — takes precedence over the
+  // migration URL map, which doesn't cover every nested treatment path).
+  const treatmentFile = treatmentPathToMdx[fullPath];
+  if (treatmentFile && fs.existsSync(path.join(dir, `${treatmentFile}.mdx`))) {
+    return treatmentFile;
+  }
 
   // 1. Check exact URL map for fullPath
   if (urlToMdxMap[fullPath] && fs.existsSync(path.join(dir, `${urlToMdxMap[fullPath]}.mdx`))) {
@@ -169,7 +188,7 @@ function resolveMdxFilename(folder: string, slugInput: string | string[]): strin
   // it to an unrelated file (e.g. surgical-eyelid-surgery-chalazion-removal-uk)
   // instead of correctly 404ing when no page owns that slug.
   const looksLikeLegacyPath = segments.length > 1 || /-uk$/.test(lastSegment);
-  if (looksLikeLegacyPath) {
+  if (allowFuzzy && looksLikeLegacyPath) {
     const baseKeyword = lastSegment.replace(/-uk$/, "").replace(/^surgical-/, "").replace(/^eyelid-surgery-/, "");
     for (const f of files) {
       if (!f.endsWith(".mdx")) continue;
@@ -181,6 +200,18 @@ function resolveMdxFilename(folder: string, slugInput: string | string[]): strin
   }
 
   return null;
+}
+
+/**
+ * Does a page exist at exactly this path?
+ *
+ * Deliberately skips the fuzzy fallback, so a URL like /surgical/eyelid-surgery
+ * — which has no page of its own but would substring-match an unrelated
+ * treatment file — reports false. Used for breadcrumbs so intermediate
+ * segments only become links when they lead somewhere real.
+ */
+export function pageExistsExact(folder: string, slugInput: string | string[]): boolean {
+  return resolveMdxFilename(folder, slugInput, { allowFuzzy: false }) !== null;
 }
 
 /**

@@ -64,7 +64,7 @@ export function PageHero({
             {breadcrumbItems.map((item, index) => (
               <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 ? (
+                {index === breadcrumbItems.length - 1 || !item.url ? (
                   <span style={{ color: "rgba(255,255,255,0.9)" }}>{item.name}</span>
                 ) : (
                   <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>

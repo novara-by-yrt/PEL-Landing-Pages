@@ -5,27 +5,27 @@ const FOOTER_COLS = [
   {
     heading: "Surgical Treatments",
     links: [
-      { href: "/upper-eyelid-lift-surgery-blepharoplasty", label: "Upper Lid Blepharoplasty" },
-      { href: "/eye-bag-removal-blepharoplasty-uk", label: "Eye Bag Removal" },
-      { href: "/ptosis-surgery", label: "Ptosis Surgery" },
-      { href: "/double-eyelid-surgery", label: "Double Eyelid Surgery" },
-      { href: "/surgical-brow-lift-uk", label: "Brow Lift" },
-      { href: "/surgical-festoons-malar-bags-treatment-uk", label: "Festoons & Malar Bags" },
-      { href: "/surgical-eyelid-surgery-chalazion-removal-uk", label: "Chalazion Removal" },
-      { href: "/surgical-eyelid-surgery-revision-blepharoplasty-uk", label: "Revision Blepharoplasty" },
+      { href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk", label: "Upper Lid Blepharoplasty" },
+      { href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk", label: "Eye Bag Removal" },
+      { href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", label: "Ptosis Surgery" },
+      { href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk", label: "Double Eyelid Surgery" },
+      { href: "/surgical/browlift-treatment-uk", label: "Brow Lift" },
+      { href: "/surgical/festoons-malar-bags-treatment-uk", label: "Festoons & Malar Bags" },
+      { href: "/surgical/eyelid-surgery/chalazion-removal-uk", label: "Chalazion Removal" },
+      { href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk", label: "Revision Blepharoplasty" },
     ],
   },
   {
     heading: "Non-Surgical Treatments",
     links: [
-      { href: "/non-surgical-tear-trough-fillers-uk", label: "Tear Trough Fillers" },
-      { href: "/polynucleotides", label: "Polynucleotides" },
-      { href: "/morpheus8", label: "Morpheus8" },
-      { href: "/endolift", label: "Endolift®" },
-      { href: "/sofwave", label: "Sofwave™" },
-      { href: "/non-surgical-ultraclear-laser-treatment-uk", label: "UltraClear Laser" },
-      { href: "/chemical-peel", label: "Chemical Peel" },
-      { href: "/emface", label: "EMFACE" },
+      { href: "/non-surgical/tear-trough-fillers-uk", label: "Tear Trough Fillers" },
+      { href: "/non-surgical/polynucleotide-treatment-uk", label: "Polynucleotides" },
+      { href: "/non-surgical/morpheus8-treatment-uk", label: "Morpheus8" },
+      { href: "/non-surgical/endolift-for-malar-bags-uk", label: "Endolift®" },
+      { href: "/non-surgical/sofwave-treatment-uk", label: "Sofwave™" },
+      { href: "/non-surgical/ultraclear-laser-treatment-uk", label: "UltraClear Laser" },
+      { href: "/non-surgical/chemical-peel-treatment-uk", label: "Chemical Peel" },
+      { href: "/non-surgical/emface-treatment-uk", label: "EMFACE" },
     ],
   },
   {
@@ -106,8 +106,8 @@ export default function Footer() {
             <div key={col.heading} className="pel-footer-col">
               <div className="pel-footer-col-head">{col.heading}</div>
               <ul>
-                {col.links.map((link) => (
-                  <li key={link.href}>
+                {col.links.map((link, linkIndex) => (
+                  <li key={`${link.href}-${linkIndex}`}>
                     <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
