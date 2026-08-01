@@ -61,6 +61,27 @@ const nextConfig: NextConfig = {
         destination: `/${TREATMENT_PATHS["ptosis-surgery"]}`,
         permanent: true,
       },
+
+      // Publications the previous site served at the site root. Their content
+      // lives in content/posts, which is served under /blog, so point the old
+      // root URLs at the canonical blog URL.
+      {
+        source: "/nylon-hang-sutures-repair-secondary-ptosis-overcorrected-dysthyroid-upper-eyelid-retraction",
+        destination:
+          "/blog/nylon-hang-back-sutures-in-the-repair-of-secondary-ptosis-following-overcorrected-dysthyroid-upper-eyelid-retraction",
+        permanent: true,
+      },
+      {
+        source: "/stability-of-eyelid-height-after-graded-anterior-approach-lid-lowering-for-dysthyroid-upper-lid-retraction",
+        destination:
+          "/blog/stability-of-eyelid-height-after-graded-anterior-approach-lid-lowering-for-dysthyroid-upper-lid-retraction",
+        permanent: true,
+      },
+      {
+        source: "/two-new-cases-of-metastatic-basal-cell-carcinoma-from-the-eyelids",
+        destination: "/blog/two-new-cases-of-metastatic-basal-cell-carcinoma-from-the-eyelids",
+        permanent: true,
+      },
     ];
   },
 

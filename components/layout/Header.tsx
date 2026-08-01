@@ -379,7 +379,7 @@ export default function Header() {
 }
 
 const navCSS = `
-.pel-nav{position:sticky;top:0;z-index:200;padding:16px 24px calc(16px + env(safe-area-inset-top,0px));transition:padding .45s var(--tp-ease);}
+.pel-nav{position:sticky;top:0;z-index:200;padding:0px 24px;transition:padding .45s var(--tp-ease);}
 .pel-nav.at-top{padding-left:0;padding-right:0}
 .pel-pill{max-width:1340px;margin:0 auto;height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:0 12px 0 24px;border-radius:999px;background:var(--tp-glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid transparent;transition:height .45s var(--tp-ease),max-width .45s var(--tp-ease),padding .45s var(--tp-ease),border-radius .45s var(--tp-ease),box-shadow .45s var(--tp-ease),border-color .45s var(--tp-ease),background .45s var(--tp-ease);}
 .pel-pill.is-top{max-width:none;height:80px;border-radius:0;background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 var(--tp-hairline);padding-left:clamp(20px,4vw,48px);padding-right:clamp(12px,3vw,32px)}
@@ -453,7 +453,7 @@ const navCSS = `
 
 @media(max-width:1200px){.pel-links{gap:0}.pel-pill{gap:14px}.pel-link{padding:9px 10px}}
 @media(max-width:1120px){
-  .pel-nav{padding:12px 20px}
+  .pel-nav{padding:0 20px}
   .pel-pill{grid-template-columns:1fr auto;height:64px;gap:14px;padding:0 10px 0 20px}
   .pel-pill.is-top{height:70px;padding-left:clamp(16px,4vw,28px);padding-right:clamp(8px,3vw,20px)}
   .pel-links,.pel-actions{display:none}
