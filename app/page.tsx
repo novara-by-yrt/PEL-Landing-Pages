@@ -5,6 +5,7 @@ import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import VideoCard from "@/components/home/VideoCard";
+import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -146,7 +147,7 @@ export default function HomePage() {
     <>
       {/* ── 1. HERO SECTION ───────────────────────────────────────────────── */}
       <section
-        className="home-hero"
+        className={styles.homeHero}
         aria-label="Hero"
         style={{
           position: "relative",
@@ -280,17 +281,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .home-hero .container {
-              grid-template-columns: 1fr !important;
-            }
-            .home-hero .container > div:last-child {
-              display: none !important;
-            }
-          }
-        `}</style>
       </section>
 
       {/* ── 2. AWARD LOGOS CAROUSEL ───────────────────────────────────────── */}
@@ -312,7 +302,7 @@ export default function HomePage() {
           gridTemplateColumns: "1fr 1fr",
           minHeight: "500px",
         }}
-        className="home-about-grid"
+        className={styles.homeAboutGrid}
       >
         {/* Left: video with background */}
         <div
@@ -369,7 +359,7 @@ export default function HomePage() {
             flexDirection: "column",
             justifyContent: "center",
           }}
-          className="home-about-text"
+          className={styles.homeAboutText}
         >
           <span
             style={{
@@ -430,17 +420,6 @@ export default function HomePage() {
             </strong>
           </p>
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .home-about-grid {
-              grid-template-columns: 1fr !important;
-            }
-            .home-about-text {
-              padding: 2.5rem 1.5rem !important;
-            }
-          }
-        `}</style>
       </section>
 
       {/* ── 4. SPECIALIST TREATMENTS ─────────────────────────────────────── */}
@@ -492,10 +471,10 @@ export default function HomePage() {
               margin: "0.75rem auto 2rem",
             }}
           />
-          <div className="treatments-grid" style={{ marginBottom: "3.5rem" }}>
+          <div className={styles.treatmentsGrid} style={{ marginBottom: "3.5rem" }}>
             {SURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className="treatment-img-card">
-                <div className="treatment-img-wrap">
+              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
+                <div className={styles.treatmentImgWrap}>
                   <Image
                     src={t.image}
                     alt={t.title}
@@ -503,9 +482,9 @@ export default function HomePage() {
                     style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="treatment-img-overlay" />
+                  <div className={styles.treatmentImgOverlay} />
                 </div>
-                <p className="treatment-img-title">{t.title}</p>
+                <p className={styles.treatmentImgTitle}>{t.title}</p>
               </Link>
             ))}
           </div>
@@ -530,10 +509,10 @@ export default function HomePage() {
               margin: "0.75rem auto 2rem",
             }}
           />
-          <div className="treatments-grid">
+          <div className={styles.treatmentsGrid}>
             {NONSURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className="treatment-img-card">
-                <div className="treatment-img-wrap">
+              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
+                <div className={styles.treatmentImgWrap}>
                   <Image
                     src={t.image}
                     alt={t.title}
@@ -541,9 +520,9 @@ export default function HomePage() {
                     style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="treatment-img-overlay" />
+                  <div className={styles.treatmentImgOverlay} />
                 </div>
-                <p className="treatment-img-title">{t.title}</p>
+                <p className={styles.treatmentImgTitle}>{t.title}</p>
               </Link>
             ))}
           </div>
@@ -681,12 +660,6 @@ export default function HomePage() {
           <TestimonialsSlider />
           <div />
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .testimonials-grid { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
       </section>
 
       {/* ── 7. PATIENT TESTIMONIAL VIDEOS ────────────────────────────────── */}
@@ -732,7 +705,7 @@ export default function HomePage() {
               gridTemplateColumns: "repeat(3, 1fr)",
               gap: "1.5rem",
             }}
-            className="video-grid"
+            className={styles.videoGrid}
           >
             <VideoCard
               thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
@@ -763,15 +736,6 @@ export default function HomePage() {
             consultation and treatment.
           </p>
         </div>
-
-        <style>{`
-          @media (max-width: 640px) {
-            .video-grid { grid-template-columns: 1fr !important; }
-          }
-          @media (max-width: 900px) and (min-width: 641px) {
-            .video-grid { grid-template-columns: 1fr 1fr !important; }
-          }
-        `}</style>
       </section>
 
       {/* ── 8. RATING BADGES ─────────────────────────────────────────────── */}
@@ -884,7 +848,7 @@ export default function HomePage() {
 
             <div
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}
-              className="team-cols"
+              className={styles.teamCols}
             >
               <div>
                 <h4
@@ -961,13 +925,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .team-grid { grid-template-columns: 1fr !important; }
-            .team-cols { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
       </section>
 
       {/* ── 11. INSTAGRAM ────────────────────────────────────────────────── */}
@@ -1060,12 +1017,6 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .book-grid { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
       </section>
 
       {/* ── 13. VAT DISCLAIMER ───────────────────────────────────────────── */}
@@ -1092,71 +1043,6 @@ export default function HomePage() {
       </div>
 
       {/* ── HOME PAGE STYLES ─────────────────────────────────────────────── */}
-      <style>{`
-        .treatments-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.25rem;
-        }
-        @media (max-width: 900px) {
-          .treatments-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 560px) {
-          .treatments-grid { grid-template-columns: 1fr; }
-        }
-
-        .treatment-img-card {
-          display: block;
-          text-decoration: none;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          box-shadow: var(--shadow-sm);
-          transition: box-shadow 0.25s ease, transform 0.25s ease;
-          background: #fff;
-        }
-        .treatment-img-card:hover {
-          box-shadow: var(--shadow-lg);
-          transform: translateY(-4px);
-        }
-        .treatment-img-card:hover .treatment-img-overlay {
-          opacity: 0.2;
-        }
-        .treatment-img-wrap {
-          position: relative;
-          aspect-ratio: 4/3;
-          overflow: hidden;
-        }
-        .treatment-img-wrap img {
-          transition: transform 0.4s ease;
-        }
-        .treatment-img-card:hover .treatment-img-wrap img {
-          transform: scale(1.06);
-        }
-        .treatment-img-overlay {
-          position: absolute;
-          inset: 0;
-          background: hsl(199 90% 22%);
-          opacity: 0;
-          transition: opacity 0.25s ease;
-        }
-        .treatment-img-title {
-          padding: 0.875rem 1rem;
-          font-size: var(--text-sm);
-          font-weight: 600;
-          color: var(--clr-text);
-          text-align: center;
-          margin: 0;
-        }
-
-        @media (max-width: 768px) {
-          .home-hero .container {
-            grid-template-columns: 1fr !important;
-          }
-          .home-about-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </>
   );
 }

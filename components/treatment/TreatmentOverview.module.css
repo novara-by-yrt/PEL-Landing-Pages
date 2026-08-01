@@ -1,0 +1,17 @@
+.tpOverviewGrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+.tpOverviewGrid.noImage { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
+@media (max-width: 860px) { .tpOverviewGrid { grid-template-columns: 1fr; } }
+.tpOverviewText p { font-size: 1.0625rem; line-height: 1.72; color: var(--tp-slate); margin: 1.1rem 0 0; }
+.tpOverviewText p:first-of-type { margin-top: 1.4rem; }
+.tpOverviewFrame {
+  position: relative; width: 100%; aspect-ratio: 4 / 3.2; border-radius: var(--tp-radius-xl);
+  background: linear-gradient(150deg, var(--tp-lavender-200), var(--tp-lavender-050));
+  box-shadow: var(--tp-shadow-md); overflow: hidden;
+}
+.tpOverviewFrame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tpOverviewBadge {
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  padding: 7px 14px; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);
+  border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tp-indigo-700);
+}

@@ -10,7 +10,6 @@ import {
 import { resolveHeroImage, ACCREDITATION_LOGOS } from "@/lib/page-utils";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import {
-  TreatmentStyles,
   PageHero,
   TreatmentOverview,
   TreatmentAdvantages,
@@ -86,8 +85,6 @@ export default async function ConditionPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
-
-      <TreatmentStyles />
       <div className="tp">
         <PageHero
           breadcrumbItems={breadcrumbItems}

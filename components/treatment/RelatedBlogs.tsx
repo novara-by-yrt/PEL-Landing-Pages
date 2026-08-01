@@ -1,6 +1,7 @@
 import { getAllPosts } from "@/lib/mdx";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { TpIcon } from "./TpIcon";
+import styles from "./RelatedBlogs.module.css";
 
 const RELATED_COUNT = 6;
 
@@ -14,15 +15,12 @@ export function RelatedBlogs({ excludeSlug }: { excludeSlug?: string } = {}) {
 
   return (
     <section className="tp-section tp-fog">
-      <style>{`
-        .tp-blogs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.75rem; margin-top: 2.5rem; }
-      `}</style>
       <div className="container">
         <div className="tp-head">
           <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />From the journal</span>
           <h2>Related Blogs</h2>
         </div>
-        <div className="tp-blogs-grid">
+        <div className={styles.tpBlogsGrid}>
           {posts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}

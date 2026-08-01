@@ -4,8 +4,6 @@
 /*  vanilla CSS design system targeting 100 Web Vitals.                      */
 /* ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&display=swap');
-
 /* ── 1. Custom Properties (Design Tokens) ───────────────────────────────── */
 :root {
   /* Colour palette */
@@ -106,7 +104,7 @@
   --tp-radius-lg: 22px;
   --tp-radius-xl: 32px;
   --tp-ease: cubic-bezier(.22,.61,.36,1);
-  --tp-display: 'Newsreader', Georgia, serif;
+  --tp-display: var(--font-newsreader), Georgia, serif;
   --tp-body: var(--font-inter), 'Work Sans', system-ui, sans-serif;
   --tp-glass-bg: rgba(255,255,255,0.72);
   --tp-glass-bg-deep: rgba(18,16,54,0.55);

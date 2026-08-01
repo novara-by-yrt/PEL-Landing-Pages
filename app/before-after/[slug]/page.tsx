@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
 import {
-  TreatmentStyles,
   PageHero,
   BeforeAfterGallery,
   BeforeAfterNav,
@@ -81,8 +80,6 @@ export default async function BeforeAfterCasePage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-
-      <TreatmentStyles />
       <div className="tp">
         <PageHero
           breadcrumbItems={breadcrumbItems}

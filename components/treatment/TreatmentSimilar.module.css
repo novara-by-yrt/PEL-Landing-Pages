@@ -1,0 +1,8 @@
+.tpSimilarGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+.tpSimilarCard { border-radius: var(--tp-radius-lg); overflow: hidden; background: #fff; border: 1px solid var(--tp-line); box-shadow: var(--tp-shadow-xs); text-decoration: none; color: inherit; display: block; transition: transform 240ms var(--tp-ease), box-shadow 240ms var(--tp-ease); }
+.tpSimilarCard:hover { transform: translateY(-4px); box-shadow: var(--tp-shadow-md); }
+.tpSimilarImg { aspect-ratio: 4/3; position: relative; overflow: hidden; background: var(--tp-lavender-050); }
+.tpSimilarImg img { width: 100%; height: 100%; object-fit: cover; }
+.tpSimilarBody { padding: 1rem 1.1rem; }
+.tpSimilarTitle { font-size: 0.9375rem; font-weight: 600; color: var(--tp-ink); }
+.tpSimilarDesc { font-size: 0.8125rem; color: var(--tp-slate); margin-top: 4px; line-height: 1.5; }

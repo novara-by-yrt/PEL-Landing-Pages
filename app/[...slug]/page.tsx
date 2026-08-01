@@ -14,7 +14,6 @@ import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
-  TreatmentStyles,
   TreatmentHero,
   TreatmentFactBar,
   TreatmentAdvantages,
@@ -201,7 +200,6 @@ function TreatmentPage({
   return (
     <>
       {schemas}
-      <TreatmentStyles />
       <div className="tp">
         <TreatmentHero
           breadcrumbItems={breadcrumbItems}
@@ -248,7 +246,6 @@ function GenericPage({
   return (
     <>
       {schemas}
-      <TreatmentStyles />
       <div className="tp">
         <PageHero
           breadcrumbItems={breadcrumbItems}

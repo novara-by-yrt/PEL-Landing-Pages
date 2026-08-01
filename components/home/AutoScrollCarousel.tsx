@@ -25,22 +25,12 @@ export default function AutoScrollCarousel({ items, speed = 40 }: AutoScrollCaro
         width: "100%",
       }}
     >
-      <style>{`
-        @keyframes scroll-logos {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .logo-scroll-track {
-          display: flex;
-          align-items: center;
-          width: max-content;
-          animation: scroll-logos ${speed}s linear infinite;
-        }
-        .logo-scroll-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-      <div className="logo-scroll-track">
+      {/* Duration is the only dynamic part, so it rides in as a custom property
+          and the animation itself stays in the cached stylesheet. */}
+      <div
+        className="logo-scroll-track"
+        style={{ "--logo-scroll-speed": `${speed}s` } as React.CSSProperties}
+      >
         {doubled.map((item, i) => (
           <div
             key={i}

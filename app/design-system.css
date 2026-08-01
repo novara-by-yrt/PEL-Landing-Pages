@@ -1,0 +1,105 @@
+/* =========================================================================
+   Treatment/condition design-system primitives.
+
+   These are the handful of classes genuinely shared across sections
+   (buttons, section rhythm, headings). Component-specific styling lives in
+   the matching *.module.css next to each component.
+
+   Design tokens are NOT redefined here — they live once on :root in
+   globals.css. This file previously shipped as an inline <style> tag
+   (TreatmentStyles) on eight routes, re-sending ~3.6KB of duplicated CSS in
+   every HTML document instead of being cached as a stylesheet.
+   ========================================================================= */
+
+.tp {
+  background: var(--tp-paper);
+  color: var(--tp-ink);
+  font-family: var(--tp-body);
+}
+
+/* ── Eyebrow ────────────────────────────────────────────────────────────── */
+.tp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+}
+
+/* ── Section rhythm ─────────────────────────────────────────────────────── */
+.tp-section { padding: clamp(44px, 5.5vw, 88px) 0; }
+.tp-section.tp-fog { background: var(--tp-fog); }
+.tp-section.tp-tint { background: var(--tp-lavender-050); }
+
+/* ── Section headings ───────────────────────────────────────────────────── */
+.tp-head { max-width: 640px; }
+.tp-head.tp-center { max-width: 720px; margin: 0 auto; text-align: center; }
+.tp-head h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--tp-ink);
+  margin: 14px 0 0;
+}
+.tp-head p {
+  font-family: var(--tp-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--tp-slate);
+  margin: 16px 0 0;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.tp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 28px;
+  border-radius: 999px;
+  font-family: var(--tp-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    transform 220ms var(--tp-ease),
+    background 220ms var(--tp-ease),
+    color 220ms var(--tp-ease);
+}
+.tp-btn:hover { transform: translateY(-2px); }
+.tp-btn-primary { background: var(--tp-indigo-700); color: #fff; }
+.tp-btn-primary:hover { background: var(--tp-indigo-600); }
+.tp-btn-secondary {
+  background: transparent;
+  color: var(--tp-indigo-700);
+  border-color: var(--tp-lavender-300);
+}
+.tp-btn-secondary:hover { background: var(--tp-lavender-050); }
+.tp-btn-inverse { background: #fff; color: var(--tp-indigo-800); }
+.tp-btn-inverse:hover { background: var(--tp-lavender-100); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-btn { transition: none; }
+  .tp-btn:hover { transform: none; }
+}
+
+/* ── Long-form prose inside a .tp page ──────────────────────────────────── */
+.tp .prose { color: var(--tp-slate); }
+.tp .prose h2,
+.tp .prose h3 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  color: var(--tp-ink);
+}
+.tp .prose h2 { letter-spacing: -0.01em; }
+.tp .prose a { color: var(--tp-indigo-700); }
+.tp .prose a:hover { color: var(--tp-indigo-600); }
+.tp .prose img {
+  border-radius: var(--tp-radius-lg);
+  box-shadow: var(--tp-shadow-sm);
+}

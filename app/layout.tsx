@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Newsreader } from "next/font/google";
 import "./globals.css";
+import "./design-system.css";
+import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { buildOrganizationSchema } from "@/lib/schema";
@@ -16,6 +18,18 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: "swap",
+  preload: true,
+});
+
+// The design-system display face. Self-hosted via next/font so it is preloaded
+// alongside the HTML — it previously arrived through a render-blocking
+// @import of fonts.googleapis.com inside an inline <style> tag.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
   preload: true,
 });
@@ -51,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en-GB" className={`${inter.variable} ${playfair.variable} ${newsreader.variable}`}>
       <head>
         {/* Inline JSON-LD — no render-blocking, no async needed */}
         <script

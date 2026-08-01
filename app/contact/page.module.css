@@ -1,0 +1,31 @@
+.contactGrid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
+@media (max-width: 860px) { .contactGrid { grid-template-columns: 1fr; } }
+.contactWhy h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.6rem; color: var(--tp-ink); margin-bottom: 1.5rem; }
+.contactWhyItem { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding: 1.1rem 1.25rem; background: var(--tp-fog); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
+.contactWhyIcon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
+.contactWhyItem h3 { font-family: var(--tp-body); font-size: 0.9375rem; font-weight: 700; color: var(--tp-ink); margin-bottom: 0.25rem; }
+.contactWhyItem p { font-size: 0.875rem; color: var(--tp-slate); line-height: 1.6; margin: 0; }
+.contactDetails { margin-top: 1.5rem; padding: 1.5rem; background: var(--tp-lavender-050); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
+.contactDetailsLabel { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tp-indigo-700); margin-bottom: 0.75rem; }
+.contactDetailsRow { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9375rem; color: var(--tp-slate); margin-bottom: 0.5rem; }
+.contactDetailsRow a { color: var(--tp-indigo-700); text-decoration: none; }
+.contactDetailsRow a:hover { color: var(--tp-indigo-600); }
+
+.contactFormPanel { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: 2.5rem; box-shadow: var(--tp-shadow-sm); }
+.contactFormPanel h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 1.75rem; }
+.contactFormRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+@media (max-width: 640px) { .contactFormRow { grid-template-columns: 1fr; } }
+.contactLabel { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); margin-bottom: 0.4rem; }
+.contactInput {
+  width: 100%; padding: 0.75rem 1rem; font-family: var(--tp-body); font-size: 0.9375rem;
+  border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); background: var(--tp-fog);
+  color: var(--tp-ink); outline: none; transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
+}
+.contactInput:focus { border-color: var(--tp-lavender-400); background: #fff; }
+.contactSubmit { width: 100%; justify-content: center; font-size: 1rem; padding: 1rem; border: none; cursor: pointer; }
+.contactSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
+.contactError { background: #FDECEC; border: 1px solid #F3B9B9; color: #B3261E; border-radius: var(--tp-radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.875rem; }
+.contactSuccess { text-align: center; padding: 3rem 1rem; }
+.contactSuccessIcon { width: 56px; height: 56px; border-radius: 50%; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+.contactSuccess h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 0.75rem; }
+.contactSuccess p { color: var(--tp-slate); margin-bottom: 2rem; }

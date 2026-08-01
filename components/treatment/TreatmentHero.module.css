@@ -1,0 +1,44 @@
+.tpHero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-paper) 78%);
+}
+.tpHeroGlow { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(2px); }
+.tpHeroGlowA { top: -160px; right: -120px; width: 460px; height: 460px; background: radial-gradient(circle, rgba(139,128,196,0.30), transparent 70%); }
+.tpHeroGlowB { bottom: -180px; left: -140px; width: 380px; height: 380px; background: radial-gradient(circle, rgba(188,160,221,0.22), transparent 70%); }
+.tpHeroInner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center;
+  padding: 3.5rem 1.5rem 4.5rem;
+}
+@media (max-width: 860px) {
+  .tpHeroInner { grid-template-columns: 1fr; padding-bottom: 3rem; }
+}
+.tpBreadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tp-mist); flex-wrap: wrap; margin-bottom: 20px; }
+.tpBreadcrumb a { color: var(--tp-mist); text-decoration: none; }
+.tpBreadcrumb a:hover { color: var(--tp-indigo-700); }
+.tpH1 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.14; letter-spacing: -0.01em; color: var(--tp-ink); margin: 18px 0 20px; }
+.tpSub { font-size: 1.1875rem; line-height: 1.6; color: var(--tp-slate); max-width: 52ch; margin: 0 0 28px; }
+
+.tpHeroRight { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.tpHeroFrame {
+  position: relative; width: 100%; aspect-ratio: 4 / 3.1; border-radius: var(--tp-radius-xl);
+  background: linear-gradient(150deg, var(--tp-lavender-200), var(--tp-lavender-050));
+  box-shadow: var(--tp-shadow-md); overflow: hidden;
+}
+.tpHeroFrame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; }
+.tpHeroBadge {
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  padding: 7px 14px; background: rgba(255,255,255,0.75); backdrop-filter: blur(8px);
+  border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tp-indigo-700);
+}
+.tpDoctorCard {
+  width: 100%; display: flex; gap: 14px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg);
+  padding: 1.1rem 1.25rem; box-shadow: var(--tp-shadow-sm);
+}
+.tpDoctorCard .tpDot { flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
+.tpDoctorCard h5 { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tp-indigo-700); margin: 0 0 2px; }
+.tpDoctorCard small { font-size: 12px; color: var(--tp-slate); }
+.tpDoctorCard p { font-size: 12.5px; color: var(--tp-mist); margin: 0.3rem 0 0; line-height: 1.5; }

@@ -1,22 +1,13 @@
 "use client";
 
 import { TpIcon } from "@/components/treatment/TpIcon";
+import styles from "./BlogShareIcons.module.css";
 
 export function BlogShareIcons({ url, title }: { url: string; title: string }) {
   const open = (href: string) => window.open(href, "_blank", "noopener,noreferrer,width=600,height=500");
 
   return (
-    <div className="blog-share">
-      <style>{`
-        .blog-share { display: flex; gap: 8px; }
-        .blog-share button {
-          display: inline-flex; align-items: center; justify-content: center;
-          width: 36px; height: 36px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);
-          background: rgba(255,255,255,0.08); color: #fff; cursor: pointer;
-          transition: background 160ms var(--tp-ease), transform 160ms var(--tp-ease);
-        }
-        .blog-share button:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
-      `}</style>
+    <div className={styles.blogShare}>
       <button
         type="button"
         aria-label="Share on Facebook"

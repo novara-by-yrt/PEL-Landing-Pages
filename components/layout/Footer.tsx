@@ -53,30 +53,6 @@ export default function Footer() {
 
   return (
     <footer className="pel-footer" role="contentinfo">
-      <style>{`
-        .pel-footer { background: linear-gradient(160deg, var(--tp-indigo-950), var(--tp-indigo-800)); color: var(--tp-lavender-200); }
-        .pel-footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 4rem 1.5rem 1.75rem; }
-        .pel-footer-grid { display: grid; grid-template-columns: minmax(260px,1.5fr) repeat(3,1fr); gap: 2.5rem; }
-        .pel-footer-brand { font-family: var(--tp-display); font-size: 27px; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
-        .pel-footer-tagline { font-family: var(--tp-body); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--tp-lavender-400); margin: 9px 0 22px; }
-        .pel-footer-desc { font-size: 0.875rem; line-height: 1.6; color: var(--tp-lavender-200); max-width: 300px; margin-bottom: 20px; }
-        .pel-footer-contact { display: flex; flex-direction: column; gap: 14px; }
-        .pel-footer-row { display: flex; gap: 11px; align-items: flex-start; font-size: 0.875rem; line-height: 1.5; color: var(--tp-lavender-200); text-decoration: none; max-width: 280px; transition: color 160ms var(--tp-ease); }
-        a.pel-footer-row:hover { color: #fff; }
-        .pel-footer-row-icon { color: var(--tp-lavender-400); flex-shrink: 0; margin-top: 1px; }
-        .pel-footer-col-head { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp-lavender-400); margin-bottom: 18px; }
-        .pel-footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-        .pel-footer-col a { font-size: 0.875rem; color: var(--tp-lavender-200); text-decoration: none; transition: color 160ms var(--tp-ease); }
-        .pel-footer-col a:hover { color: #fff; }
-        .pel-footer-bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .pel-footer-copy { font-size: 0.75rem; color: var(--tp-lavender-300); }
-        .pel-footer-copy p + p { margin-top: 4px; }
-        .pel-footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        .pel-footer-legal a { font-size: 0.75rem; color: var(--tp-lavender-300); text-decoration: none; transition: color 160ms var(--tp-ease); }
-        .pel-footer-legal a:hover { color: #fff; }
-        @media (max-width: 860px) { .pel-footer-grid { grid-template-columns: 1fr 1fr; } .pel-footer-brand-col { grid-column: 1 / -1; } }
-        @media (max-width: 560px) { .pel-footer-grid { grid-template-columns: 1fr; } }
-      `}</style>
 
       <div className="pel-footer-inner">
         <div className="pel-footer-grid">

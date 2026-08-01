@@ -1,0 +1,8 @@
+.tpPricingGrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center; }
+@media (max-width: 860px) { .tpPricingGrid { grid-template-columns: 1fr; } }
+.tpPricingCard { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--tp-shadow-sm); }
+.tpPriceRow { padding: 1rem 0; border-bottom: 1px solid var(--tp-hairline); }
+.tpPriceRow:last-of-type { border-bottom: none; }
+.tpPriceRow p { margin: 0; font-size: 0.9375rem; color: var(--tp-ink); line-height: 1.6; }
+.tpPriceValue { font-family: var(--tp-display); font-weight: 600; color: var(--tp-indigo-700); }
+.tpPriceNote { margin-top: 1.5rem; font-size: 0.8125rem; color: var(--tp-mist); font-style: italic; }

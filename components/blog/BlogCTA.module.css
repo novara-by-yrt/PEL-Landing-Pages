@@ -1,0 +1,8 @@
+.blogCtaBand {
+  background: linear-gradient(140deg, var(--tp-indigo-900), var(--tp-indigo-600));
+  border-radius: var(--tp-radius-xl); padding: clamp(2.25rem, 5vw, 3.5rem);
+  text-align: center; box-shadow: var(--tp-shadow-lg); position: relative; overflow: hidden;
+}
+.blogCtaGlow { position: absolute; top: -140px; left: 50%; transform: translateX(-50%); width: 480px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(167,156,211,0.35), transparent 70%); }
+.blogCtaBand h2 { position: relative; font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.5rem, 3.2vw, 2.1rem); color: #fff; margin: 0 0 0.9rem; }
+.blogCtaBand p { position: relative; font-size: 1.0625rem; color: var(--tp-lavender-200); max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.6; }
