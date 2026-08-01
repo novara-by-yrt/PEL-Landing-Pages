@@ -28,6 +28,29 @@ export interface SchemaData {
   productSchemaNeeded?: boolean;
 }
 
+export interface CauseItem {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+export interface OverviewData {
+  eyebrow?: string;
+  heading?: string;
+  paragraphs: string[];
+  image?: string;
+  imageBadge?: string;
+}
+
+export interface RelatedTreatmentItem {
+  title: string;
+  description?: string;
+  image: string;
+  href?: string;
+  priceFrom?: string;
+  facts?: { label: string; value: string }[];
+}
+
 export interface PostFrontmatter {
   title: string;
   slug: string;
@@ -35,6 +58,7 @@ export interface PostFrontmatter {
   modified: string;
   postType: string;
   featuredImage?: string;
+  heroImage?: string;
   excerpt?: string;
   categories?: string[];
   tags?: string[];
@@ -42,6 +66,15 @@ export interface PostFrontmatter {
   seo: SeoData;
   schema?: SchemaData;
   faq?: FaqItem[];
+  overview?: OverviewData;
+  causes?: CauseItem[];
+  causesEyebrow?: string;
+  causesHeading?: string;
+  relatedTreatments?: RelatedTreatmentItem[];
+  relatedTreatmentsEyebrow?: string;
+  relatedTreatmentsHeading?: string;
+  showExpertSection?: boolean;
+  showAccreditation?: boolean;
 }
 
 export interface Post {

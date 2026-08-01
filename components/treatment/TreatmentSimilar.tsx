@@ -1,7 +1,15 @@
 import { TpIcon } from "./TpIcon";
 import type { SimilarTreatmentItem } from "./types";
 
-export function TreatmentSimilar({ items }: { items: SimilarTreatmentItem[] }) {
+export function TreatmentSimilar({
+  items,
+  eyebrow = "You may also consider",
+  heading = "Similar Treatments",
+}: {
+  items: SimilarTreatmentItem[];
+  eyebrow?: string;
+  heading?: string;
+}) {
   if (items.length === 0) return null;
 
   return (
@@ -18,8 +26,8 @@ export function TreatmentSimilar({ items }: { items: SimilarTreatmentItem[] }) {
       `}</style>
       <div className="container">
         <div className="tp-head">
-          <span className="tp-eyebrow"><TpIcon name="compass" size={13} />You may also consider</span>
-          <h2>Similar Treatments</h2>
+          <span className="tp-eyebrow"><TpIcon name="compass" size={13} />{eyebrow}</span>
+          <h2>{heading}</h2>
         </div>
         <div className="tp-similar-grid">
           {items.map((t) => {

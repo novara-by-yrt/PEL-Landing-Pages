@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { TreatmentStyles } from "@/components/treatment/TreatmentStyles";
+import { TpIcon } from "@/components/treatment/TpIcon";
+import { PageHero } from "@/components/treatment/PageHero";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 const TREATMENTS = [
   "Blepharoplasty (Upper Eyelid Surgery)",
@@ -16,6 +21,13 @@ const TREATMENTS = [
   "Xanthelasma Removal",
   "Other / Not Sure",
 ];
+
+const WHY_CHOOSE_US = [
+  { icon: "shield", title: "CQC Regulated", body: "All treatments are performed in a fully CQC-regulated environment for your safety." },
+  { icon: "eye", title: "Specialist Surgeons", body: "Our surgeons are fellowship-trained oculoplastic specialists with 20+ years of experience." },
+  { icon: "star", title: "5-Star Rated", body: "Consistently rated 5 stars by our patients across all major review platforms." },
+  { icon: "sparkle", title: "Personalised Approach", body: "Every treatment plan is tailored to your unique anatomy, goals, and lifestyle." },
+] as const;
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -60,377 +72,207 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Header */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, hsl(199 90% 22%), hsl(199 90% 32%))",
-          color: "#fff",
-          padding: "5rem 0 4rem",
-          textAlign: "center",
-        }}
-      >
-        <div className="container">
-          <p
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "hsl(38 92% 70%)",
-              marginBottom: "1.25rem",
-              background: "hsl(0 0% 100% / 0.1)",
-              padding: "0.375rem 1rem",
-              borderRadius: "9999px",
-            }}
-          >
-            Get In Touch
-          </p>
-          <h1
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "clamp(2.25rem, 6vw, 3.5rem)",
-              color: "#fff",
-              lineHeight: 1.1,
-              marginBottom: "1rem",
-            }}
-          >
-            Book a Consultation
-          </h1>
-          <p
-            style={{
-              color: "hsl(0 0% 100% / 0.8)",
-              fontSize: "1.125rem",
-              maxWidth: "48ch",
-              margin: "0 auto",
-            }}
-          >
-            Fill in the form below and our team will get back to you within 24 hours to
-            discuss your treatment options.
-          </p>
-        </div>
-      </div>
+      <TreatmentStyles />
+      <div className="tp">
+        <style>{`
+          .contact-grid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
+          @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+          .contact-why h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.6rem; color: var(--tp-ink); margin-bottom: 1.5rem; }
+          .contact-why-item { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding: 1.1rem 1.25rem; background: var(--tp-fog); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
+          .contact-why-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
+          .contact-why-item h3 { font-family: var(--tp-body); font-size: 0.9375rem; font-weight: 700; color: var(--tp-ink); margin-bottom: 0.25rem; }
+          .contact-why-item p { font-size: 0.875rem; color: var(--tp-slate); line-height: 1.6; margin: 0; }
+          .contact-details { margin-top: 1.5rem; padding: 1.5rem; background: var(--tp-lavender-050); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
+          .contact-details-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tp-indigo-700); margin-bottom: 0.75rem; }
+          .contact-details-row { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9375rem; color: var(--tp-slate); margin-bottom: 0.5rem; }
+          .contact-details-row a { color: var(--tp-indigo-700); text-decoration: none; }
+          .contact-details-row a:hover { color: var(--tp-indigo-600); }
 
-      {/* Two-column layout */}
-      <section
-        className="section container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1.6fr",
-          gap: "4rem",
-          alignItems: "start",
-        }}
-      >
-        {/* ── Left: Info ───────────────────────────────────────────── */}
-        <div>
-          <h2
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "1.75rem",
-              marginBottom: "1.5rem",
-              lineHeight: 1.2,
-            }}
-          >
-            Why Choose Skynology?
-          </h2>
+          .contact-form-panel { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: 2.5rem; box-shadow: var(--tp-shadow-sm); }
+          .contact-form-panel h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 1.75rem; }
+          .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+          @media (max-width: 640px) { .contact-form-row { grid-template-columns: 1fr; } }
+          .contact-label { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); margin-bottom: 0.4rem; }
+          .contact-input {
+            width: 100%; padding: 0.75rem 1rem; font-family: var(--tp-body); font-size: 0.9375rem;
+            border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); background: var(--tp-fog);
+            color: var(--tp-ink); outline: none; transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
+          }
+          .contact-input:focus { border-color: var(--tp-lavender-400); background: #fff; }
+          .contact-submit { width: 100%; justify-content: center; font-size: 1rem; padding: 1rem; border: none; cursor: pointer; }
+          .contact-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+          .contact-error { background: #FDECEC; border: 1px solid #F3B9B9; color: #B3261E; border-radius: var(--tp-radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.875rem; }
+          .contact-success { text-align: center; padding: 3rem 1rem; }
+          .contact-success-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+          .contact-success h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 0.75rem; }
+          .contact-success p { color: var(--tp-slate); margin-bottom: 2rem; }
+        `}</style>
 
-          {[
-            {
-              icon: "🏥",
-              title: "CQC Regulated",
-              body: "All treatments are performed in a fully CQC-regulated environment for your safety.",
-            },
-            {
-              icon: "👁️",
-              title: "Specialist Surgeons",
-              body: "Our surgeons are fellowship-trained oculoplastic specialists with 20+ years of experience.",
-            },
-            {
-              icon: "⭐",
-              title: "5-Star Rated",
-              body: "Consistently rated 5 stars by our patients across all major review platforms.",
-            },
-            {
-              icon: "🎯",
-              title: "Personalised Approach",
-              body: "Every treatment plan is tailored to your unique anatomy, goals, and lifestyle.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              style={{
-                display: "flex",
-                gap: "1rem",
-                marginBottom: "1.5rem",
-                padding: "1.25rem",
-                background: "var(--clr-bg-subtle)",
-                borderRadius: "12px",
-                border: "1px solid var(--clr-border)",
-              }}
-            >
-              <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{item.icon}</span>
-              <div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 700,
-                    marginBottom: "0.25rem",
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p style={{ fontSize: "0.875rem", color: "var(--clr-text-muted)", lineHeight: 1.6 }}>
-                  {item.body}
-                </p>
+        <PageHero
+          breadcrumbItems={[
+            { name: "Home", url: SITE_URL },
+            { name: "Contact", url: `${SITE_URL}/contact` },
+          ]}
+          siteUrl={SITE_URL}
+          eyebrow="Get In Touch"
+          h1="Book a Consultation"
+          lead="Fill in the form below and our team will get back to you within 24 hours to discuss your treatment options."
+        />
+
+        <div className="contact-grid">
+          {/* Left: Info */}
+          <div className="contact-why">
+            <h2>Why Choose Perfect Eyes?</h2>
+
+            {WHY_CHOOSE_US.map((item) => (
+              <div key={item.title} className="contact-why-item">
+                <span className="contact-why-icon"><TpIcon name={item.icon} size={19} /></span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          <div
-            style={{
-              marginTop: "2rem",
-              padding: "1.5rem",
-              background: "hsl(199 90% 32% / 0.06)",
-              borderRadius: "12px",
-              border: "1px solid hsl(199 90% 32% / 0.15)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "0.8125rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--clr-primary)",
-                marginBottom: "0.75rem",
-              }}
-            >
-              Contact Details
-            </p>
-            <p style={{ fontSize: "0.9375rem", marginBottom: "0.5rem" }}>
-              📍 London, United Kingdom
-            </p>
-            <p style={{ fontSize: "0.9375rem", marginBottom: "0.5rem" }}>
-              📧{" "}
-              <a
-                href="mailto:perfecteyesltd@gmail.com"
-                style={{ color: "var(--clr-primary)" }}
-              >
-                perfecteyesltd@gmail.com
-              </a>
-            </p>
+            <div className="contact-details">
+              <div className="contact-details-label">Contact Details</div>
+              <div className="contact-details-row"><TpIcon name="pin" size={16} />9 Harley Street, London, W1G 9QY</div>
+              <div className="contact-details-row"><TpIcon name="phone" size={15} /><a href="tel:+442074864886">020 7486 4886</a></div>
+              <div className="contact-details-row"><TpIcon name="mail" size={16} /><a href="mailto:perfecteyesltd@gmail.com">perfecteyesltd@gmail.com</a></div>
+            </div>
+          </div>
+
+          {/* Right: Form */}
+          <div className="contact-form-panel">
+            {status === "success" ? (
+              <div className="contact-success">
+                <div className="contact-success-icon"><TpIcon name="check" size={26} /></div>
+                <h2>Message Sent!</h2>
+                <p>Thank you for getting in touch. We will respond within 24 hours.</p>
+                <button onClick={() => setStatus("idle")} className="tp-btn tp-btn-secondary">
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate id="contact-form">
+                <h2>Send Us a Message</h2>
+
+                <div className="contact-form-row">
+                  <div>
+                    <label htmlFor="contact-name" className="contact-label">
+                      Full Name <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      autoComplete="name"
+                      placeholder="Jane Smith"
+                      className="contact-input"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="contact-label">
+                      Email Address <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      autoComplete="email"
+                      placeholder="jane@example.com"
+                      className="contact-input"
+                    />
+                  </div>
+                </div>
+
+                <div className="contact-form-row">
+                  <div>
+                    <label htmlFor="contact-phone" className="contact-label">
+                      Phone Number
+                    </label>
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                      placeholder="+44 7700 000000"
+                      className="contact-input"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-treatment" className="contact-label">
+                      Treatment of Interest
+                    </label>
+                    <select
+                      id="contact-treatment"
+                      name="treatment"
+                      value={form.treatment}
+                      onChange={handleChange}
+                      className="contact-input"
+                    >
+                      <option value="">Select a treatment…</option>
+                      {TREATMENTS.map((t) => (
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <label htmlFor="contact-message" className="contact-label">
+                    Your Message <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    placeholder="Tell us about your concerns and what you would like to achieve…"
+                    className="contact-input"
+                    style={{ resize: "vertical" }}
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div role="alert" className="contact-error">
+                    {errorMsg}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  id="contact-submit"
+                  disabled={status === "sending"}
+                  className="tp-btn tp-btn-primary contact-submit"
+                >
+                  {status === "sending" ? "Sending…" : "Send Message →"}
+                </button>
+
+                <p style={{ fontSize: "0.75rem", color: "var(--tp-mist)", marginTop: "1rem", textAlign: "center" }}>
+                  By submitting this form you agree to our{" "}
+                  <Link href="/privacy-notice" style={{ color: "var(--tp-indigo-700)" }}>
+                    Privacy Notice
+                  </Link>
+                  .
+                </p>
+              </form>
+            )}
           </div>
         </div>
-
-        {/* ── Right: Form ──────────────────────────────────────────── */}
-        <div
-          style={{
-            background: "var(--clr-bg-card)",
-            border: "1px solid var(--clr-border)",
-            borderRadius: "20px",
-            padding: "2.5rem",
-            boxShadow: "var(--shadow-lg)",
-          }}
-        >
-          {status === "success" ? (
-            <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>✅</div>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  fontSize: "1.5rem",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                Message Sent!
-              </h2>
-              <p style={{ color: "var(--clr-text-muted)", marginBottom: "2rem" }}>
-                Thank you for getting in touch. We will respond within 24 hours.
-              </p>
-              <button
-                onClick={() => setStatus("idle")}
-                className="btn btn-outline"
-              >
-                Send Another Message
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate id="contact-form">
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  fontSize: "1.5rem",
-                  marginBottom: "1.75rem",
-                }}
-              >
-                Send Us a Message
-              </h2>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "1rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <div>
-                  <label htmlFor="contact-name" className="form-label">
-                    Full Name <span aria-hidden="true" style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    autoComplete="name"
-                    placeholder="Jane Smith"
-                    className="form-input"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="form-label">
-                    Email Address <span aria-hidden="true" style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    autoComplete="email"
-                    placeholder="jane@example.com"
-                    className="form-input"
-                  />
-                </div>
-              </div>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "1rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <div>
-                  <label htmlFor="contact-phone" className="form-label">
-                    Phone Number
-                  </label>
-                  <input
-                    id="contact-phone"
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    autoComplete="tel"
-                    placeholder="+44 7700 000000"
-                    className="form-input"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-treatment" className="form-label">
-                    Treatment of Interest
-                  </label>
-                  <select
-                    id="contact-treatment"
-                    name="treatment"
-                    value={form.treatment}
-                    onChange={handleChange}
-                    className="form-input"
-                  >
-                    <option value="">Select a treatment…</option>
-                    {TREATMENTS.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label htmlFor="contact-message" className="form-label">
-                  Your Message <span aria-hidden="true" style={{ color: "red" }}>*</span>
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Tell us about your concerns and what you would like to achieve…"
-                  className="form-input"
-                  style={{ resize: "vertical" }}
-                />
-              </div>
-
-              {status === "error" && (
-                <div
-                  role="alert"
-                  style={{
-                    background: "hsl(0 80% 96%)",
-                    border: "1px solid hsl(0 80% 80%)",
-                    color: "hsl(0 60% 40%)",
-                    borderRadius: "8px",
-                    padding: "0.75rem 1rem",
-                    marginBottom: "1rem",
-                    fontSize: "0.875rem",
-                  }}
-                >
-                  {errorMsg}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                id="contact-submit"
-                disabled={status === "sending"}
-                className="btn btn-primary"
-                style={{ width: "100%", justifyContent: "center", fontSize: "1rem", padding: "1rem" }}
-              >
-                {status === "sending" ? "Sending…" : "Send Message →"}
-              </button>
-
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  color: "var(--clr-text-muted)",
-                  marginTop: "1rem",
-                  textAlign: "center",
-                }}
-              >
-                By submitting this form you agree to our{" "}
-                <Link href="/privacy-notice" style={{ color: "var(--clr-primary)" }}>
-                  Privacy Notice
-                </Link>
-                .
-              </p>
-            </form>
-          )}
-        </div>
-      </section>
-
-      {/* Mobile responsiveness fix */}
-      <style>{`
-        @media (max-width: 768px) {
-          section.section.container[style] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media (max-width: 640px) {
-          div[style*="grid-template-columns: 1fr 1fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+      </div>
     </>
   );
 }

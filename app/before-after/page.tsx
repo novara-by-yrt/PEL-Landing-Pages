@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/lib/mdx";
+import { TreatmentStyles, TpIcon, PageHero, TreatmentCTA } from "@/components/treatment";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -17,81 +18,60 @@ export default function BeforeAfterIndexPage() {
 
   return (
     <>
-      {/* Header */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, hsl(199 90% 22%), hsl(199 90% 32%))",
-          color: "#fff",
-          padding: "5rem 0 4rem",
-          textAlign: "center",
-        }}
-      >
-        <div className="container">
-          <p className="hero-eyebrow">Real Results</p>
-          <h1
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "clamp(2.25rem, 6vw, 3.5rem)",
-              color: "#fff",
-              lineHeight: 1.1,
-              marginBottom: "1rem",
-            }}
-          >
-            Before & After Gallery
-          </h1>
-          <p style={{ color: "hsl(0 0% 100% / 0.8)", fontSize: "1.125rem", maxWidth: "48ch", margin: "0 auto" }}>
-            Genuine patient results across our full range of surgical and non-surgical treatments.
-          </p>
-        </div>
-      </div>
+      <TreatmentStyles />
+      <div className="tp">
+        <style>{`
+          .ba-grid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+          .ba-card { display: block; text-decoration: none; background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); overflow: hidden; box-shadow: var(--tp-shadow-xs); transition: transform 240ms var(--tp-ease), box-shadow 240ms var(--tp-ease); }
+          .ba-card:hover { transform: translateY(-4px); box-shadow: var(--tp-shadow-md); }
+          .ba-card-image { aspect-ratio: 16/10; position: relative; overflow: hidden; background: var(--tp-fog); }
+          .ba-card-body { padding: 1.5rem 1.75rem 1.75rem; }
+          .ba-card-title { font-family: var(--tp-display); font-weight: 600; font-size: 1.15rem; line-height: 1.35; color: var(--tp-ink); margin-bottom: 0.5rem; }
+          .ba-card-excerpt { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1rem; }
+          .ba-card-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--tp-indigo-700); }
+        `}</style>
 
-      {/* Gallery grid */}
-      <section className="section container">
-        <div className="grid-cards-2">
+        <PageHero
+          breadcrumbItems={[
+            { name: "Home", url: SITE_URL },
+            { name: "Before & After", url: `${SITE_URL}/before-after` },
+          ]}
+          siteUrl={SITE_URL}
+          eyebrow="Real Patient Results"
+          h1="Before & After Gallery"
+          lead="Genuine patient results across our full range of surgical and non-surgical eye treatments."
+        />
+
+        <div className="ba-grid">
           {cases.map((caseItem) => (
-            <Link
-              key={caseItem.slug}
-              href={`/before-after/${caseItem.slug}`}
-              style={{ textDecoration: "none" }}
-            >
-              <article className="card">
-                {caseItem.frontmatter.featuredImage && (
-                  <div className="card-image">
-                    <Image
-                      src={caseItem.frontmatter.featuredImage}
-                      alt={`Before and after: ${caseItem.frontmatter.title}`}
-                      width={640}
-                      height={400}
-                      style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                      loading="lazy"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                )}
-                <div className="card-body">
-                  <h2 className="card-title">{caseItem.frontmatter.title}</h2>
-                  {caseItem.frontmatter.excerpt && (
-                    <p className="card-excerpt">{caseItem.frontmatter.excerpt}</p>
-                  )}
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.375rem",
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "var(--clr-primary)",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    View case →
-                  </span>
+            <Link key={caseItem.slug} href={`/before-after/${caseItem.slug}`} className="ba-card">
+              {caseItem.frontmatter.featuredImage && (
+                <div className="ba-card-image">
+                  <Image
+                    src={caseItem.frontmatter.featuredImage}
+                    alt={`Before and after: ${caseItem.frontmatter.title}`}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
-              </article>
+              )}
+              <div className="ba-card-body">
+                <h2 className="ba-card-title">{caseItem.frontmatter.title}</h2>
+                {caseItem.frontmatter.excerpt && (
+                  <p className="ba-card-excerpt">{caseItem.frontmatter.excerpt}</p>
+                )}
+                <span className="ba-card-link">
+                  View case <TpIcon name="arrow" size={14} />
+                </span>
+              </div>
             </Link>
           ))}
         </div>
-      </section>
+
+        <TreatmentCTA />
+      </div>
     </>
   );
 }

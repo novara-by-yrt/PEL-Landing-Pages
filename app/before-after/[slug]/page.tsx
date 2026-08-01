@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { TreatmentStyles, TpIcon, PageHero, TreatmentCTA } from "@/components/treatment";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -62,39 +63,39 @@ export default async function BeforeAfterCasePage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      {/* Header */}
-      <div style={{ background: "linear-gradient(135deg, hsl(199 90% 22%), hsl(199 90% 32%))", color: "#fff", padding: "4rem 0 3rem" }}>
-        <div className="container prose-container">
-          <nav className="breadcrumb" aria-label="Breadcrumb" style={{ color: "hsl(0 0% 100% / 0.7)" }}>
-            <Link href="/" style={{ color: "hsl(38 92% 70%)" }}>Home</Link>
-            <span className="breadcrumb-sep" aria-hidden="true">›</span>
-            <Link href="/before-after" style={{ color: "hsl(38 92% 70%)" }}>Before & After</Link>
-            <span className="breadcrumb-sep" aria-hidden="true">›</span>
-            <span>{frontmatter.title}</span>
-          </nav>
-          <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(1.875rem, 5vw, 3rem)", color: "#fff", lineHeight: 1.15, marginTop: "1rem" }}>
-            {frontmatter.title}
-          </h1>
-        </div>
-      </div>
+      <TreatmentStyles />
+      <div className="tp">
+        <PageHero
+          breadcrumbItems={[
+            { name: "Home", url: SITE_URL },
+            { name: "Before & After", url: `${SITE_URL}/before-after` },
+            { name: frontmatter.title, url },
+          ]}
+          siteUrl={SITE_URL}
+          eyebrow="Before & After"
+          h1={frontmatter.title}
+        />
 
-      {/* Hero image */}
-      {frontmatter.featuredImage && (
-        <div className="container prose-container" style={{ marginTop: "-2rem", position: "relative", zIndex: 1 }}>
-          <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 64px hsl(220 25% 12% / 0.14)", aspectRatio: "16/9", position: "relative" }}>
-            <Image src={frontmatter.featuredImage} alt={`Before and after: ${frontmatter.title}`} fill style={{ objectFit: "cover" }} priority sizes="(max-width: 768px) 100vw, 72ch" />
+        {/* Hero image */}
+        {frontmatter.featuredImage && (
+          <div className="container prose-container" style={{ marginTop: "-2rem", position: "relative", zIndex: 1 }}>
+            <div style={{ borderRadius: "var(--tp-radius-lg)", overflow: "hidden", boxShadow: "var(--tp-shadow-md)", aspectRatio: "16/9", position: "relative" }}>
+              <Image src={frontmatter.featuredImage} alt={`Before and after: ${frontmatter.title}`} fill style={{ objectFit: "cover" }} priority sizes="(max-width: 768px) 100vw, 72ch" />
+            </div>
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="container prose-container" style={{ padding: "3rem 1.5rem 1rem" }}>
+          <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
+          <div style={{ marginTop: "2rem" }}>
+            <Link href="/before-after" className="tp-btn tp-btn-secondary">
+              <TpIcon name="arrow" size={16} style={{ transform: "rotate(180deg)" }} /> View all cases
+            </Link>
           </div>
         </div>
-      )}
 
-      {/* Content */}
-      <div className="container prose-container" style={{ padding: "3rem 1.5rem 5rem" }}>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
-        <div style={{ marginTop: "3rem", textAlign: "center" }}>
-          <Link href="/before-after" className="btn btn-outline">
-            ← View all cases
-          </Link>
-        </div>
+        <TreatmentCTA />
       </div>
     </>
   );

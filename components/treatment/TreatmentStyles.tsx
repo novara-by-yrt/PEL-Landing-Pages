@@ -73,6 +73,7 @@ export function TreatmentStyles() {
       .tp .prose a { color: var(--tp-indigo-700); }
       .tp .prose a:hover { color: var(--tp-indigo-600); }
       .tp .prose { color: var(--tp-slate); }
+      .tp .prose img { border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-sm); }
     `}</style>
   );
 }

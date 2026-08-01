@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { TreatmentStyles, PageHero, TreatmentCTA } from "@/components/treatment";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -63,51 +63,31 @@ export default async function ConditionPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      {/* Hero */}
-      <div className="hero" style={{ padding: "4rem 0 3rem" }}>
-        <div className="container">
-          <h1
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "clamp(2rem, 5vw, 3.25rem)",
-              color: "#fff",
-              lineHeight: 1.15,
-              maxWidth: "24ch",
-            }}
-          >
-            {frontmatter.title}
-          </h1>
-
-          {frontmatter.excerpt && (
-            <p style={{ fontSize: "1.125rem", color: "hsl(0 0% 100% / 0.8)", maxWidth: "56ch", marginTop: "1rem", lineHeight: 1.6 }}>
-              {frontmatter.excerpt}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Featured image */}
-      {frontmatter.featuredImage && (
-        <div className="container prose-container" style={{ marginTop: "-2rem", position: "relative", zIndex: 1 }}>
-          <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 64px hsl(220 25% 12% / 0.14)", aspectRatio: "16/7", position: "relative" }}>
-            <Image
-              src={frontmatter.featuredImage}
-              alt={frontmatter.title}
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-              sizes="(max-width: 768px) 100vw, 72ch"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Page content */}
-      <div className="container prose-container" style={{ padding: "3rem 1.5rem 5rem" }}>
-        <div
-          className="prose"
-          dangerouslySetInnerHTML={{ __html: content }}
+      <TreatmentStyles />
+      <div className="tp">
+        <PageHero
+          breadcrumbItems={[
+            { name: "Home", url: SITE_URL },
+            { name: "Conditions", url: `${SITE_URL}/condition` },
+            { name: frontmatter.title, url },
+          ]}
+          siteUrl={SITE_URL}
+          eyebrow="Eye Condition"
+          h1={frontmatter.title}
+          lead={frontmatter.excerpt}
+          heroImage={frontmatter.featuredImage}
+          heroImageAlt={frontmatter.title}
         />
+
+        {/* Page content */}
+        <div className="container prose-container" style={{ padding: "3rem 1.5rem 1rem" }}>
+          <div
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </div>
+
+        <TreatmentCTA />
       </div>
     </>
   );

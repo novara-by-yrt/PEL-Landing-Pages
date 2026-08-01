@@ -1,7 +1,17 @@
 import { TpIcon } from "./TpIcon";
 import type { AdvantageItem } from "./types";
 
-export function TreatmentAdvantages({ advantages, title }: { advantages: AdvantageItem[]; title: string }) {
+export function TreatmentAdvantages({
+  advantages,
+  title,
+  eyebrow = "Why choose this treatment",
+  heading,
+}: {
+  advantages: AdvantageItem[];
+  title: string;
+  eyebrow?: string;
+  heading?: string;
+}) {
   if (advantages.length === 0) return null;
 
   return (
@@ -15,13 +25,13 @@ export function TreatmentAdvantages({ advantages, title }: { advantages: Advanta
       `}</style>
       <div className="container">
         <div className="tp-head tp-center">
-          <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />Why choose this treatment</span>
-          <h2>Advantages of {title} Treatment</h2>
+          <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />{eyebrow}</span>
+          <h2>{heading || `Advantages of ${title} Treatment`}</h2>
         </div>
         <div className="tp-benefits-grid">
           {advantages.map((adv) => (
             <div key={adv.title} className="tp-benefit">
-              <span className="tp-benefit-icon"><TpIcon name="check" size={21} /></span>
+              <span className="tp-benefit-icon"><TpIcon name={adv.icon || "check"} size={21} /></span>
               <h3>{adv.title}</h3>
               {adv.description && <p>{adv.description}</p>}
             </div>

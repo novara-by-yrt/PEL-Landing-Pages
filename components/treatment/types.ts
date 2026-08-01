@@ -6,6 +6,7 @@ export interface GlanceItem {
 export interface AdvantageItem {
   title: string;
   description: string;
+  icon?: string;
 }
 
 export interface SimilarTreatmentItem {
