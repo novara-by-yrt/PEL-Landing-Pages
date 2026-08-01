@@ -27,6 +27,7 @@ import {
   TreatmentSimilar,
   RelatedBlogs,
   TreatmentCTA,
+  PageHero,
 } from "@/components/treatment";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -216,90 +217,38 @@ function GenericPage({
   return (
     <>
       {schemas}
+      <TreatmentStyles />
+      <div className="tp">
+        <PageHero
+          breadcrumbItems={breadcrumbItems}
+          siteUrl={SITE_URL}
+          h1={frontmatter.title}
+          lead={frontmatter.excerpt}
+        />
 
-      {/* Hero */}
-      <div className="hero" style={{ padding: "4rem 0 3rem" }}>
-        <div className="container">
-          <nav aria-label="Breadcrumb" style={{ marginBottom: "1.5rem" }}>
-            <ol style={{ display: "flex", gap: "0.5rem", listStyle: "none", fontSize: "0.875rem", color: "hsl(0 0% 100% / 0.7)", padding: 0, margin: 0, flexWrap: "wrap" }}>
-              {breadcrumbItems.map((item, index) => (
-                <li key={item.url} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  {index > 0 && <span aria-hidden="true">/</span>}
-                  {index === breadcrumbItems.length - 1 ? (
-                    <span style={{ color: "#fff", fontWeight: 600 }}>{item.name}</span>
-                  ) : (
-                    <Link href={item.url.replace(SITE_URL, "") || "/"} style={{ color: "hsl(0 0% 100% / 0.75)" }}>{item.name}</Link>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </nav>
-
-          <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "#fff", lineHeight: 1.15, maxWidth: "24ch" }}>
-            {frontmatter.title}
-          </h1>
-
-          {frontmatter.excerpt && (
-            <p style={{ fontSize: "1.125rem", color: "hsl(0 0% 100% / 0.8)", maxWidth: "56ch", marginTop: "1rem", lineHeight: 1.6 }}>
-              {frontmatter.excerpt}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Featured image */}
-      {frontmatter.featuredImage && frontmatter.featuredImage !== "NONE" && (
-        <div className="container prose-container" style={{ marginTop: "-2rem", position: "relative", zIndex: 1 }}>
-          <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 64px hsl(220 25% 12% / 0.14)", aspectRatio: "16/7", position: "relative" }}>
-            <Image
-              src={frontmatter.featuredImage}
-              alt={frontmatter.title}
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-              sizes="(max-width: 768px) 100vw, 72ch"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Page content */}
-      <div className="container prose-container" style={{ padding: "3rem 1.5rem 5rem" }}>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
-
-        {/* FAQ */}
-        {frontmatter.faq && frontmatter.faq.length > 0 && (
-          <section style={{ marginTop: "4rem" }}>
-            <h2 style={{ fontSize: "var(--text-2xl)", marginBottom: "1.5rem" }}>Frequently Asked Questions</h2>
-            <div className="faq-list">
-              {frontmatter.faq.map((item, i) => (
-                <details key={i} className="faq-item">
-                  <summary className="faq-question">
-                    {item.question}
-                    <span className="faq-icon" aria-hidden="true">+</span>
-                  </summary>
-                  <div className="faq-answer" dangerouslySetInnerHTML={{ __html: item.answer }} />
-                </details>
-              ))}
+        {/* Featured image */}
+        {frontmatter.featuredImage && frontmatter.featuredImage !== "NONE" && (
+          <div className="container prose-container" style={{ marginTop: "-2rem", position: "relative", zIndex: 1 }}>
+            <div style={{ borderRadius: "var(--tp-radius-lg)", overflow: "hidden", boxShadow: "var(--tp-shadow-md)", aspectRatio: "16/7", position: "relative" }}>
+              <Image
+                src={frontmatter.featuredImage}
+                alt={frontmatter.title}
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+                sizes="(max-width: 768px) 100vw, 72ch"
+              />
             </div>
-          </section>
+          </div>
         )}
 
-        {/* Consultation CTA */}
-        <section style={{ marginTop: "5rem", padding: "3.5rem 2rem", borderRadius: "24px", background: "linear-gradient(135deg, hsl(199 90% 22%) 0%, hsl(220 25% 12%) 100%)", color: "#fff", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.25rem", boxShadow: "0 20px 50px hsl(220 25% 12% / 0.15)" }}>
-          <h2 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(1.75rem, 4vw, 2.5rem)", color: "#fff", margin: 0 }}>
-            Book Your Consultation Today
-          </h2>
-          <p style={{ fontSize: "1.125rem", color: "hsl(0 0% 100% / 0.85)", maxWidth: "50ch", margin: 0, lineHeight: 1.6 }}>
-            Get personalised advice and expert care from Dr Sabrina Shah-Desai and our leading aesthetic team.
-          </p>
-          <Link href="/contact" style={{ marginTop: "0.5rem", display: "inline-flex", alignItems: "center", gap: "0.75rem", padding: "0.875rem 2.25rem", borderRadius: "9999px", backgroundColor: "var(--clr-accent)", color: "hsl(220 25% 12%)", fontSize: "1rem", fontWeight: 600, textDecoration: "none", boxShadow: "0 4px 16px hsl(38 92% 58% / 0.3)" }}>
-            Book an Appointment
-            <svg style={{ width: "18px", height: "18px" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </Link>
-        </section>
+        {/* Page content */}
+        <div className="container prose-container" style={{ padding: "3rem 1.5rem 1rem" }}>
+          <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
+        </div>
+
+        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
+        <TreatmentCTA />
       </div>
     </>
   );

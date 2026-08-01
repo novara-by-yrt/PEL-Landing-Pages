@@ -26,15 +26,15 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Skynology | Expert Eye & Aesthetic Treatments",
-    template: "%s | Skynology",
+    default: "Perfect Eyes Ltd | Expert Eye & Aesthetic Treatments",
+    template: "%s | Perfect Eyes Ltd",
   },
   description:
-    "Skynology offers expert cosmetic eye surgery, non-surgical aesthetic treatments, and skincare solutions. Discover blepharoplasty, tear trough fillers, polynucleotides, and more.",
+    "Perfect Eyes Ltd offers expert cosmetic eye surgery, non-surgical aesthetic treatments, and skincare solutions. Discover blepharoplasty, tear trough fillers, polynucleotides, and more.",
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "Skynology",
+    siteName: "Perfect Eyes Ltd",
     locale: "en_GB",
   },
   twitter: {
