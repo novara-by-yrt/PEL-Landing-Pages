@@ -8,6 +8,8 @@ export function TreatmentFAQ({ faq, title }: { faq?: FaqItem[]; title: string })
   return (
     <section className="tp-section tp-fog">
       <style>{`
+        .tp-faq-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4rem; }
+        @media (max-width: 860px) { .tp-faq-grid { grid-template-columns: 1fr; gap: 2rem; } }
         .tp-faq-list { display: flex; flex-direction: column; }
         .tp-faq-item { border-bottom: 1px solid var(--tp-hairline); }
         .tp-faq-item:first-child { border-top: 1px solid var(--tp-hairline); }
@@ -16,10 +18,16 @@ export function TreatmentFAQ({ faq, title }: { faq?: FaqItem[]; title: string })
         .tp-faq-chev { flex-shrink: 0; color: var(--tp-indigo-700); transition: transform 220ms var(--tp-ease); }
         .tp-faq-item[open] .tp-faq-chev { transform: rotate(90deg); }
         .tp-faq-a { padding: 0 0 1.5rem; font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; }
+        .tp-faq-a p { margin: 0 0 0.75rem; }
+        .tp-faq-a p:last-child { margin-bottom: 0; }
+        .tp-faq-a ul, .tp-faq-a ol { margin: 0 0 0.75rem; padding-left: 1.25rem; }
+        .tp-faq-a ul { list-style: disc; }
+        .tp-faq-a ol { list-style: decimal; }
+        .tp-faq-a li { margin-bottom: 0.35rem; }
         .tp-faq-ask { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--tp-hairline); display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
         .tp-faq-ask p { margin: 0; font-size: 0.9375rem; color: var(--tp-slate); }
       `}</style>
-      <div className="container" style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: "4rem" }}>
+      <div className="container tp-faq-grid">
         <div className="tp-head">
           <span className="tp-eyebrow"><TpIcon name="quote" size={13} />Patient Questions About {title}</span>
           <h2>Frequently Asked Questions</h2>
