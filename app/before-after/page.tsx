@@ -59,8 +59,10 @@ export default function BeforeAfterIndexPage() {
               )}
               <div className="ba-card-body">
                 <h2 className="ba-card-title">{caseItem.frontmatter.title}</h2>
-                {caseItem.frontmatter.excerpt && (
-                  <p className="ba-card-excerpt">{caseItem.frontmatter.excerpt}</p>
+                {(caseItem.frontmatter.excerpt || caseItem.frontmatter.galleryDescription) && (
+                  <p className="ba-card-excerpt">
+                    {caseItem.frontmatter.excerpt || caseItem.frontmatter.galleryDescription}
+                  </p>
                 )}
                 <span className="ba-card-link">
                   View case <TpIcon name="arrow" size={14} />

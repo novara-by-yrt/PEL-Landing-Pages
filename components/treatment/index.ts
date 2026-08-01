@@ -13,6 +13,8 @@ export { RealSelfWidget } from "./RealSelfWidget";
 export { TreatmentSimilar } from "./TreatmentSimilar";
 export { TreatmentSpotlight } from "./TreatmentSpotlight";
 export { RelatedBlogs } from "./RelatedBlogs";
+export { BeforeAfterGallery } from "./BeforeAfterGallery";
+export { BeforeAfterNav } from "./BeforeAfterNav";
 export { TreatmentCTA } from "./TreatmentCTA";
 export { TpIcon, glanceIconKey } from "./TpIcon";
 export type { TreatmentMeta, GlanceItem, AdvantageItem, SimilarTreatmentItem, ReviewItem, BreadcrumbItem } from "./types";

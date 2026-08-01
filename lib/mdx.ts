@@ -75,6 +75,18 @@ export interface PostFrontmatter {
   relatedTreatmentsHeading?: string;
   showExpertSection?: boolean;
   showAccreditation?: boolean;
+  intro?: string;
+  galleryHeading?: string;
+  galleryDescription?: string;
+  gallery?: GalleryItem[];
+}
+
+export interface GalleryItem {
+  image: string;
+  alt?: string;
+  /** Intrinsic pixel size, so next/image reserves the right box and never distorts. */
+  width?: number;
+  height?: number;
 }
 
 export interface Post {
