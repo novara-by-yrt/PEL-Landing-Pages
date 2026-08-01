@@ -24,8 +24,8 @@
   --clr-border:        hsl(220 15% 90%);
 
   /* Typography */
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-work-sans), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, serif;
 
   --text-xs:   clamp(0.75rem,   1.5vw, 0.8125rem);
   --text-sm:   clamp(0.875rem,  1.7vw, 0.9375rem);
@@ -105,7 +105,35 @@
   --tp-radius-xl: 32px;
   --tp-ease: cubic-bezier(.22,.61,.36,1);
   --tp-display: var(--font-newsreader), Georgia, serif;
-  --tp-body: var(--font-inter), 'Work Sans', system-ui, sans-serif;
+  --tp-body: var(--font-work-sans), system-ui, -apple-system, sans-serif;
+
+  /* ── Design-system type scale (tokens/typography.css) ──────────────────── */
+  --fs-display-2xl: clamp(52px, 7vw, 104px);
+  --fs-display-xl:  clamp(44px, 5.2vw, 76px);
+  --fs-display-lg:  clamp(36px, 4vw, 58px);
+  --fs-display-md:  clamp(28px, 3vw, 42px);
+  --fs-heading-lg: 28px;
+  --fs-heading-md: 22px;
+  --fs-heading-sm: 19px;
+  --fs-body-xl: 21px;
+  --fs-body-lg: 19px;
+  --fs-body-md: 17px;
+  --fs-body-sm: 15px;
+  --fs-caption: 13px;
+  --fs-eyebrow: 12px;
+  --lh-tight: 1.12;
+  --lh-snug: 1.16;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.72;
+  --ls-eyebrow: 0.22em;
+  --ls-label: 0.14em;
+  --ls-display: -0.02em;
+  --ls-tight: -0.01em;
+  --measure: 66ch;
+  --tp-cream: #FBFAF8;
+  --tp-line-soft: #F0EEF6;
+  --tp-hairline-strong: rgba(44,42,122,0.14);
+
   --tp-glass-bg: rgba(255,255,255,0.72);
   --tp-glass-bg-deep: rgba(18,16,54,0.55);
 }
@@ -603,7 +631,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .prose img {
-  width: 100%;
+  /* Fill the column, but never upscale past the file's own resolution —
+     `width: 100%` was blowing 344px assets up to 810px and blurring them. */
+  width: auto;
+  max-width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
   margin: var(--space-8) 0;

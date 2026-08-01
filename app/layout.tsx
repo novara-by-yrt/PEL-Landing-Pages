@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Newsreader } from "next/font/google";
+import { Work_Sans, Newsreader } from "next/font/google";
 import "./globals.css";
 import "./design-system.css";
 import "./layout-chrome.css";
@@ -7,17 +7,14 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { buildOrganizationSchema } from "@/lib/schema";
 
-// ── Fonts (zero CLS — preloaded, no FOUT) ─────────────────────────────────
-const inter = Inter({
+// ── Fonts ────────────────────────────────────────────────────────────────
+// Brand pairing per the Perfect Eyes design system: Newsreader (display)
+// + Work Sans (body). Self-hosted via next/font, so both are preloaded with
+// size-adjusted fallbacks and contribute no layout shift.
+const workSans = Work_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  preload: true,
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-work-sans",
+  weight: ["400", "500", "600"],
   display: "swap",
   preload: true,
 });
@@ -65,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={`${inter.variable} ${playfair.variable} ${newsreader.variable}`}>
+    <html lang="en-GB" className={`${workSans.variable} ${newsreader.variable}`}>
       <head>
         {/* Inline JSON-LD — no render-blocking, no async needed */}
         <script

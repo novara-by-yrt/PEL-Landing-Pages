@@ -16,7 +16,7 @@ export default function NotFound() {
       <div
         style={{
           fontSize: "6rem",
-          fontFamily: "var(--font-playfair), Georgia, serif",
+          fontFamily: "var(--tp-display)",
           fontWeight: 700,
           lineHeight: 1,
           background: "linear-gradient(135deg, hsl(199 90% 32%), hsl(38 92% 58%))",
@@ -29,7 +29,7 @@ export default function NotFound() {
       </div>
       <h1
         style={{
-          fontFamily: "var(--font-playfair), Georgia, serif",
+          fontFamily: "var(--tp-display)",
           fontSize: "clamp(1.5rem, 4vw, 2.25rem)",
           marginBottom: "0.75rem",
         }}

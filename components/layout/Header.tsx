@@ -64,15 +64,24 @@ const EYE_CONDITIONS: SimpleLink[] = [
 
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/dr-sabrina-shah-desai" },
+  {
+    label: "About",
+    href: "/dr-sabrina-shah-desai",
+    variant: "simple",
+    children: [
+      { label: "About Dr Sabrina Shah-Desai", href: "/oculoplastic-surgeon-eyelid-cosmetic-surgeon-london" },
+      { label: "Team", href: "/team" },
+      { label: "Publications", href: "/publications" },
+    ],
+  },
   {
     label: "Eye Journey",
     href: "/journey-of-eye-care",
     variant: "simple",
     children: [
       { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
-      { label: "Blog", href: "/blog" },
       { label: "Advanced Periorbital Skincare", href: "https://drsabrina.com/collections/all", external: true },
+      { label: "Blog", href: "/blog" },
     ],
   },
   { label: "Eye Conditions", href: "/condition/hooded-eyelids", variant: "grid", children: EYE_CONDITIONS },
@@ -86,7 +95,6 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "Before & After", href: "/before-after" },
-  { label: "Publications", href: "/publications" },
 ];
 
 const PHONE = "020 7486 4886";
