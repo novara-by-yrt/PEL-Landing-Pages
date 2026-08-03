@@ -8,6 +8,7 @@ import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
 import PatientStories, { type PatientStory } from "@/components/home/PatientStories";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
+import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -233,24 +234,46 @@ const JOURNEY_STEPS: JourneyStep[] = [
   },
 ];
 
-const AESTHETICS_TEAM = [
+/**
+ * Clinic team. Portraits are the same files the Meet the Team page uses; Dr
+ * Sabrina reuses her profile portrait. Anyone without an image falls back to
+ * a monogram tile, so the grid never shows a hole.
+ */
+const CLINIC_TEAM = [
   {
     name: "Dr Sabrina Shah-Desai",
-    title: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon",
+    role: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon",
+    image: "/uploads/2025/12/Dr-Sabrina2-1.png",
   },
-  { name: "Dr Janine", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-  { name: "Dr Hemmali", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-  { name: "Irvana", title: "Level 4 LASER qualified therapist — Perfect Skin Studio" },
+  {
+    name: "Dr Janine",
+    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    image: "/uploads/2026/04/DR-JANINE.webp",
+  },
+  {
+    name: "Dr Hemmali",
+    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    image: "/uploads/2026/04/Dr-Hemmali.webp",
+  },
+  {
+    name: "Irvana",
+    role: "Level 4 LASER qualified therapist — Perfect Skin Studio",
+    image: "/uploads/2026/04/Irvana.webp",
+  },
+  {
+    name: "Leanne",
+    role: "Practice Clinic Manager",
+    image: "/uploads/2025/09/Leanne-1-1.jpg",
+  },
+  {
+    name: "Mojdeh",
+    role: "Surgical Coordinator & Patient Educator",
+    image: "/uploads/2025/09/Mojdeh-2025-09-17-15-54-00-1.jpg",
+  },
+  { name: "Mary", role: "Patient Coordinator", image: "/uploads/2024/12/Mary-1.png" },
+  { name: "Lakshiya", role: "Patient Coordinator", image: "/uploads/2025/09/Luxee-1.jpg" },
+  { name: "Sally", role: "Patient Coordinator", image: "/uploads/2025/09/Sally-1.jpg" },
 ];
-
-const ADMIN_TEAM = [
-  { name: "Leanne", title: "Practice Clinic Manager" },
-  { name: "Mojdeh", title: "Surgical Coordinator & Patient Educator" },
-  { name: "Mary", title: "Patient Coordinator" },
-  { name: "Lakshiya", title: "Patient Coordinator" },
-  { name: "Sally", title: "Patient Coordinator" },
-];
-
 /**
  * Credential pull-outs for the About section. Every line is existing site
  * copy re-homed, not new claims: the first is the sentence that used to sit
@@ -673,91 +696,90 @@ export default function HomePage() {
         className={`${styles.section} ${styles.team}`}
         aria-labelledby="team-title"
       >
+        <span className={styles.teamGlow} aria-hidden="true" />
+
         <div className="container">
-          <div className={styles.split}>
-            <div className={styles.splitMedia}>
-              <Image
-                src="/uploads/2025/09/Homepage_Picture-1.jpg"
-                alt="The Perfect Eyes Clinic"
-                fill
-                sizes="(min-width: 1000px) 50vw, 100vw"
-              />
-            </div>
-
-            <div>
-              <span className={styles.eyebrow}>Our people</span>
-              <h2 id="team-title" className={styles.h2}>
-                Meet The Clinic Team
-              </h2>
-              <p className={styles.lead}>
-                Elegant &amp; discreet, the clinic ensures an environment that meets the
-                highest standards of safety and hygiene and received a &ldquo;good
-                rating&rdquo; in all 5 key areas by the{" "}
-                <a
-                  href="https://www.cqc.org.uk/location/1-5591490767"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.teamLink}
-                >
-                  Care Quality Commission
-                </a>{" "}
-                (CQC) in 2022.
-              </p>
-
-              <div className={styles.teamCols}>
-                <div>
-                  <h3 className={styles.teamColTitle}>Medical Aesthetics Team</h3>
-                  <ul className={styles.teamList}>
-                    {AESTHETICS_TEAM.map((m) => (
-                      <li key={m.name}>
-                        <span className={styles.teamName}>{m.name}</span>
-                        <span className={styles.teamRole}>{m.title}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className={styles.teamColTitle}>Administrative Team</h3>
-                  <ul className={styles.teamList}>
-                    {ADMIN_TEAM.map((m) => (
-                      <li key={m.name}>
-                        <span className={styles.teamName}>{m.name}</span>
-                        <span className={styles.teamRole}>{m.title}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className={styles.teamCta}>
-                <Link href="/meet-team" className="tp-btn tp-btn-secondary">
-                  Meet the Full Team
-                </Link>
-              </div>
-            </div>
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>Our people</span>
+            <h2 id="team-title" className={styles.h2}>
+              Meet The Clinic Team
+            </h2>
+            <p className={styles.lead}>
+              Elegant &amp; discreet, the clinic ensures an environment that meets the highest
+              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
+              key areas by the{" "}
+              <a
+                href="https://www.cqc.org.uk/location/1-5591490767"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.teamLink}
+              >
+                Care Quality Commission
+              </a>{" "}
+              (CQC) in 2022.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* ── 11. INSTAGRAM ─────────────────────────────────────────────────── */}
-      <section
-        className={`${styles.sectionSm} ${styles.tint} ${styles.instagram}`}
-        aria-label="Instagram"
-      >
-        <div className="container">
-          <p className={styles.instagramText}>
-            Follow us on <strong>Instagram</strong>{" "}
-            <a
-              href="https://www.instagram.com/drsabrinashahdesaiofficial/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.instagramHandle}
-            >
-              @drsabrinashahdesaiofficial
-            </a>{" "}
-            to stay updated
-          </p>
+          <figure className={styles.teamBanner}>
+            <Image
+              src="/uploads/2025/09/Homepage_Picture-1.jpg"
+              alt="Inside the Perfect Eyes Clinic on Harley Street"
+              fill
+              sizes="(min-width: 1280px) 1232px, 100vw"
+              className={styles.teamBannerImg}
+            />
+            <figcaption className={styles.teamBannerChip}>
+              <TpIcon name="shield" size={15} />
+              CQC &ldquo;Good&rdquo; in all 5 key areas
+            </figcaption>
+          </figure>
+
+          <ul className={styles.teamGrid}>
+            {CLINIC_TEAM.map((member) => (
+              <li key={member.name} className={styles.teamCard}>
+                <div className={styles.teamPhoto}>
+                  {/* The monogram sits behind the photo, so a member without
+                      one still reads as a finished card rather than a gap. */}
+                  <span className={styles.teamInitials} aria-hidden="true">
+                    {member.name
+                      .replace(/^Dr /, "")
+                      .split(" ")
+                      .map((part) => part[0])
+                      .slice(0, 2)
+                      .join("")}
+                  </span>
+                  {member.image ? (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(min-width: 900px) 240px, 45vw"
+                      className={styles.teamPhotoImg}
+                    />
+                  ) : null}
+                </div>
+                <div className={styles.teamCardBody}>
+                  <h3 className={styles.teamName}>{member.name}</h3>
+                  <p className={styles.teamRole}>{member.role}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.teamCta}>
+            <Link href="/meet-team" className="tp-btn tp-btn-primary">
+              Meet the Full Team
+              <span className="tp-btn-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 12h13M12.5 6l6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
