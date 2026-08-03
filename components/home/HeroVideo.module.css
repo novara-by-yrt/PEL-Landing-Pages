@@ -1,0 +1,47 @@
+/* Full-bleed background video stage for the hero.
+
+   The video is decorative: it sits behind the headline and never carries
+   information, so the whole stage is aria-hidden and the copy above it is
+   what gets read. */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: var(--tp-lavender-050);
+  /* Makes the container query units below resolve against this box. */
+  container-type: size;
+}
+
+/* Wistia's own swatch frame, shown immediately at zero JS cost. It stays
+   underneath the player, so there is never an empty rectangle while the
+   embed loads — and it is the only layer that renders when motion is
+   reduced or the script is blocked. */
+.poster {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Object-fit: cover, but for a fixed-ratio element that is not an <img>.
+   Whichever axis is short gets driven past 100% so the 16:9 frame always
+   overflows the stage instead of letter-boxing it. */
+.player {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  width: max(100cqw, calc(100cqh * 16 / 9));
+  height: max(100cqh, calc(100cqw * 9 / 16));
+}
+
+/* Wistia paints its own black stage behind the frame; keep it transparent so
+   the hero's light background shows through during load. */
+.player::part(container),
+.player:not(:defined) {
+  background: transparent;
+}

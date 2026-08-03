@@ -118,104 +118,121 @@
   margin-inline: auto;
 }
 
-/* ── 1. Hero ────────────────────────────────────────────────────────────── */
+/* ── 1. Hero ──────────────────────────────────────────────────────────────
+   Light, editorial hero over a looping background video. The copy column is
+   held to the left on wide screens so the video's subject stays visible in
+   the right half; below 900px the scrim goes uniform and the copy sits over
+   the whole frame.                                                        */
 .hero {
   position: relative;
-  overflow: hidden;
   isolation: isolate;
-  background: var(--tp-indigo-950);
-  padding-block: clamp(56px, 11vw, 104px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(560px, 82vh, 860px);
+  padding-block: clamp(56px, 10vw, 96px);
+  background: var(--tp-lavender-050);
 }
-.heroImage {
-  object-fit: cover;
-  object-position: center;
-  z-index: -2;
-}
-.heroOverlay {
+
+/* Sits between the video stage (z-index -2) and the copy. Mobile-first: an
+   even wash that keeps every line of text on a calm field. */
+.heroScrim {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--home-overlay);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(247, 246, 251, 0.9) 0%,
+      rgba(247, 246, 251, 0.78) 45%,
+      rgba(247, 246, 251, 0.94) 100%
+    );
 }
-.heroGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--home-gap-lg);
-  align-items: center;
-}
-.heroCopy {
+
+.heroInner {
   max-width: 34rem;
 }
+
 .heroEyebrow {
-  color: var(--tp-lavender-300);
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+  margin: 0 0 18px;
 }
+
 .heroTitle {
   font-family: var(--tp-display);
   font-weight: 500;
-  font-size: clamp(1.5rem, 5.2vw, 2.35rem);
-  line-height: 1.28;
-  letter-spacing: var(--ls-tight);
-  color: #fff;
+  font-size: clamp(2.75rem, 12vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  color: var(--tp-ink);
   margin: 0;
-  text-wrap: pretty;
 }
+
 .heroLead {
-  font-size: var(--text-base);
-  line-height: var(--lh-relaxed);
-  color: rgba(255, 255, 255, 0.82);
-  margin: 20px 0 0;
-  max-width: 46ch;
+  font-size: clamp(1.0625rem, 4vw, 1.1875rem);
+  line-height: 1.58;
+  color: var(--tp-slate);
+  margin: 22px 0 0;
+  max-width: 32ch;
 }
+
 .heroActions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: clamp(28px, 6vw, 40px);
 }
-/* Full-width CTAs on the narrowest phones, auto-width from 420px up */
+/* Full-width CTA on the narrowest phones, auto-width from 420px up. */
 .heroActions > * {
   flex: 1 1 100%;
 }
 
-.heroFigure {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  margin-inline: auto;
+/* ── Hero trust bar ─────────────────────────────────────────────────────── */
+.trust {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: clamp(40px, 9vw, 72px) 0 0;
 }
-.heroPortrait {
-  width: 100%;
-  height: auto;
-}
-.heroBadge {
-  margin-top: -28px;
-  margin-inline: auto;
-  max-width: 21rem;
-  background: rgba(18, 16, 54, 0.82);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--home-card-radius);
-  padding: 18px 20px;
-}
-.heroBadgeName {
-  font-family: var(--tp-display);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--tp-lavender-300);
+.trustItem {
   margin: 0;
+  min-width: 0;
 }
-.heroBadgeCred {
+/* The rating reads as the headline signal, so it takes the full row on the
+   narrowest layouts rather than being squeezed into a half column. */
+.trustItem:first-child {
+  grid-column: 1 / -1;
+}
+.trustLabel {
   display: block;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.62);
-  margin: 4px 0 10px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-mist);
+  margin: 0 0 7px;
 }
-.heroBadgeText {
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.84);
+.trustValue {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   margin: 0;
+  font-family: var(--tp-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tp-ink);
+}
+.stars {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 13px;
+  fill: var(--tp-gold);
 }
 
 @media (min-width: 420px) {
@@ -224,20 +241,64 @@
   }
 }
 
+@media (min-width: 560px) {
+  .heroTitle {
+    font-size: clamp(3.25rem, 8vw, 4rem);
+  }
+}
+
 @media (min-width: 900px) {
-  .heroGrid {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(40px, 5vw, 72px);
+  .hero {
+    padding-block: clamp(72px, 8vw, 120px);
   }
-  .heroFigure {
-    margin-inline: 0 auto;
+  /* Weighted to the left so the headline never sits on busy video. */
+  .heroScrim {
+    background:
+      linear-gradient(
+        96deg,
+        rgba(247, 246, 251, 0.97) 0%,
+        rgba(247, 246, 251, 0.93) 28%,
+        rgba(247, 246, 251, 0.6) 52%,
+        rgba(247, 246, 251, 0.28) 72%,
+        rgba(247, 246, 251, 0.55) 100%
+      ),
+      linear-gradient(180deg, rgba(247, 246, 251, 0.5) 0%, transparent 22%, rgba(247, 246, 251, 0.6) 100%);
   }
-  .heroBadge {
-    position: absolute;
-    right: -12px;
-    bottom: 24px;
-    margin: 0;
-    max-width: 15.5rem;
+  .heroInner {
+    max-width: 41rem;
+  }
+  .heroTitle {
+    font-size: clamp(4rem, 5.4vw, 6rem);
+  }
+  .heroLead {
+    font-size: clamp(1.125rem, 1.15vw, 1.4rem);
+    line-height: 1.55;
+    max-width: 30rem;
+    margin-top: 30px;
+  }
+  .heroActions {
+    margin-top: 46px;
+  }
+  /* Two explicit columns rather than a wrapping flex row: the third item
+     lands under the first, flush to the same left edge, instead of
+     inheriting a divider it should not have. */
+  .trust {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: start;
+    gap: 22px 0;
+  }
+  .trustItem:first-child {
+    grid-column: 1;
+  }
+  .trustItem + .trustItem {
+    padding-left: 30px;
+    border-left: 1px solid var(--tp-line);
+  }
+  .trustItem:last-child {
+    grid-column: 1;
+    padding-left: 0;
+    border-left: none;
   }
 }
 

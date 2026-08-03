@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
+import HeroVideo from "@/components/home/HeroVideo";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import VideoCard from "@/components/home/VideoCard";
 import styles from "./page.module.css";
@@ -180,6 +181,22 @@ const ACCREDITATIONS = [
   { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
 ];
 
+/** Five-star row for the hero rating. Drawn, not an image, so it stays sharp
+    and costs no request. */
+function Stars() {
+  return (
+    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+      {[0, 18, 36, 54, 72].map((x) => (
+        <path
+          key={x}
+          transform={`translate(${x} 0)`}
+          d="M8 0.6l2.24 4.9 5.36.62-3.97 3.63 1.06 5.28L8 12.42 3.31 15.03l1.06-5.28L.4 6.12l5.36-.62z"
+        />
+      ))}
+    </svg>
+  );
+}
+
 /** Shared chevron used on every treatment card. */
 function CardArrow() {
   return (
@@ -222,58 +239,54 @@ export default function HomePage() {
     <div className={styles.home}>
       {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
       <section className={styles.hero} aria-labelledby="hero-title">
-        {/* The hero backdrop is the LCP element, so it is preloaded from the
-            document head. `priority` is deprecated as of Next 16 — `preload`
-            is the replacement that says what it actually does. */}
-        <Image
-          src="/uploads/2025/10/234-1.png"
-          alt=""
-          fill
-          preload
-          sizes="100vw"
-          className={styles.heroImage}
-        />
-        <span className={styles.heroOverlay} aria-hidden="true" />
+        <HeroVideo />
+        <span className={styles.heroScrim} aria-hidden="true" />
 
         <div className="container">
-          <div className={styles.heroGrid}>
-            <div className={styles.heroCopy}>
-              <span className={`${styles.eyebrow} ${styles.heroEyebrow}`}>
-                Oculoplastic &amp; Aesthetic Surgery — London
-              </span>
-              <h1 id="hero-title" className={styles.heroTitle}>
-                Our expertise is in Clinically led assessment and treatment of eyelid and
-                peri-ocular conditions, focused on function, comfort, and anatomical balance.
-              </h1>
-              <p className={styles.heroLead}>
-                Care is delivered using contemporary minimally invasive surgical and
-                non-surgical techniques.
-              </p>
-              <div className={styles.heroActions}>
-                <Link href="/self-test-survey" className="tp-btn tp-btn-primary tp-btn-lg">
-                  Take the Eyelid Surgery Test
-                </Link>
-              </div>
+          <div className={styles.heroInner}>
+            <span className={styles.heroEyebrow}>Harley Street &middot; London</span>
+            <h1 id="hero-title" className={styles.heroTitle}>
+              Expert in
+              <br />
+              Eyelid Surgery
+            </h1>
+            <p className={styles.heroLead}>
+              Natural-looking results from London&apos;s leading Board Certified
+              Oculoplastic Surgeon, using evidence-based techniques.
+            </p>
+
+            <div className={styles.heroActions}>
+              <Link href="/self-test-survey" className="tp-btn tp-btn-primary tp-btn-lg">
+                Take the Eyelid Surgery Test
+                <span className="tp-btn-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M5 12h13M12.5 6l6 6-6 6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </Link>
             </div>
 
-            <div className={styles.heroFigure}>
-              <Image
-                src="/uploads/2026/06/Group-12.svg"
-                alt="Dr Sabrina Shah-Desai"
-                width={420}
-                height={480}
-                loading="eager"
-                className={styles.heroPortrait}
-              />
-              <div className={styles.heroBadge}>
-                <p className={styles.heroBadgeName}>DR. SABRINA SHAH&mdash;DESAI</p>
-                <small className={styles.heroBadgeCred}>MS, FRCS (Ed) Ophth.</small>
-                <p className={styles.heroBadgeText}>
-                  Has been consistently recognised as a top practitioner for eyes for eight
-                  consecutive years, from 2019 to 2026
-                </p>
+            <dl className={styles.trust}>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>Google rating</dt>
+                <dd className={styles.trustValue}>
+                  <Stars />
+                  4.9 &middot; 230+ reviews
+                </dd>
               </div>
-            </div>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>25+ years</dt>
+                <dd className={styles.trustValue}>Surgical experience</dd>
+              </div>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
+                <dd className={styles.trustValue}>Registered &amp; accredited</dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
