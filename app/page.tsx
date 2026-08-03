@@ -416,7 +416,7 @@ export default function HomePage() {
                 edges line up exactly with the column beside it. */}
             <figure className={styles.expertMedia}>
               <Image
-                src="/uploads/2026/01/dr-sabrina.jpg"
+                src="/uploads/2025/12/Dr-Sabrina2-1.png"
                 alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon"
                 fill
                 sizes="(min-width: 1000px) 42vw, 100vw"
