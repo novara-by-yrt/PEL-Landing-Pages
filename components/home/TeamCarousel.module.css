@@ -1,0 +1,193 @@
+/* Team slideshow.
+
+   Below 1000px the arrows sit under the rail, centred — at phone widths a
+   button pinned over the card edge would cover a third of the face. From
+   1000px they move out to the rail's edges as in the design. */
+
+.wrap {
+  position: relative;
+}
+
+.viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: clamp(16px, 4vw, 40px);
+}
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78vw, 340px);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: stretch;
+  padding: 6px clamp(16px, 4vw, 40px) 24px;
+}
+
+/* ── Card ───────────────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  background: var(--tp-cream);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--tp-shadow-sm);
+  transition: transform 280ms var(--tp-ease), box-shadow 280ms var(--tp-ease),
+    border-color 280ms var(--tp-ease);
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--tp-lavender-300);
+  box-shadow: var(--tp-shadow-md);
+}
+
+.photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
+}
+.photoImg {
+  object-fit: cover;
+  object-position: center top;
+}
+/* Monogram behind the photo, so a member without one is still a finished
+   card rather than an empty tile. */
+.initials {
+  font-family: var(--tp-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--tp-lavender-400);
+}
+
+/* Credential chips sit on a scrim so they stay legible over any photo. */
+.chips {
+  position: absolute;
+  inset: auto 14px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+  box-shadow: var(--tp-shadow-xs);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 10px;
+  padding: clamp(18px, 2.5vw, 24px);
+}
+.name {
+  font-family: var(--tp-display);
+  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0;
+}
+.role {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* Brand lavender in place of the design's pink; 4.9:1 on the cream card. */
+  color: var(--tp-lavender-500);
+  margin: 0;
+}
+
+/* ── Arrows ─────────────────────────────────────────────────────────────── */
+.arrows {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid var(--tp-lavender-200);
+  background: var(--tp-paper);
+  color: var(--tp-indigo-700);
+  cursor: pointer;
+  box-shadow: var(--tp-shadow-sm);
+  transition: background 200ms var(--tp-ease), border-color 200ms var(--tp-ease),
+    transform 200ms var(--tp-ease), opacity 200ms var(--tp-ease);
+}
+.arrow:hover:not(:disabled) {
+  background: var(--tp-lavender-050);
+  border-color: var(--tp-lavender-300);
+}
+.arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.arrow:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 2px;
+}
+.arrow svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+}
+
+@media (min-width: 1000px) {
+  .arrows {
+    margin: 0;
+  }
+  .arrow {
+    position: absolute;
+    top: 34%;
+    z-index: 2;
+    width: 52px;
+    height: 52px;
+    box-shadow: var(--tp-shadow-md);
+  }
+  .arrowPrev {
+    left: clamp(-8px, -0.5vw, 0px);
+  }
+  .arrowNext {
+    right: clamp(-8px, -0.5vw, 0px);
+  }
+  .arrow:hover:not(:disabled) {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .arrow {
+    transition: none;
+  }
+  .card:hover,
+  .arrow:hover:not(:disabled) {
+    transform: none;
+  }
+}

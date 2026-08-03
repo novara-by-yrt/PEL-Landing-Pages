@@ -733,9 +733,7 @@
 }
 
 /* ── 10. Clinic team ──────────────────────────────────────────────────────
-   Wide clinic photo over a portrait grid. The grid is auto-fit, so it
-   reflows from one column on a phone to five on a wide desktop without a
-   breakpoint per step, and the last row never strands a single card.     */
+   Section frame only; the slideshow lives in TeamCarousel.module.css.     */
 .team {
   position: relative;
   isolation: isolate;
@@ -762,131 +760,10 @@
   color: var(--tp-indigo-600);
 }
 
-.teamBanner {
-  position: relative;
-  margin: 0 0 clamp(28px, 4vw, 44px);
-  aspect-ratio: 16 / 10;
-  border-radius: var(--tp-radius-xl);
-  overflow: hidden;
-  box-shadow: var(--tp-shadow-lg);
-  background: var(--tp-lavender-100);
-}
-.teamBannerImg {
-  object-fit: cover;
-}
-.teamBannerChip {
-  position: absolute;
-  left: clamp(14px, 2vw, 22px);
-  bottom: clamp(14px, 2vw, 22px);
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  color: var(--tp-indigo-700);
-  box-shadow: var(--tp-shadow-sm);
-}
-
-.teamGrid {
-  display: grid;
-  /* auto-fit + a min track: the row count follows the available width with
-     no per-step breakpoint, and the last row never strands one card. */
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: clamp(14px, 2vw, 22px);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.teamCard {
-  display: flex;
-  flex-direction: column;
-  background: var(--tp-paper);
-  border: 1px solid var(--tp-line);
-  border-radius: var(--tp-radius-lg);
-  overflow: hidden;
-  box-shadow: var(--tp-shadow-xs);
-  transition: transform 260ms var(--tp-ease), box-shadow 260ms var(--tp-ease),
-    border-color 260ms var(--tp-ease);
-}
-.teamCard:hover {
-  transform: translateY(-4px);
-  border-color: var(--tp-lavender-300);
-  box-shadow: var(--tp-shadow-md);
-}
-
-.teamPhoto {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 3 / 4;
-  background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
-}
-.teamInitials {
-  font-family: var(--tp-display);
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--tp-lavender-400);
-}
-.teamPhotoImg {
-  object-fit: cover;
-  object-position: center top;
-}
-
-.teamCardBody {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  gap: 5px;
-  padding: 16px 16px 18px;
-}
-.teamName {
-  font-family: var(--tp-display);
-  font-size: var(--fs-body-md);
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--tp-ink);
-  margin: 0;
-}
-.teamRole {
-  font-size: var(--fs-caption);
-  line-height: 1.5;
-  color: var(--tp-slate);
-  margin: 0;
-}
-
 .teamCta {
   display: flex;
   justify-content: center;
   margin-top: clamp(28px, 4vw, 44px);
-}
-
-@media (min-width: 640px) {
-  .teamGrid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-@media (min-width: 1000px) {
-  .teamGrid {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  }
-  .teamBanner {
-    aspect-ratio: 21 / 8;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .teamCard {
-    transition: none;
-  }
-  .teamCard:hover {
-    transform: none;
-  }
 }
 
 /* ── 12. Closing CTA ──────────────────────────────────────────────────────

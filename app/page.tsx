@@ -6,6 +6,7 @@ import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
 import PatientStories, { type PatientStory } from "@/components/home/PatientStories";
+import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -251,10 +252,11 @@ const CONSULTATION_FEES = [
   { label: "Revision / 2nd opinion", price: "£400" },
 ];
 
-const CLINIC_TEAM = [
+const CLINIC_TEAM: TeamMember[] = [
   {
     name: "Dr Sabrina Shah-Desai",
-    role: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon",
+    role: "Board Certified Cosmetic Oculoplastic Surgeon",
+    credentials: ["MS", "FRCS"],
     image: "/uploads/2025/12/Dr-Sabrina2-1.png",
   },
   {
@@ -269,7 +271,8 @@ const CLINIC_TEAM = [
   },
   {
     name: "Irvana",
-    role: "Level 4 LASER qualified therapist — Perfect Skin Studio",
+    role: "Qualified therapist — Perfect Skin Studio",
+    credentials: ["Level 4 Laser"],
     image: "/uploads/2026/04/Irvana.webp",
   },
   {
@@ -285,8 +288,7 @@ const CLINIC_TEAM = [
   { name: "Mary", role: "Patient Coordinator", image: "/uploads/2024/12/Mary-1.png" },
   { name: "Lakshiya", role: "Patient Coordinator", image: "/uploads/2025/09/Luxee-1.jpg" },
   { name: "Sally", role: "Patient Coordinator", image: "/uploads/2025/09/Sally-1.jpg" },
-];
-/**
+];/**
  * Credential pull-outs for the About section. Every line is existing site
  * copy re-homed, not new claims: the first is the sentence that used to sit
  * bolded at the end of the second paragraph, the second is the recognition
@@ -732,51 +734,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <figure className={styles.teamBanner}>
-            <Image
-              src="/uploads/2025/09/Homepage_Picture-1.jpg"
-              alt="Inside the Perfect Eyes Clinic on Harley Street"
-              fill
-              sizes="(min-width: 1280px) 1232px, 100vw"
-              className={styles.teamBannerImg}
-            />
-            <figcaption className={styles.teamBannerChip}>
-              <TpIcon name="shield" size={15} />
-              CQC &ldquo;Good&rdquo; in all 5 key areas
-            </figcaption>
-          </figure>
-
-          <ul className={styles.teamGrid}>
-            {CLINIC_TEAM.map((member) => (
-              <li key={member.name} className={styles.teamCard}>
-                <div className={styles.teamPhoto}>
-                  {/* The monogram sits behind the photo, so a member without
-                      one still reads as a finished card rather than a gap. */}
-                  <span className={styles.teamInitials} aria-hidden="true">
-                    {member.name
-                      .replace(/^Dr /, "")
-                      .split(" ")
-                      .map((part) => part[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </span>
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      sizes="(min-width: 900px) 240px, 45vw"
-                      className={styles.teamPhotoImg}
-                    />
-                  ) : null}
-                </div>
-                <div className={styles.teamCardBody}>
-                  <h3 className={styles.teamName}>{member.name}</h3>
-                  <p className={styles.teamRole}>{member.role}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <TeamCarousel members={CLINIC_TEAM} />
 
           <div className={styles.teamCta}>
             <Link href="/meet-team" className="tp-btn tp-btn-primary">
