@@ -283,8 +283,12 @@ const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
   { title: "Patients on their experience" },
 ];
 
+/**
+ * grating.svg and rating49.svg are missing from the uploads origin and render
+ * as broken images, so the Google rating is drawn instead of fetched. The
+ * remaining two are third-party marks and stay as supplied files.
+ */
 const ACCREDITATIONS = [
-  { src: "/uploads/2024/09/grating.svg", alt: "Google Rating" },
   { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
   { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
 ];
@@ -597,13 +601,10 @@ export default function HomePage() {
             </h2>
             <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
             <div className={styles.rating}>
-              <Image
-                src="/uploads/2024/09/rating49.svg"
-                alt="Rated 4.9 out of 5"
-                width={160}
-                height={32}
-                className={styles.ratingImage}
-              />
+              <p className={styles.ratingScore}>
+                <Stars />
+                <span className="sr-only">Rated </span>4.9<span className="sr-only"> out of 5</span>
+              </p>
               <p className={styles.ratingText}>Based on 220+ Google Reviews</p>
             </div>
           </div>
@@ -640,6 +641,13 @@ export default function HomePage() {
       >
         <div className="container">
           <div className={styles.badges}>
+            <p className={styles.googleBadge}>
+              <span className={styles.googleBadgeScore}>4.9</span>
+              <span className={styles.googleBadgeBody}>
+                <Stars />
+                <span className={styles.googleBadgeLabel}>Google reviews</span>
+              </span>
+            </p>
             {ACCREDITATIONS.map((badge) => (
               <Image
                 key={badge.src}
