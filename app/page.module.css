@@ -387,93 +387,178 @@
   }
 }
 
-/* ── 4. About ───────────────────────────────────────────────────────────── */
-.about {
+/* ── 4. About / the surgeon ───────────────────────────────────────────────
+   Portrait card beside a credential column. The grid stretches both cells to
+   the same row height and the portrait fills its cell, so the image's top and
+   bottom edges line up exactly with the column beside it at every width.   */
+.expert {
+  background: var(--tp-lavender-050);
+}
+
+.expertGrid {
   display: grid;
   grid-template-columns: 1fr;
-  background: var(--tp-paper);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: stretch;
 }
-.aboutMedia {
+
+/* ── Portrait ───────────────────────────────────────────────────────────── */
+.expertMedia {
   position: relative;
-  isolation: isolate;
-  min-height: 280px;
-  display: grid;
-  place-items: center;
-  background: var(--tp-indigo-950);
+  margin: 0;
+  height: 100%;
+  min-height: 380px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--tp-radius-xl);
+  overflow: hidden;
+  background: var(--tp-lavender-100);
+  box-shadow: var(--tp-shadow-md);
 }
-.aboutMedia img {
+.expertPortrait {
   object-fit: cover;
-  z-index: -2;
+  object-position: center top;
 }
-.aboutMediaOverlay {
+
+.expertPill {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(18, 16, 54, 0.5), rgba(44, 42, 122, 0.55));
-}
-.playButton {
-  width: 72px;
-  height: 72px;
+  top: 18px;
+  left: 18px;
+  padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+}
+
+.expertBadge {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--tp-radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--tp-shadow-sm);
+}
+.expertBadgeIcon {
   display: grid;
   place-items: center;
-  box-shadow: 0 10px 34px rgba(18, 16, 54, 0.4);
-  transition: transform 220ms var(--tp-ease), box-shadow 220ms var(--tp-ease);
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--tp-indigo-700);
+  color: #fff;
 }
-.playButton:hover {
-  transform: scale(1.06);
-  box-shadow: 0 14px 44px rgba(18, 16, 54, 0.5);
+.expertBadgeTitle {
+  display: block;
+  font-family: var(--tp-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tp-ink);
 }
-.playButton:focus-visible {
-  outline: 3px solid #fff;
-  outline-offset: 4px;
+.expertBadgeMeta {
+  display: block;
+  font-size: var(--fs-caption);
+  color: var(--tp-slate);
+  margin-top: 2px;
 }
-.playIcon {
-  width: 26px;
-  height: 26px;
-  margin-left: 4px;
-  fill: var(--tp-indigo-700);
+
+.medalIcon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
 }
-.aboutText {
-  padding: clamp(40px, 7vw, 72px) var(--space-4);
+
+/* ── Credential column ──────────────────────────────────────────────────── */
+.expertBody {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
 }
-.aboutCred {
+.expertEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+  margin: 0 0 14px;
+}
+.expertTitle {
+  font-size: clamp(1.9rem, 6.4vw, 2.5rem);
+  text-wrap: pretty;
+}
+.expertCred {
   font-size: var(--text-base);
-  font-weight: 400;
   color: var(--tp-lavender-500);
   margin: 10px 0 0;
 }
-.aboutText p {
-  font-size: var(--text-base);
+.expertText {
+  font-size: var(--fs-body-md);
   line-height: var(--lh-relaxed);
   color: var(--home-body);
   margin: 20px 0 0;
   max-width: 62ch;
 }
-.aboutText strong {
-  color: var(--home-heading);
-  font-weight: 600;
+
+.expertList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  margin: clamp(24px, 4vw, 32px) 0 0;
+  padding: clamp(24px, 4vw, 32px) 0 0;
+  border-top: 1px solid var(--tp-hairline);
+}
+.expertListItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: var(--fs-body-sm);
+  line-height: 1.55;
+  color: var(--tp-ink);
+}
+.checkIcon {
+  width: 21px;
+  height: 21px;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--tp-gold);
+  stroke-width: 1.5;
 }
 
-@media (min-width: 640px) {
-  .aboutText {
-    padding-inline: var(--space-8);
-  }
+.expertCta {
+  margin-top: clamp(28px, 4vw, 36px);
 }
-@media (min-width: 900px) {
-  .about {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
+
+@media (min-width: 1000px) {
+  .expertGrid {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(40px, 4.5vw, 72px);
   }
-  .aboutMedia {
-    min-height: 100%;
+  /* Height now comes from the text column, so the portrait matches it
+     top and bottom rather than imposing its own ratio. */
+  .expertMedia {
+    aspect-ratio: auto;
+    min-height: 520px;
   }
-  .aboutText {
-    padding: clamp(56px, 5vw, 88px) clamp(40px, 4.5vw, 72px);
+  .expertTitle {
+    font-size: clamp(2.25rem, 2.9vw, 3rem);
   }
 }
 
@@ -877,12 +962,10 @@
   .card,
   .cardMedia img,
   .cardScrim,
-  .cardArrow,
-  .playButton {
+  .cardArrow {
     transition: none;
   }
-  .card:hover,
-  .playButton:hover {
+  .card:hover {
     transform: none;
   }
   .card:hover .cardMedia img,

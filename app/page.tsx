@@ -176,6 +176,19 @@ const ADMIN_TEAM = [
 ];
 
 /**
+ * Credential pull-outs for the About section. Every line is existing site
+ * copy re-homed, not new claims: the first is the sentence that used to sit
+ * bolded at the end of the second paragraph, the second is the recognition
+ * line from the old hero badge, and the third restates the experience figure
+ * from the opening paragraph.
+ */
+const EXPERT_CREDENTIALS = [
+  "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
+  "Recognised as a top practitioner for eyes for eight consecutive years, 2019–2026",
+  "Over 25 years of surgical and non-surgical experience",
+];
+
+/**
  * A browser paints its own black backdrop over an empty <video>, which would
  * override the panel colour set in CSS. Handing it a poster instead — one
  * inline gradient, no request — keeps the placeholder on brand.
@@ -199,6 +212,26 @@ const ACCREDITATIONS = [
   { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
   { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
 ];
+
+/** Award medal, used on the About eyebrow and the portrait's badge. */
+function Medal() {
+  return (
+    <svg className={styles.medalIcon} viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="9" r="5.25" />
+      <path d="M8.5 13.4L7 22l5-2.6 5 2.6-1.5-8.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Circled tick for the credential list. */
+function CheckMark() {
+  return (
+    <svg className={styles.checkIcon} viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9.25" />
+      <path d="M8.2 12.4l2.6 2.6 5-5.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 /** Four-point sparkle that precedes the "Watch" eyebrow. */
 function Sparkle() {
@@ -365,52 +398,86 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. ABOUT ──────────────────────────────────────────────────────── */}
-      <section className={styles.about} aria-labelledby="about-title">
-        <div className={styles.aboutMedia}>
-          <Image
-            src="/uploads/2024/09/drsabrina-hm-bg.jpg"
-            alt=""
-            fill
-            sizes="(min-width: 900px) 50vw, 100vw"
-          />
-          <span className={styles.aboutMediaOverlay} aria-hidden="true" />
-          <a
-            href="https://www.youtube.com/watch?v=5Z-PVTuIR6c"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Watch Dr Sabrina's introduction video on YouTube"
-            className={styles.playButton}
-          >
-            <svg className={styles.playIcon} viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </a>
-        </div>
+      {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
+      <section
+        className={`${styles.section} ${styles.expert}`}
+        aria-labelledby="about-title"
+      >
+        <div className="container">
+          <div className={styles.expertGrid}>
+            {/* Portrait. Stretches to the row height so its top and bottom
+                edges line up exactly with the column beside it. */}
+            <figure className={styles.expertMedia}>
+              <Image
+                src="/uploads/2026/01/dr-sabrina.jpg"
+                alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon"
+                fill
+                sizes="(min-width: 1000px) 42vw, 100vw"
+                className={styles.expertPortrait}
+              />
+              <figcaption className={styles.expertPill}>The Surgeon</figcaption>
+              <div className={styles.expertBadge}>
+                <span className={styles.expertBadgeIcon} aria-hidden="true">
+                  <Medal />
+                </span>
+                <span>
+                  <span className={styles.expertBadgeTitle}>Top Practitioner for Eyes</span>
+                  <span className={styles.expertBadgeMeta}>
+                    Eight consecutive years, 2019&ndash;2026
+                  </span>
+                </span>
+              </div>
+            </figure>
 
-        <div className={styles.aboutText}>
-          <span className={styles.eyebrow}>About</span>
-          <h2 id="about-title" className={styles.h2}>
-            Meet Dr Sabrina Shah-Desai
-          </h2>
-          <p className={styles.aboutCred}>MS, FRCS (Ed) Ophth</p>
-          <span className={styles.rule} aria-hidden="true" />
-          <p>
-            Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning Oculoplastic
-            Reconstructive Surgeon and Aesthetic Practitioner specialising in reconstructive,
-            revisional, and cosmetic surgery of the eyelids, as well as non-surgical treatments
-            for the eyes and face. With over 25 years of experience, she is globally recognised
-            for her pioneering, minimally invasive techniques.
-          </p>
-          <p>
-            Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking subtle,
-            natural results, she is also highly sought after for revisional procedures by those
-            who have undergone previous fillers or eyelid surgeries.{" "}
-            <strong>
-              Dr Shah-Desai is now listed on the Royal College of Surgeons of England register
-              of Board-Certified Cosmetic Surgeons.
-            </strong>
-          </p>
+            <div className={styles.expertBody}>
+              <span className={styles.expertEyebrow}>
+                <Medal />
+                About
+              </span>
+              <h2 id="about-title" className={`${styles.h2} ${styles.expertTitle}`}>
+                Meet Dr Sabrina Shah-Desai
+              </h2>
+              <p className={styles.expertCred}>MS, FRCS (Ed) Ophth</p>
+
+              <p className={styles.expertText}>
+                Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning
+                Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner specialising
+                in reconstructive, revisional, and cosmetic surgery of the eyelids, as well
+                as non-surgical treatments for the eyes and face. With over 25 years of
+                experience, she is globally recognised for her pioneering, minimally
+                invasive techniques.
+              </p>
+              <p className={styles.expertText}>
+                Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking
+                subtle, natural results, she is also highly sought after for revisional
+                procedures by those who have undergone previous fillers or eyelid surgeries.
+              </p>
+
+              <ul className={styles.expertList}>
+                {EXPERT_CREDENTIALS.map((item) => (
+                  <li key={item} className={styles.expertListItem}>
+                    <CheckMark />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className={styles.expertCta}>
+                <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+                  Book a consultation
+                  <span className="tp-btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M5 12h13M12.5 6l6 6-6 6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
