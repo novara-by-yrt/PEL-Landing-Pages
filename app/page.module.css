@@ -680,7 +680,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: clamp(28px, 6vw, 64px);
+  gap: clamp(14px, 2.5vw, 24px);
 }
 /* Stands in for the missing grating.svg. Sized to sit level with the two
    supplied logo files beside it. */
@@ -720,15 +720,38 @@
   color: var(--tp-mist);
 }
 
-.badge {
+/* Every mark in this row sits in the same white chip, so a supplied logo
+   file and the drawn Google badge read as one set rather than three
+   unrelated images floating on the band. */
+.badgeChip {
+  display: inline-grid;
+  place-items: center;
   height: 56px;
+  padding: 0 22px;
+  border-radius: 14px;
+  background: var(--tp-paper);
+  border: 1px solid var(--tp-line);
+  box-shadow: var(--tp-shadow-xs);
+  /* If a logo file ever goes missing again, its alt text stays inside the
+     chip instead of spilling across the row. */
+  overflow: hidden;
+}
+.badge {
+  max-height: 36px;
+  max-width: 150px;
   width: auto;
   object-fit: contain;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--tp-slate);
 }
 @media (min-width: 768px) {
-  .badge,
-  .googleBadge {
+  .googleBadge,
+  .badgeChip {
     height: 70px;
+  }
+  .badge {
+    max-height: 44px;
   }
 }
 

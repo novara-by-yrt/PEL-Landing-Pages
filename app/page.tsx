@@ -326,8 +326,10 @@ const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
  * remaining two are third-party marks and stay as supplied files.
  */
 const ACCREDITATIONS = [
-  { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
-  { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
+  { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf rating 4.9 out of 5" },
+  // Was carequlaity.svg — a misspelt path that 404s. cqc-logo.svg is the
+  // correctly named file the other content pages reference.
+  { src: "/uploads/2024/09/cqc-logo.svg", alt: "Care Quality Commission rated Good" },
 ];
 
 /** Award medal, used on the About eyebrow and the portrait's badge. */
@@ -686,14 +688,15 @@ export default function HomePage() {
               </span>
             </p>
             {ACCREDITATIONS.map((badge) => (
-              <Image
-                key={badge.src}
-                src={badge.src}
-                alt={badge.alt}
-                width={140}
-                height={70}
-                className={styles.badge}
-              />
+              <span key={badge.src} className={styles.badgeChip}>
+                <Image
+                  src={badge.src}
+                  alt={badge.alt}
+                  width={140}
+                  height={70}
+                  className={styles.badge}
+                />
+              </span>
             ))}
           </div>
         </div>
