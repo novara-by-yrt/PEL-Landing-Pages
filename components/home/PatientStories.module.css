@@ -156,6 +156,27 @@
   gap: 12px;
   margin-bottom: 22px;
 }
+/* Google mark + stars read as one attribution unit. */
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.googleMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  /* White disc so the four-colour mark keeps its contrast on the dark card. */
+  background: #fff;
+  box-shadow: var(--tp-shadow-xs);
+}
+.googleMark svg {
+  width: 15px;
+  height: 15px;
+}
 .stars {
   width: 92px;
   height: 15px;

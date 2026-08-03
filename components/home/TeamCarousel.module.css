@@ -159,25 +159,35 @@
 }
 
 @media (min-width: 1000px) {
+  /* The rail gets side gutters wide enough to seat the arrows, so they sit
+     beside the cards instead of on top of a face. */
+  .track {
+    padding-inline: 76px;
+  }
+  .viewport {
+    scroll-padding-inline: 76px;
+  }
   .arrows {
     margin: 0;
   }
   .arrow {
     position: absolute;
-    top: 34%;
+    top: 50%;
     z-index: 2;
     width: 52px;
     height: 52px;
+    margin-top: -26px;
     box-shadow: var(--tp-shadow-md);
   }
   .arrowPrev {
-    left: clamp(-8px, -0.5vw, 0px);
+    left: 6px;
   }
   .arrowNext {
-    right: clamp(-8px, -0.5vw, 0px);
+    right: 6px;
   }
   .arrow:hover:not(:disabled) {
-    transform: scale(1.06);
+    transform: translateY(-2px);
+    box-shadow: var(--tp-shadow-lg);
   }
 }
 
