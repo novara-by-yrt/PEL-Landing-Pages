@@ -123,10 +123,13 @@
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   margin-right: -12px;
   margin-left: 3px;
+  /* Pulled out of the line box so the badge rides inside the button's own
+     min-height instead of stretching it taller than a plain CTA. */
+  margin-block: -7px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.16);
   transition: transform 220ms var(--tp-ease), background 220ms var(--tp-ease);
@@ -143,14 +146,11 @@
   transform: translateX(3px);
 }
 .tp-btn-lg .tp-btn-arrow {
-  width: 42px;
-  height: 42px;
-  margin-right: -20px;
-  margin-left: 9px;
-}
-.tp-btn-lg .tp-btn-arrow svg {
-  width: 17px;
-  height: 17px;
+  width: 34px;
+  height: 34px;
+  margin-right: -18px;
+  margin-left: 6px;
+  margin-block: -8px;
 }
 /* On light-background variants the badge needs the inverse treatment. */
 .tp-btn-secondary .tp-btn-arrow,
@@ -164,9 +164,9 @@
 
 /* Sizes / layout modifiers */
 .tp-btn-lg {
-  min-height: 60px;
-  padding: 19px 38px;
-  font-size: 1.0625rem;
+  min-height: 54px;
+  padding: 17px 36px;
+  font-size: 1rem;
 }
 .tp-btn-block { width: 100%; }
 

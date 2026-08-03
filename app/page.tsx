@@ -256,7 +256,7 @@ export default function HomePage() {
             </p>
 
             <div className={styles.heroActions}>
-              <Link href="/self-test-survey" className="tp-btn tp-btn-primary tp-btn-lg">
+              <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
                 Take the Eyelid Surgery Test
                 <span className="tp-btn-arrow" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -294,9 +294,9 @@ export default function HomePage() {
       {/* ── 2. AWARDS ─────────────────────────────────────────────────────── */}
       <section
         className={`${styles.logoStrip} ${styles.logoStripTop}`}
-        aria-label="Awards and memberships"
+        aria-label="Accreditations and recognition"
       >
-        <p className={styles.logoStripLabel}>Awards &amp; professional memberships</p>
+        <p className={styles.logoStripLabel}>Accredited &amp; recognised by</p>
         <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
       </section>
 
