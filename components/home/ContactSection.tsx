@@ -3,52 +3,22 @@ import { TpIcon } from "@/components/treatment/TpIcon";
 import CallbackForm from "./CallbackForm";
 import styles from "./ContactSection.module.css";
 
-/**
- * Clinic contact details.
- *
- * These match the values already published in the site footer, which is the
- * only record of them in the repository. The design mock this section was
- * built from shows a different phone number, email and street address — if
- * those are the current ones, change them here AND in components/layout/
- * Footer.tsx together, so the page never states two different numbers.
- */
-const CLINIC = {
-  phoneDisplay: "020 7486 4886",
-  phoneHref: "tel:+442074864886",
-  email: "perfecteyesltd@gmail.com",
-  address: "Perfect Eyes Ltd, 9 Harley Street, London, W1G 9QY",
-  hours: [
-    { day: "Mon – Fri", time: "9:30am – 6:00pm" },
-    { day: "Sat & Sun", time: "Closed" },
-  ],
+import { CLINIC, MAPS_URL, SOCIALS } from "@/lib/clinic";
+
+const SOCIAL_ICONS: Record<string, React.ReactNode> = {
+  Instagram: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  "X / Twitter": (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.6 3h6.2l4.2 5.6L17.5 3z" />
+    </svg>
+  ),
 };
-
-const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  CLINIC.address,
-)}`;
-
-const SOCIALS = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/drsabrinashahdesaiofficial/",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="5" />
-        <circle cx="12" cy="12" r="4" />
-        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-  {
-    label: "X / Twitter",
-    href: "https://twitter.com/perfecteyesltd",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.6 3h6.2l4.2 5.6L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z" />
-      </svg>
-    ),
-  },
-];
 
 function ExternalArrow() {
   return (
@@ -73,7 +43,7 @@ export default function ContactSection() {
             </h2>
             <p className={styles.lead}>
               Speak to our team about which treatment suits you, or arrange a private
-              consultation at Harley Street.
+              consultation at 121 Harley Street.
             </p>
 
             <div className={styles.rows}>
@@ -147,7 +117,7 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className={styles.social}
                 >
-                  {social.icon}
+                  {SOCIAL_ICONS[social.label]}
                   {social.label}
                 </a>
               ))}
