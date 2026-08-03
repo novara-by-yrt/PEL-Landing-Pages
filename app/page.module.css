@@ -321,7 +321,73 @@
   margin: 0 0 20px;
 }
 
-/* ── 3. About ───────────────────────────────────────────────────────────── */
+/* ── 3. Watch ─────────────────────────────────────────────────────────────
+   Centred editorial heading over two film panels. One column on phones so
+   each player keeps a usable width; two from 768px up.                    */
+.watchEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+  margin: 0 0 16px;
+}
+.watchSparkle {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.watchTitle {
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  max-width: 17ch;
+  margin-inline: auto;
+  /* `.h2` balances its lines; this heading reads better with a long first
+     line and a short second, as in the design. */
+  text-wrap: pretty;
+}
+
+.watchGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 4vw, 40px);
+}
+
+.watchItem {
+  margin: 0;
+  min-width: 0;
+}
+
+/* The dark panel is the element's own background, so it reads as a finished
+   surface before a source is attached and while a poster is still loading. */
+.watchVideo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 2.2vw, 26px);
+  background: linear-gradient(180deg, #211e42 0%, #14122c 100%);
+  box-shadow: var(--tp-shadow-md);
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .watchGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .watchTitle {
+    font-size: clamp(2.75rem, 3.7vw, 4.25rem);
+    max-width: 30ch;
+  }
+}
+
+/* ── 4. About ───────────────────────────────────────────────────────────── */
 .about {
   display: grid;
   grid-template-columns: 1fr;

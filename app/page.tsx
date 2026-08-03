@@ -175,11 +175,39 @@ const ADMIN_TEAM = [
   { name: "Sally", title: "Patient Coordinator" },
 ];
 
+/**
+ * A browser paints its own black backdrop over an empty <video>, which would
+ * override the panel colour set in CSS. Handing it a poster instead — one
+ * inline gradient, no request — keeps the placeholder on brand.
+ */
+const PLACEHOLDER_POSTER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23211E42'/%3E%3Cstop offset='1' stop-color='%2314122C'/%3E%3C/linearGradient%3E%3Crect width='16' height='9' fill='url(%23g)'/%3E%3C/svg%3E";
+
+/**
+ * The two "Watch" films. `src` and `poster` are intentionally empty until the
+ * final cuts are supplied — the players render as the dark placeholder panels
+ * in the approved design, and drop in without any markup change once the file
+ * paths land here.
+ */
+const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
+  { title: "Inside the Perfect Eyes clinic" },
+  { title: "Patients on their experience" },
+];
+
 const ACCREDITATIONS = [
   { src: "/uploads/2024/09/grating.svg", alt: "Google Rating" },
   { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
   { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
 ];
+
+/** Four-point sparkle that precedes the "Watch" eyebrow. */
+function Sparkle() {
+  return (
+    <svg className={styles.watchSparkle} viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M8 0l1.5 5.1L15 8l-5.5 2.9L8 16l-1.5-5.1L1 8l5.5-2.9z" />
+    </svg>
+  );
+}
 
 /** Five-star row for the hero rating. Drawn, not an image, so it stays sharp
     and costs no request. */
@@ -298,6 +326,43 @@ export default function HomePage() {
       >
         <p className={styles.logoStripLabel}>Accredited &amp; recognised by</p>
         <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
+      </section>
+
+      {/* ── 3. WATCH ──────────────────────────────────────────────────────── */}
+      <section
+        className={`${styles.section} ${styles.paper}`}
+        aria-labelledby="watch-title"
+      >
+        <div className="container">
+          <div className={styles.head}>
+            <span className={styles.watchEyebrow}>
+              <Sparkle />
+              Watch
+            </span>
+            <h2 id="watch-title" className={`${styles.h2} ${styles.watchTitle}`}>
+              Meet the clinic and hear from our patients
+            </h2>
+          </div>
+
+          <div className={styles.watchGrid}>
+            {CLINIC_VIDEOS.map((video) => (
+              <figure key={video.title} className={styles.watchItem}>
+                <video
+                  className={styles.watchVideo}
+                  src={video.src}
+                  poster={video.poster ?? PLACEHOLDER_POSTER}
+                  controls
+                  playsInline
+                  /* Nothing is fetched until the visitor presses play, so two
+                     videos above the fold cost no bandwidth on load. */
+                  preload="none"
+                  aria-label={video.title}
+                />
+                <figcaption className="sr-only">{video.title}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── 3. ABOUT ──────────────────────────────────────────────────────── */}
