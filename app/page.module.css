@@ -619,35 +619,6 @@
   margin-top: clamp(36px, 5vw, 56px);
 }
 
-/* ── 6. Testimonials ────────────────────────────────────────────────────── */
-.testimonials {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding-block: var(--home-section-y);
-  background: var(--tp-indigo-950);
-}
-.testimonials img {
-  object-fit: cover;
-  z-index: -2;
-}
-.testimonialsOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(18, 16, 54, 0.78), rgba(44, 42, 122, 0.7));
-}
-.testimonialsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 1000px) {
-  .testimonialsGrid {
-    grid-template-columns: minmax(0, 560px) 1fr;
-    gap: var(--home-gap-lg);
-  }
-}
-
 /* ── 7. Video testimonials ──────────────────────────────────────────────── */
 .rating {
   display: flex;
