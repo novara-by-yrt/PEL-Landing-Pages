@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
+import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
@@ -767,7 +768,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 13. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
+      <ContactSection />
+
+      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
