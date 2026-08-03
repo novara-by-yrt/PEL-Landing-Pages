@@ -9,6 +9,7 @@ import PatientStories, { type PatientStory } from "@/components/home/PatientStor
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { CLINIC } from "@/lib/clinic";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -239,6 +240,17 @@ const JOURNEY_STEPS: JourneyStep[] = [
  * Sabrina reuses her profile portrait. Anyone without an image falls back to
  * a monogram tile, so the grid never shows a hole.
  */
+/**
+ * Consultation fees, as published on the contact page
+ * (content/pages/contact-cosmetic-eye-surgeon.mdx). Keep the two in step —
+ * a price shown here that disagrees with the contact page is worse than not
+ * showing one at all.
+ */
+const CONSULTATION_FEES = [
+  { label: "New consultation", price: "£300" },
+  { label: "Revision / 2nd opinion", price: "£400" },
+];
+
 const CLINIC_TEAM = [
   {
     name: "Dr Sabrina Shah-Desai",
@@ -784,34 +796,55 @@ export default function HomePage() {
       </section>
 
       {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
-      <section className={`${styles.section} ${styles.paper}`} aria-labelledby="cta-title">
+      <section className={styles.beginSection} aria-labelledby="cta-title">
         <div className="container">
-          <div className={styles.split}>
-            <div className={styles.splitMedia}>
-              <Image
-                src="/uploads/2024/09/askques-img.jpg"
-                alt="Book your consultation at Perfect Eyes"
-                fill
-                sizes="(min-width: 1000px) 50vw, 100vw"
-              />
-            </div>
-
-            <div>
-              <span className={styles.eyebrow}>Get in touch</span>
-              <h2 id="cta-title" className={styles.h2}>
-                Ask Us A Question Or Book An Appointment
+          <div className={styles.beginPanel}>
+            <div className={styles.beginCopy}>
+              <h2 id="cta-title" className={styles.beginTitle}>
+                Begin your Perfect Eyes journey
               </h2>
-              <p className={styles.lead}>
-                Call or email us today, we would be delighted to answer your questions.
+              <p className={styles.beginLead}>
+                Book a private consultation with Dr Shah-Desai at {CLINIC.addressShort},
+                or request a call back from our team.
               </p>
-              <div className={styles.ctaActions}>
+
+              <div className={styles.beginActions}>
                 <Link
                   href="/contact-cosmetic-eye-surgeon"
-                  className="tp-btn tp-btn-primary tp-btn-lg"
+                  className="tp-btn tp-btn-inverse"
                 >
-                  Book A Compatibility Call
+                  Book a Consultation
+                  <span className="tp-btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M5 12h13M12.5 6l6 6-6 6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
                 </Link>
+                <a href={CLINIC.phoneHref} className="tp-btn tp-btn-outline-light">
+                  <TpIcon name="phone" size={17} />
+                  {CLINIC.phoneDisplay}
+                </a>
               </div>
+            </div>
+
+            <div className={styles.fees}>
+              <p className={styles.feesLabel}>Consultation fees</p>
+              <dl className={styles.feesList}>
+                {CONSULTATION_FEES.map((fee) => (
+                  <div key={fee.label} className={styles.feesRow}>
+                    <dt className={styles.feesName}>{fee.label}</dt>
+                    <dd className={styles.feesPrice}>{fee.price}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className={styles.feesNote}>
+                <TpIcon name="clock" size={15} />
+                <span>{`${CLINIC.hours[0].day} ${CLINIC.hours[0].time} · Harley Street`}</span>
+              </p>
             </div>
           </div>
         </div>
