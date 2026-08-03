@@ -4,6 +4,7 @@ import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import HeroVideo from "@/components/home/HeroVideo";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
 import styles from "./page.module.css";
@@ -179,18 +180,23 @@ const MEDIA_LOGOS = [
   { src: "/uploads/2024/09/logo10.svg", alt: "Media logo 10" },
 ];
 
-const CONSULTATION_STEPS = [
+/** Copy transcribed from the approved design for this section. */
+const JOURNEY_STEPS: JourneyStep[] = [
   {
-    icon: "/uploads/2024/09/1bx.svg",
-    text: "Discover what treatment is right for your concern and needs.",
+    title: "Listen & assess",
+    text: "A thorough medical consultation to understand your concerns, anatomy and expectations.",
   },
   {
-    icon: "/uploads/2024/09/2bx.svg",
-    text: "Use our simple booking form to confirm your consultation or request a FREE call back.",
+    title: "Curate a plan",
+    text: "A holistic, 360° plan blending surgical and non-surgical options, nothing over-treated.",
   },
   {
-    icon: "/uploads/2024/09/3bc.svg",
-    text: "Look forward to coming in for your bespoke appointment.",
+    title: "Treat with precision",
+    text: "Signature techniques prioritising safety, natural results and minimal downtime.",
+  },
+  {
+    title: "Care through recovery",
+    text: "Clear aftercare and attentive follow-up until you are fully healed and happy.",
   },
 ];
 
@@ -510,50 +516,33 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── 5. CONSULTATION STEPS ─────────────────────────────────────────── */}
-      <section
-        className={`${styles.section} ${styles.fog}`}
-        aria-labelledby="consultation-title"
-      >
+      {/* ── 6. THE JOURNEY ───────────────────────────────────────────────── */}
+      <section className={styles.journey} aria-labelledby="journey-title">
+        {/* Soft brand-coloured glow behind the rail. Without something to
+            refract, glass cards on a flat field read as plain panels. */}
+        <span className={styles.journeyGlow} aria-hidden="true" />
+
         <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>Three simple steps</span>
-            <h2 id="consultation-title" className={styles.h2}>
-              Book Your Consultation Today
+          <div className={styles.journeyHead}>
+            <h2 id="journey-title" className={styles.journeyTitle}>
+              The Perfect360&trade; journey. A curated journey, not a single procedure
             </h2>
-            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
           </div>
 
-          <ol className={styles.steps}>
-            {CONSULTATION_STEPS.map((step, i) => (
-              <li key={step.text} className={styles.step}>
-                <Image
-                  src={step.icon}
-                  alt=""
-                  width={64}
-                  height={64}
-                  className={styles.stepIcon}
-                  aria-hidden="true"
-                />
-                <span className={styles.stepBody}>
-                  <span className={styles.stepNumber}>Step {i + 1}</span>
-                  <span className={styles.stepText}>{step.text}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
+          <JourneyCards steps={JOURNEY_STEPS} />
 
-          <p className={styles.stepsNote}>
-            A consultation allows us to assess your concerns, discuss suitable options,
-            expected recovery, and answer any questions, so you can make an informed decision.
-          </p>
-
-          <div className={styles.stepsCta}>
-            <Link
-              href="/contact-cosmetic-eye-surgeon"
-              className="tp-btn tp-btn-primary tp-btn-lg"
-            >
+          <div className={styles.journeyCta}>
+            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
               Book A Compatibility Call
+              <span className="tp-btn-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 12h13M12.5 6l6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </Link>
           </div>
         </div>

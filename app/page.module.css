@@ -571,81 +571,52 @@
   overflow: hidden;
 }
 
-/* ── 6. Consultation steps ──────────────────────────────────────────────── */
-.steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  counter-reset: step;
-  margin-bottom: clamp(32px, 5vw, 48px);
-}
-.step {
+/* ── 6. The journey ───────────────────────────────────────────────────────
+   Dark band carrying the glass step cards. The card styling itself lives in
+   JourneyCards.module.css; this is the surface it sits on.               */
+.journey {
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  text-align: left;
-  background: var(--tp-paper);
-  border: 1px solid var(--tp-line);
-  border-radius: var(--home-card-radius);
-  padding: 22px 22px;
-  box-shadow: var(--tp-shadow-xs);
-}
-.stepIcon {
-  flex: 0 0 auto;
-  width: 52px;
-  height: 52px;
-}
-.stepBody {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.stepNumber {
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--tp-lavender-500);
-}
-.stepText {
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--home-body);
-  margin: 0;
-}
-.stepsNote {
-  font-size: var(--text-base);
-  line-height: var(--lh-relaxed);
-  color: var(--home-body);
-  max-width: 62ch;
-  margin: 0 auto clamp(28px, 4vw, 40px);
-  text-align: center;
-}
-.stepsCta {
-  display: flex;
-  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(64px, 9vw, 112px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, #241d4d 0%, transparent 60%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 55%, var(--tp-indigo-950) 100%);
 }
 
-@media (min-width: 768px) {
-  .steps {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .step {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 32px 24px;
-    gap: 14px;
-  }
-  .stepBody {
-    align-items: center;
-  }
-  .stepIcon {
-    width: 64px;
-    height: 64px;
-  }
+/* Two soft brand blobs. They are what the cards' backdrop-filter has to
+   work with — on a flat background the glass would be indistinguishable
+   from a plain translucent panel. */
+.journeyGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38% 46% at 22% 38%, rgba(69, 61, 155, 0.5), transparent 70%),
+    radial-gradient(34% 44% at 78% 62%, rgba(188, 160, 221, 0.24), transparent 72%);
+  filter: blur(28px);
+}
+
+.journeyHead {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(32px, 5vw, 56px);
+}
+.journeyTitle {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 4.6vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.journeyCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(36px, 5vw, 56px);
 }
 
 /* ── 6. Testimonials ────────────────────────────────────────────────────── */
