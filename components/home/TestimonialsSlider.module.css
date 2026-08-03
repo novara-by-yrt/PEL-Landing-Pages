@@ -1,0 +1,115 @@
+.card {
+  background: var(--tp-paper);
+  border-radius: var(--tp-radius-xl);
+  padding: clamp(24px, 6vw, 40px);
+  box-shadow: var(--tp-shadow-lg);
+  max-width: 580px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+  margin: 0 0 12px;
+}
+
+.title {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0 0 20px;
+}
+
+/* Reserving the tallest quote's height stops the card from resizing as the
+   slider advances — the layout-shift source in the previous version. */
+.quoteWrap {
+  min-height: 260px;
+}
+
+.quote {
+  font-size: var(--fs-body-sm);
+  line-height: 1.75;
+  color: var(--tp-slate);
+  font-style: italic;
+  margin: 0;
+}
+
+.attribution {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.stars {
+  height: 16px;
+  width: auto;
+}
+
+.author {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--tp-ink);
+  font-style: normal;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+/* The visible dot is 8px tall, but the button keeps a 44×44px hit area so it
+   stays comfortably tappable on touch devices. */
+.dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.dot::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--tp-lavender-200);
+  transition: width 300ms var(--tp-ease), background 300ms var(--tp-ease);
+}
+.dot:hover::before {
+  background: var(--tp-lavender-400);
+}
+.dot[aria-current="true"]::before {
+  width: 26px;
+  background: var(--tp-indigo-700);
+}
+.dot:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: -6px;
+  border-radius: 999px;
+}
+
+@media (min-width: 640px) {
+  .quoteWrap {
+    min-height: 200px;
+  }
+  .quote {
+    font-size: var(--fs-body-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before {
+    transition: none;
+  }
+}

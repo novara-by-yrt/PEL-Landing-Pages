@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import styles from "./TestimonialsSlider.module.css";
 
 interface Testimonial {
   text: string;
@@ -27,105 +28,64 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+const ROTATE_MS = 6000;
+
 export default function TestimonialsSlider() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    // Auto-advancing content is motion: honour the OS-level preference, and
+    // hold still while the visitor is reading (hover) or tabbing through.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (paused || reduceMotion) return;
+
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 5000);
+    }, ROTATE_MS);
     return () => clearInterval(timer);
-  }, []);
+  }, [paused]);
 
   const t = TESTIMONIALS[active];
 
   return (
-    <div
-      style={{
-        background: "#fff",
-        borderRadius: "var(--radius-xl)",
-        padding: "2.5rem",
-        boxShadow: "var(--shadow-lg)",
-        maxWidth: "580px",
-      }}
+    <figure
+      className={styles.card}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
-      <h2
-        style={{
-          fontFamily: "var(--font-serif)",
-          fontSize: "clamp(1.25rem, 3vw, 1.625rem)",
-          color: "var(--clr-text)",
-          marginBottom: "1.5rem",
-          lineHeight: 1.3,
-        }}
-      >
-        What our delighted patients<br />kindly say
-      </h2>
+      <span className={styles.eyebrow}>Patient stories</span>
+      <h2 className={styles.title}>What our delighted patients kindly say</h2>
 
-      <div style={{ minHeight: "180px", position: "relative" }}>
-        <p
-          key={active}
-          style={{
-            fontSize: "var(--text-sm)",
-            lineHeight: 1.75,
-            color: "var(--clr-text-muted)",
-            fontStyle: "italic",
-          }}
-        >
-          &ldquo;{t.text}&rdquo;
-        </p>
+      <div className={styles.quoteWrap} aria-live="polite">
+        <blockquote className={styles.quote}>&ldquo;{t.text}&rdquo;</blockquote>
       </div>
 
-      <div
-        style={{
-          marginTop: "1.5rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-        }}
-      >
+      <figcaption className={styles.attribution}>
         <Image
           src="/uploads/2024/09/star-ico.svg"
-          alt="5 stars"
+          alt="Rated 5 out of 5"
           width={80}
           height={16}
-          style={{ height: "16px", width: "auto" }}
+          className={styles.stars}
         />
-        <span
-          style={{
-            fontWeight: 600,
-            fontSize: "var(--text-sm)",
-            color: "var(--clr-text)",
-          }}
-        >
-          {t.author}
-        </span>
-      </div>
+        <span className={styles.author}>{t.author}</span>
+      </figcaption>
 
-      <div
-        style={{
-          marginTop: "1.5rem",
-          display: "flex",
-          gap: "0.5rem",
-        }}
-      >
-        {TESTIMONIALS.map((_, i) => (
+      <div className={styles.dots}>
+        {TESTIMONIALS.map((item, i) => (
           <button
-            key={i}
+            key={item.author}
+            type="button"
             onClick={() => setActive(i)}
-            aria-label={`Go to testimonial ${i + 1}`}
-            style={{
-              width: i === active ? "24px" : "8px",
-              height: "8px",
-              borderRadius: "9999px",
-              background: i === active ? "var(--clr-primary)" : "var(--clr-border)",
-              border: "none",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              padding: 0,
-            }}
+            aria-label={`Show testimonial ${i + 1} of ${TESTIMONIALS.length}`}
+            aria-current={i === active}
+            className={styles.dot}
           />
         ))}
       </div>
-    </div>
+    </figure>
   );
 }

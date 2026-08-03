@@ -76,21 +76,31 @@
   --duration: 250ms;
   --duration-slow: 400ms;
 
+  /* ── Brand primitives ───────────────────────────────────────────────────
+     The five official Perfect Eyes brand colours. These are the only place
+     the raw brand hex values appear; every semantic token below aliases one
+     of them, and components reference the semantic layer, never the hex.  */
+  --brand-indigo:   #2C2A7A;  /* Primary   — headings, primary buttons      */
+  --brand-violet:   #453D9B;  /* Primary-light — hover, gradient partner    */
+  --brand-lavender: #8A84BA;  /* Secondary — eyebrows, meta, muted accents  */
+  --brand-orchid:   #BCA0DD;  /* Tertiary  — borders, tints, decorative     */
+  --brand-grey:     #98979E;  /* Neutral   — captions, disabled, hairlines  */
+
   /* Indigo/lavender design system (treatment, blog pages, header/footer) */
   --tp-indigo-950: #121036;
   --tp-indigo-900: #1A1850;
   --tp-indigo-800: #232169;
-  --tp-indigo-700: #2C2A7A;
-  --tp-indigo-600: #453D9B;
+  --tp-indigo-700: var(--brand-indigo);
+  --tp-indigo-600: var(--brand-violet);
   --tp-lavender-500: #736CAB;
-  --tp-lavender-400: #8A84BA;
-  --tp-lavender-300: #BCA0DD;
+  --tp-lavender-400: var(--brand-lavender);
+  --tp-lavender-300: var(--brand-orchid);
   --tp-lavender-200: #D8CCEE;
   --tp-lavender-100: #ECE6F7;
   --tp-lavender-050: #F6F3FC;
   --tp-ink: #17162E;
   --tp-slate: #56555E;
-  --tp-mist: #98979E;
+  --tp-mist: var(--brand-grey);
   --tp-line: #E6E4EE;
   --tp-paper: #FFFFFF;
   --tp-fog: #F4F3F9;

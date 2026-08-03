@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
@@ -142,138 +141,134 @@ const MEDIA_LOGOS = [
   { src: "/uploads/2024/09/logo10.svg", alt: "Media logo 10" },
 ];
 
+const CONSULTATION_STEPS = [
+  {
+    icon: "/uploads/2024/09/1bx.svg",
+    text: "Discover what treatment is right for your concern and needs.",
+  },
+  {
+    icon: "/uploads/2024/09/2bx.svg",
+    text: "Use our simple booking form to confirm your consultation or request a FREE call back.",
+  },
+  {
+    icon: "/uploads/2024/09/3bc.svg",
+    text: "Look forward to coming in for your bespoke appointment.",
+  },
+];
+
+const AESTHETICS_TEAM = [
+  {
+    name: "Dr Sabrina Shah-Desai",
+    title: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon",
+  },
+  { name: "Dr Janine", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
+  { name: "Dr Hemmali", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
+  { name: "Irvana", title: "Level 4 LASER qualified therapist — Perfect Skin Studio" },
+];
+
+const ADMIN_TEAM = [
+  { name: "Leanne", title: "Practice Clinic Manager" },
+  { name: "Mojdeh", title: "Surgical Coordinator & Patient Educator" },
+  { name: "Mary", title: "Patient Coordinator" },
+  { name: "Lakshiya", title: "Patient Coordinator" },
+  { name: "Sally", title: "Patient Coordinator" },
+];
+
+const ACCREDITATIONS = [
+  { src: "/uploads/2024/09/grating.svg", alt: "Google Rating" },
+  { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
+  { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
+];
+
+/** Shared chevron used on every treatment card. */
+function CardArrow() {
+  return (
+    <svg className={styles.cardArrow} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function TreatmentGrid({
+  items,
+}: {
+  items: { image: string; title: string; href: string }[];
+}) {
+  return (
+    <div className={styles.grid}>
+      {items.map((t) => (
+        <Link key={t.href} href={t.href} className={styles.card}>
+          <div className={styles.cardMedia}>
+            <Image
+              src={t.image}
+              alt={t.title}
+              fill
+              sizes="(min-width: 1000px) 33vw, (min-width: 560px) 50vw, 100vw"
+            />
+            <span className={styles.cardScrim} aria-hidden="true" />
+          </div>
+          <p className={styles.cardTitle}>
+            {t.title}
+            <CardArrow />
+          </p>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
-    <>
-      {/* ── 1. HERO SECTION ───────────────────────────────────────────────── */}
-      <section
-        className={styles.homeHero}
-        aria-label="Hero"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          minHeight: "620px",
-          display: "flex",
-          alignItems: "center",
-          background: "#1b1818",
-        }}
-      >
-        {/* Background image */}
+    <div className={styles.home}>
+      {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
+      <section className={styles.hero} aria-labelledby="hero-title">
+        {/* The hero backdrop is the LCP element, so it is preloaded from the
+            document head. `priority` is deprecated as of Next 16 — `preload`
+            is the replacement that says what it actually does. */}
         <Image
           src="/uploads/2025/10/234-1.png"
           alt=""
           fill
-          priority
-          style={{ objectFit: "cover", objectPosition: "center", opacity: 0.7 }}
+          preload
           sizes="100vw"
+          className={styles.heroImage}
         />
-        {/* Overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "hsl(220 25% 5% / 0.45)",
-          }}
-        />
+        <span className={styles.heroOverlay} aria-hidden="true" />
 
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-            padding: "5rem var(--space-6)",
-          }}
-        >
-          {/* Left: Heading + CTA */}
-          <div>
-            <h1
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3.5vw, 2.25rem)",
-                color: "#fff",
-                lineHeight: 1.35,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Our expertise is in Clinically led assessment and treatment of eyelid and
-              peri-ocular conditions, focused on function, comfort, and anatomical balance.
-            </h1>
-            <p
-              style={{
-                fontSize: "var(--text-base)",
-                color: "hsl(0 0% 100% / 0.85)",
-                lineHeight: 1.7,
-                marginBottom: "2rem",
-              }}
-            >
-              Care is delivered using contemporary minimally invasive surgical and
-              non-surgical techniques.
-            </p>
-            <Link
-              href="/self-test-survey"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                background: "hsl(220 25% 12%)",
-                color: "#fff",
-                fontWeight: 600,
-                fontSize: "var(--text-sm)",
-                padding: "0.875rem 1.875rem",
-                borderRadius: "var(--radius-full)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                transition: "background 0.2s ease",
-              }}
-            >
-              Take the Eyelid Surgery Test
-            </Link>
-          </div>
+        <div className="container">
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy}>
+              <span className={`${styles.eyebrow} ${styles.heroEyebrow}`}>
+                Oculoplastic &amp; Aesthetic Surgery — London
+              </span>
+              <h1 id="hero-title" className={styles.heroTitle}>
+                Our expertise is in Clinically led assessment and treatment of eyelid and
+                peri-ocular conditions, focused on function, comfort, and anatomical balance.
+              </h1>
+              <p className={styles.heroLead}>
+                Care is delivered using contemporary minimally invasive surgical and
+                non-surgical techniques.
+              </p>
+              <div className={styles.heroActions}>
+                <Link href="/self-test-survey" className="tp-btn tp-btn-primary tp-btn-lg">
+                  Take the Eyelid Surgery Test
+                </Link>
+              </div>
+            </div>
 
-          {/* Right: Dr Sabrina image + badge */}
-          <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
-            <div style={{ position: "relative", width: "100%", maxWidth: "420px" }}>
+            <div className={styles.heroFigure}>
               <Image
                 src="/uploads/2026/06/Group-12.svg"
-                alt="Dr. Sabrina Shah-Desai"
+                alt="Dr Sabrina Shah-Desai"
                 width={420}
                 height={480}
-                style={{ width: "100%", height: "auto" }}
-                priority
+                loading="eager"
+                className={styles.heroPortrait}
               />
-              {/* Dr Badge */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1.5rem",
-                  right: "-1rem",
-                  background: "hsl(220 25% 12% / 0.9)",
-                  backdropFilter: "blur(8px)",
-                  border: "1px solid hsl(0 0% 100% / 0.15)",
-                  borderRadius: "var(--radius-lg)",
-                  padding: "1rem 1.25rem",
-                  maxWidth: "220px",
-                }}
-              >
-                <h5
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "0.875rem",
-                    color: "hsl(38 92% 70%)",
-                    marginBottom: "0.2rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  DR. SABRINA SHAH—DESAI
-                </h5>
-                <small style={{ color: "hsl(0 0% 100% / 0.6)", fontSize: "0.75rem", display: "block", marginBottom: "0.5rem" }}>
-                  MS, FRCS (Ed) Ophth.
-                </small>
-                <p style={{ color: "hsl(0 0% 100% / 0.8)", fontSize: "0.75rem", lineHeight: 1.5, margin: 0 }}>
+              <div className={styles.heroBadge}>
+                <p className={styles.heroBadgeName}>DR. SABRINA SHAH&mdash;DESAI</p>
+                <small className={styles.heroBadgeCred}>MS, FRCS (Ed) Ophth.</small>
+                <p className={styles.heroBadgeText}>
                   Has been consistently recognised as a top practitioner for eyes for eight
                   consecutive years, from 2019 to 2026
                 </p>
@@ -283,134 +278,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. AWARD LOGOS CAROUSEL ───────────────────────────────────────── */}
-      <div
-        style={{
-          background: "#fff",
-          padding: "2.5rem 0",
-          borderBottom: "1px solid var(--clr-border)",
-        }}
-      >
-        <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
-      </div>
-
-      {/* ── 3. ABOUT / VIDEO SECTION ──────────────────────────────────────── */}
+      {/* ── 2. AWARDS ─────────────────────────────────────────────────────── */}
       <section
-        aria-label="About Dr Sabrina"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          minHeight: "500px",
-        }}
-        className={styles.homeAboutGrid}
+        className={`${styles.logoStrip} ${styles.logoStripTop}`}
+        aria-label="Awards and memberships"
       >
-        {/* Left: video with background */}
-        <div
-          style={{
-            position: "relative",
-            minHeight: "420px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#1b1818",
-          }}
-        >
+        <p className={styles.logoStripLabel}>Awards &amp; professional memberships</p>
+        <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
+      </section>
+
+      {/* ── 3. ABOUT ──────────────────────────────────────────────────────── */}
+      <section className={styles.about} aria-labelledby="about-title">
+        <div className={styles.aboutMedia}>
           <Image
             src="/uploads/2024/09/drsabrina-hm-bg.jpg"
             alt=""
             fill
-            style={{ objectFit: "cover", opacity: 0.6 }}
-            sizes="50vw"
+            sizes="(min-width: 900px) 50vw, 100vw"
           />
+          <span className={styles.aboutMediaOverlay} aria-hidden="true" />
           <a
             href="https://www.youtube.com/watch?v=5Z-PVTuIR6c"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Watch Dr Sabrina video"
-            style={{
-              position: "relative",
-              zIndex: 1,
-              width: "72px",
-              height: "72px",
-              borderRadius: "9999px",
-              background: "hsl(0 0% 100% / 0.95)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 8px 32px hsl(220 25% 12% / 0.4)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
+            aria-label="Watch Dr Sabrina's introduction video on YouTube"
+            className={styles.playButton}
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="var(--clr-primary)"
-              style={{ width: "28px", height: "28px", marginLeft: "4px" }}
-            >
+            <svg className={styles.playIcon} viewBox="0 0 24 24" aria-hidden="true">
               <path d="M8 5v14l11-7z" />
             </svg>
           </a>
         </div>
 
-        {/* Right: bio */}
-        <div
-          style={{
-            padding: "4rem 3rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-          className={styles.homeAboutText}
-        >
-          <span
-            style={{
-              fontSize: "var(--text-xs)",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--clr-primary)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            About
-          </span>
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-              color: "var(--clr-text)",
-              lineHeight: 1.2,
-              marginBottom: "0.25rem",
-            }}
-          >
+        <div className={styles.aboutText}>
+          <span className={styles.eyebrow}>About</span>
+          <h2 id="about-title" className={styles.h2}>
             Meet Dr Sabrina Shah-Desai
           </h2>
-          <h3
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "var(--text-base)",
-              fontWeight: 400,
-              color: "var(--clr-text-muted)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            MS, FRCS (Ed) Ophth
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              marginBottom: "1.5rem",
-            }}
-          />
-          <p style={{ color: "var(--clr-text-muted)", lineHeight: 1.8, marginBottom: "1rem" }}>
+          <p className={styles.aboutCred}>MS, FRCS (Ed) Ophth</p>
+          <span className={styles.rule} aria-hidden="true" />
+          <p>
             Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning Oculoplastic
             Reconstructive Surgeon and Aesthetic Practitioner specialising in reconstructive,
             revisional, and cosmetic surgery of the eyelids, as well as non-surgical treatments
             for the eyes and face. With over 25 years of experience, she is globally recognised
             for her pioneering, minimally invasive techniques.
           </p>
-          <p style={{ color: "var(--clr-text-muted)", lineHeight: 1.8 }}>
+          <p>
             Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking subtle,
             natural results, she is also highly sought after for revisional procedures by those
             who have undergone previous fillers or eyelid surgeries.{" "}
@@ -422,291 +336,127 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. SPECIALIST TREATMENTS ─────────────────────────────────────── */}
+      {/* ── 4. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
         id="treatments"
-        aria-label="Our Specialist Treatments"
-        className="section"
-        style={{ background: "#fff", paddingTop: "4rem", paddingBottom: "3rem" }}
+        className={`${styles.section} ${styles.paper}`}
+        aria-labelledby="treatments-title"
       >
         <div className="container">
-          <div className="section-header" style={{ textAlign: "center" }}>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.875rem, 4vw, 2.625rem)",
-                color: "hsl(220 15% 25%)",
-                marginBottom: "0.5rem",
-              }}
-            >
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>What we treat</span>
+            <h2 id="treatments-title" className={styles.h2}>
               Our Specialist Treatments and Procedures
             </h2>
-            <div
-              style={{
-                width: "80px",
-                height: "2px",
-                background: "var(--clr-accent)",
-                margin: "1rem auto 2rem",
-              }}
-            />
+            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
           </div>
 
-          {/* Surgical */}
-          <h3
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)",
-              color: "var(--clr-text)",
-              textAlign: "center",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Surgical Treatments
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              margin: "0.75rem auto 2rem",
-            }}
-          />
-          <div className={styles.treatmentsGrid} style={{ marginBottom: "3.5rem" }}>
-            {SURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
-                <div className={styles.treatmentImgWrap}>
-                  <Image
-                    src={t.image}
-                    alt={t.title}
-                    fill
-                    style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className={styles.treatmentImgOverlay} />
-                </div>
-                <p className={styles.treatmentImgTitle}>{t.title}</p>
-              </Link>
-            ))}
+          <div className={styles.treatmentsBlock}>
+            <div className={styles.treatmentsBlockHead}>
+              <h3 className={styles.h3}>Surgical Treatments</h3>
+            </div>
+            <TreatmentGrid items={SURGICAL_TREATMENTS} />
           </div>
 
-          {/* Non-Surgical */}
-          <h3
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)",
-              color: "var(--clr-text)",
-              textAlign: "center",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Non-Surgical Treatments
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              margin: "0.75rem auto 2rem",
-            }}
-          />
-          <div className={styles.treatmentsGrid}>
-            {NONSURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
-                <div className={styles.treatmentImgWrap}>
-                  <Image
-                    src={t.image}
-                    alt={t.title}
-                    fill
-                    style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className={styles.treatmentImgOverlay} />
-                </div>
-                <p className={styles.treatmentImgTitle}>{t.title}</p>
-              </Link>
-            ))}
+          <div className={styles.treatmentsBlock}>
+            <div className={styles.treatmentsBlockHead}>
+              <h3 className={styles.h3}>Non-Surgical Treatments</h3>
+            </div>
+            <TreatmentGrid items={NONSURGICAL_TREATMENTS} />
           </div>
         </div>
       </section>
 
-      {/* ── 5. BOOK YOUR CONSULTATION STEPS ─────────────────────────────── */}
+      {/* ── 5. CONSULTATION STEPS ─────────────────────────────────────────── */}
       <section
-        aria-label="Book your consultation"
-        style={{ background: "hsl(210 20% 97%)", padding: "4rem 0" }}
+        className={`${styles.section} ${styles.fog}`}
+        aria-labelledby="consultation-title"
       >
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-              color: "var(--clr-text)",
-              marginBottom: "2.5rem",
-            }}
-          >
-            Book Your Consultation Today
-          </h2>
-
-          {/* Steps */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-              marginBottom: "2rem",
-            }}
-          >
-            {[
-              { icon: "/uploads/2024/09/1bx.svg", text: "Discover what treatment is right for your concern and needs." },
-              { icon: "/uploads/2024/09/2bx.svg", text: "Use our simple booking form to confirm your consultation or request a FREE call back." },
-              { icon: "/uploads/2024/09/3bc.svg", text: "Look forward to coming in for your bespoke appointment." },
-            ].map((step, i) => (
-              <Fragment key={step.text}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "1rem",
-                    maxWidth: "200px",
-                  }}
-                >
-                  <Image
-                    src={step.icon}
-                    alt={`Step ${i + 1}`}
-                    width={72}
-                    height={72}
-                    style={{ width: "72px", height: "72px" }}
-                  />
-                  <p
-                    style={{
-                      fontSize: "var(--text-sm)",
-                      color: "var(--clr-text-muted)",
-                      lineHeight: 1.6,
-                      textAlign: "center",
-                    }}
-                  >
-                    {step.text}
-                  </p>
-                </div>
-                {i < 2 && (
-                  <Image
-                    src="/uploads/2024/05/Arrow-16.svg"
-                    alt=""
-                    width={32}
-                    height={32}
-                    style={{ flexShrink: 0 }}
-                    aria-hidden
-                  />
-                )}
-              </Fragment>
-            ))}
+        <div className="container">
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>Three simple steps</span>
+            <h2 id="consultation-title" className={styles.h2}>
+              Book Your Consultation Today
+            </h2>
+            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
           </div>
 
-          <p
-            style={{
-              fontSize: "var(--text-base)",
-              color: "hsl(220 15% 40%)",
-              maxWidth: "60ch",
-              margin: "0 auto 2.5rem",
-              lineHeight: 1.7,
-            }}
-          >
+          <ol className={styles.steps}>
+            {CONSULTATION_STEPS.map((step, i) => (
+              <li key={step.text} className={styles.step}>
+                <Image
+                  src={step.icon}
+                  alt=""
+                  width={64}
+                  height={64}
+                  className={styles.stepIcon}
+                  aria-hidden="true"
+                />
+                <span className={styles.stepBody}>
+                  <span className={styles.stepNumber}>Step {i + 1}</span>
+                  <span className={styles.stepText}>{step.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          <p className={styles.stepsNote}>
             A consultation allows us to assess your concerns, discuss suitable options,
             expected recovery, and answer any questions, so you can make an informed decision.
           </p>
 
-          <Link href="/contact-cosmetic-eye-surgeon" className="btn btn-primary btn-lg">
-            Book A Compatibility Call
-          </Link>
+          <div className={styles.stepsCta}>
+            <Link
+              href="/contact-cosmetic-eye-surgeon"
+              className="tp-btn tp-btn-primary tp-btn-lg"
+            >
+              Book A Compatibility Call
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── 6. TESTIMONIALS ──────────────────────────────────────────────── */}
-      <section
-        aria-label="Patient testimonials"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          padding: "5rem 0",
-        }}
-      >
+      {/* ── 6. TESTIMONIALS ───────────────────────────────────────────────── */}
+      <section className={styles.testimonials} aria-label="Patient testimonials">
         <Image
           src="/uploads/2024/09/testimonial-bg.jpg"
           alt=""
           fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
           sizes="100vw"
         />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "hsl(220 25% 12% / 0.55)",
-          }}
-        />
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-          }}
-        >
-          <TestimonialsSlider />
-          <div />
+        <span className={styles.testimonialsOverlay} aria-hidden="true" />
+        <div className="container">
+          <div className={styles.testimonialsGrid}>
+            <TestimonialsSlider />
+          </div>
         </div>
       </section>
 
-      {/* ── 7. PATIENT TESTIMONIAL VIDEOS ────────────────────────────────── */}
+      {/* ── 7. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
-        aria-label="Video testimonials"
-        style={{ background: "#fff", padding: "4rem 0 3rem" }}
+        className={`${styles.section} ${styles.paper}`}
+        aria-labelledby="videos-title"
       >
         <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-                color: "var(--clr-text)",
-                marginBottom: "0.5rem",
-              }}
-            >
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>In their words</span>
+            <h2 id="videos-title" className={styles.h2}>
               Patient Testimonials
             </h2>
-            <div
-              style={{
-                width: "80px",
-                height: "2px",
-                background: "var(--clr-accent)",
-                margin: "1rem auto",
-              }}
-            />
-            <Image
-              src="/uploads/2024/09/rating49.svg"
-              alt="4.9 star rating"
-              width={160}
-              height={32}
-              style={{ margin: "0 auto 0.5rem" }}
-            />
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--clr-text-muted)" }}>
-              Based on 220+ Google Reviews
-            </p>
+            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            <div className={styles.rating}>
+              <Image
+                src="/uploads/2024/09/rating49.svg"
+                alt="Rated 4.9 out of 5"
+                width={160}
+                height={32}
+                className={styles.ratingImage}
+              />
+              <p className={styles.ratingText}>Based on 220+ Google Reviews</p>
+            </div>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "1.5rem",
-            }}
-            className={styles.videoGrid}
-          >
+          <div className={styles.videoGrid}>
             <VideoCard
               thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
               title="A Happy Perfect Eyes Clinic's Patient"
@@ -724,228 +474,125 @@ export default function HomePage() {
             />
           </div>
 
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "var(--text-sm)",
-              color: "var(--clr-text-muted)",
-              marginTop: "2rem",
-            }}
-          >
+          <p className={styles.disclaimer}>
             *Individual results vary. Testimonials reflect personal experiences following
             consultation and treatment.
           </p>
         </div>
       </section>
 
-      {/* ── 8. RATING BADGES ─────────────────────────────────────────────── */}
+      {/* ── 8. ACCREDITATIONS ─────────────────────────────────────────────── */}
       <section
-        aria-label="Rating badges"
-        style={{ background: "hsl(210 20% 97%)", padding: "3rem 0" }}
+        className={`${styles.sectionSm} ${styles.fog}`}
+        aria-label="Ratings and accreditations"
       >
         <div className="container">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "3rem",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { src: "/uploads/2024/09/grating.svg", alt: "Google Rating" },
-              { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
-              { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
-            ].map((badge) => (
+          <div className={styles.badges}>
+            {ACCREDITATIONS.map((badge) => (
               <Image
                 key={badge.src}
                 src={badge.src}
                 alt={badge.alt}
                 width={140}
                 height={70}
-                style={{ height: "70px", width: "auto", objectFit: "contain" }}
+                className={styles.badge}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 9. MEDIA / AS SEEN IN ────────────────────────────────────────── */}
-      <div
-        style={{
-          background: "#fff",
-          padding: "2.5rem 0",
-          borderTop: "1px solid var(--clr-border)",
-          borderBottom: "1px solid var(--clr-border)",
-        }}
-      >
+      {/* ── 9. AS SEEN IN ─────────────────────────────────────────────────── */}
+      <section className={styles.logoStrip} aria-label="Featured in the media">
+        <p className={styles.logoStripLabel}>As seen in</p>
         <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
-      </div>
+      </section>
 
-      {/* ── 10. MEET THE CLINIC TEAM ─────────────────────────────────────── */}
+      {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
       <section
-        aria-label="Meet the clinic team"
-        style={{
-          background: "linear-gradient(135deg, hsl(199 30% 96%), hsl(220 20% 97%))",
-          padding: "5rem 0",
-        }}
+        className={`${styles.section} ${styles.team}`}
+        aria-labelledby="team-title"
       >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: clinic image */}
-          <div
-            style={{
-              position: "relative",
-              borderRadius: "var(--radius-xl)",
-              overflow: "hidden",
-              aspectRatio: "4/3",
-              boxShadow: "var(--shadow-xl)",
-            }}
-          >
-            <Image
-              src="/uploads/2025/09/Homepage_Picture-1.jpg"
-              alt="The Perfect Eyes Clinic"
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="50vw"
-            />
-          </div>
-
-          {/* Right: team info */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-                color: "var(--clr-text)",
-                marginBottom: "1rem",
-              }}
-            >
-              Meet The Clinic Team
-            </h2>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--clr-text-muted)", marginBottom: "1.5rem", lineHeight: 1.7 }}>
-              Elegant &amp; discreet, the clinic ensures an environment that meets the highest
-              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5 key
-              areas by the{" "}
-              <a
-                href="https://www.cqc.org.uk/location/1-5591490767"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--clr-primary)", textDecoration: "underline" }}
-              >
-                Care Quality Commission
-              </a>{" "}
-              (CQC) in 2022.
-            </p>
-
-            <div
-              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}
-              className={styles.teamCols}
-            >
-              <div>
-                <h4
-                  style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--clr-text-muted)",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  Medical Aesthetics Team
-                </h4>
-                <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[
-                    { name: "Dr Sabrina Shah-Desai", title: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon" },
-                    { name: "Dr Janine", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-                    { name: "Dr Hemmali", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-                    { name: "Irvana", title: "Level 4 LASER qualified therapist — Perfect Skin Studio" },
-                  ].map((m) => (
-                    <li key={m.name}>
-                      <strong style={{ fontSize: "var(--text-sm)", color: "var(--clr-text)" }}>
-                        {m.name}
-                      </strong>
-                      <br />
-                      <span style={{ fontSize: "var(--text-xs)", color: "var(--clr-text-muted)" }}>
-                        {m.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4
-                  style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--clr-text-muted)",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  Administrative Team
-                </h4>
-                <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[
-                    { name: "Leanne", title: "Practice Clinic Manager" },
-                    { name: "Mojdeh", title: "Surgical Coordinator & Patient Educator" },
-                    { name: "Mary", title: "Patient Coordinator" },
-                    { name: "Lakshiya", title: "Patient Coordinator" },
-                    { name: "Sally", title: "Patient Coordinator" },
-                  ].map((m) => (
-                    <li key={m.name}>
-                      <strong style={{ fontSize: "var(--text-sm)", color: "var(--clr-text)" }}>
-                        {m.name}
-                      </strong>
-                      <br />
-                      <span style={{ fontSize: "var(--text-xs)", color: "var(--clr-text-muted)" }}>
-                        {m.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        <div className="container">
+          <div className={styles.split}>
+            <div className={styles.splitMedia}>
+              <Image
+                src="/uploads/2025/09/Homepage_Picture-1.jpg"
+                alt="The Perfect Eyes Clinic"
+                fill
+                sizes="(min-width: 1000px) 50vw, 100vw"
+              />
             </div>
 
-            <div style={{ marginTop: "2rem" }}>
-              <Link href="/meet-team" className="btn btn-outline">
-                Meet the Full Team
-              </Link>
+            <div>
+              <span className={styles.eyebrow}>Our people</span>
+              <h2 id="team-title" className={styles.h2}>
+                Meet The Clinic Team
+              </h2>
+              <p className={styles.lead}>
+                Elegant &amp; discreet, the clinic ensures an environment that meets the
+                highest standards of safety and hygiene and received a &ldquo;good
+                rating&rdquo; in all 5 key areas by the{" "}
+                <a
+                  href="https://www.cqc.org.uk/location/1-5591490767"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.teamLink}
+                >
+                  Care Quality Commission
+                </a>{" "}
+                (CQC) in 2022.
+              </p>
+
+              <div className={styles.teamCols}>
+                <div>
+                  <h3 className={styles.teamColTitle}>Medical Aesthetics Team</h3>
+                  <ul className={styles.teamList}>
+                    {AESTHETICS_TEAM.map((m) => (
+                      <li key={m.name}>
+                        <span className={styles.teamName}>{m.name}</span>
+                        <span className={styles.teamRole}>{m.title}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className={styles.teamColTitle}>Administrative Team</h3>
+                  <ul className={styles.teamList}>
+                    {ADMIN_TEAM.map((m) => (
+                      <li key={m.name}>
+                        <span className={styles.teamName}>{m.name}</span>
+                        <span className={styles.teamRole}>{m.title}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className={styles.teamCta}>
+                <Link href="/meet-team" className="tp-btn tp-btn-secondary">
+                  Meet the Full Team
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 11. INSTAGRAM ────────────────────────────────────────────────── */}
+      {/* ── 11. INSTAGRAM ─────────────────────────────────────────────────── */}
       <section
+        className={`${styles.sectionSm} ${styles.tint} ${styles.instagram}`}
         aria-label="Instagram"
-        style={{ background: "hsl(210 20% 97%)", padding: "3.5rem 0 2.5rem" }}
       >
-        <div className="container" style={{ textAlign: "center" }}>
-          <p
-            style={{
-              fontSize: "var(--text-lg)",
-              color: "var(--clr-text)",
-            }}
-          >
-            Follow us on{" "}
-            <strong>Instagram</strong>{" "}
+        <div className="container">
+          <p className={styles.instagramText}>
+            Follow us on <strong>Instagram</strong>{" "}
             <a
               href="https://www.instagram.com/drsabrinashahdesaiofficial/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--clr-primary)", textDecoration: "underline" }}
+              className={styles.instagramHandle}
             >
               @drsabrinashahdesaiofficial
             </a>{" "}
@@ -954,95 +601,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 12. ASK A QUESTION / BOOK APPOINTMENT ────────────────────────── */}
-      <section
-        aria-label="Book an appointment"
-        style={{ background: "#fff", padding: "5rem 0" }}
-      >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: image */}
-          <div style={{ position: "relative" }}>
-            <div
-              style={{
-                position: "relative",
-                borderRadius: "var(--radius-xl)",
-                overflow: "hidden",
-                aspectRatio: "4/3",
-                boxShadow: "var(--shadow-xl)",
-              }}
-            >
+      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
+      <section className={`${styles.section} ${styles.paper}`} aria-labelledby="cta-title">
+        <div className="container">
+          <div className={styles.split}>
+            <div className={styles.splitMedia}>
               <Image
                 src="/uploads/2024/09/askques-img.jpg"
-                alt="Book your consultation"
+                alt="Book your consultation at Perfect Eyes"
                 fill
-                style={{ objectFit: "cover" }}
-                sizes="50vw"
+                sizes="(min-width: 1000px) 50vw, 100vw"
               />
             </div>
-          </div>
 
-          {/* Right: CTA */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-                color: "var(--clr-text)",
-                lineHeight: 1.25,
-                marginBottom: "1rem",
-              }}
-            >
-              Ask Us A Question Or Book An Appointment
-            </h2>
-            <p
-              style={{
-                fontSize: "var(--text-base)",
-                color: "var(--clr-text-muted)",
-                lineHeight: 1.7,
-                marginBottom: "2rem",
-              }}
-            >
-              Call or email us today, we would be delighted to answer your questions.
-            </p>
-            <Link href="/contact-cosmetic-eye-surgeon" className="btn btn-primary btn-lg">
-              Book A Compatibility Call
-            </Link>
+            <div>
+              <span className={styles.eyebrow}>Get in touch</span>
+              <h2 id="cta-title" className={styles.h2}>
+                Ask Us A Question Or Book An Appointment
+              </h2>
+              <p className={styles.lead}>
+                Call or email us today, we would be delighted to answer your questions.
+              </p>
+              <div className={styles.ctaActions}>
+                <Link
+                  href="/contact-cosmetic-eye-surgeon"
+                  className="tp-btn tp-btn-primary tp-btn-lg"
+                >
+                  Book A Compatibility Call
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 13. VAT DISCLAIMER ───────────────────────────────────────────── */}
-      <div
-        style={{
-          borderTop: "1px solid var(--clr-border)",
-          padding: "1.5rem 0",
-          background: "#fff",
-        }}
-      >
+      {/* ── 13. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      <div className={styles.vat}>
         <div className="container">
-          <p
-            style={{
-              fontSize: "var(--text-xs)",
-              color: "var(--clr-text-muted)",
-              lineHeight: 1.6,
-            }}
-          >
+          <p className={styles.vatText}>
             *Treatments undertaken solely for aesthetic purposes are subject to VAT at the
             prevailing rate. Where treatment is provided for a diagnosed medical condition, VAT
             status will be discussed during consultation.
           </p>
         </div>
       </div>
-
-      {/* ── HOME PAGE STYLES ─────────────────────────────────────────────── */}
-    </>
+    </div>
   );
 }
