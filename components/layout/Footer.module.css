@@ -38,7 +38,9 @@
 }
 .link {
   display: inline-block;
-  padding: 7px 0;
+  /* 11px block padding takes the hit area to 46px without changing the
+     visual rhythm of the list. */
+  padding: 11px 0;
   font-size: var(--fs-body-md);
   line-height: 1.4;
   color: var(--tp-lavender-100);
@@ -91,7 +93,7 @@
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--tp-lavender-500);
+  color: var(--tp-lavender-600);
 }
 .markRule {
   width: 60px;
@@ -142,8 +144,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  margin-top: 28px;
+  gap: 4px;
+  margin-top: 24px;
   /* <address> is italic by default in every browser. */
   font-style: normal;
 }
@@ -151,6 +153,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  padding-block: 8px;
   font-size: var(--fs-body-md);
   color: var(--tp-lavender-100);
   text-decoration: none;
@@ -179,7 +182,8 @@ a.contactRow:hover {
   margin-bottom: 20px;
 }
 .legalLink {
-  padding: 7px 0;
+  display: inline-block;
+  padding: 11px 0;
   font-size: var(--fs-body-md);
   color: var(--tp-lavender-100);
   text-decoration: none;

@@ -113,7 +113,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   /* Brand lavender in place of the design's pink; 4.9:1 on the cream card. */
-  color: var(--tp-lavender-500);
+  color: var(--tp-lavender-600);
   margin: 0;
 }
 

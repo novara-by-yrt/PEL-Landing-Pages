@@ -24,7 +24,7 @@
   --home-card-radius: var(--tp-radius-lg);
   --home-heading: var(--tp-ink);
   --home-body: var(--tp-slate);
-  --home-eyebrow: var(--tp-lavender-500);
+  --home-eyebrow: var(--tp-lavender-600);
   --home-rule: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
   --home-overlay: linear-gradient(
     180deg,
@@ -214,7 +214,7 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tp-mist);
+  color: var(--tp-slate);
   margin: 0 0 7px;
 }
 .trustValue {
@@ -317,7 +317,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--tp-mist);
+  color: var(--tp-slate);
   margin: 0 0 20px;
 }
 
@@ -332,7 +332,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--tp-lavender-500);
+  color: var(--tp-lavender-600);
   margin: 0 0 16px;
 }
 .watchSparkle {
@@ -495,7 +495,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--tp-lavender-500);
+  color: var(--tp-lavender-600);
   margin: 0 0 14px;
 }
 .expertTitle {
@@ -504,7 +504,7 @@
 }
 .expertCred {
   font-size: var(--text-base);
-  color: var(--tp-lavender-500);
+  color: var(--tp-lavender-600);
   margin: 10px 0 0;
 }
 .expertText {
@@ -646,7 +646,7 @@
 }
 .ratingText {
   font-size: var(--fs-body-sm);
-  color: var(--tp-mist);
+  color: var(--tp-slate);
   margin: 0;
 }
 .videoGrid {
@@ -658,7 +658,7 @@
   text-align: center;
   font-size: var(--fs-caption);
   line-height: 1.6;
-  color: var(--tp-mist);
+  color: var(--tp-slate);
   max-width: 62ch;
   margin: clamp(24px, 4vw, 36px) auto 0;
 }
@@ -717,7 +717,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tp-mist);
+  color: var(--tp-slate);
 }
 
 /* Every mark in this row sits in the same white chip, so a supplied logo
@@ -921,7 +921,7 @@
 .vatText {
   font-size: var(--fs-caption);
   line-height: 1.6;
-  color: var(--tp-mist);
+  color: var(--tp-slate);
   margin: 0;
   max-width: 90ch;
 }

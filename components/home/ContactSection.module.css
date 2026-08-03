@@ -103,6 +103,12 @@
   text-decoration: none;
   overflow-wrap: anywhere;
 }
+/* Negative margin keeps the row's spacing while the padding lifts the hit
+   area to 44px. */
+a.rowValue {
+  padding-block: 11px;
+  margin-block: -11px;
+}
 a.rowValue:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -130,7 +136,8 @@ a.rowValue:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 10px;
+  margin-top: 2px;
+  padding-block: 10px;
   font-size: var(--fs-body-sm);
   font-weight: 600;
   color: var(--tp-lavender-200);

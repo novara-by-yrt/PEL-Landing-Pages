@@ -93,6 +93,10 @@
   --tp-indigo-700: var(--brand-indigo);
   --tp-indigo-600: var(--brand-violet);
   --tp-lavender-500: #736CAB;
+  /* Accessible step for small text on tinted light surfaces: -500 measures
+     4.27:1 on --tp-fog, under the 4.5:1 small text needs; -600 clears it on
+     every light surface in the palette. */
+  --tp-lavender-600: #5D5595;
   --tp-lavender-400: var(--brand-lavender);
   --tp-lavender-300: var(--brand-orchid);
   --tp-lavender-200: #D8CCEE;
