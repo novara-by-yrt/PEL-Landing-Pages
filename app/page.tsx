@@ -320,18 +320,6 @@ const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
   { title: "Patients on their experience" },
 ];
 
-/**
- * grating.svg and rating49.svg are missing from the uploads origin and render
- * as broken images, so the Google rating is drawn instead of fetched. The
- * remaining two are third-party marks and stay as supplied files.
- */
-const ACCREDITATIONS = [
-  { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf rating 4.9 out of 5" },
-  // Was carequlaity.svg — a misspelt path that 404s. cqc-logo.svg is the
-  // correctly named file the other content pages reference.
-  { src: "/uploads/2024/09/cqc-logo.svg", alt: "Care Quality Commission rated Good" },
-];
-
 /** Award medal, used on the About eyebrow and the portrait's badge. */
 function Medal() {
   return (
@@ -673,36 +661,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. ACCREDITATIONS ─────────────────────────────────────────────── */}
-      <section
-        className={`${styles.sectionSm} ${styles.fog}`}
-        aria-label="Ratings and accreditations"
-      >
-        <div className="container">
-          <div className={styles.badges}>
-            <p className={styles.googleBadge}>
-              <span className={styles.googleBadgeScore}>4.9</span>
-              <span className={styles.googleBadgeBody}>
-                <Stars />
-                <span className={styles.googleBadgeLabel}>Google reviews</span>
-              </span>
-            </p>
-            {ACCREDITATIONS.map((badge) => (
-              <span key={badge.src} className={styles.badgeChip}>
-                <Image
-                  src={badge.src}
-                  alt={badge.alt}
-                  width={140}
-                  height={70}
-                  className={styles.badge}
-                />
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 9. AS SEEN IN ─────────────────────────────────────────────────── */}
+      {/* ── 8. AS SEEN IN ─────────────────────────────────────────────────── */}
       <section className={styles.logoStrip} aria-label="Featured in the media">
         <p className={styles.logoStripLabel}>As seen in</p>
         <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />

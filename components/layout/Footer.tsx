@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { CLINIC, SOCIALS } from "@/lib/clinic";
@@ -68,14 +69,18 @@ export default function Footer() {
           </nav>
 
           <div className={styles.brand}>
-            {/* No logo file exists in the repository, so the mark is set in
-                the brand's own type rather than pointing at an image that
-                would render broken. Swap in an <Image> when there is one. */}
-            <Link href="/" className={styles.mark} aria-label="Perfect Eyes Ltd — home">
-              <TpIcon name="eye" size={34} style={{ color: "var(--tp-indigo-700)" }} />
-              <span className={styles.markName}>THE PERFECT EYES</span>
-              <span className={styles.markSub}>Clinic</span>
-              <span className={styles.markSub}>Eyes · Face · Skin</span>
+            {/* The transparent PNG, not the JPEG: the JPEG carries a baked
+                white background, which would show as a hard white block if
+                the card behind it ever changes. */}
+            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic — home">
+              <Image
+                src="/PEL_logo_without_background.png"
+                alt="The Perfect Eyes Clinic"
+                width={719}
+                height={347}
+                sizes="(min-width: 640px) 210px, 180px"
+                className={styles.markImg}
+              />
             </Link>
 
             <span className={styles.markRule} aria-hidden="true" />

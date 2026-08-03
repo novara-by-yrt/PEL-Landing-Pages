@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 
@@ -149,9 +150,18 @@ export default function Header() {
       <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
         <a className="sr-only" href="#main-content">Skip to main content</a>
 
-        <Link href="/" className="pel-brand" aria-label="Perfect Eyes Ltd home">
-          <span className="pel-wordmark">Perfect Eyes</span>
-          <span className="pel-wordmark-sub">EYES · FACE · SKIN</span>
+        <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic — home">
+          {/* Above the fold, so eager rather than lazy — but not preloaded,
+              which would put it ahead of the fonts and the hero headline. */}
+          <Image
+            src="/PEL_logo_without_background.png"
+            alt="The Perfect Eyes Clinic"
+            width={719}
+            height={347}
+            sizes="(min-width: 900px) 200px, 150px"
+            loading="eager"
+            className="pel-logo"
+          />
         </Link>
 
         <nav className="pel-links" aria-label="Main navigation" ref={navRef}>
@@ -300,7 +310,14 @@ export default function Header() {
       >
         <div className="pel-drawer-top">
           <span className="pel-drawer-brand">
-            <span className="pel-wordmark">Perfect Eyes</span>
+            <Image
+              src="/PEL_logo_without_background.png"
+              alt="The Perfect Eyes Clinic"
+              width={719}
+              height={347}
+              sizes="150px"
+              className="pel-logo"
+            />
           </span>
           <button className="pel-close" aria-label="Close menu" onClick={() => setDrawerOpen(false)}>
             <TpIcon name="close" size={22} />

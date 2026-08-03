@@ -65,35 +65,22 @@
 }
 
 .mark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 236px;
-  padding: 18px 22px 20px;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 22px) clamp(20px, 4vw, 28px);
   border-radius: 18px;
   background: var(--tp-paper);
   text-decoration: none;
   box-shadow: var(--tp-shadow-md);
 }
-.markIcon {
-  color: var(--tp-indigo-700);
+.mark:focus-visible {
+  outline: 2px solid var(--tp-lavender-300);
+  outline-offset: 4px;
 }
-.markName {
-  font-family: var(--tp-display);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--tp-indigo-700);
-  text-align: center;
-  line-height: 1.2;
-}
-.markSub {
-  font-size: 0.5625rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--tp-lavender-600);
+/* Sized by width, height follows the 719:347 ratio. */
+.markImg {
+  width: clamp(180px, 46vw, 210px);
+  height: auto;
 }
 .markRule {
   width: 60px;
