@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PageHero } from "@/components/treatment/PageHero";
+import ContactSection from "@/components/home/ContactSection";
+import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
+import PatientStories from "@/components/home/PatientStories";
+import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import BeginJourney from "@/components/shared/BeginJourney";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { RealSelfWidget } from "@/components/treatment/RealSelfWidget";
 import { TreatmentFAQ } from "@/components/treatment/TreatmentFAQ";
-import { TreatmentCTA } from "@/components/treatment/TreatmentCTA";
 import type { BreadcrumbItem } from "@/components/treatment/types";
 import type { FaqItem } from "@/lib/mdx";
+import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./DrSabrinaBio.module.css";
 
 type Panel = {
@@ -256,6 +259,44 @@ const TRAINING: { meta: string; title: string; text: string }[] = [
   },
 ];
 
+
+/* Credibility figures, all drawn from the copy in PANELS and TRAINING above. */
+const STATS = [
+  { value: "25+", label: "Years of surgical and non-surgical experience" },
+  { value: "6\u00d7", label: "Tatler Top Doctors Guide, 2019\u20132026" },
+  { value: "4", label: "Sub-speciality fellowships completed in the UK" },
+  { value: "RCS", label: "England register of Board-Certified Cosmetic Surgeons" },
+];
+
+/* The Perfect 360 philosophy, broken out of one dense paragraph into the
+   four beats it already describes. */
+const PERFECT_360: JourneyStep[] = [
+  {
+    title: "Read the anatomy",
+    text: "Every plan starts from individual facial anatomy rather than a standard procedure list.",
+  },
+  {
+    title: "Listen to expectations",
+    text: "Treatment is crafted to restore and respect unique features, not to replace them.",
+  },
+  {
+    title: "Blend the modalities",
+    text: "Personalised care combined with innovative, evidence-based surgical and non-surgical treatment.",
+  },
+  {
+    title: "Deliver natural results",
+    text: "Results that are both natural and remarkable \u2014 \u201cbe your own kind of beautiful\u201d.",
+  },
+];
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function DrSabrinaBio({
   breadcrumbItems,
   siteUrl,
@@ -265,112 +306,161 @@ export function DrSabrinaBio({
   siteUrl: string;
   faq?: FaqItem[];
 }) {
-  return (
-    <div className="tp">
-      <PageHero
-        breadcrumbItems={breadcrumbItems}
-        siteUrl={siteUrl}
-        eyebrow="Surgeon, Educator & Scientist"
-        h1="Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth."
-        lead="Multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner."
-        heroImage="/uploads/2024/10/A59Z5738ggcopy-1.jpg"
-        heroImageAlt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon, in her clinic"
-        heroBadge="Top practitioner for eyes · 2019–2026"
-      />
+  void breadcrumbItems;
+  void siteUrl;
 
-      {PANELS.map((panel) => (
-        <section key={panel.id} id={panel.id} className={`${styles.section} ${styles[panel.tone]}`}>
-          <div className="container">
-            <div className={`${styles.grid} ${panel.reverse ? styles.reverse : ""}`}>
-              <div className={styles.prose}>
-                <span className={styles.eyebrow}>
-                  <TpIcon name="sparkle" size={13} />
-                  {panel.eyebrow}
-                </span>
-                <h2 className={styles.heading}>{panel.heading}</h2>
-                {panel.body}
+  return (
+    <div className={styles.page}>
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className={styles.hero} aria-labelledby="bio-title">
+        <span className={styles.heroGlow} aria-hidden="true" />
+        <div className="container">
+          <div className={styles.heroGrid}>
+            <div>
+              <span className={styles.eyebrow}>Surgeon, Educator &amp; Scientist</span>
+              <h1 id="bio-title" className={styles.heroTitle}>
+                Dr Sabrina Shah-Desai
+              </h1>
+              <p className={styles.heroCred}>MS, FRCS (Ed) Ophth.</p>
+              <p className={styles.heroLead}>
+                Multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic
+                Practitioner, and one of the safest, most experienced eye and face
+                rejuvenation experts practising in the UK.
+              </p>
+              <div className={styles.heroActions}>
+                <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+                  Book a Consultation
+                  <span className="tp-btn-arrow" aria-hidden="true">
+                    <Arrow />
+                  </span>
+                </Link>
+                <Link href="/before-after" className="tp-btn tp-btn-secondary">
+                  See Before &amp; After
+                </Link>
               </div>
+            </div>
+
+            <figure className={styles.heroFigure}>
+              <Image
+                src="/uploads/2024/10/A59Z5738ggcopy-1.jpg"
+                alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon, in her clinic"
+                fill
+                sizes="(min-width: 900px) 44vw, 100vw"
+                loading="eager"
+                className={styles.heroImg}
+              />
+              <figcaption className={styles.heroBadge}>
+                <span className={styles.heroBadgeIcon} aria-hidden="true">
+                  <TpIcon name="shield" size={18} />
+                </span>
+                <span>
+                  <span className={styles.heroBadgeTitle}>Top practitioner for eyes</span>
+                  <span className={styles.heroBadgeMeta}>Eight consecutive years, 2019\u20132026</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <ul className={styles.stats}>
+            {STATS.map((stat) => (
+              <li key={stat.label} className={styles.stat}>
+                <span className={styles.statValue}>{stat.value}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── Accredited & recognised by ───────────────────────────────────── */}
+      <AccreditedStrip />
+
+      {/* ── Alternating narrative panels ─────────────────────────────────── */}
+      {PANELS.map((panel, index) => (
+        <section
+          key={panel.id}
+          id={panel.id}
+          className={`${styles.section} ${styles[panel.tone]}`}
+          aria-labelledby={`${panel.id}-heading`}
+        >
+          <div className="container">
+            <div className={`${styles.split} ${index % 2 === 1 ? styles.reverse : ""}`}>
               <figure className={styles.figure}>
                 <Image
                   src={panel.image}
                   alt={panel.imageAlt}
                   fill
-                  sizes="(max-width: 860px) 100vw, 45vw"
-                  loading="lazy"
+                  sizes="(min-width: 900px) 46vw, 100vw"
+                  className={styles.figureImg}
                 />
               </figure>
+
+              <div className={styles.prose}>
+                <span className={styles.eyebrow}>{panel.eyebrow}</span>
+                <h2 id={`${panel.id}-heading`} className={styles.h2}>
+                  {panel.heading}
+                </h2>
+                <div className={styles.proseBody}>{panel.body}</div>
+              </div>
             </div>
           </div>
         </section>
       ))}
 
-      {/* The one photographic dark band on the page — Dr Sabrina's philosophy. */}
-      <section className={styles.manifesto}>
-        <div className={styles.manifestoBg}>
-          <Image
-            src="/uploads/2018/10/Perfect-360-london.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            loading="lazy"
-          />
-        </div>
-        <div className={styles.manifestoScrim} />
+      {/* ── Perfect 360 ──────────────────────────────────────────────────── */}
+      <section className={styles.journey} aria-labelledby="approach-title">
+        <span className={styles.journeyGlow} aria-hidden="true" />
         <div className="container">
-          <div className={styles.manifestoInner}>
-            <span className={styles.eyebrow}>
-              <TpIcon name="sparkle" size={13} />
-              Revealing Timeless Beauty
-            </span>
-            <h2 className={styles.heading}>Dr Sabrina&rsquo;s Perfect 360&trade; Approach</h2>
-            <p className={styles.manifestoText}>
-              Dr Sabrina&rsquo;s philosophy centres on providing a curated experience, as she
-              believes that treatment(s) should be crafted to restore and respect unique facial
-              features. Her holistic, 360-degree approach takes into account individual facial
-              anatomy, patient expectations, and also draws on her intuitive &ldquo;third
-              eye&rdquo;.
+          <div className={styles.journeyHead}>
+            <h2 id="approach-title" className={styles.journeyTitle}>
+              Revealing timeless beauty: Dr Sabrina&rsquo;s Perfect 360&trade; approach
+            </h2>
+            <p className={styles.journeyLead}>
+              A curated experience built on the belief that treatment should restore and
+              respect unique facial features \u2014 a holistic, 360-degree approach drawing on
+              anatomy, expectations and her intuitive &ldquo;third eye&rdquo;.
             </p>
-            <p className={styles.manifestoText}>
-              Dr Sabrina refers to this harmonious approach as the Perfect 360&trade;, which blends
-              personalised care with innovative evidence-based treatments that deliver results that
-              are both natural and remarkable.
-            </p>
-            <p className={styles.manifestoQuote}>&ldquo;Be your own kind of beautiful.&rdquo;</p>
-            <div className={styles.manifestoCta}>
-              <Link href="/contact" className="tp-btn tp-btn-inverse">
-                Book a Medical Consultation
-                <TpIcon name="arrow" size={17} />
-              </Link>
-            </div>
           </div>
+          <JourneyCards steps={PERFECT_360} />
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.fog}`}>
+      {/* ── Training timeline ────────────────────────────────────────────── */}
+      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="training-title">
         <div className="container">
-          <span className={styles.eyebrow}>
-            <TpIcon name="clipboard" size={13} />
-            Training
-          </span>
-          <h2 className={styles.heading}>Global Training and Experience</h2>
-          <div className={styles.timeline}>
-            {TRAINING.map((item, i) => (
-              <div key={item.title} className={styles.step}>
-                <span className={styles.stepNum} aria-hidden="true">
-                  {i + 1}
-                </span>
-                <span className={styles.stepMeta}>{item.meta}</span>
-                <h3 className={styles.stepTitle}>{item.title}</h3>
-                <p className={styles.stepText}>{item.text}</p>
-              </div>
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>Training</span>
+            <h2 id="training-title" className={styles.h2}>
+              Global training and experience
+            </h2>
+            <p className={styles.lead}>
+              Four sub-speciality fellowships across the UK&rsquo;s leading eye units,
+              following medical training in Bombay.
+            </p>
+          </div>
+
+          <ol className={styles.timeline}>
+            {TRAINING.map((item) => (
+              <li key={item.title} className={styles.milestone}>
+                <span className={styles.milestoneYear}>{item.meta}</span>
+                <h3 className={styles.milestoneTitle}>{item.title}</h3>
+                <p className={styles.milestoneText}>{item.text}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <RealSelfWidget />
-      <TreatmentFAQ faq={faq} title="Dr Sabrina Shah-Desai" />
-      <TreatmentCTA />
+      {/* ── Rated five stars ─────────────────────────────────────────────── */}
+      <PatientStories stories={PATIENT_STORIES} />
+
+      {faq?.length ? <TreatmentFAQ faq={faq} title="Dr Sabrina Shah-Desai" /> : null}
+
+      {/* ── Begin your Perfect Eyes journey ──────────────────────────────── */}
+      <BeginJourney />
+
+      {/* ── Contact our clinic ───────────────────────────────────────────── */}
+      <ContactSection />
     </div>
   );
 }
