@@ -247,19 +247,6 @@ const CLINIC_TEAM: TeamMember[] = [
     credentials: ["Level 4 Laser"],
     image: "/uploads/2026/04/Irvana.webp",
   },
-  {
-    name: "Leanne",
-    role: "Practice Clinic Manager",
-    image: "/uploads/2025/09/Leanne-1-1.jpg",
-  },
-  {
-    name: "Mojdeh",
-    role: "Surgical Coordinator & Patient Educator",
-    image: "/uploads/2025/09/Mojdeh-2025-09-17-15-54-00-1.jpg",
-  },
-  { name: "Mary", role: "Patient Coordinator", image: "/uploads/2024/12/Mary-1.png" },
-  { name: "Lakshiya", role: "Patient Coordinator", image: "/uploads/2025/09/Luxee-1.jpg" },
-  { name: "Sally", role: "Patient Coordinator", image: "/uploads/2025/09/Sally-1.jpg" },
 ];/**
  * Credential pull-outs for the About section. Every line is existing site
  * copy re-homed, not new claims: the first is the sentence that used to sit
