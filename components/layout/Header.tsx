@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { CLINIC } from "@/lib/clinic";
 
 interface SimpleLink {
   label: string;
@@ -188,8 +189,10 @@ const NAV: NavItem[] = [
   { label: "Shop", href: SHOP_HREF, external: true },
 ];
 
-const PHONE = "020 7486 4886";
-const PHONE_HREF = "tel:+442074864886";
+/* Phone comes from lib/clinic so the header, footer and contact panel can
+   never publish three different numbers. */
+const PHONE = CLINIC.phoneDisplay;
+const PHONE_HREF = CLINIC.phoneHref;
 const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
 export default function Header() {

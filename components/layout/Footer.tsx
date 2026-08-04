@@ -97,9 +97,10 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.social}
+                  /* Icon only, so the link needs its own accessible name. */
+                  aria-label={`${social.label} (opens in a new tab)`}
                 >
                   {SOCIAL_ICONS[social.label]}
-                  {social.label}
                 </a>
               ))}
             </div>
