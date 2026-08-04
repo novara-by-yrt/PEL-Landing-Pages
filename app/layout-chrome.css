@@ -17,9 +17,29 @@
 /* Sized by height so the mark keeps its 719:347 proportions; width follows.
    The reserved width/height on the <img> keeps this shift-free while it
    loads. */
-.pel-logo{height:52px;width:auto;object-fit:contain}
-@media (max-width:900px){.pel-logo{height:42px}}
-@media (max-width:420px){.pel-logo{height:36px}}
+.pel-logo{width:auto;object-fit:contain}
+
+/* ── Brand band ───────────────────────────────────────────────────────────
+   The logo's own strip above the nav bar. Mobile-first: it starts tall and
+   centred, then collapses to nothing as the page scrolls, handing off to the
+   small copy inside the bar. Height and logo size are what animate; the
+   handoff itself is a cross-fade, so nothing jumps. */
+.pel-brandband{display:flex;align-items:center;justify-content:center;height:0;overflow:hidden;opacity:0;visibility:hidden;background:#fff;transition:height .42s var(--tp-ease),opacity .3s var(--tp-ease),visibility .42s}
+.pel-nav.at-top .pel-brandband{height:clamp(92px,15vw,150px);opacity:1;visibility:visible;box-shadow:0 1px 0 var(--tp-hairline)}
+.pel-brandband .pel-logo{height:34px;transition:height .42s var(--tp-ease)}
+.pel-nav.at-top .pel-brandband .pel-logo{height:clamp(62px,11vw,116px)}
+
+/* The in-bar copy: collapsed to zero width until the band hands over, so the
+   nav stays centred in the full width while the big logo is showing. */
+.pel-pill-brand{max-width:0;opacity:0;visibility:hidden;overflow:hidden;transition:max-width .42s var(--tp-ease),opacity .3s var(--tp-ease),visibility .42s}
+.pel-nav:not(.at-top) .pel-pill-brand{max-width:190px;opacity:1;visibility:visible}
+.pel-pill-brand .pel-logo{height:46px}
+@media (max-width:900px){.pel-pill-brand .pel-logo{height:40px}}
+@media (max-width:420px){.pel-pill-brand .pel-logo{height:34px}.pel-nav:not(.at-top) .pel-pill-brand{max-width:130px}}
+
+@media (prefers-reduced-motion:reduce){
+  .pel-brandband,.pel-brandband .pel-logo,.pel-pill-brand{transition:none}
+}
 .pel-wordmark{font-family:var(--tp-display);font-size:20px;font-weight:600;letter-spacing:0.03em;color:var(--tp-indigo-900);white-space:nowrap}
 .pel-wordmark-sub{font-family:var(--tp-body);font-size:8.5px;letter-spacing:0.34em;color:var(--tp-lavender-500);margin-top:4px}
 .pel-links{display:flex;justify-content:center;align-items:center;gap:2px;min-width:0}

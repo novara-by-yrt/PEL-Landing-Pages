@@ -336,7 +336,7 @@ export default function HomePage() {
           <div className={styles.heroInner}>
             <span className={styles.heroEyebrow}>Harley Street &middot; London</span>
             <h1 id="hero-title" className={styles.heroTitle}>
-              Expert in
+              Experts in
               <br />
               Eyelid Surgery
             </h1>
@@ -357,6 +357,9 @@ export default function HomePage() {
                     />
                   </svg>
                 </span>
+              </Link>
+              <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-secondary">
+                Book a Consultation
               </Link>
             </div>
 
