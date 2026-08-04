@@ -21,7 +21,7 @@ export default function BeginJourney() {
         <div className={styles.beginPanel}>
           <div className={styles.beginCopy}>
             <h2 id="begin-title" className={styles.beginTitle}>
-              Begin your Perfect Eyes journey
+              Begin your Perfect Eyes and Skin journey
             </h2>
             <p className={styles.beginLead}>
               Book a private consultation with Dr Shah-Desai at {CLINIC.addressShort}, or
