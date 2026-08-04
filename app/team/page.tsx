@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Meet the Team | Perfect Eyes Ltd",
   description: DESCRIPTION,
   alternates: { canonical: URL },
-  openGraph: { type: "website", url: URL, title: "Meet the Team | Perfect Eyes Ltd" },
+  openGraph: { type: "website", url: URL, title: "Meet the Team test | Perfect Eyes Ltd" },
 };
 
 export default function TeamPage() {
