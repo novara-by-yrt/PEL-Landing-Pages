@@ -238,12 +238,11 @@ export default function Header() {
     <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
       <a className="sr-only" href="#main-content">Skip to main content</a>
 
-      {/* The logo sits in its own band above the bar, showing large while the
-          visitor is at the top of the page. On scroll the band collapses and
-          the copy inside the bar takes over — only one is ever visible, so
-          the other is pulled out of the accessibility tree with
-          `visibility: hidden` rather than just being made transparent. */}
-      <div className="pel-brandband">
+      <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
+        {/* The logo sits beside the nav, not above it: large while the visitor
+            is at the top of the page, shrinking into the bar as they scroll.
+            Height is what animates, so the 719:347 proportions hold and the
+            reserved width/height keep it shift-free while it loads. */}
         <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic — home">
           {/* Above the fold, so eager rather than lazy — but not preloaded,
               which would put it ahead of the fonts and the hero headline. */}
@@ -252,25 +251,7 @@ export default function Header() {
             alt="The Perfect Eyes Clinic"
             width={719}
             height={347}
-            sizes="(min-width: 900px) 320px, 240px"
-            loading="eager"
-            className="pel-logo"
-          />
-        </Link>
-      </div>
-
-      <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
-        <Link
-          href="/"
-          className="pel-brand pel-pill-brand"
-          aria-label="The Perfect Eyes Clinic — home"
-        >
-          <Image
-            src="/PEL_logo_without_background.png"
-            alt="The Perfect Eyes Clinic"
-            width={719}
-            height={347}
-            sizes="160px"
+            sizes="(min-width: 900px) 280px, 200px"
             loading="eager"
             className="pel-logo"
           />
