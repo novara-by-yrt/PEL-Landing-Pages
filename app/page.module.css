@@ -708,12 +708,6 @@
   color: var(--tp-indigo-600);
 }
 
-.teamCta {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(28px, 4vw, 44px);
-}
-
 /* ── 12. Closing CTA ──────────────────────────────────────────────────────
    Deep indigo panel: headline and actions on the left, a glass fee card on
    the right. One column below 1000px with the fee card underneath.       */

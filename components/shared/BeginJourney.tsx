@@ -8,8 +8,9 @@ import styles from "./BeginJourney.module.css";
  * (content/pages/contact-cosmetic-eye-surgeon.mdx). Keep the two in step.
  */
 const CONSULTATION_FEES = [
-  { label: "New consultation", price: "£300" },
-  { label: "Revision / 2nd opinion", price: "£400" },
+  { label: "New Consultation", price: "£300" },
+  { label: "Revision / 2nd Opinion", price: "£400" },
+  { label: "Follow-up / Review", price: "From £200" },
 ];
 
 /** Closing CTA panel, shared by the home page and the surgeon profile. */

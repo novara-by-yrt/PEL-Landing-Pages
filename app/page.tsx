@@ -674,21 +674,6 @@ export default function HomePage() {
           </div>
 
           <TeamCarousel members={CLINIC_TEAM} />
-
-          <div className={styles.teamCta}>
-            <Link href="/meet-team" className="tp-btn tp-btn-primary">
-              Meet the Full Team
-              <span className="tp-btn-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M5 12h13M12.5 6l6 6-6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </div>
         </div>
       </section>
 
