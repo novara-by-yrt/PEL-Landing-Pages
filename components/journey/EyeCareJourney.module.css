@@ -1,0 +1,131 @@
+/* Journey of Eye Care — bespoke page.
+   Same pattern as components/about/DrSabrinaBio.module.css: alternating
+   text/media panels on paper/cream/fog, one deep-indigo/photographic band
+   for the closing statement, Newsreader/Work Sans throughout. Each of the
+   four "Step" markers is its own section interleaved with the tips/product
+   panels — matching the previous site — not one merged timeline. */
+
+/* ── Section rhythm ─────────────────────────────────────────────────────── */
+.section { padding: clamp(44px, 5.5vw, 88px) 0; }
+.paper { background: var(--tp-paper); }
+.cream { background: var(--tp-cream); }
+.fog { background: var(--tp-fog); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+}
+
+.heading {
+  margin: 14px 0 0;
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: var(--fs-display-md);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+}
+
+.head { max-width: 640px; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.headCenter { margin-inline: auto; text-align: center; }
+
+/* ── Opening statement (text only, no media) ─────────────────────────────── */
+.intro { max-width: var(--measure); margin: 0 auto; text-align: center; }
+.intro p { margin: 0 0 1.1rem; font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+.intro p:last-child { margin-bottom: 0; }
+
+/* ── Alternating text/media panel ───────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+@media (min-width: 861px) {
+  .grid { grid-template-columns: 1.05fr 0.95fr; }
+  .grid.reverse .figure { order: -1; }
+}
+
+.figure { margin: 0; position: relative; aspect-ratio: 4 / 5; border-radius: var(--tp-radius-xl); overflow: hidden; box-shadow: var(--tp-shadow-md); border: 1px solid var(--tp-hairline); }
+.figure img { object-fit: cover; }
+
+.prose { max-width: var(--measure); }
+.prose > * + * { margin-top: 1.1rem; }
+.prose p { margin: 0; font-size: var(--fs-body-md); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+.prose a { color: var(--tp-indigo-700); text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover { color: var(--tp-indigo-600); }
+.prose h4 { margin-top: 1.6rem; font-family: var(--tp-display); font-weight: 600; font-size: var(--fs-heading-sm); color: var(--tp-ink); }
+
+.prose ul { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.prose li { position: relative; padding-left: 18px; font-size: var(--fs-body-md); line-height: var(--lh-normal); color: var(--tp-slate); }
+.prose li::before { content: ""; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--tp-lavender-400); }
+
+/* ── Step section (its own standalone section, not a merged timeline) ───── */
+.stepBadge { display: flex; align-items: center; gap: 10px; }
+.stepBadgeNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  font-family: var(--tp-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--tp-indigo-700);
+}
+
+.stepIntro { max-width: var(--measure); margin: 14px 0 0; font-size: var(--fs-body-md); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+.stepCta { display: inline-flex; margin-top: 20px; }
+
+.subGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+.subCard { padding: 1.4rem 1.5rem; background: var(--tp-paper); border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-xs); }
+.subTitle { margin: 0 0 8px; font-family: var(--tp-display); font-size: var(--fs-heading-sm); font-weight: 600; color: var(--tp-ink); }
+.subCard p { margin: 0 0 8px; font-size: var(--fs-body-sm); line-height: var(--lh-normal); color: var(--tp-slate); }
+.subCard p:last-child { margin-bottom: 0; }
+
+/* ── Manifesto band (single photographic dark moment on the page) ───────── */
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(64px, 10vw, 128px) 0;
+  text-align: center;
+  color: #fff;
+}
+.manifestoBg { position: absolute; inset: 0; z-index: 0; }
+.manifestoBg img { object-fit: cover; }
+.manifestoScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(160deg, rgba(18, 16, 54, 0.88), rgba(35, 33, 105, 0.82));
+}
+.manifestoInner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+.manifesto .eyebrow { color: var(--tp-lavender-300); }
+.manifesto .heading { color: #fff; }
+.manifestoText { margin-top: 20px; font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--tp-lavender-100); }
+.manifestoCta { margin-top: 28px; }
+
+/* ── Post-treatment routine list ─────────────────────────────────────────── */
+.routineList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; max-width: var(--measure); margin-inline: auto; }
+.routineItem {
+  display: flex;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--tp-cream);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  box-shadow: var(--tp-shadow-xs);
+}
+.routineDot { flex: 0 0 auto; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: var(--tp-indigo-700); }
+.routineItem p { margin: 0; font-size: var(--fs-body-md); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+.routineItem strong { color: var(--tp-ink); }
+.routineNote { max-width: var(--measure); margin: 1.75rem auto 0; text-align: center; font-size: var(--fs-body-md); color: var(--tp-slate); }
