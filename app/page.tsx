@@ -288,25 +288,6 @@ const EXPERT_CREDENTIALS = [
   "Over 25 years of surgical and non-surgical experience",
 ];
 
-/**
- * A browser paints its own black backdrop over an empty <video>, which would
- * override the panel colour set in CSS. Handing it a poster instead — one
- * inline gradient, no request — keeps the placeholder on brand.
- */
-const PLACEHOLDER_POSTER =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23211E42'/%3E%3Cstop offset='1' stop-color='%2314122C'/%3E%3C/linearGradient%3E%3Crect width='16' height='9' fill='url(%23g)'/%3E%3C/svg%3E";
-
-/**
- * The two "Watch" films. `src` and `poster` are intentionally empty until the
- * final cuts are supplied — the players render as the dark placeholder panels
- * in the approved design, and drop in without any markup change once the file
- * paths land here.
- */
-const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
-  { title: "Inside the Perfect Eyes clinic" },
-  { title: "Patients on their experience" },
-];
-
 /** Award medal, used on the About eyebrow and the portrait's badge. */
 function Medal() {
   return (
@@ -323,15 +304,6 @@ function CheckMark() {
     <svg className={styles.checkIcon} viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="9.25" />
       <path d="M8.2 12.4l2.6 2.6 5-5.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/** Four-point sparkle that precedes the "Watch" eyebrow. */
-function Sparkle() {
-  return (
-    <svg className={styles.watchSparkle} viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M8 0l1.5 5.1L15 8l-5.5 2.9L8 16l-1.5-5.1L1 8l5.5-2.9z" />
     </svg>
   );
 }
@@ -423,43 +395,6 @@ export default function HomePage() {
       {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
       <AccreditedStrip />
 
-      {/* ── 3. WATCH ──────────────────────────────────────────────────────── */}
-      <section
-        className={`${styles.section} ${styles.paper}`}
-        aria-labelledby="watch-title"
-      >
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.watchEyebrow}>
-              <Sparkle />
-              Watch
-            </span>
-            <h2 id="watch-title" className={`${styles.h2} ${styles.watchTitle}`}>
-              Meet the clinic and hear from our patients
-            </h2>
-          </div>
-
-          <div className={styles.watchGrid}>
-            {CLINIC_VIDEOS.map((video) => (
-              <figure key={video.title} className={styles.watchItem}>
-                <video
-                  className={styles.watchVideo}
-                  src={video.src}
-                  poster={video.poster ?? PLACEHOLDER_POSTER}
-                  controls
-                  playsInline
-                  /* Nothing is fetched until the visitor presses play, so two
-                     videos above the fold cost no bandwidth on load. */
-                  preload="none"
-                  aria-label={video.title}
-                />
-                <figcaption className="sr-only">{video.title}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.expert}`}
@@ -543,7 +478,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. TREATMENTS ─────────────────────────────────────────────────── */}
+      {/* ── 5. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
         id="treatments"
         className={`${styles.section} ${styles.treatments}`}
@@ -572,7 +507,10 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── 6. THE JOURNEY ───────────────────────────────────────────────── */}
+      {/* ── 6. PATIENT STORIES ────────────────────────────────────────────── */}
+      <PatientStories stories={PATIENT_STORIES} />
+
+      {/* ── 7. THE JOURNEY ───────────────────────────────────────────────── */}
       <section className={styles.journey} aria-labelledby="journey-title">
         {/* Soft brand-coloured glow behind the rail. Without something to
             refract, glass cards on a flat field read as plain panels. */}
@@ -604,10 +542,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. PATIENT STORIES ────────────────────────────────────────────── */}
-      <PatientStories stories={PATIENT_STORIES} />
-
-      {/* ── 7. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
+      {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.paper}`}
         aria-labelledby="videos-title"
@@ -653,7 +588,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. AS SEEN IN ─────────────────────────────────────────────────── */}
+      {/* ── 9. AS SEEN IN ─────────────────────────────────────────────────── */}
       <section className={styles.logoStrip} aria-label="Featured in the media">
         <p className={styles.logoStripLabel}>As seen in</p>
         <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
@@ -692,16 +627,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
+      {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
       <BeginJourney />
 
-      {/* ── 13. FAQ ───────────────────────────────────────────────────────── */}
+      {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
       <HomeFaq items={HOME_FAQ} />
 
-      {/* ── 14. CONTACT ───────────────────────────────────────────────────── */}
+      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
       <ContactSection />
 
-      {/* ── 15. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
