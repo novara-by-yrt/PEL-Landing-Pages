@@ -48,13 +48,13 @@
 .badge {
   /* Sized by height, not capped by it: these carry true intrinsic dimensions
      so the width follows each badge's own aspect ratio. */
-  height: 78px;
+  height: 96px;
   width: auto;
   max-height: none;
 }
 
 @media (min-width: 768px) {
   .badge {
-    height: 108px;
+    height: 132px;
   }
 }

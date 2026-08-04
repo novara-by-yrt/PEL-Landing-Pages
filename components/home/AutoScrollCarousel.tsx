@@ -32,15 +32,23 @@ export default function AutoScrollCarousel({
   reverse = false,
   size = "logo",
 }: AutoScrollCarouselProps) {
-  const doubled = [...items, ...items];
+  /* Enough copies that the track is always wider than the viewport, with one
+     whole set left to scroll into view. Fewer items means more copies. */
+  const copies = Math.max(2, Math.ceil(28 / items.length));
+  const reel = Array.from({ length: copies }, () => items).flat();
 
   return (
     <div className={styles.viewport}>
       <div
         className={`logo-scroll-track${reverse ? " is-reverse" : ""}`}
-        style={{ "--logo-scroll-speed": `${speed}s` } as React.CSSProperties}
+        style={
+          {
+            "--logo-scroll-speed": `${speed}s`,
+            "--logo-scroll-shift": `calc(-100% / ${copies})`,
+          } as React.CSSProperties
+        }
       >
-        {doubled.map((item, i) => (
+        {reel.map((item, i) => (
           <div
             key={i}
             className={`${styles.item} ${size === "badge" ? styles.itemBadge : ""}`}

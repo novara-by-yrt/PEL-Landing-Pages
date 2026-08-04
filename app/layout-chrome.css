@@ -98,9 +98,13 @@
 /* ── Footer ─────────────────────────────────────────────────────────────── */
 
 /* ── Shared animation ───────────────────────────────────────────────────── */
+/* Shifts by exactly one copy of the set, whatever the copy count. Hard-coding
+   -50% only loops seamlessly when the track holds exactly two copies AND one
+   copy is wider than the viewport — with seven wide badges it was neither, so
+   the rail ran off its own end and left a gap. */
 @keyframes scroll-logos {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(var(--logo-scroll-shift, -50%)); }
 }
 .logo-scroll-track {
   display: flex;
