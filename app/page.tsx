@@ -11,6 +11,7 @@ import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./page.module.css";
@@ -352,11 +353,18 @@ export default function HomePage() {
             </div>
 
             <dl className={styles.trust}>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>Google rating</dt>
-                <dd className={styles.trustValue}>
-                  <Stars />
-                  4.9 &middot; 230+ reviews
+              <div className={`${styles.trustItem} ${styles.trustItemRating}`}>
+                <dt className="sr-only">Google rating</dt>
+                <dd className={styles.googleCard}>
+                  <GoogleMark className={styles.googleMark} />
+                  <span className={styles.googleScore}>4.9</span>
+                  <span className={styles.googleDetail}>
+                    <Stars />
+                    <span className={styles.googleCount}>
+                      <span className="sr-only">Rated 4.9 out of 5 from </span>
+                      230+ Google reviews
+                    </span>
+                  </span>
                 </dd>
               </div>
               <div className={styles.trustItem}>
