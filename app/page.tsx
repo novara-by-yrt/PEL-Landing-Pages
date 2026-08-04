@@ -4,12 +4,14 @@ import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
+import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
 import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
 import PatientStories from "@/components/home/PatientStories";
 import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./page.module.css";
@@ -186,18 +188,6 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
   },
 ];
 
-const MEDIA_LOGOS = [
-  { src: "/uploads/2024/09/logo1.svg", alt: "Media logo 1" },
-  { src: "/uploads/2024/09/logo2.svg", alt: "Media logo 2" },
-  { src: "/uploads/2024/09/logo3.svg", alt: "Media logo 3" },
-  { src: "/uploads/2024/09/logo4.svg", alt: "Media logo 4" },
-  { src: "/uploads/2024/09/logo15.svg", alt: "Media logo 5" },
-  { src: "/uploads/2024/09/logo6.svg", alt: "Media logo 6" },
-  { src: "/uploads/2024/09/logo7.svg", alt: "Media logo 7" },
-  { src: "/uploads/2024/09/logo8.svg", alt: "Media logo 8" },
-  { src: "/uploads/2024/09/logo9.svg", alt: "Media logo 9" },
-  { src: "/uploads/2024/09/logo10.svg", alt: "Media logo 10" },
-];
 
 /** Copy transcribed from the approved design for this section. */
 const JOURNEY_STEPS: JourneyStep[] = [
@@ -216,6 +206,33 @@ const JOURNEY_STEPS: JourneyStep[] = [
   {
     title: "Care through recovery",
     text: "Clear aftercare and attentive follow-up until you are fully healed and happy.",
+  },
+];
+
+/**
+ * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
+ * in step with the treatment pages if either side changes.
+ */
+const HOME_FAQ: HomeFaqItem[] = [
+  {
+    question: "What is the recovery time after eyelid surgery?",
+    answer:
+      "Initial recovery generally takes about one week. Stitches are removed after 7-10 days and most patients resume desk-based activity soon after. Mild bruising and swelling may persist for two to three weeks.",
+  },
+  {
+    question: "Will my surgical scars be visible?",
+    answer:
+      "Incisions are hidden within the eyelid’s natural crease and usually fade over several months. Visible scarring is uncommon, and Dr Shah-Desai uses a signature “Zip Stitch” technique to minimise it.",
+  },
+  {
+    question: "How much does upper eyelid surgery cost?",
+    answer:
+      "A unilateral upper eyelid lift starts from £5,000 and bilateral from £6,000, inclusive of hospital charge and local anaesthetic. All cosmetic procedures incur 20% VAT. Fees are confirmed after your consultation.",
+  },
+  {
+    question: "Do you offer free consultations?",
+    answer:
+      "The fees include a complimentary in-depth non-surgical consultation by Dr Shah-Desai’s team of doctors in Perfect Skin Studio and a skin health consultation by the senior therapist.",
   },
 ];
 
@@ -247,19 +264,6 @@ const CLINIC_TEAM: TeamMember[] = [
     credentials: ["Level 4 Laser"],
     image: "/uploads/2026/04/Irvana.webp",
   },
-  {
-    name: "Leanne",
-    role: "Practice Clinic Manager",
-    image: "/uploads/2025/09/Leanne-1-1.jpg",
-  },
-  {
-    name: "Mojdeh",
-    role: "Surgical Coordinator & Patient Educator",
-    image: "/uploads/2025/09/Mojdeh-2025-09-17-15-54-00-1.jpg",
-  },
-  { name: "Mary", role: "Patient Coordinator", image: "/uploads/2024/12/Mary-1.png" },
-  { name: "Lakshiya", role: "Patient Coordinator", image: "/uploads/2025/09/Luxee-1.jpg" },
-  { name: "Sally", role: "Patient Coordinator", image: "/uploads/2025/09/Sally-1.jpg" },
 ];/**
  * Credential pull-outs for the About section. Every line is existing site
  * copy re-homed, not new claims: the first is the sentence that used to sit
@@ -271,25 +275,6 @@ const EXPERT_CREDENTIALS = [
   "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
   "Recognised as a top practitioner for eyes for eight consecutive years, 2019–2026",
   "Over 25 years of surgical and non-surgical experience",
-];
-
-/**
- * A browser paints its own black backdrop over an empty <video>, which would
- * override the panel colour set in CSS. Handing it a poster instead — one
- * inline gradient, no request — keeps the placeholder on brand.
- */
-const PLACEHOLDER_POSTER =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23211E42'/%3E%3Cstop offset='1' stop-color='%2314122C'/%3E%3C/linearGradient%3E%3Crect width='16' height='9' fill='url(%23g)'/%3E%3C/svg%3E";
-
-/**
- * The two "Watch" films. `src` and `poster` are intentionally empty until the
- * final cuts are supplied — the players render as the dark placeholder panels
- * in the approved design, and drop in without any markup change once the file
- * paths land here.
- */
-const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
-  { title: "Inside the Perfect Eyes clinic" },
-  { title: "Patients on their experience" },
 ];
 
 /** Award medal, used on the About eyebrow and the portrait's badge. */
@@ -308,15 +293,6 @@ function CheckMark() {
     <svg className={styles.checkIcon} viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="9.25" />
       <path d="M8.2 12.4l2.6 2.6 5-5.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/** Four-point sparkle that precedes the "Watch" eyebrow. */
-function Sparkle() {
-  return (
-    <svg className={styles.watchSparkle} viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M8 0l1.5 5.1L15 8l-5.5 2.9L8 16l-1.5-5.1L1 8l5.5-2.9z" />
     </svg>
   );
 }
@@ -349,7 +325,7 @@ export default function HomePage() {
           <div className={styles.heroInner}>
             <span className={styles.heroEyebrow}>Harley Street &middot; London</span>
             <h1 id="hero-title" className={styles.heroTitle}>
-              Expert in
+              Experts in
               <br />
               Eyelid Surgery
             </h1>
@@ -371,14 +347,24 @@ export default function HomePage() {
                   </svg>
                 </span>
               </Link>
+              <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-secondary">
+                Book a Consultation
+              </Link>
             </div>
 
             <dl className={styles.trust}>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>Google rating</dt>
-                <dd className={styles.trustValue}>
-                  <Stars />
-                  4.9 &middot; 230+ reviews
+              <div className={`${styles.trustItem} ${styles.trustItemRating}`}>
+                <dt className="sr-only">Google rating</dt>
+                <dd className={styles.googleCard}>
+                  <GoogleMark className={styles.googleMark} />
+                  <span className={styles.googleScore}>4.9</span>
+                  <span className={styles.googleDetail}>
+                    <Stars />
+                    <span className={styles.googleCount}>
+                      <span className="sr-only">Rated 4.9 out of 5 from </span>
+                      230+ Google reviews
+                    </span>
+                  </span>
                 </dd>
               </div>
               <div className={styles.trustItem}>
@@ -408,43 +394,6 @@ export default function HomePage() {
       {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
       <AccreditedStrip />
 
-      {/* ── 3. WATCH ──────────────────────────────────────────────────────── */}
-      <section
-        className={`${styles.section} ${styles.paper}`}
-        aria-labelledby="watch-title"
-      >
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.watchEyebrow}>
-              <Sparkle />
-              Watch
-            </span>
-            <h2 id="watch-title" className={`${styles.h2} ${styles.watchTitle}`}>
-              Meet the clinic and hear from our patients
-            </h2>
-          </div>
-
-          <div className={styles.watchGrid}>
-            {CLINIC_VIDEOS.map((video) => (
-              <figure key={video.title} className={styles.watchItem}>
-                <video
-                  className={styles.watchVideo}
-                  src={video.src}
-                  poster={video.poster ?? PLACEHOLDER_POSTER}
-                  controls
-                  playsInline
-                  /* Nothing is fetched until the visitor presses play, so two
-                     videos above the fold cost no bandwidth on load. */
-                  preload="none"
-                  aria-label={video.title}
-                />
-                <figcaption className="sr-only">{video.title}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.expert}`}
@@ -462,7 +411,6 @@ export default function HomePage() {
                 sizes="(min-width: 1000px) 42vw, 100vw"
                 className={styles.expertPortrait}
               />
-              <figcaption className={styles.expertPill}>The Surgeon</figcaption>
               <div className={styles.expertBadge}>
                 <span className={styles.expertBadgeIcon} aria-hidden="true">
                   <Medal />
@@ -528,7 +476,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. TREATMENTS ─────────────────────────────────────────────────── */}
+      {/* ── 5. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
         id="treatments"
         className={`${styles.section} ${styles.treatments}`}
@@ -557,7 +505,10 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── 6. THE JOURNEY ───────────────────────────────────────────────── */}
+      {/* ── 6. PATIENT STORIES ────────────────────────────────────────────── */}
+      <PatientStories stories={PATIENT_STORIES} />
+
+      {/* ── 7. THE JOURNEY ───────────────────────────────────────────────── */}
       <section className={styles.journey} aria-labelledby="journey-title">
         {/* Soft brand-coloured glow behind the rail. Without something to
             refract, glass cards on a flat field read as plain panels. */}
@@ -589,10 +540,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. PATIENT STORIES ────────────────────────────────────────────── */}
-      <PatientStories stories={PATIENT_STORIES} />
-
-      {/* ── 7. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
+      {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.paper}`}
         aria-labelledby="videos-title"
@@ -604,13 +552,6 @@ export default function HomePage() {
               Patient Testimonials
             </h2>
             <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
-            <div className={styles.rating}>
-              <p className={styles.ratingScore}>
-                <Stars />
-                <span className="sr-only">Rated </span>4.9<span className="sr-only"> out of 5</span>
-              </p>
-              <p className={styles.ratingText}>Based on 220+ Google Reviews</p>
-            </div>
           </div>
 
           <div className={styles.videoGrid}>
@@ -636,12 +577,6 @@ export default function HomePage() {
             consultation and treatment.
           </p>
         </div>
-      </section>
-
-      {/* ── 8. AS SEEN IN ─────────────────────────────────────────────────── */}
-      <section className={styles.logoStrip} aria-label="Featured in the media">
-        <p className={styles.logoStripLabel}>As seen in</p>
-        <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
       </section>
 
       {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
@@ -674,26 +609,14 @@ export default function HomePage() {
           </div>
 
           <TeamCarousel members={CLINIC_TEAM} />
-
-          <div className={styles.teamCta}>
-            <Link href="/meet-team" className="tp-btn tp-btn-primary">
-              Meet the Full Team
-              <span className="tp-btn-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M5 12h13M12.5 6l6 6-6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
+      {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
       <BeginJourney />
+
+      {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
+      <HomeFaq items={HOME_FAQ} />
 
       {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
       <ContactSection />
@@ -702,7 +625,7 @@ export default function HomePage() {
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
-            *Treatments undertaken solely for aesthetic purposes are subject to VAT at the
+            Treatments undertaken solely for aesthetic purposes are subject to VAT at the
             prevailing rate. Where treatment is provided for a diagnosed medical condition, VAT
             status will be discussed during consultation.
           </p>

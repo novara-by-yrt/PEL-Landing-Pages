@@ -8,7 +8,7 @@ const QUICK_LINKS = [
   { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
   { href: "/meet-team", label: "About the Clinic" },
   { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
-  { href: "/before-after", label: "Before & After" },
+  { href: "/before-after", label: "Results" },
   { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
   { href: "/contact", label: "Contact" },
 ];
@@ -97,9 +97,10 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.social}
+                  /* Icon only, so the link needs its own accessible name. */
+                  aria-label={`${social.label} (opens in a new tab)`}
                 >
                   {SOCIAL_ICONS[social.label]}
-                  {social.label}
                 </a>
               ))}
             </div>

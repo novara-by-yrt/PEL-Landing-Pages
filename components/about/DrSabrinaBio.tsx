@@ -456,7 +456,7 @@ export function DrSabrinaBio({
 
       {faq?.length ? <TreatmentFAQ faq={faq} title="Dr Sabrina Shah-Desai" /> : null}
 
-      {/* ── Begin your Perfect Eyes journey ──────────────────────────────── */}
+      {/* ── Begin your Perfect Eyes and Skin journey ─────────────────────── */}
       <BeginJourney />
 
       {/* ── Contact our clinic ───────────────────────────────────────────── */}

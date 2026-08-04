@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { CLINIC } from "@/lib/clinic";
 
 interface SimpleLink {
   label: string;
@@ -19,10 +20,19 @@ interface NavGroup {
 interface NavItem {
   label: string;
   href: string;
+  /** Points off-site; renders a plain anchor that opens in a new tab. */
+  external?: boolean;
   variant?: "simple" | "grid" | "mega";
   children?: SimpleLink[];
   groups?: NavGroup[];
+  /** Eyebrow above the panel's first column. */
+  panelLabel?: string;
+  /** Footer link closing the panel's first column. */
+  viewAll?: SimpleLink;
 }
+
+/** The Shopify storefront — same destination as the skincare link under Eye Journey. */
+const SHOP_HREF = "https://drsabrina.com/collections/all";
 
 const SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Upper Lid Blepharoplasty", href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk" },
@@ -63,14 +73,75 @@ const EYE_CONDITIONS: SimpleLink[] = [
   { label: "Eyelid Cancer", href: "/condition/eyelid-cancer" },
 ];
 
+/* Before/after galleries, split the way the results panel presents them. Every
+   entry is an existing case study under content/before-after. */
+const SURGICAL_RESULTS: SimpleLink[] = [
+  { label: "Upper Blepharoplasty", href: "/before-after/upper-blepharoplasty" },
+  { label: "Lower Blepharoplasty (Eyebag removal)", href: "/before-after/lower-blepharoplasty-eyebag-removal" },
+  { label: "Ptosis Surgery", href: "/before-after/ptosis-surgery" },
+  { label: "Asian Blepharoplasty", href: "/before-after/asian-blepharoplasty" },
+  { label: "Revision Blepharoplasty", href: "/before-after/revision-blepharoplasty" },
+];
+
+const NON_SURGICAL_RESULTS: SimpleLink[] = [
+  { label: "Polynucleotides", href: "/before-after/polynucleotides" },
+  { label: "Morpheus8", href: "/before-after/morpheus8" },
+  { label: "Ultraclear Lasers", href: "/before-after/ultraclear-laser" },
+  { label: "Superior Sulcus Filler", href: "/before-after/superior-sulcus-filler" },
+  { label: "Sofwave\u2122", href: "/before-after/sofwave" },
+];
+
+/**
+ * One row inside a dropdown panel. External destinations need a plain anchor
+ * (next/link would try to route them) and a new tab, so the choice is made
+ * here rather than repeated at each call site.
+ */
+function PanelLink({
+  link,
+  className,
+  leadingChevron,
+  onNavigate,
+}: {
+  link: SimpleLink;
+  className: string;
+  leadingChevron?: boolean;
+  onNavigate: () => void;
+}) {
+  const body = (
+    <>
+      {leadingChevron && <TpIcon name="chevron" size={14} />}
+      {link.label}
+      {link.external && <span className="sr-only"> (opens in a new tab)</span>}
+    </>
+  );
+
+  return link.external ? (
+    <a
+      href={link.href}
+      className={className}
+      role="menuitem"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={onNavigate}
+    >
+      {body}
+    </a>
+  ) : (
+    <Link href={link.href} className={className} role="menuitem" onClick={onNavigate}>
+      {body}
+    </Link>
+  );
+}
+
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "About",
     href: "/dr-sabrina-shah-desai",
     variant: "simple",
+    panelLabel: "Browse",
     children: [
-      { label: "About Dr Sabrina Shah-Desai", href: "/oculoplastic-surgeon-eyelid-cosmetic-surgeon-london" },
+      { label: "Dr Sabrina Shah-Desai", href: "/oculoplastic-surgeon-eyelid-cosmetic-surgeon-london" },
       { label: "Team", href: "/team" },
       { label: "Publications", href: "/publications" },
     ],
@@ -79,27 +150,49 @@ const NAV: NavItem[] = [
     label: "Eye Journey",
     href: "/journey-of-eye-care",
     variant: "simple",
+    panelLabel: "Browse",
     children: [
       { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
-      { label: "Advanced Periorbital Skincare", href: "https://drsabrina.com/collections/all", external: true },
+      { label: "Advanced Periorbital Skincare", href: SHOP_HREF, external: true },
       { label: "Blog", href: "/blog" },
     ],
   },
-  { label: "Eye Conditions", href: "/condition/hooded-eyelids", variant: "grid", children: EYE_CONDITIONS },
+  {
+    label: "Eye Conditions",
+    href: "/condition/hooded-eyelids",
+    variant: "grid",
+    panelLabel: "Browse by condition",
+    children: EYE_CONDITIONS,
+  },
   {
     label: "Treatments",
     href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
     variant: "mega",
+    panelLabel: "Browse by type",
+    viewAll: { label: "View All Treatments", href: "/#treatments" },
     groups: [
       { label: "Surgical Treatments", sub: SURGICAL_TREATMENTS },
       { label: "Non-Surgical Treatments", sub: NON_SURGICAL_TREATMENTS },
     ],
   },
-  { label: "Before & After", href: "/before-after" },
+  {
+    label: "Results",
+    href: "/before-after",
+    variant: "mega",
+    panelLabel: "Browse by type",
+    viewAll: { label: "View All Results", href: "/before-after" },
+    groups: [
+      { label: "Surgical", sub: SURGICAL_RESULTS },
+      { label: "Non-Surgical", sub: NON_SURGICAL_RESULTS },
+    ],
+  },
+  { label: "Shop", href: SHOP_HREF, external: true },
 ];
 
-const PHONE = "020 7486 4886";
-const PHONE_HREF = "tel:+442074864886";
+/* Phone comes from lib/clinic so the header, footer and contact panel can
+   never publish three different numbers. */
+const PHONE = CLINIC.phoneDisplay;
+const PHONE_HREF = CLINIC.phoneHref;
 const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
 export default function Header() {
@@ -146,10 +239,13 @@ export default function Header() {
 
   return (
     <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
+      <a className="sr-only" href="#main-content">Skip to main content</a>
 
       <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
-        <a className="sr-only" href="#main-content">Skip to main content</a>
-
+        {/* The logo sits beside the nav, not above it: large while the visitor
+            is at the top of the page, shrinking into the bar as they scroll.
+            Height is what animates, so the 719:347 proportions hold and the
+            reserved width/height keep it shift-free while it loads. */}
         <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic — home">
           {/* Above the fold, so eager rather than lazy — but not preloaded,
               which would put it ahead of the fonts and the hero headline. */}
@@ -158,7 +254,7 @@ export default function Header() {
             alt="The Perfect Eyes Clinic"
             width={719}
             height={347}
-            sizes="(min-width: 900px) 200px, 150px"
+            sizes="(min-width: 900px) 280px, 200px"
             loading="eager"
             className="pel-logo"
           />
@@ -167,7 +263,18 @@ export default function Header() {
         <nav className="pel-links" aria-label="Main navigation" ref={navRef}>
           {NAV.map((item, navIndex) => {
             if (!item.variant) {
-              return (
+              return item.external ? (
+                <a
+                  key={`${item.href}-${navIndex}`}
+                  href={item.href}
+                  className="pel-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : (
                 <Link key={`${item.href}-${navIndex}`} href={item.href} className="pel-link">
                   {item.label}
                 </Link>
@@ -194,55 +301,48 @@ export default function Header() {
                   <TpIcon name="chevron" size={13} style={{ transform: "rotate(90deg)" }} />
                 </button>
 
-                {isOpen && item.variant === "simple" && (
+                {isOpen && item.variant !== "mega" && (
                   <div className="pel-dropdown" role="menu">
-                    <div className="pel-dropdown-inner pel-simple">
-                      {item.children!.map((c) =>
-                        c.external ? (
-                          <a
-                            key={c.href}
-                            href={c.href}
-                            className="pel-simple-link"
-                            role="menuitem"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => setOpenItem(null)}
-                          >
-                            {c.label}
-                          </a>
-                        ) : (
-                          <Link
-                            key={c.href}
-                            href={c.href}
-                            className="pel-simple-link"
-                            role="menuitem"
-                            onClick={() => setOpenItem(null)}
-                          >
-                            {c.label}
-                          </Link>
-                        )
+                    <div className={`pel-dropdown-inner pel-panel pel-panel-${item.variant}`}>
+                      {item.panelLabel && (
+                        <span className="pel-panel-eyebrow">{item.panelLabel}</span>
                       )}
-                    </div>
-                  </div>
-                )}
-
-                {isOpen && item.variant === "grid" && (
-                  <div className="pel-dropdown" role="menu">
-                    <div className="pel-dropdown-inner pel-grid">
-                      {item.children!.map((c) => (
-                        <Link key={c.href} href={c.href} className="pel-simple-link" role="menuitem" onClick={() => setOpenItem(null)}>
-                          {c.label}
-                        </Link>
-                      ))}
+                      <div className="pel-panel-list">
+                        {item.children!.map((c) => (
+                          <PanelLink
+                            key={c.href}
+                            link={c}
+                            className="pel-panel-link"
+                            onNavigate={() => setOpenItem(null)}
+                          />
+                        ))}
+                      </div>
+                      {item.viewAll && (
+                        <PanelLink
+                          link={item.viewAll}
+                          className="pel-panel-viewall"
+                          leadingChevron
+                          onNavigate={() => setOpenItem(null)}
+                        />
+                      )}
                     </div>
                   </div>
                 )}
 
                 {isOpen && item.variant === "mega" && (
                   <div className="pel-dropdown" role="menu">
-                    <div className="pel-dropdown-inner pel-mega2">
+                    {/* The second column only exists once a category is
+                        picked, so the panel is never a narrow list beside a
+                        blank rectangle. */}
+                    <div
+                      className={`pel-dropdown-inner pel-mega2${
+                        activeGroup?.startsWith(`${item.label}::`) ? " is-expanded" : ""
+                      }`}
+                    >
                       <div className="pel-mega2-left">
-                        <span className="pel-mega2-eyebrow">Browse by Type</span>
+                        {item.panelLabel && (
+                          <span className="pel-panel-eyebrow">{item.panelLabel}</span>
+                        )}
                         {item.groups!.map((g) => {
                           const key = `${item.label}::${g.label}`;
                           const isActive = activeGroup === key;
@@ -252,6 +352,10 @@ export default function Header() {
                               type="button"
                               className={`pel-mega2-cat${isActive ? " is-active" : ""}`}
                               aria-expanded={isActive}
+                              /* Hover reveals the column, matching the rest of
+                                 the bar; click still works for touch and keyboard. */
+                              onMouseEnter={() => setActiveGroup(key)}
+                              onFocus={() => setActiveGroup(key)}
                               onClick={() => setActiveGroup((v) => (v === key ? null : key))}
                             >
                               <span>{g.label}</span>
@@ -259,22 +363,29 @@ export default function Header() {
                             </button>
                           );
                         })}
-                        <Link href="/#treatments" className="pel-mega2-viewall" onClick={() => setOpenItem(null)}>
-                          <TpIcon name="chevron" size={14} />
-                          View All Treatments
-                        </Link>
+                        {item.viewAll && (
+                          <PanelLink
+                            link={item.viewAll}
+                            className="pel-panel-viewall"
+                            leadingChevron
+                            onNavigate={() => setOpenItem(null)}
+                          />
+                        )}
                       </div>
                       {item.groups!.map((g) => {
                         const key = `${item.label}::${g.label}`;
                         if (activeGroup !== key) return null;
                         return (
                           <div className="pel-mega2-right" key={key}>
-                            <span className="pel-mega2-rhead">{g.label}</span>
+                            <span className="pel-panel-eyebrow">{g.label}</span>
                             <div className="pel-mega2-rlist">
                               {g.sub.map((s) => (
-                                <Link key={s.href} href={s.href} className="pel-mega2-link" role="menuitem" onClick={() => setOpenItem(null)}>
-                                  {s.label}
-                                </Link>
+                                <PanelLink
+                                  key={s.href}
+                                  link={s}
+                                  className="pel-mega2-link"
+                                  onNavigate={() => setOpenItem(null)}
+                                />
                               ))}
                             </div>
                           </div>
@@ -338,8 +449,9 @@ export default function Header() {
         </div>
 
         <nav className="pel-drawer-links" aria-label="Mobile navigation">
+          {/* About has its own accordion group below, so only Home is listed
+              here — otherwise the drawer shows "About" twice. */}
           <Link href="/" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
-          <Link href="/dr-sabrina-shah-desai" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>About</Link>
 
           {NAV.filter((i) => i.variant).map((item) => (
             <div key={item.label} className="pel-drawer-group">
@@ -392,13 +504,31 @@ export default function Header() {
                           {c.label}
                         </a>
                       ))}
+                  {item.viewAll && (
+                    <Link
+                      href={item.viewAll.href}
+                      className="pel-drawer-sublink pel-drawer-viewall"
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      {item.viewAll.label}
+                    </Link>
+                  )}
                 </div>
               )}
             </div>
           ))}
 
-          <Link href="/before-after" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Before &amp; After</Link>
           <Link href="/publications" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Publications</Link>
+          <a
+            href={SHOP_HREF}
+            className="pel-drawer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setDrawerOpen(false)}
+          >
+            Shop
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
         </nav>
 
         <div className="pel-drawer-foot">
