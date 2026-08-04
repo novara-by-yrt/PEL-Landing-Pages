@@ -25,8 +25,6 @@ interface NavItem {
   variant?: "simple" | "grid" | "mega";
   children?: SimpleLink[];
   groups?: NavGroup[];
-  /** Eyebrow above the panel's first column. */
-  panelLabel?: string;
   /** Footer link closing the panel's first column. */
   viewAll?: SimpleLink;
 }
@@ -139,7 +137,6 @@ const NAV: NavItem[] = [
     label: "About",
     href: "/dr-sabrina-shah-desai",
     variant: "simple",
-    panelLabel: "Browse",
     children: [
       { label: "Dr Sabrina Shah-Desai", href: "/oculoplastic-surgeon-eyelid-cosmetic-surgeon-london" },
       { label: "Team", href: "/team" },
@@ -147,28 +144,15 @@ const NAV: NavItem[] = [
     ],
   },
   {
-    label: "Eye Journey",
-    href: "/journey-of-eye-care",
-    variant: "simple",
-    panelLabel: "Browse",
-    children: [
-      { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
-      { label: "Advanced Periorbital Skincare", href: SHOP_HREF, external: true },
-      { label: "Blog", href: "/blog" },
-    ],
-  },
-  {
-    label: "Eye Conditions",
+    label: "Conditions",
     href: "/condition/hooded-eyelids",
     variant: "grid",
-    panelLabel: "Browse by condition",
     children: EYE_CONDITIONS,
   },
   {
     label: "Treatments",
     href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
     variant: "mega",
-    panelLabel: "Browse by type",
     viewAll: { label: "View All Treatments", href: "/#treatments" },
     groups: [
       { label: "Surgical Treatments", sub: SURGICAL_TREATMENTS },
@@ -176,10 +160,18 @@ const NAV: NavItem[] = [
     ],
   },
   {
+    label: "Eye Journey",
+    href: "/journey-of-eye-care",
+    variant: "simple",
+    children: [
+      { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
+      { label: "Advanced Periorbital Skincare", href: SHOP_HREF, external: true },
+    ],
+  },
+  {
     label: "Results",
     href: "/before-after",
     variant: "mega",
-    panelLabel: "Browse by type",
     viewAll: { label: "View All Results", href: "/before-after" },
     groups: [
       { label: "Surgical", sub: SURGICAL_RESULTS },
@@ -187,6 +179,7 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "Shop", href: SHOP_HREF, external: true },
+  { label: "Blogs", href: "/blog" },
 ];
 
 /* Phone comes from lib/clinic so the header, footer and contact panel can
@@ -304,9 +297,6 @@ export default function Header() {
                 {isOpen && item.variant !== "mega" && (
                   <div className="pel-dropdown" role="menu">
                     <div className={`pel-dropdown-inner pel-panel pel-panel-${item.variant}`}>
-                      {item.panelLabel && (
-                        <span className="pel-panel-eyebrow">{item.panelLabel}</span>
-                      )}
                       <div className="pel-panel-list">
                         {item.children!.map((c) => (
                           <PanelLink
@@ -340,9 +330,6 @@ export default function Header() {
                       }`}
                     >
                       <div className="pel-mega2-left">
-                        {item.panelLabel && (
-                          <span className="pel-panel-eyebrow">{item.panelLabel}</span>
-                        )}
                         {item.groups!.map((g) => {
                           const key = `${item.label}::${g.label}`;
                           const isActive = activeGroup === key;
@@ -529,6 +516,7 @@ export default function Header() {
             Shop
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
+          <Link href="/blog" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Blogs</Link>
         </nav>
 
         <div className="pel-drawer-foot">

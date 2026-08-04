@@ -75,64 +75,18 @@
   margin: 0;
 }
 
-/* ── Lightbox ───────────────────────────────────────────────────────────── */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  padding: 16px;
-  background: rgba(18, 16, 54, 0.88);
-}
-
-.dialog {
-  position: relative;
-  width: min(900px, 100%);
-}
-
-.close {
-  position: absolute;
-  top: -52px;
-  right: 0;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  cursor: pointer;
-  transition: background 200ms var(--tp-ease);
-}
-.close:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
-.close:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-.closeIcon {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
-}
-
 .frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   border: none;
-  border-radius: var(--tp-radius-lg);
   background: #000;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .play,
-  .close {
+  .play {
     transition: none;
   }
   .card:hover,
