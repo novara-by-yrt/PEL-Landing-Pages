@@ -4,6 +4,7 @@ import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
+import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
 import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
 import PatientStories from "@/components/home/PatientStories";
 import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
@@ -216,6 +217,33 @@ const JOURNEY_STEPS: JourneyStep[] = [
   {
     title: "Care through recovery",
     text: "Clear aftercare and attentive follow-up until you are fully healed and happy.",
+  },
+];
+
+/**
+ * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
+ * in step with the treatment pages if either side changes.
+ */
+const HOME_FAQ: HomeFaqItem[] = [
+  {
+    question: "What is the recovery time after eyelid surgery?",
+    answer:
+      "Initial recovery generally takes about one week. Stitches are removed after 7-10 days and most patients resume desk-based activity soon after. Mild bruising and swelling may persist for two to three weeks.",
+  },
+  {
+    question: "Will my surgical scars be visible?",
+    answer:
+      "Incisions are hidden within the eyelid’s natural crease and usually fade over several months. Visible scarring is uncommon, and Dr Shah-Desai uses a signature “Zip Stitch” technique to minimise it.",
+  },
+  {
+    question: "How much does upper eyelid surgery cost?",
+    answer:
+      "A unilateral upper eyelid lift starts from £5,000 and bilateral from £6,000, inclusive of hospital charge and local anaesthetic. All cosmetic procedures incur 20% VAT. Fees are confirmed after your consultation.",
+  },
+  {
+    question: "Do you offer free consultations?",
+    answer:
+      "The fees include a complimentary in-depth non-surgical consultation by Dr Shah-Desai’s team of doctors in Perfect Skin Studio and a skin health consultation by the senior therapist.",
   },
 ];
 
@@ -667,10 +695,13 @@ export default function HomePage() {
       {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
       <BeginJourney />
 
-      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
+      {/* ── 13. FAQ ───────────────────────────────────────────────────────── */}
+      <HomeFaq items={HOME_FAQ} />
+
+      {/* ── 14. CONTACT ───────────────────────────────────────────────────── */}
       <ContactSection />
 
-      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      {/* ── 15. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
