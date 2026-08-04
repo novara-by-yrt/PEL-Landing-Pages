@@ -5,12 +5,13 @@ import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
-import PatientStories, { type PatientStory } from "@/components/home/PatientStories";
+import PatientStories from "@/components/home/PatientStories";
 import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
-import { TpIcon } from "@/components/treatment/TpIcon";
-import { CLINIC } from "@/lib/clinic";
+import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import BeginJourney from "@/components/shared/BeginJourney";
+import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -29,14 +30,28 @@ export const metadata: Metadata = {
   },
 };
 
-const AWARD_LOGOS = [
-  { src: "/uploads/2024/09/11.png", alt: "Award logo 1" },
-  { src: "/uploads/2024/09/22.png", alt: "Award logo 2" },
-  { src: "/uploads/2024/09/31.png", alt: "Award logo 3" },
-  { src: "/uploads/2024/09/41.png", alt: "Award logo 4" },
-  { src: "/uploads/2024/09/51.png", alt: "Award logo 5" },
-  { src: "/uploads/2024/09/61.png", alt: "South African Society for Dermatologic Surgery" },
-  { src: "/uploads/2024/09/71.png", alt: "BOPSS British Oculoplastic Surgery Society" },
+/**
+ * Award badges, read off the artwork itself so each alt text states the award
+ * it actually depicts. All seven correspond to awards already listed in
+ * Dr Sabrina's profile copy.
+ */
+const AWARD_BADGES = [
+  {
+    src: "/Award4.jpg", width: 1080, height: 1080,
+    alt: "Aesthetics Awards Winner 2021 — Consultant Surgeon of the Year",
+  },
+  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
+  {
+    src: "/Award2.png", width: 500, height: 591,
+    alt: "Safety in Beauty Diamond Awards 2016 — Highly Commended for Dedication & Excellence",
+  },
+  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019 — Highly Commended" },
+  {
+    src: "/Award1.jpg", width: 1080, height: 1080,
+    alt: "Aesthetics Awards 2019 — Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
+  },
+  { src: "/Award7.jpg", width: 1080, height: 1080, alt: "My Face My Body Ultimate 100, 2019" },
+  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards — Highly Commended 2022" },
 ];
 
 const SURGICAL_TREATMENTS: Treatment[] = [
@@ -171,38 +186,6 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
   },
 ];
 
-/**
- * Patient reviews, moved here from TestimonialsSlider unchanged.
- *
- * `treatment`, `source` and `url` are deliberately absent: the site records
- * no platform or procedure against these quotes, and stamping a Google or
- * RealSelf badge on a real patient's words without knowing where they were
- * left would be inventing provenance. Fill them in and the badge, the meta
- * line and the "Read on ..." link appear on their own.
- */
-const PATIENT_STORIES: PatientStory[] = [
-  {
-    quote:
-      "Simply the best dermatologist for skin care and eye surgery. She is a safe and skilled doctor who is highly experienced and will meet your needs, her approach is a soft and natural aesthetic. She listens and communicates clearly, professionally and in a kind and personable manner. I have been looked after by Dr Sabrina for many years have always been extremely happy with her advice, procedures and results. Highly recommend, she is a talented Dr you can trust.",
-    author: "Desi Stevens",
-  },
-  {
-    quote:
-      "Dr Sabrina is the magic eye fairy. Only 10 days after my lower lid bleph and midface lift and nearly all bruising and swelling has gone. After a lot of research, I knew after my initial consultation with Dr Sabrina she was the one I trusted. Such a warm & kind woman. I am so pleased I put my Trust in Dr Shah. Immensely happy with the results and will be back to get my upper eyes done in the future. Thank you to the whole team.",
-    author: "Kealey Hessey",
-  },
-  {
-    quote:
-      "I had been recommended Dr Sabrina by a medical colleague & am extremely glad I made the journey from Southampton to the Perfect Eye Clinic in London to discuss blepharoplasty. The team were all so friendly & very professional and most importantly, Dr Sabrina informed me that I had a bilateral eye ptosis. This explained a number of issues I was experiencing. I will definitely be booking to have a correction of bilateral eye ptosis and upper blepharoplasty. Can't recommend enough.",
-    author: "Jo Kirby",
-  },
-  {
-    quote:
-      "I am so very happy with my experiences at Perfect Eyes. Dr Sabrina is an absolute Star. Extremely talented, very personable I just couldn't be happier with my results and her overall professionalism. But a big part of my review is how lovely the support staff are too. Namely Safiya and Lisa who greet you with such warmness and respect. I highly recommend this clinic as I have done so with many friends.",
-    author: "Shirley Ford",
-  },
-];
-
 const MEDIA_LOGOS = [
   { src: "/uploads/2024/09/logo1.svg", alt: "Media logo 1" },
   { src: "/uploads/2024/09/logo2.svg", alt: "Media logo 2" },
@@ -241,17 +224,6 @@ const JOURNEY_STEPS: JourneyStep[] = [
  * Sabrina reuses her profile portrait. Anyone without an image falls back to
  * a monogram tile, so the grid never shows a hole.
  */
-/**
- * Consultation fees, as published on the contact page
- * (content/pages/contact-cosmetic-eye-surgeon.mdx). Keep the two in step —
- * a price shown here that disagrees with the contact page is worse than not
- * showing one at all.
- */
-const CONSULTATION_FEES = [
-  { label: "New consultation", price: "£300" },
-  { label: "Revision / 2nd opinion", price: "£400" },
-];
-
 const CLINIC_TEAM: TeamMember[] = [
   {
     name: "Dr Sabrina Shah-Desai",
@@ -422,14 +394,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. AWARDS ─────────────────────────────────────────────────────── */}
+      {/* ── 2. AWARDS & RECOGNITION ───────────────────────────────────────── */}
       <section
-        className={`${styles.logoStrip} ${styles.logoStripTop}`}
-        aria-label="Accreditations and recognition"
+        className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
+        aria-label="Awards and recognition"
       >
-        <p className={styles.logoStripLabel}>Accredited &amp; recognised by</p>
-        <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
+        <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
+        {/* Travels the opposite way to the accreditation strip below it, so
+            the two rows read as a pair rather than one long band. */}
+        <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
       </section>
+
+      {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
+      <AccreditedStrip />
 
       {/* ── 3. WATCH ──────────────────────────────────────────────────────── */}
       <section
@@ -716,59 +693,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
-      <section className={styles.beginSection} aria-labelledby="cta-title">
-        <div className="container">
-          <div className={styles.beginPanel}>
-            <div className={styles.beginCopy}>
-              <h2 id="cta-title" className={styles.beginTitle}>
-                Begin your Perfect Eyes journey
-              </h2>
-              <p className={styles.beginLead}>
-                Book a private consultation with Dr Shah-Desai at {CLINIC.addressShort},
-                or request a call back from our team.
-              </p>
-
-              <div className={styles.beginActions}>
-                <Link
-                  href="/contact-cosmetic-eye-surgeon"
-                  className="tp-btn tp-btn-inverse"
-                >
-                  Book a Consultation
-                  <span className="tp-btn-arrow" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <path
-                        d="M5 12h13M12.5 6l6 6-6 6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </Link>
-                <a href={CLINIC.phoneHref} className="tp-btn tp-btn-outline-light">
-                  <TpIcon name="phone" size={17} />
-                  {CLINIC.phoneDisplay}
-                </a>
-              </div>
-            </div>
-
-            <div className={styles.fees}>
-              <p className={styles.feesLabel}>Consultation fees</p>
-              <dl className={styles.feesList}>
-                {CONSULTATION_FEES.map((fee) => (
-                  <div key={fee.label} className={styles.feesRow}>
-                    <dt className={styles.feesName}>{fee.label}</dt>
-                    <dd className={styles.feesPrice}>{fee.price}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className={styles.feesNote}>
-                <TpIcon name="clock" size={15} />
-                <span>{`${CLINIC.hours[0].day} ${CLINIC.hours[0].time} · Harley Street`}</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BeginJourney />
 
       {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
       <ContactSection />

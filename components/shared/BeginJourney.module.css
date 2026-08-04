@@ -1,0 +1,122 @@
+/* "Begin your Perfect Eyes journey" — shared closing CTA panel. */
+
+.beginSection {
+  padding-block: clamp(40px, 6vw, 72px);
+  background: var(--tp-paper);
+}
+
+.beginPanel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 60px);
+  border-radius: clamp(24px, 3vw, 34px);
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(115, 108, 171, 0.5), transparent 60%),
+    linear-gradient(120deg, var(--tp-indigo-900) 0%, var(--tp-indigo-800) 48%, var(--tp-indigo-700) 100%);
+  box-shadow: var(--tp-shadow-lg);
+}
+
+.beginTitle {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.16;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+.beginLead {
+  font-size: var(--fs-body-md);
+  line-height: 1.62;
+  color: var(--tp-lavender-200);
+  margin: 18px 0 0;
+  max-width: 44ch;
+}
+.beginActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(26px, 4vw, 34px);
+}
+/* Full-width buttons on the narrowest phones, side by side from 420px. */
+.beginActions > * {
+  flex: 1 1 100%;
+}
+
+/* ── Fee card ───────────────────────────────────────────────────────────── */
+.fees {
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--tp-radius-lg);
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.feesLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* lavender-200 rather than a translucent white: contrast stays fixed
+     wherever the panel's gradient sits behind the card. */
+  color: var(--tp-lavender-200);
+  margin: 0 0 18px;
+}
+.feesList {
+  margin: 0;
+}
+.feesRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.feesRow:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.feesName {
+  font-size: var(--fs-body-sm);
+  color: #fff;
+  margin: 0;
+}
+.feesPrice {
+  font-family: var(--tp-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-200);
+  margin: 0;
+  white-space: nowrap;
+}
+.feesNote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--tp-lavender-200);
+}
+
+@media (min-width: 420px) {
+  .beginActions > * {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .beginPanel {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(40px, 5vw, 72px);
+  }
+}
+

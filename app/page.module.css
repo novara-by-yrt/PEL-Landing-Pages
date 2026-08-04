@@ -311,6 +311,12 @@
 .logoStripTop {
   border-top: none;
 }
+/* The awards row carries taller artwork, so it gets a little more room than
+   the flat logo strip beneath it. */
+.awardStrip {
+  padding-block: clamp(32px, 5vw, 52px);
+  border-bottom: none;
+}
 .logoStripLabel {
   text-align: center;
   font-size: var(--fs-caption);
