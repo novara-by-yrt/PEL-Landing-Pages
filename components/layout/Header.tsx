@@ -347,7 +347,14 @@ export default function Header() {
 
                 {isOpen && item.variant === "mega" && (
                   <div className="pel-dropdown" role="menu">
-                    <div className="pel-dropdown-inner pel-mega2">
+                    {/* The second column only exists once a category is
+                        picked, so the panel is never a narrow list beside a
+                        blank rectangle. */}
+                    <div
+                      className={`pel-dropdown-inner pel-mega2${
+                        activeGroup?.startsWith(`${item.label}::`) ? " is-expanded" : ""
+                      }`}
+                    >
                       <div className="pel-mega2-left">
                         {item.panelLabel && (
                           <span className="pel-panel-eyebrow">{item.panelLabel}</span>

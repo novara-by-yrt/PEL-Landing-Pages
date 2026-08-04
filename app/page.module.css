@@ -359,20 +359,6 @@
   object-position: center top;
 }
 
-.expertPill {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(8px);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tp-indigo-700);
-}
 
 .expertBadge {
   position: absolute;
@@ -560,35 +546,6 @@
 }
 
 /* ── 7. Video testimonials ──────────────────────────────────────────────── */
-.rating {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-}
-/* Drawn, not fetched: the rating49.svg this replaced is missing from the
-   uploads origin and rendered as a broken image. */
-.ratingScore {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  font-family: var(--tp-display);
-  font-size: 1.375rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--tp-ink);
-}
-.ratingScore .stars {
-  width: 92px;
-  height: 15px;
-}
-.ratingText {
-  font-size: var(--fs-body-sm);
-  color: var(--tp-slate);
-  margin: 0;
-}
 .videoGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -780,5 +737,22 @@
   text-align: center;
   /* Even out the wrap so the tail line isn't a lone orphan word. */
   text-wrap: balance;
+}
+
+/* Desktop: the disclaimer reads as a single line. At ~230 characters that
+   only fits if it may use the full window width rather than the 1280px
+   container, and if the type scales with the viewport — hence the vw-based
+   size. The cap keeps it from outgrowing the caption size on wide screens. */
+@media (min-width: 1280px) {
+  .vat > :global(.container) {
+    max-width: none;
+    padding-inline: clamp(20px, 2.5vw, 48px);
+  }
+  .vatText {
+    max-width: none;
+    white-space: nowrap;
+    font-size: min(var(--fs-caption), 0.9vw);
+    text-wrap: nowrap;
+  }
 }
 

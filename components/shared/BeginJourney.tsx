@@ -11,6 +11,7 @@ const CONSULTATION_FEES = [
   { label: "New Consultation", price: "£300" },
   { label: "Revision / 2nd Opinion", price: "£400" },
   { label: "Follow-up / Review", price: "From £200" },
+  { label: "Perfect Skin Studio consultation", price: "£100" },
 ];
 
 /** Closing CTA panel, shared by the home page and the surgeon profile. */

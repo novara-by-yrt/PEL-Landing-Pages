@@ -79,9 +79,9 @@
 
 /* ── Two-pane mega panel ──────────────────────────────────────────────── */
 .pel-mega2{display:grid;grid-template-columns:minmax(260px,320px);gap:0;padding:0;width:max-content;max-width:min(94vw,720px)}
-.pel-navitem.has-panel .pel-mega2{grid-template-columns:minmax(260px,320px) minmax(260px,380px)}
+.pel-mega2.is-expanded{grid-template-columns:minmax(260px,320px) minmax(260px,380px)}
 .pel-mega2-left{display:flex;flex-direction:column;gap:2px;padding:20px 16px}
-.pel-navitem.has-panel .pel-mega2-left{border-right:1px solid var(--tp-hairline)}
+.pel-mega2.is-expanded .pel-mega2-left{border-right:1px solid var(--tp-hairline)}
 .pel-mega2-cat svg{flex:0 0 auto;color:var(--tp-mist);transition:color 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
 .pel-mega2-cat:hover svg{color:var(--tp-lavender-600);transform:translateX(2px)}
 .pel-mega2-cat.is-active{background:var(--tp-lavender-050);color:var(--tp-ink)}
@@ -94,7 +94,7 @@
 
 /* Narrow laptops: keep the widest panels inside the viewport. */
 @media (max-width:1279px){
-  .pel-navitem.has-panel .pel-mega2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:min(92vw,640px)}
+  .pel-mega2.is-expanded{grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:min(92vw,640px)}
   .pel-panel-grid{max-width:min(92vw,460px)}
 }
 

@@ -187,18 +187,6 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
   },
 ];
 
-const MEDIA_LOGOS = [
-  { src: "/uploads/2024/09/logo1.svg", alt: "Media logo 1" },
-  { src: "/uploads/2024/09/logo2.svg", alt: "Media logo 2" },
-  { src: "/uploads/2024/09/logo3.svg", alt: "Media logo 3" },
-  { src: "/uploads/2024/09/logo4.svg", alt: "Media logo 4" },
-  { src: "/uploads/2024/09/logo15.svg", alt: "Media logo 5" },
-  { src: "/uploads/2024/09/logo6.svg", alt: "Media logo 6" },
-  { src: "/uploads/2024/09/logo7.svg", alt: "Media logo 7" },
-  { src: "/uploads/2024/09/logo8.svg", alt: "Media logo 8" },
-  { src: "/uploads/2024/09/logo9.svg", alt: "Media logo 9" },
-  { src: "/uploads/2024/09/logo10.svg", alt: "Media logo 10" },
-];
 
 /** Copy transcribed from the approved design for this section. */
 const JOURNEY_STEPS: JourneyStep[] = [
@@ -415,7 +403,6 @@ export default function HomePage() {
                 sizes="(min-width: 1000px) 42vw, 100vw"
                 className={styles.expertPortrait}
               />
-              <figcaption className={styles.expertPill}>The Surgeon</figcaption>
               <div className={styles.expertBadge}>
                 <span className={styles.expertBadgeIcon} aria-hidden="true">
                   <Medal />
@@ -557,13 +544,6 @@ export default function HomePage() {
               Patient Testimonials
             </h2>
             <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
-            <div className={styles.rating}>
-              <p className={styles.ratingScore}>
-                <Stars />
-                <span className="sr-only">Rated </span>4.9<span className="sr-only"> out of 5</span>
-              </p>
-              <p className={styles.ratingText}>Based on 220+ Google Reviews</p>
-            </div>
           </div>
 
           <div className={styles.videoGrid}>
@@ -589,12 +569,6 @@ export default function HomePage() {
             consultation and treatment.
           </p>
         </div>
-      </section>
-
-      {/* ── 9. AS SEEN IN ─────────────────────────────────────────────────── */}
-      <section className={styles.logoStrip} aria-label="Featured in the media">
-        <p className={styles.logoStripLabel}>As seen in</p>
-        <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
       </section>
 
       {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
