@@ -505,7 +505,6 @@ export default function Header() {
             </div>
           ))}
 
-          <Link href="/publications" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Publications</Link>
           <a
             href={SHOP_HREF}
             className="pel-drawer-link"
