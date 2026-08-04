@@ -674,7 +674,7 @@ export default function HomePage() {
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
-            *Treatments undertaken solely for aesthetic purposes are subject to VAT at the
+            Treatments undertaken solely for aesthetic purposes are subject to VAT at the
             prevailing rate. Where treatment is provided for a diagnosed medical condition, VAT
             status will be discussed during consultation.
           </p>

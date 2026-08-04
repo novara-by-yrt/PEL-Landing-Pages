@@ -841,8 +841,11 @@
   font-size: var(--fs-caption);
   line-height: 1.6;
   color: var(--tp-slate);
-  margin: 0;
-  max-width: 90ch;
+  margin: 0 auto;
+  max-width: 110ch;
+  text-align: center;
+  /* Even out the wrap so the tail line isn't a lone orphan word. */
+  text-wrap: balance;
 }
 
 /* ── Motion preferences ─────────────────────────────────────────────────── */
