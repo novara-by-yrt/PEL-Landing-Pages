@@ -39,3 +39,22 @@
     animation: none;
   }
 }
+
+/* Award badges are square artwork with their own internal whitespace, so they
+   sit taller than the flat accreditation logos and need less side padding. */
+.itemBadge {
+  padding-inline: clamp(12px, 3vw, 26px);
+}
+.badge {
+  /* Sized by height, not capped by it: these carry true intrinsic dimensions
+     so the width follows each badge's own aspect ratio. */
+  height: 78px;
+  width: auto;
+  max-height: none;
+}
+
+@media (min-width: 768px) {
+  .badge {
+    height: 108px;
+  }
+}

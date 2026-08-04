@@ -29,6 +29,30 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Award badges, read off the artwork itself so each alt text states the award
+ * it actually depicts. All seven correspond to awards already listed in
+ * Dr Sabrina's profile copy.
+ */
+const AWARD_BADGES = [
+  {
+    src: "/Award4.jpg", width: 1080, height: 1080,
+    alt: "Aesthetics Awards Winner 2021 — Consultant Surgeon of the Year",
+  },
+  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
+  {
+    src: "/Award2.png", width: 500, height: 591,
+    alt: "Safety in Beauty Diamond Awards 2016 — Highly Commended for Dedication & Excellence",
+  },
+  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019 — Highly Commended" },
+  {
+    src: "/Award1.jpg", width: 1080, height: 1080,
+    alt: "Aesthetics Awards 2019 — Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
+  },
+  { src: "/Award7.jpg", width: 1080, height: 1080, alt: "My Face My Body Ultimate 100, 2019" },
+  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards — Highly Commended 2022" },
+];
+
 const AWARD_LOGOS = [
   { src: "/uploads/2024/09/11.png", alt: "Award logo 1" },
   { src: "/uploads/2024/09/22.png", alt: "Award logo 2" },
@@ -422,9 +446,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. AWARDS ─────────────────────────────────────────────────────── */}
+      {/* ── 2. AWARDS & RECOGNITION ───────────────────────────────────────── */}
       <section
-        className={`${styles.logoStrip} ${styles.logoStripTop}`}
+        className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
+        aria-label="Awards and recognition"
+      >
+        <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
+        {/* Travels the opposite way to the accreditation strip below it, so
+            the two rows read as a pair rather than one long band. */}
+        <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
+      </section>
+
+      {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
+      <section
+        className={`${styles.logoStrip}`}
         aria-label="Accreditations and recognition"
       >
         <p className={styles.logoStripLabel}>Accredited &amp; recognised by</p>

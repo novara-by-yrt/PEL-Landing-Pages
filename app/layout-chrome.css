@@ -111,3 +111,8 @@
 .logo-scroll-track:hover {
   animation-play-state: paused;
 }
+/* Same keyframes played backwards, so a second strip on the page travels the
+   opposite way without duplicating the animation. */
+.logo-scroll-track.is-reverse {
+  animation-direction: reverse;
+}

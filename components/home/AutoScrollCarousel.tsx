@@ -11,6 +11,10 @@ interface CarouselItem {
 interface AutoScrollCarouselProps {
   items: CarouselItem[];
   speed?: number;
+  /** Travel right-to-left instead of left-to-right. */
+  reverse?: boolean;
+  /** Taller frame for award badges, which carry their own whitespace. */
+  size?: "logo" | "badge";
 }
 
 /**
@@ -22,23 +26,32 @@ interface AutoScrollCarouselProps {
  * duration, which rides in as a custom property so the keyframes stay in the
  * cached stylesheet.
  */
-export default function AutoScrollCarousel({ items, speed = 40 }: AutoScrollCarouselProps) {
+export default function AutoScrollCarousel({
+  items,
+  speed = 40,
+  reverse = false,
+  size = "logo",
+}: AutoScrollCarouselProps) {
   const doubled = [...items, ...items];
 
   return (
     <div className={styles.viewport}>
       <div
-        className="logo-scroll-track"
+        className={`logo-scroll-track${reverse ? " is-reverse" : ""}`}
         style={{ "--logo-scroll-speed": `${speed}s` } as React.CSSProperties}
       >
         {doubled.map((item, i) => (
-          <div key={i} className={styles.item} aria-hidden={i >= items.length}>
+          <div
+            key={i}
+            className={`${styles.item} ${size === "badge" ? styles.itemBadge : ""}`}
+            aria-hidden={i >= items.length}
+          >
             <Image
               src={item.src}
               alt={i >= items.length ? "" : item.alt}
               width={item.width || 120}
               height={item.height || 60}
-              className={styles.logo}
+              className={`${styles.logo} ${size === "badge" ? styles.badge : ""}`}
             />
           </div>
         ))}
