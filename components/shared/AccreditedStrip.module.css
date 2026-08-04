@@ -1,0 +1,18 @@
+.strip {
+  background: var(--tp-paper);
+  padding-block: clamp(28px, 4vw, 40px);
+  border-block: 1px solid var(--tp-line);
+}
+.noTop {
+  border-top: none;
+}
+
+.label {
+  text-align: center;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-slate);
+  margin: 0 0 20px;
+}
