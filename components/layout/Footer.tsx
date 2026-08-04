@@ -8,7 +8,7 @@ const QUICK_LINKS = [
   { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
   { href: "/meet-team", label: "About the Clinic" },
   { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
-  { href: "/before-after", label: "Before & After" },
+  { href: "/before-after", label: "Results" },
   { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
   { href: "/contact", label: "Contact" },
 ];
