@@ -8,6 +8,7 @@ import {
   buildFaqSchema,
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
+import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
@@ -175,6 +176,15 @@ export default async function CatchAllPageRoute({
 
   if (treatment) {
     return <TreatmentPage treatment={treatment} frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;
+  }
+
+  if (fileSlug === "dr-sabrina-shah-desai") {
+    return (
+      <>
+        {schemas}
+        <DrSabrinaBio breadcrumbItems={breadcrumbItems} siteUrl={SITE_URL} faq={frontmatter.faq} />
+      </>
+    );
   }
 
   return <GenericPage frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;

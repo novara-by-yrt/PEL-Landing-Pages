@@ -197,18 +197,31 @@ export default function Header() {
                 {isOpen && item.variant === "simple" && (
                   <div className="pel-dropdown" role="menu">
                     <div className="pel-dropdown-inner pel-simple">
-                      {item.children!.map((c) => (
-                        <a
-                          key={c.href}
-                          href={c.href}
-                          className="pel-simple-link"
-                          role="menuitem"
-                          {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          onClick={() => setOpenItem(null)}
-                        >
-                          {c.label}
-                        </a>
-                      ))}
+                      {item.children!.map((c) =>
+                        c.external ? (
+                          <a
+                            key={c.href}
+                            href={c.href}
+                            className="pel-simple-link"
+                            role="menuitem"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setOpenItem(null)}
+                          >
+                            {c.label}
+                          </a>
+                        ) : (
+                          <Link
+                            key={c.href}
+                            href={c.href}
+                            className="pel-simple-link"
+                            role="menuitem"
+                            onClick={() => setOpenItem(null)}
+                          >
+                            {c.label}
+                          </Link>
+                        )
+                      )}
                     </div>
                   </div>
                 )}

@@ -1,0 +1,156 @@
+/* Team roster.
+   Compact cards (photo, name, role, actions) open a bio modal on "View
+   Profile" — mirrors the lightbox pattern in
+   components/treatment/BeforeAfterGallery.module.css. */
+
+.section { padding: clamp(44px, 5.5vw, 88px) 0; }
+.paper { background: var(--tp-paper); }
+.fog { background: var(--tp-fog); }
+
+.head { max-width: 640px; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-lavender-500);
+}
+.heading {
+  margin: 14px 0 0;
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: var(--fs-display-md);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+}
+.lead { margin: 14px 0 0; font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+
+/* ── Grid ───────────────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+/* ── Card (compact — photo, name, role, actions) ─────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--tp-cream);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--tp-shadow-sm);
+  transition: transform 280ms var(--tp-ease), box-shadow 280ms var(--tp-ease), border-color 280ms var(--tp-ease);
+}
+.card:hover { transform: translateY(-4px); border-color: var(--tp-lavender-300); box-shadow: var(--tp-shadow-md); }
+
+.photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
+}
+.photo img { object-fit: cover; object-position: center top; }
+
+.body { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+.name { margin: 0; font-family: var(--tp-display); font-size: 1.0625rem; font-weight: 600; line-height: 1.2; letter-spacing: var(--ls-tight); color: var(--tp-ink); }
+.role { margin: 0 0 4px; font-size: 0.6875rem; font-weight: 600; line-height: 1.4; letter-spacing: 0.09em; text-transform: uppercase; color: var(--tp-lavender-600); }
+
+.actions { display: flex; flex-direction: column; gap: 8px; }
+.actions :global(.tp-btn) { min-height: 40px; padding: 10px 18px; font-size: 0.8125rem; }
+
+/* ── Bio modal ──────────────────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 8, 32, 0.72);
+  backdrop-filter: blur(6px);
+  padding: clamp(1rem, 4vw, 3rem);
+  animation: tp-team-in 180ms var(--tp-ease);
+}
+@keyframes tp-team-in { from { opacity: 0; } to { opacity: 1; } }
+
+.overlayClose {
+  position: fixed;
+  top: clamp(0.75rem, 3vw, 1.5rem);
+  right: clamp(0.75rem, 3vw, 1.5rem);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 200ms var(--tp-ease);
+}
+.overlayClose:hover { background: rgba(255, 255, 255, 0.24); }
+.overlayClose:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.modal {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: min(640px, 100%);
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  background: var(--tp-paper);
+  border-radius: var(--tp-radius-xl);
+  box-shadow: var(--tp-shadow-lg);
+}
+@media (min-width: 620px) {
+  .modal { grid-template-columns: 220px 1fr; }
+}
+
+.modalPhoto { position: relative; aspect-ratio: 4 / 5; min-height: 200px; background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050)); }
+.modalPhoto img { object-fit: cover; object-position: center top; }
+
+.modalBody { display: flex; flex-direction: column; padding: clamp(20px, 3vw, 28px); }
+.modalRole { font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--tp-lavender-500); }
+.modalName { margin: 8px 0 0; font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; line-height: 1.2; color: var(--tp-ink); }
+.modalBio { margin: 14px 0 0; font-size: var(--fs-body-md); line-height: var(--lh-relaxed); color: var(--tp-slate); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.tag {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--tp-lavender-050);
+  border: 1px solid var(--tp-lavender-200);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--tp-indigo-700);
+}
+
+.fact {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--tp-line);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  color: var(--tp-slate);
+}
+.fact b { color: var(--tp-ink); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay { animation: none; }
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
+
+/* ── Mid band (single dark moment on the page) ───────────────────────────── */
+.band {
+  padding: clamp(44px, 6vw, 80px) 0;
+  text-align: center;
+  background: linear-gradient(150deg, var(--tp-indigo-950), var(--tp-indigo-800));
+  color: #fff;
+}
+.bandInner { max-width: 640px; margin: 0 auto; }
+.bandHeading { margin: 0; font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: var(--lh-snug); color: #fff; }
+.bandText { margin: 14px 0 0; font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--tp-lavender-100); }
