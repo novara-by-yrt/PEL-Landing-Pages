@@ -13,12 +13,18 @@
 .pel-pill{max-width:1340px;margin:0 auto;height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:0 12px 0 24px;border-radius:999px;background:var(--tp-glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid transparent;transition:height .45s var(--tp-ease),max-width .45s var(--tp-ease),padding .45s var(--tp-ease),border-radius .45s var(--tp-ease),box-shadow .45s var(--tp-ease),border-color .45s var(--tp-ease),background .45s var(--tp-ease);}
 .pel-pill.is-top{max-width:none;height:80px;border-radius:0;background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 var(--tp-hairline);padding-left:clamp(20px,4vw,48px);padding-right:clamp(12px,3vw,32px)}
 .pel-pill.is-solid{border-color:var(--tp-hairline);box-shadow:var(--tp-shadow-md);background:rgba(255,255,255,0.86)}
-.pel-brand{display:inline-flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0}
+.pel-brand{display:inline-flex;align-items:center;min-height:44px;line-height:1;text-decoration:none;flex-shrink:0}
+/* Sized by height so the mark keeps its 719:347 proportions; width follows.
+   The reserved width/height on the <img> keeps this shift-free while it
+   loads. */
+.pel-logo{height:52px;width:auto;object-fit:contain}
+@media (max-width:900px){.pel-logo{height:42px}}
+@media (max-width:420px){.pel-logo{height:36px}}
 .pel-wordmark{font-family:var(--tp-display);font-size:20px;font-weight:600;letter-spacing:0.03em;color:var(--tp-indigo-900);white-space:nowrap}
 .pel-wordmark-sub{font-family:var(--tp-body);font-size:8.5px;letter-spacing:0.34em;color:var(--tp-lavender-500);margin-top:4px}
 .pel-links{display:flex;justify-content:center;align-items:center;gap:2px;min-width:0}
 .pel-navitem{position:relative;display:flex;align-items:center}
-.pel-link{position:relative;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:9px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease),background 160ms var(--tp-ease)}
+.pel-link{position:relative;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease),background 160ms var(--tp-ease)}
 .pel-link:hover{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
 .pel-link-has-menu svg{transition:transform 220ms var(--tp-ease)}
 .pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
@@ -48,9 +54,9 @@
 .pel-mega2-link{display:block;padding:11px 4px;font-family:var(--tp-body);font-size:0.9375rem;color:var(--tp-slate);text-decoration:none;border-radius:8px;transition:color 140ms var(--tp-ease),padding-left 140ms var(--tp-ease)}
 .pel-mega2-link:hover{color:var(--tp-lavender-500);padding-left:10px}
 .pel-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
-.pel-phone{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;color:#fff;background:var(--tp-indigo-700);border-radius:50%;text-decoration:none;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
+.pel-phone{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;color:#fff;background:var(--tp-indigo-700);border-radius:50%;text-decoration:none;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
 .pel-phone:hover{background:var(--tp-indigo-600);transform:translateY(-1px)}
-.pel-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--tp-indigo-700);color:#fff;font-family:var(--tp-body);font-size:0.875rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
+.pel-cta{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 20px;border-radius:999px;background:var(--tp-indigo-700);color:#fff;font-family:var(--tp-body);font-size:0.875rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
 .pel-cta:hover{background:var(--tp-indigo-600);transform:translateY(-1px)}
 .pel-cta-short{display:none}
 .pel-burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;background:none;border:none;cursor:pointer;color:var(--tp-indigo-700);border-radius:12px;flex-shrink:0}
@@ -61,7 +67,7 @@
 .pel-drawer{position:fixed;top:0;left:0;z-index:211;height:100%;height:100dvh;width:min(400px,86vw);display:flex;flex-direction:column;background:var(--tp-paper);box-shadow:var(--tp-shadow-lg);transform:translateX(-100%);transition:transform 420ms var(--tp-ease);pointer-events:none;padding:max(20px,env(safe-area-inset-top)) 0 max(20px,env(safe-area-inset-bottom))}
 .pel-drawer.is-open{transform:translateX(0);pointer-events:auto}
 .pel-drawer-top{display:flex;align-items:center;justify-content:space-between;padding:4px 20px 20px;border-bottom:1px solid var(--tp-hairline)}
-.pel-close{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:none;border:none;cursor:pointer;color:var(--tp-indigo-700);border-radius:12px}
+.pel-close{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:none;cursor:pointer;color:var(--tp-indigo-700);border-radius:12px}
 .pel-drawer-links{flex:1;display:flex;flex-direction:column;padding:12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .pel-drawer-group,.pel-drawer-links>.pel-drawer-link{border-bottom:1px solid var(--tp-hairline)}
 .pel-drawer-links>*:last-child{border-bottom:0}
@@ -90,28 +96,6 @@
 }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
-.pel-footer { background: linear-gradient(160deg, var(--tp-indigo-950), var(--tp-indigo-800)); color: var(--tp-lavender-200); }
-.pel-footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 4rem 1.5rem 1.75rem; }
-.pel-footer-grid { display: grid; grid-template-columns: minmax(260px,1.5fr) repeat(3,1fr); gap: 2.5rem; }
-.pel-footer-brand { font-family: var(--tp-display); font-size: 27px; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
-.pel-footer-tagline { font-family: var(--tp-body); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--tp-lavender-400); margin: 9px 0 22px; }
-.pel-footer-desc { font-size: 0.875rem; line-height: 1.6; color: var(--tp-lavender-200); max-width: 300px; margin-bottom: 20px; }
-.pel-footer-contact { display: flex; flex-direction: column; gap: 14px; }
-.pel-footer-row { display: flex; gap: 11px; align-items: flex-start; font-size: 0.875rem; line-height: 1.5; color: var(--tp-lavender-200); text-decoration: none; max-width: 280px; transition: color 160ms var(--tp-ease); }
-a.pel-footer-row:hover { color: #fff; }
-.pel-footer-row-icon { color: var(--tp-lavender-400); flex-shrink: 0; margin-top: 1px; }
-.pel-footer-col-head { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp-lavender-400); margin-bottom: 18px; }
-.pel-footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.pel-footer-col a { font-size: 0.875rem; color: var(--tp-lavender-200); text-decoration: none; transition: color 160ms var(--tp-ease); }
-.pel-footer-col a:hover { color: #fff; }
-.pel-footer-bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-.pel-footer-copy { font-size: 0.75rem; color: var(--tp-lavender-300); }
-.pel-footer-copy p + p { margin-top: 4px; }
-.pel-footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.pel-footer-legal a { font-size: 0.75rem; color: var(--tp-lavender-300); text-decoration: none; transition: color 160ms var(--tp-ease); }
-.pel-footer-legal a:hover { color: #fff; }
-@media (max-width: 860px) { .pel-footer-grid { grid-template-columns: 1fr 1fr; } .pel-footer-brand-col { grid-column: 1 / -1; } }
-@media (max-width: 560px) { .pel-footer-grid { grid-template-columns: 1fr; } }
 
 /* ── Shared animation ───────────────────────────────────────────────────── */
 @keyframes scroll-logos {

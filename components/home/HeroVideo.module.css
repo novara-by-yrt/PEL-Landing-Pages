@@ -1,0 +1,31 @@
+/* Full-bleed background video stage for the hero.
+
+   The video is decorative: it sits behind the headline and never carries
+   information, so the whole stage is aria-hidden and the copy above it is
+   what gets read. */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: var(--tp-lavender-050);
+}
+
+/* Wistia's swatch frame, used as the static fallback when motion is
+   reduced. When the video renders, its own `poster` attribute plays this
+   role instead — there is never an empty rectangle either way. */
+.poster {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

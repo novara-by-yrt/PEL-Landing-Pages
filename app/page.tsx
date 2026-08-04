@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
-import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import ContactSection from "@/components/home/ContactSection";
+import HeroVideo from "@/components/home/HeroVideo";
+import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
+import PatientStories, { type PatientStory } from "@/components/home/PatientStories";
+import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
+import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
 import VideoCard from "@/components/home/VideoCard";
+import { TpIcon } from "@/components/treatment/TpIcon";
+import { CLINIC } from "@/lib/clinic";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -33,99 +39,167 @@ const AWARD_LOGOS = [
   { src: "/uploads/2024/09/71.png", alt: "BOPSS British Oculoplastic Surgery Society" },
 ];
 
-const SURGICAL_TREATMENTS = [
+const SURGICAL_TREATMENTS: Treatment[] = [
   {
     image: "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg",
     title: "Upper Lid Blepharoplasty",
     href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
+    tag: "Eyes",
+    blurb: "Removes the redundant upper-lid skin that hoods the eye, restoring the lid's natural contour.",
   },
   {
     image: "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg",
     title: "Eye Bag Surgery",
     href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
+    tag: "Eyes",
+    blurb: "Lower-lid surgery addressing under-eye bags, puffiness and the shadow they cast.",
   },
   {
     image: "/uploads/2018/10/eyeboost.jpg",
     title: "Festoons & Malar Bags",
     href: "/surgical/festoons-malar-bags-treatment-uk",
+    tag: "Eyes",
+    blurb: "Treatment for fluid-filled festoons and malar bags across the lower lid and upper cheek.",
   },
   {
     image: "/uploads/2018/11/Ptosis-surgery-uk.jpg",
     title: "Ptosis Surgery",
     href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk",
+    tag: "Eyes",
+    blurb: "Tightens the muscle that lifts a drooping upper eyelid, reopening the eye.",
   },
   {
     image: "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
     title: "Double Eyelid Surgery",
     href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk",
+    tag: "Eyes",
+    blurb: "Creates or refines an upper-lid crease, planned around Asian eyelid anatomy.",
   },
   {
     image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
     title: "Hyaluronidase Dissolving",
     href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
+    tag: "Revision",
+    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
   },
   {
     image: "/uploads/2024/07/eyelid-lump.jpg",
     title: "Eyelid Lump & Bump Removal",
     href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
+    tag: "Eyes",
+    blurb: "Assessment and removal of cysts, chalazia and other lesions on the eyelid.",
   },
   {
     image: "/uploads/2025/03/revision-surgeyr-1-min.jpg",
     title: "Revision Blepharoplasty",
     href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
+    tag: "Revision",
+    blurb: "Corrective work after previous eyelid surgery or filler complications.",
   },
   {
     image: "/uploads/2025/03/browlift-min.jpg",
     title: "Brow Lift",
     href: "/surgical/browlift-treatment-uk",
+    tag: "Brow",
+    blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
   },
 ];
 
-const NONSURGICAL_TREATMENTS = [
+const NONSURGICAL_TREATMENTS: Treatment[] = [
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
     href: "/non-surgical/endolift-for-malar-bags-uk",
+    tag: "Laser",
+    blurb: "Laser-assisted tightening of the lower lid and malar area, without incisions.",
   },
   {
     image: "/uploads/2025/03/Morpheus-min.jpg",
     title: "Morpheus8",
     href: "/non-surgical/morpheus8-treatment-uk",
+    tag: "Skin",
+    blurb: "Radiofrequency microneedling that remodels and firms facial skin.",
   },
   {
     image: "/uploads/2024/09/supeor-sulcus.jpg",
     title: "Superior Sulcus Filler",
     href: "/non-surgical-injectables-medical-aesthetic",
+    tag: "Injectable",
+    blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
   {
     image: "/uploads/2018/10/tear-trough-treatment-london.jpg",
     title: "Tear Trough Fillers",
     href: "/non-surgical/tear-trough-fillers-uk",
+    tag: "Injectable",
+    blurb: "Softens under-eye hollows with precisely placed hyaluronic acid.",
   },
   {
     image: "/uploads/2018/10/Ultherapy-london.jpg",
     title: "Ellansé",
     href: "/ellanse",
+    tag: "Injectable",
+    blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
   },
   {
     image: "/uploads/2024/09/ultraclear-laser.jpg",
     title: "UltraClear Laser",
     href: "/non-surgical/ultraclear-laser-treatment-uk",
+    tag: "Laser",
+    blurb: "Cold-fibre laser resurfacing that targets texture, tone and fine lines.",
   },
   {
     image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
     title: "Non-Surgical Facial Contouring",
     href: "/non-surgical-facial-contouring",
+    tag: "Injectable",
+    blurb: "Injectable contouring to rebalance facial proportions without surgery.",
   },
   {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
     href: "/non-surgical/sofwave-treatment-uk",
+    tag: "Skin",
+    blurb: "Ultrasound energy that lifts and tightens skin across the brow and face.",
   },
   {
     image: "/uploads/2025/06/Plasma-Pen.jpg",
     title: "Plexr / Plasma Pen",
     href: "/plexr-plasma-pen",
+    tag: "Skin",
+    blurb: "Plasma treatment for eyelid skin laxity as an alternative to surgery.",
+  },
+];
+
+/**
+ * Patient reviews, moved here from TestimonialsSlider unchanged.
+ *
+ * `treatment`, `source` and `url` are deliberately absent: the site records
+ * no platform or procedure against these quotes, and stamping a Google or
+ * RealSelf badge on a real patient's words without knowing where they were
+ * left would be inventing provenance. Fill them in and the badge, the meta
+ * line and the "Read on ..." link appear on their own.
+ */
+const PATIENT_STORIES: PatientStory[] = [
+  {
+    quote:
+      "Simply the best dermatologist for skin care and eye surgery. She is a safe and skilled doctor who is highly experienced and will meet your needs, her approach is a soft and natural aesthetic. She listens and communicates clearly, professionally and in a kind and personable manner. I have been looked after by Dr Sabrina for many years have always been extremely happy with her advice, procedures and results. Highly recommend, she is a talented Dr you can trust.",
+    author: "Desi Stevens",
+  },
+  {
+    quote:
+      "Dr Sabrina is the magic eye fairy. Only 10 days after my lower lid bleph and midface lift and nearly all bruising and swelling has gone. After a lot of research, I knew after my initial consultation with Dr Sabrina she was the one I trusted. Such a warm & kind woman. I am so pleased I put my Trust in Dr Shah. Immensely happy with the results and will be back to get my upper eyes done in the future. Thank you to the whole team.",
+    author: "Kealey Hessey",
+  },
+  {
+    quote:
+      "I had been recommended Dr Sabrina by a medical colleague & am extremely glad I made the journey from Southampton to the Perfect Eye Clinic in London to discuss blepharoplasty. The team were all so friendly & very professional and most importantly, Dr Sabrina informed me that I had a bilateral eye ptosis. This explained a number of issues I was experiencing. I will definitely be booking to have a correction of bilateral eye ptosis and upper blepharoplasty. Can't recommend enough.",
+    author: "Jo Kirby",
+  },
+  {
+    quote:
+      "I am so very happy with my experiences at Perfect Eyes. Dr Sabrina is an absolute Star. Extremely talented, very personable I just couldn't be happier with my results and her overall professionalism. But a big part of my review is how lovely the support staff are too. Namely Safiya and Lisa who greet you with such warmness and respect. I highly recommend this clinic as I have done so with many friends.",
+    author: "Shirley Ford",
   },
 ];
 
@@ -142,571 +216,427 @@ const MEDIA_LOGOS = [
   { src: "/uploads/2024/09/logo10.svg", alt: "Media logo 10" },
 ];
 
+/** Copy transcribed from the approved design for this section. */
+const JOURNEY_STEPS: JourneyStep[] = [
+  {
+    title: "Listen & assess",
+    text: "A thorough medical consultation to understand your concerns, anatomy and expectations.",
+  },
+  {
+    title: "Curate a plan",
+    text: "A holistic, 360° plan blending surgical and non-surgical options, nothing over-treated.",
+  },
+  {
+    title: "Treat with precision",
+    text: "Signature techniques prioritising safety, natural results and minimal downtime.",
+  },
+  {
+    title: "Care through recovery",
+    text: "Clear aftercare and attentive follow-up until you are fully healed and happy.",
+  },
+];
+
+/**
+ * Clinic team. Portraits are the same files the Meet the Team page uses; Dr
+ * Sabrina reuses her profile portrait. Anyone without an image falls back to
+ * a monogram tile, so the grid never shows a hole.
+ */
+/**
+ * Consultation fees, as published on the contact page
+ * (content/pages/contact-cosmetic-eye-surgeon.mdx). Keep the two in step —
+ * a price shown here that disagrees with the contact page is worse than not
+ * showing one at all.
+ */
+const CONSULTATION_FEES = [
+  { label: "New consultation", price: "£300" },
+  { label: "Revision / 2nd opinion", price: "£400" },
+];
+
+const CLINIC_TEAM: TeamMember[] = [
+  {
+    name: "Dr Sabrina Shah-Desai",
+    role: "Board Certified Cosmetic Oculoplastic Surgeon",
+    credentials: ["MS", "FRCS"],
+    image: "/uploads/2025/12/Dr-Sabrina2-1.png",
+  },
+  {
+    name: "Dr Janine",
+    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    image: "/uploads/2026/04/DR-JANINE.webp",
+  },
+  {
+    name: "Dr Hemmali",
+    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    image: "/uploads/2026/04/Dr-Hemmali.webp",
+  },
+  {
+    name: "Irvana",
+    role: "Qualified therapist — Perfect Skin Studio",
+    credentials: ["Level 4 Laser"],
+    image: "/uploads/2026/04/Irvana.webp",
+  },
+  {
+    name: "Leanne",
+    role: "Practice Clinic Manager",
+    image: "/uploads/2025/09/Leanne-1-1.jpg",
+  },
+  {
+    name: "Mojdeh",
+    role: "Surgical Coordinator & Patient Educator",
+    image: "/uploads/2025/09/Mojdeh-2025-09-17-15-54-00-1.jpg",
+  },
+  { name: "Mary", role: "Patient Coordinator", image: "/uploads/2024/12/Mary-1.png" },
+  { name: "Lakshiya", role: "Patient Coordinator", image: "/uploads/2025/09/Luxee-1.jpg" },
+  { name: "Sally", role: "Patient Coordinator", image: "/uploads/2025/09/Sally-1.jpg" },
+];/**
+ * Credential pull-outs for the About section. Every line is existing site
+ * copy re-homed, not new claims: the first is the sentence that used to sit
+ * bolded at the end of the second paragraph, the second is the recognition
+ * line from the old hero badge, and the third restates the experience figure
+ * from the opening paragraph.
+ */
+const EXPERT_CREDENTIALS = [
+  "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
+  "Recognised as a top practitioner for eyes for eight consecutive years, 2019–2026",
+  "Over 25 years of surgical and non-surgical experience",
+];
+
+/**
+ * A browser paints its own black backdrop over an empty <video>, which would
+ * override the panel colour set in CSS. Handing it a poster instead — one
+ * inline gradient, no request — keeps the placeholder on brand.
+ */
+const PLACEHOLDER_POSTER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23211E42'/%3E%3Cstop offset='1' stop-color='%2314122C'/%3E%3C/linearGradient%3E%3Crect width='16' height='9' fill='url(%23g)'/%3E%3C/svg%3E";
+
+/**
+ * The two "Watch" films. `src` and `poster` are intentionally empty until the
+ * final cuts are supplied — the players render as the dark placeholder panels
+ * in the approved design, and drop in without any markup change once the file
+ * paths land here.
+ */
+const CLINIC_VIDEOS: { title: string; src?: string; poster?: string }[] = [
+  { title: "Inside the Perfect Eyes clinic" },
+  { title: "Patients on their experience" },
+];
+
+/** Award medal, used on the About eyebrow and the portrait's badge. */
+function Medal() {
+  return (
+    <svg className={styles.medalIcon} viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="9" r="5.25" />
+      <path d="M8.5 13.4L7 22l5-2.6 5 2.6-1.5-8.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Circled tick for the credential list. */
+function CheckMark() {
+  return (
+    <svg className={styles.checkIcon} viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9.25" />
+      <path d="M8.2 12.4l2.6 2.6 5-5.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Four-point sparkle that precedes the "Watch" eyebrow. */
+function Sparkle() {
+  return (
+    <svg className={styles.watchSparkle} viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M8 0l1.5 5.1L15 8l-5.5 2.9L8 16l-1.5-5.1L1 8l5.5-2.9z" />
+    </svg>
+  );
+}
+
+/** Five-star row for the hero rating. Drawn, not an image, so it stays sharp
+    and costs no request. */
+function Stars() {
+  return (
+    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+      {[0, 18, 36, 54, 72].map((x) => (
+        <path
+          key={x}
+          transform={`translate(${x} 0)`}
+          d="M8 0.6l2.24 4.9 5.36.62-3.97 3.63 1.06 5.28L8 12.42 3.31 15.03l1.06-5.28L.4 6.12l5.36-.62z"
+        />
+      ))}
+    </svg>
+  );
+}
+
 export default function HomePage() {
   return (
-    <>
-      {/* ── 1. HERO SECTION ───────────────────────────────────────────────── */}
-      <section
-        className={styles.homeHero}
-        aria-label="Hero"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          minHeight: "620px",
-          display: "flex",
-          alignItems: "center",
-          background: "#1b1818",
-        }}
-      >
-        {/* Background image */}
-        <Image
-          src="/uploads/2025/10/234-1.png"
-          alt=""
-          fill
-          priority
-          style={{ objectFit: "cover", objectPosition: "center", opacity: 0.7 }}
-          sizes="100vw"
-        />
-        {/* Overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "hsl(220 25% 5% / 0.45)",
-          }}
-        />
+    <div className={styles.home}>
+      {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
+      <section className={styles.hero} aria-labelledby="hero-title">
+        <HeroVideo />
+        <span className={styles.heroScrim} aria-hidden="true" />
 
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-            padding: "5rem var(--space-6)",
-          }}
-        >
-          {/* Left: Heading + CTA */}
-          <div>
-            <h1
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3.5vw, 2.25rem)",
-                color: "#fff",
-                lineHeight: 1.35,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Our expertise is in Clinically led assessment and treatment of eyelid and
-              peri-ocular conditions, focused on function, comfort, and anatomical balance.
+        <div className="container">
+          <div className={styles.heroInner}>
+            <span className={styles.heroEyebrow}>Harley Street &middot; London</span>
+            <h1 id="hero-title" className={styles.heroTitle}>
+              Expert in
+              <br />
+              Eyelid Surgery
             </h1>
-            <p
-              style={{
-                fontSize: "var(--text-base)",
-                color: "hsl(0 0% 100% / 0.85)",
-                lineHeight: 1.7,
-                marginBottom: "2rem",
-              }}
-            >
-              Care is delivered using contemporary minimally invasive surgical and
-              non-surgical techniques.
+            <p className={styles.heroLead}>
+              Natural-looking results from London&apos;s leading Board Certified
+              Oculoplastic Surgeon, using evidence-based techniques.
             </p>
-            <Link
-              href="/self-test-survey"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                background: "hsl(220 25% 12%)",
-                color: "#fff",
-                fontWeight: 600,
-                fontSize: "var(--text-sm)",
-                padding: "0.875rem 1.875rem",
-                borderRadius: "var(--radius-full)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                transition: "background 0.2s ease",
-              }}
-            >
-              Take the Eyelid Surgery Test
-            </Link>
+
+            <div className={styles.heroActions}>
+              <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
+                Take the Eyelid Surgery Test
+                <span className="tp-btn-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M5 12h13M12.5 6l6 6-6 6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+
+            <dl className={styles.trust}>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>Google rating</dt>
+                <dd className={styles.trustValue}>
+                  <Stars />
+                  4.9 &middot; 230+ reviews
+                </dd>
+              </div>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>25+ years</dt>
+                <dd className={styles.trustValue}>Surgical experience</dd>
+              </div>
+              <div className={styles.trustItem}>
+                <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
+                <dd className={styles.trustValue}>Registered &amp; accredited</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. AWARDS ─────────────────────────────────────────────────────── */}
+      <section
+        className={`${styles.logoStrip} ${styles.logoStripTop}`}
+        aria-label="Accreditations and recognition"
+      >
+        <p className={styles.logoStripLabel}>Accredited &amp; recognised by</p>
+        <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
+      </section>
+
+      {/* ── 3. WATCH ──────────────────────────────────────────────────────── */}
+      <section
+        className={`${styles.section} ${styles.paper}`}
+        aria-labelledby="watch-title"
+      >
+        <div className="container">
+          <div className={styles.head}>
+            <span className={styles.watchEyebrow}>
+              <Sparkle />
+              Watch
+            </span>
+            <h2 id="watch-title" className={`${styles.h2} ${styles.watchTitle}`}>
+              Meet the clinic and hear from our patients
+            </h2>
           </div>
 
-          {/* Right: Dr Sabrina image + badge */}
-          <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
-            <div style={{ position: "relative", width: "100%", maxWidth: "420px" }}>
+          <div className={styles.watchGrid}>
+            {CLINIC_VIDEOS.map((video) => (
+              <figure key={video.title} className={styles.watchItem}>
+                <video
+                  className={styles.watchVideo}
+                  src={video.src}
+                  poster={video.poster ?? PLACEHOLDER_POSTER}
+                  controls
+                  playsInline
+                  /* Nothing is fetched until the visitor presses play, so two
+                     videos above the fold cost no bandwidth on load. */
+                  preload="none"
+                  aria-label={video.title}
+                />
+                <figcaption className="sr-only">{video.title}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
+      <section
+        className={`${styles.section} ${styles.expert}`}
+        aria-labelledby="about-title"
+      >
+        <div className="container">
+          <div className={styles.expertGrid}>
+            {/* Portrait. Stretches to the row height so its top and bottom
+                edges line up exactly with the column beside it. */}
+            <figure className={styles.expertMedia}>
               <Image
-                src="/uploads/2026/06/Group-12.svg"
-                alt="Dr. Sabrina Shah-Desai"
-                width={420}
-                height={480}
-                style={{ width: "100%", height: "auto" }}
-                priority
+                src="/uploads/2025/12/Dr-Sabrina2-1.png"
+                alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon"
+                fill
+                sizes="(min-width: 1000px) 42vw, 100vw"
+                className={styles.expertPortrait}
               />
-              {/* Dr Badge */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1.5rem",
-                  right: "-1rem",
-                  background: "hsl(220 25% 12% / 0.9)",
-                  backdropFilter: "blur(8px)",
-                  border: "1px solid hsl(0 0% 100% / 0.15)",
-                  borderRadius: "var(--radius-lg)",
-                  padding: "1rem 1.25rem",
-                  maxWidth: "220px",
-                }}
-              >
-                <h5
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "0.875rem",
-                    color: "hsl(38 92% 70%)",
-                    marginBottom: "0.2rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  DR. SABRINA SHAH—DESAI
-                </h5>
-                <small style={{ color: "hsl(0 0% 100% / 0.6)", fontSize: "0.75rem", display: "block", marginBottom: "0.5rem" }}>
-                  MS, FRCS (Ed) Ophth.
-                </small>
-                <p style={{ color: "hsl(0 0% 100% / 0.8)", fontSize: "0.75rem", lineHeight: 1.5, margin: 0 }}>
-                  Has been consistently recognised as a top practitioner for eyes for eight
-                  consecutive years, from 2019 to 2026
-                </p>
+              <figcaption className={styles.expertPill}>The Surgeon</figcaption>
+              <div className={styles.expertBadge}>
+                <span className={styles.expertBadgeIcon} aria-hidden="true">
+                  <Medal />
+                </span>
+                <span>
+                  <span className={styles.expertBadgeTitle}>Top Practitioner for Eyes</span>
+                  <span className={styles.expertBadgeMeta}>
+                    Eight consecutive years, 2019&ndash;2026
+                  </span>
+                </span>
+              </div>
+            </figure>
+
+            <div className={styles.expertBody}>
+              <span className={styles.expertEyebrow}>
+                <Medal />
+                About
+              </span>
+              <h2 id="about-title" className={`${styles.h2} ${styles.expertTitle}`}>
+                Meet Dr Sabrina Shah-Desai
+              </h2>
+              <p className={styles.expertCred}>MS, FRCS (Ed) Ophth</p>
+
+              <p className={styles.expertText}>
+                Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning
+                Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner specialising
+                in reconstructive, revisional, and cosmetic surgery of the eyelids, as well
+                as non-surgical treatments for the eyes and face. With over 25 years of
+                experience, she is globally recognised for her pioneering, minimally
+                invasive techniques.
+              </p>
+              <p className={styles.expertText}>
+                Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking
+                subtle, natural results, she is also highly sought after for revisional
+                procedures by those who have undergone previous fillers or eyelid surgeries.
+              </p>
+
+              <ul className={styles.expertList}>
+                {EXPERT_CREDENTIALS.map((item) => (
+                  <li key={item} className={styles.expertListItem}>
+                    <CheckMark />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className={styles.expertCta}>
+                <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+                  Book a consultation
+                  <span className="tp-btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M5 12h13M12.5 6l6 6-6 6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 2. AWARD LOGOS CAROUSEL ───────────────────────────────────────── */}
-      <div
-        style={{
-          background: "#fff",
-          padding: "2.5rem 0",
-          borderBottom: "1px solid var(--clr-border)",
-        }}
-      >
-        <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
-      </div>
-
-      {/* ── 3. ABOUT / VIDEO SECTION ──────────────────────────────────────── */}
-      <section
-        aria-label="About Dr Sabrina"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          minHeight: "500px",
-        }}
-        className={styles.homeAboutGrid}
-      >
-        {/* Left: video with background */}
-        <div
-          style={{
-            position: "relative",
-            minHeight: "420px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#1b1818",
-          }}
-        >
-          <Image
-            src="/uploads/2024/09/drsabrina-hm-bg.jpg"
-            alt=""
-            fill
-            style={{ objectFit: "cover", opacity: 0.6 }}
-            sizes="50vw"
-          />
-          <a
-            href="https://www.youtube.com/watch?v=5Z-PVTuIR6c"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Watch Dr Sabrina video"
-            style={{
-              position: "relative",
-              zIndex: 1,
-              width: "72px",
-              height: "72px",
-              borderRadius: "9999px",
-              background: "hsl(0 0% 100% / 0.95)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 8px 32px hsl(220 25% 12% / 0.4)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="var(--clr-primary)"
-              style={{ width: "28px", height: "28px", marginLeft: "4px" }}
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </a>
-        </div>
-
-        {/* Right: bio */}
-        <div
-          style={{
-            padding: "4rem 3rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-          className={styles.homeAboutText}
-        >
-          <span
-            style={{
-              fontSize: "var(--text-xs)",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--clr-primary)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            About
-          </span>
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-              color: "var(--clr-text)",
-              lineHeight: 1.2,
-              marginBottom: "0.25rem",
-            }}
-          >
-            Meet Dr Sabrina Shah-Desai
-          </h2>
-          <h3
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "var(--text-base)",
-              fontWeight: 400,
-              color: "var(--clr-text-muted)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            MS, FRCS (Ed) Ophth
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              marginBottom: "1.5rem",
-            }}
-          />
-          <p style={{ color: "var(--clr-text-muted)", lineHeight: 1.8, marginBottom: "1rem" }}>
-            Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning Oculoplastic
-            Reconstructive Surgeon and Aesthetic Practitioner specialising in reconstructive,
-            revisional, and cosmetic surgery of the eyelids, as well as non-surgical treatments
-            for the eyes and face. With over 25 years of experience, she is globally recognised
-            for her pioneering, minimally invasive techniques.
-          </p>
-          <p style={{ color: "var(--clr-text-muted)", lineHeight: 1.8 }}>
-            Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking subtle,
-            natural results, she is also highly sought after for revisional procedures by those
-            who have undergone previous fillers or eyelid surgeries.{" "}
-            <strong>
-              Dr Shah-Desai is now listed on the Royal College of Surgeons of England register
-              of Board-Certified Cosmetic Surgeons.
-            </strong>
-          </p>
-        </div>
-      </section>
-
-      {/* ── 4. SPECIALIST TREATMENTS ─────────────────────────────────────── */}
+      {/* ── 4. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
         id="treatments"
-        aria-label="Our Specialist Treatments"
-        className="section"
-        style={{ background: "#fff", paddingTop: "4rem", paddingBottom: "3rem" }}
+        className={`${styles.section} ${styles.treatments}`}
+        aria-labelledby="treatments-title"
       >
         <div className="container">
-          <div className="section-header" style={{ textAlign: "center" }}>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.875rem, 4vw, 2.625rem)",
-                color: "hsl(220 15% 25%)",
-                marginBottom: "0.5rem",
-              }}
-            >
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>What we treat</span>
+            <h2 id="treatments-title" className={styles.h2}>
               Our Specialist Treatments and Procedures
             </h2>
-            <div
-              style={{
-                width: "80px",
-                height: "2px",
-                background: "var(--clr-accent)",
-                margin: "1rem auto 2rem",
-              }}
-            />
-          </div>
-
-          {/* Surgical */}
-          <h3
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)",
-              color: "var(--clr-text)",
-              textAlign: "center",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Surgical Treatments
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              margin: "0.75rem auto 2rem",
-            }}
-          />
-          <div className={styles.treatmentsGrid} style={{ marginBottom: "3.5rem" }}>
-            {SURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
-                <div className={styles.treatmentImgWrap}>
-                  <Image
-                    src={t.image}
-                    alt={t.title}
-                    fill
-                    style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className={styles.treatmentImgOverlay} />
-                </div>
-                <p className={styles.treatmentImgTitle}>{t.title}</p>
-              </Link>
-            ))}
-          </div>
-
-          {/* Non-Surgical */}
-          <h3
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)",
-              color: "var(--clr-text)",
-              textAlign: "center",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Non-Surgical Treatments
-          </h3>
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "var(--clr-accent)",
-              margin: "0.75rem auto 2rem",
-            }}
-          />
-          <div className={styles.treatmentsGrid}>
-            {NONSURGICAL_TREATMENTS.map((t) => (
-              <Link key={t.href} href={t.href} className={styles.treatmentImgCard}>
-                <div className={styles.treatmentImgWrap}>
-                  <Image
-                    src={t.image}
-                    alt={t.title}
-                    fill
-                    style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className={styles.treatmentImgOverlay} />
-                </div>
-                <p className={styles.treatmentImgTitle}>{t.title}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. BOOK YOUR CONSULTATION STEPS ─────────────────────────────── */}
-      <section
-        aria-label="Book your consultation"
-        style={{ background: "hsl(210 20% 97%)", padding: "4rem 0" }}
-      >
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-              color: "var(--clr-text)",
-              marginBottom: "2.5rem",
-            }}
-          >
-            Book Your Consultation Today
-          </h2>
-
-          {/* Steps */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-              marginBottom: "2rem",
-            }}
-          >
-            {[
-              { icon: "/uploads/2024/09/1bx.svg", text: "Discover what treatment is right for your concern and needs." },
-              { icon: "/uploads/2024/09/2bx.svg", text: "Use our simple booking form to confirm your consultation or request a FREE call back." },
-              { icon: "/uploads/2024/09/3bc.svg", text: "Look forward to coming in for your bespoke appointment." },
-            ].map((step, i) => (
-              <Fragment key={step.text}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "1rem",
-                    maxWidth: "200px",
-                  }}
-                >
-                  <Image
-                    src={step.icon}
-                    alt={`Step ${i + 1}`}
-                    width={72}
-                    height={72}
-                    style={{ width: "72px", height: "72px" }}
-                  />
-                  <p
-                    style={{
-                      fontSize: "var(--text-sm)",
-                      color: "var(--clr-text-muted)",
-                      lineHeight: 1.6,
-                      textAlign: "center",
-                    }}
-                  >
-                    {step.text}
-                  </p>
-                </div>
-                {i < 2 && (
-                  <Image
-                    src="/uploads/2024/05/Arrow-16.svg"
-                    alt=""
-                    width={32}
-                    height={32}
-                    style={{ flexShrink: 0 }}
-                    aria-hidden
-                  />
-                )}
-              </Fragment>
-            ))}
-          </div>
-
-          <p
-            style={{
-              fontSize: "var(--text-base)",
-              color: "hsl(220 15% 40%)",
-              maxWidth: "60ch",
-              margin: "0 auto 2.5rem",
-              lineHeight: 1.7,
-            }}
-          >
-            A consultation allows us to assess your concerns, discuss suitable options,
-            expected recovery, and answer any questions, so you can make an informed decision.
-          </p>
-
-          <Link href="/contact-cosmetic-eye-surgeon" className="btn btn-primary btn-lg">
-            Book A Compatibility Call
-          </Link>
-        </div>
-      </section>
-
-      {/* ── 6. TESTIMONIALS ──────────────────────────────────────────────── */}
-      <section
-        aria-label="Patient testimonials"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          padding: "5rem 0",
-        }}
-      >
-        <Image
-          src="/uploads/2024/09/testimonial-bg.jpg"
-          alt=""
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          sizes="100vw"
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "hsl(220 25% 12% / 0.55)",
-          }}
-        />
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-          }}
-        >
-          <TestimonialsSlider />
-          <div />
-        </div>
-      </section>
-
-      {/* ── 7. PATIENT TESTIMONIAL VIDEOS ────────────────────────────────── */}
-      <section
-        aria-label="Video testimonials"
-        style={{ background: "#fff", padding: "4rem 0 3rem" }}
-      >
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-                color: "var(--clr-text)",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Patient Testimonials
-            </h2>
-            <div
-              style={{
-                width: "80px",
-                height: "2px",
-                background: "var(--clr-accent)",
-                margin: "1rem auto",
-              }}
-            />
-            <Image
-              src="/uploads/2024/09/rating49.svg"
-              alt="4.9 star rating"
-              width={160}
-              height={32}
-              style={{ margin: "0 auto 0.5rem" }}
-            />
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--clr-text-muted)" }}>
-              Based on 220+ Google Reviews
+            <p className={styles.lead}>
+              From surgical eyelid work to non-surgical skin and injectable treatments, each
+              planned around your anatomy and goals.
             </p>
           </div>
+        </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "1.5rem",
-            }}
-            className={styles.videoGrid}
-          >
+        {/* Full-bleed rail: the cards run past the container edges so the
+            carousel reads as continuous rather than as a boxed row. */}
+        <TreatmentsCarousel
+          groups={[
+            { id: "surgical", label: "Surgical", items: SURGICAL_TREATMENTS },
+            { id: "non-surgical", label: "Non-Surgical", items: NONSURGICAL_TREATMENTS },
+          ]}
+        />
+      </section>
+
+      {/* ── 6. THE JOURNEY ───────────────────────────────────────────────── */}
+      <section className={styles.journey} aria-labelledby="journey-title">
+        {/* Soft brand-coloured glow behind the rail. Without something to
+            refract, glass cards on a flat field read as plain panels. */}
+        <span className={styles.journeyGlow} aria-hidden="true" />
+
+        <div className="container">
+          <div className={styles.journeyHead}>
+            <h2 id="journey-title" className={styles.journeyTitle}>
+              The Perfect360&trade; journey. A curated journey, not a single procedure
+            </h2>
+          </div>
+
+          <JourneyCards steps={JOURNEY_STEPS} />
+
+          <div className={styles.journeyCta}>
+            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
+              Book A Compatibility Call
+              <span className="tp-btn-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 12h13M12.5 6l6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 7. PATIENT STORIES ────────────────────────────────────────────── */}
+      <PatientStories stories={PATIENT_STORIES} />
+
+      {/* ── 7. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
+      <section
+        className={`${styles.section} ${styles.paper}`}
+        aria-labelledby="videos-title"
+      >
+        <div className="container">
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>In their words</span>
+            <h2 id="videos-title" className={styles.h2}>
+              Patient Testimonials
+            </h2>
+            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            <div className={styles.rating}>
+              <p className={styles.ratingScore}>
+                <Stars />
+                <span className="sr-only">Rated </span>4.9<span className="sr-only"> out of 5</span>
+              </p>
+              <p className={styles.ratingText}>Based on 220+ Google Reviews</p>
+            </div>
+          </div>
+
+          <div className={styles.videoGrid}>
             <VideoCard
               thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
               title="A Happy Perfect Eyes Clinic's Patient"
@@ -724,325 +654,135 @@ export default function HomePage() {
             />
           </div>
 
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "var(--text-sm)",
-              color: "var(--clr-text-muted)",
-              marginTop: "2rem",
-            }}
-          >
+          <p className={styles.disclaimer}>
             *Individual results vary. Testimonials reflect personal experiences following
             consultation and treatment.
           </p>
         </div>
       </section>
 
-      {/* ── 8. RATING BADGES ─────────────────────────────────────────────── */}
-      <section
-        aria-label="Rating badges"
-        style={{ background: "hsl(210 20% 97%)", padding: "3rem 0" }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "3rem",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { src: "/uploads/2024/09/grating.svg", alt: "Google Rating" },
-              { src: "/uploads/2024/09/realrating.svg", alt: "RealSelf Rating" },
-              { src: "/uploads/2024/09/carequlaity.svg", alt: "Care Quality Commission" },
-            ].map((badge) => (
-              <Image
-                key={badge.src}
-                src={badge.src}
-                alt={badge.alt}
-                width={140}
-                height={70}
-                style={{ height: "70px", width: "auto", objectFit: "contain" }}
-              />
-            ))}
-          </div>
-        </div>
+      {/* ── 8. AS SEEN IN ─────────────────────────────────────────────────── */}
+      <section className={styles.logoStrip} aria-label="Featured in the media">
+        <p className={styles.logoStripLabel}>As seen in</p>
+        <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
       </section>
 
-      {/* ── 9. MEDIA / AS SEEN IN ────────────────────────────────────────── */}
-      <div
-        style={{
-          background: "#fff",
-          padding: "2.5rem 0",
-          borderTop: "1px solid var(--clr-border)",
-          borderBottom: "1px solid var(--clr-border)",
-        }}
-      >
-        <AutoScrollCarousel items={MEDIA_LOGOS} speed={50} />
-      </div>
-
-      {/* ── 10. MEET THE CLINIC TEAM ─────────────────────────────────────── */}
+      {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
       <section
-        aria-label="Meet the clinic team"
-        style={{
-          background: "linear-gradient(135deg, hsl(199 30% 96%), hsl(220 20% 97%))",
-          padding: "5rem 0",
-        }}
+        className={`${styles.section} ${styles.team}`}
+        aria-labelledby="team-title"
       >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: clinic image */}
-          <div
-            style={{
-              position: "relative",
-              borderRadius: "var(--radius-xl)",
-              overflow: "hidden",
-              aspectRatio: "4/3",
-              boxShadow: "var(--shadow-xl)",
-            }}
-          >
-            <Image
-              src="/uploads/2025/09/Homepage_Picture-1.jpg"
-              alt="The Perfect Eyes Clinic"
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="50vw"
-            />
-          </div>
+        <span className={styles.teamGlow} aria-hidden="true" />
 
-          {/* Right: team info */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-                color: "var(--clr-text)",
-                marginBottom: "1rem",
-              }}
-            >
+        <div className="container">
+          <div className={styles.head}>
+            <span className={styles.eyebrow}>Our people</span>
+            <h2 id="team-title" className={styles.h2}>
               Meet The Clinic Team
             </h2>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--clr-text-muted)", marginBottom: "1.5rem", lineHeight: 1.7 }}>
+            <p className={styles.lead}>
               Elegant &amp; discreet, the clinic ensures an environment that meets the highest
-              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5 key
-              areas by the{" "}
+              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
+              key areas by the{" "}
               <a
                 href="https://www.cqc.org.uk/location/1-5591490767"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--clr-primary)", textDecoration: "underline" }}
+                className={styles.teamLink}
               >
                 Care Quality Commission
               </a>{" "}
               (CQC) in 2022.
             </p>
-
-            <div
-              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}
-              className={styles.teamCols}
-            >
-              <div>
-                <h4
-                  style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--clr-text-muted)",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  Medical Aesthetics Team
-                </h4>
-                <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[
-                    { name: "Dr Sabrina Shah-Desai", title: "MS, FRCS, Board Certified Cosmetic Oculoplastic Surgeon" },
-                    { name: "Dr Janine", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-                    { name: "Dr Hemmali", title: "Dentist & Aesthetic Practitioner — Perfect Skin Studio" },
-                    { name: "Irvana", title: "Level 4 LASER qualified therapist — Perfect Skin Studio" },
-                  ].map((m) => (
-                    <li key={m.name}>
-                      <strong style={{ fontSize: "var(--text-sm)", color: "var(--clr-text)" }}>
-                        {m.name}
-                      </strong>
-                      <br />
-                      <span style={{ fontSize: "var(--text-xs)", color: "var(--clr-text-muted)" }}>
-                        {m.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4
-                  style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--clr-text-muted)",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  Administrative Team
-                </h4>
-                <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[
-                    { name: "Leanne", title: "Practice Clinic Manager" },
-                    { name: "Mojdeh", title: "Surgical Coordinator & Patient Educator" },
-                    { name: "Mary", title: "Patient Coordinator" },
-                    { name: "Lakshiya", title: "Patient Coordinator" },
-                    { name: "Sally", title: "Patient Coordinator" },
-                  ].map((m) => (
-                    <li key={m.name}>
-                      <strong style={{ fontSize: "var(--text-sm)", color: "var(--clr-text)" }}>
-                        {m.name}
-                      </strong>
-                      <br />
-                      <span style={{ fontSize: "var(--text-xs)", color: "var(--clr-text-muted)" }}>
-                        {m.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div style={{ marginTop: "2rem" }}>
-              <Link href="/meet-team" className="btn btn-outline">
-                Meet the Full Team
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 11. INSTAGRAM ────────────────────────────────────────────────── */}
-      <section
-        aria-label="Instagram"
-        style={{ background: "hsl(210 20% 97%)", padding: "3.5rem 0 2.5rem" }}
-      >
-        <div className="container" style={{ textAlign: "center" }}>
-          <p
-            style={{
-              fontSize: "var(--text-lg)",
-              color: "var(--clr-text)",
-            }}
-          >
-            Follow us on{" "}
-            <strong>Instagram</strong>{" "}
-            <a
-              href="https://www.instagram.com/drsabrinashahdesaiofficial/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--clr-primary)", textDecoration: "underline" }}
-            >
-              @drsabrinashahdesaiofficial
-            </a>{" "}
-            to stay updated
-          </p>
-        </div>
-      </section>
-
-      {/* ── 12. ASK A QUESTION / BOOK APPOINTMENT ────────────────────────── */}
-      <section
-        aria-label="Book an appointment"
-        style={{ background: "#fff", padding: "5rem 0" }}
-      >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: image */}
-          <div style={{ position: "relative" }}>
-            <div
-              style={{
-                position: "relative",
-                borderRadius: "var(--radius-xl)",
-                overflow: "hidden",
-                aspectRatio: "4/3",
-                boxShadow: "var(--shadow-xl)",
-              }}
-            >
-              <Image
-                src="/uploads/2024/09/askques-img.jpg"
-                alt="Book your consultation"
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="50vw"
-              />
-            </div>
           </div>
 
-          {/* Right: CTA */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
-                color: "var(--clr-text)",
-                lineHeight: 1.25,
-                marginBottom: "1rem",
-              }}
-            >
-              Ask Us A Question Or Book An Appointment
-            </h2>
-            <p
-              style={{
-                fontSize: "var(--text-base)",
-                color: "var(--clr-text-muted)",
-                lineHeight: 1.7,
-                marginBottom: "2rem",
-              }}
-            >
-              Call or email us today, we would be delighted to answer your questions.
-            </p>
-            <Link href="/contact-cosmetic-eye-surgeon" className="btn btn-primary btn-lg">
-              Book A Compatibility Call
+          <TeamCarousel members={CLINIC_TEAM} />
+
+          <div className={styles.teamCta}>
+            <Link href="/meet-team" className="tp-btn tp-btn-primary">
+              Meet the Full Team
+              <span className="tp-btn-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M5 12h13M12.5 6l6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── 13. VAT DISCLAIMER ───────────────────────────────────────────── */}
-      <div
-        style={{
-          borderTop: "1px solid var(--clr-border)",
-          padding: "1.5rem 0",
-          background: "#fff",
-        }}
-      >
+      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
+      <section className={styles.beginSection} aria-labelledby="cta-title">
         <div className="container">
-          <p
-            style={{
-              fontSize: "var(--text-xs)",
-              color: "var(--clr-text-muted)",
-              lineHeight: 1.6,
-            }}
-          >
+          <div className={styles.beginPanel}>
+            <div className={styles.beginCopy}>
+              <h2 id="cta-title" className={styles.beginTitle}>
+                Begin your Perfect Eyes journey
+              </h2>
+              <p className={styles.beginLead}>
+                Book a private consultation with Dr Shah-Desai at {CLINIC.addressShort},
+                or request a call back from our team.
+              </p>
+
+              <div className={styles.beginActions}>
+                <Link
+                  href="/contact-cosmetic-eye-surgeon"
+                  className="tp-btn tp-btn-inverse"
+                >
+                  Book a Consultation
+                  <span className="tp-btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M5 12h13M12.5 6l6 6-6 6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </Link>
+                <a href={CLINIC.phoneHref} className="tp-btn tp-btn-outline-light">
+                  <TpIcon name="phone" size={17} />
+                  {CLINIC.phoneDisplay}
+                </a>
+              </div>
+            </div>
+
+            <div className={styles.fees}>
+              <p className={styles.feesLabel}>Consultation fees</p>
+              <dl className={styles.feesList}>
+                {CONSULTATION_FEES.map((fee) => (
+                  <div key={fee.label} className={styles.feesRow}>
+                    <dt className={styles.feesName}>{fee.label}</dt>
+                    <dd className={styles.feesPrice}>{fee.price}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className={styles.feesNote}>
+                <TpIcon name="clock" size={15} />
+                <span>{`${CLINIC.hours[0].day} ${CLINIC.hours[0].time} · Harley Street`}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
+      <ContactSection />
+
+      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      <div className={styles.vat}>
+        <div className="container">
+          <p className={styles.vatText}>
             *Treatments undertaken solely for aesthetic purposes are subject to VAT at the
             prevailing rate. Where treatment is provided for a diagnosed medical condition, VAT
             status will be discussed during consultation.
           </p>
         </div>
       </div>
-
-      {/* ── HOME PAGE STYLES ─────────────────────────────────────────────── */}
-    </>
+    </div>
   );
 }

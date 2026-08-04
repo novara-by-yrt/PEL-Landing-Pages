@@ -54,26 +54,49 @@
   margin: 16px 0 0;
 }
 
-/* ── Buttons ────────────────────────────────────────────────────────────── */
+/* ── Buttons ──────────────────────────────────────────────────────────────
+   One button geometry for the entire site. Every CTA — hero, section, card,
+   inverse-on-dark — is `.tp-btn` plus exactly one variant class, so shape,
+   weight, radius, motion and focus ring never drift between sections.
+   Sizing meets the 44×44px minimum touch target on every breakpoint.       */
 .tp-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  padding: 15px 28px;
+  min-height: 48px;
+  padding: 14px 28px;
   border-radius: 999px;
   font-family: var(--tp-body);
   font-weight: 600;
   font-size: 0.9375rem;
+  line-height: 1.2;
+  text-align: center;
   text-decoration: none;
+  cursor: pointer;
   border: 1px solid transparent;
   transition:
     transform 220ms var(--tp-ease),
     background 220ms var(--tp-ease),
+    box-shadow 220ms var(--tp-ease),
     color 220ms var(--tp-ease);
 }
 .tp-btn:hover { transform: translateY(-2px); }
-.tp-btn-primary { background: var(--tp-indigo-700); color: #fff; }
-.tp-btn-primary:hover { background: var(--tp-indigo-600); }
+.tp-btn:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+}
+
+/* Variants */
+.tp-btn-primary {
+  background: var(--tp-indigo-700);
+  color: #fff;
+  box-shadow: var(--tp-shadow-sm);
+}
+.tp-btn-primary:hover {
+  background: var(--tp-indigo-600);
+  box-shadow: var(--tp-shadow-md);
+}
 .tp-btn-secondary {
   background: transparent;
   color: var(--tp-indigo-700);
@@ -82,10 +105,76 @@
 .tp-btn-secondary:hover { background: var(--tp-lavender-050); }
 .tp-btn-inverse { background: #fff; color: var(--tp-indigo-800); }
 .tp-btn-inverse:hover { background: var(--tp-lavender-100); }
+.tp-btn-inverse:focus-visible { outline-color: #fff; }
+/* Outlined CTA sitting on a photographic/dark background */
+.tp-btn-outline-light {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+}
+.tp-btn-outline-light:hover { background: rgba(255, 255, 255, 0.18); }
+.tp-btn-outline-light:focus-visible { outline-color: #fff; }
+
+/* Optional trailing arrow badge. It is an add-on inside `.tp-btn`, not a new
+   button, so a CTA that carries one keeps the exact same height, radius,
+   padding and focus ring as one that does not. */
+.tp-btn-arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  margin-right: -12px;
+  margin-left: 3px;
+  /* Pulled out of the line box so the badge rides inside the button's own
+     min-height instead of stretching it taller than a plain CTA. */
+  margin-block: -7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: transform 220ms var(--tp-ease), background 220ms var(--tp-ease);
+}
+.tp-btn-arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+}
+.tp-btn:hover .tp-btn-arrow {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateX(3px);
+}
+.tp-btn-lg .tp-btn-arrow {
+  width: 34px;
+  height: 34px;
+  margin-right: -18px;
+  margin-left: 6px;
+  margin-block: -8px;
+}
+/* On light-background variants the badge needs the inverse treatment. */
+.tp-btn-secondary .tp-btn-arrow,
+.tp-btn-inverse .tp-btn-arrow {
+  background: var(--tp-lavender-100);
+}
+.tp-btn-secondary:hover .tp-btn-arrow,
+.tp-btn-inverse:hover .tp-btn-arrow {
+  background: var(--tp-lavender-200);
+}
+
+/* Sizes / layout modifiers */
+.tp-btn-lg {
+  min-height: 54px;
+  padding: 17px 36px;
+  font-size: 1rem;
+}
+.tp-btn-block { width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
-  .tp-btn { transition: none; }
+  .tp-btn,
+  .tp-btn-arrow { transition: none; }
   .tp-btn:hover { transform: none; }
+  .tp-btn:hover .tp-btn-arrow { transform: none; }
 }
 
 /* ── Long-form prose inside a .tp page ──────────────────────────────────── */

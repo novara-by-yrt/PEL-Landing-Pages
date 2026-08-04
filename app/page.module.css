@@ -1,107 +1,853 @@
-@media (max-width: 768px) {
-    .homeHero .container {
-      grid-template-columns: 1fr !important;
-    }
-    .homeHero .container > div:last-child {
-      display: none !important;
-    }
-  }
+/* =========================================================================
+   Home page — component layer.
 
+   Written mobile-first: every base rule targets the smallest viewport and
+   `min-width` media queries layer on the larger ones. No `max-width`
+   overrides and no `!important`, so the cascade reads top-to-bottom.
 
-  @media (max-width: 768px) {
-    .homeAboutGrid {
-      grid-template-columns: 1fr !important;
-    }
-    .homeAboutText {
-      padding: 2.5rem 1.5rem !important;
-    }
-  }
+   All colour comes from the semantic `--tp-*` tokens (which alias the five
+   brand primitives in globals.css) via the component tokens declared on
+   `.home` below. No raw hex lives in this file.
 
+   Previously the whole page was inline `style={{ … }}` objects, which
+   serialised ~14KB of duplicated CSS into every HTML response and could not
+   be cached, media-queried, or hovered without JS. This stylesheet ships
+   once and is cached.
+   ========================================================================= */
 
-  @media (max-width: 768px) {
-    .testimonialsGrid { grid-template-columns: 1fr !important; }
-  }
+.home {
+  /* ── Component tokens ─────────────────────────────────────────────────── */
+  --home-section-y: clamp(56px, 8vw, 104px);
+  --home-section-y-sm: clamp(40px, 5vw, 64px);
+  --home-gap: clamp(24px, 4vw, 40px);
+  --home-gap-lg: clamp(32px, 5vw, 64px);
+  --home-card-radius: var(--tp-radius-lg);
+  --home-heading: var(--tp-ink);
+  --home-body: var(--tp-slate);
+  --home-eyebrow: var(--tp-lavender-600);
+  --home-rule: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  --home-overlay: linear-gradient(
+    180deg,
+    rgba(18, 16, 54, 0.82) 0%,
+    rgba(18, 16, 54, 0.62) 45%,
+    rgba(44, 42, 122, 0.72) 100%
+  );
 
-
-  @media (max-width: 640px) {
-    .videoGrid { grid-template-columns: 1fr !important; }
-  }
-  @media (max-width: 900px) and (min-width: 641px) {
-    .videoGrid { grid-template-columns: 1fr 1fr !important; }
-  }
-
-
-  @media (max-width: 768px) {
-    .teamGrid { grid-template-columns: 1fr !important; }
-    .teamCols { grid-template-columns: 1fr !important; }
-  }
-
-
-  @media (max-width: 768px) {
-    .bookGrid { grid-template-columns: 1fr !important; }
-  }
-
-
-.treatmentsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-@media (max-width: 900px) {
-  .treatmentsGrid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .treatmentsGrid { grid-template-columns: 1fr; }
+  background: var(--tp-paper);
+  color: var(--home-body);
+  font-family: var(--tp-body);
 }
 
-.treatmentImgCard {
+/* ── Shared section primitives ──────────────────────────────────────────── */
+.section {
+  padding-block: var(--home-section-y);
+}
+.sectionSm {
+  padding-block: var(--home-section-y-sm);
+}
+.paper {
+  background: var(--tp-paper);
+}
+.fog {
+  background: var(--tp-fog);
+}
+.tint {
+  background: var(--tp-lavender-050);
+}
+
+.eyebrow {
   display: block;
-  text-decoration: none;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-  background: #fff;
-}
-.treatmentImgCard:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-}
-.treatmentImgCard:hover .treatmentImgOverlay {
-  opacity: 0.2;
-}
-.treatmentImgWrap {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-}
-.treatmentImgWrap img {
-  transition: transform 0.4s ease;
-}
-.treatmentImgCard:hover .treatmentImgWrap img {
-  transform: scale(1.06);
-}
-.treatmentImgOverlay {
-  position: absolute;
-  inset: 0;
-  background: hsl(199 90% 22%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.treatmentImgTitle {
-  padding: 0.875rem 1rem;
-  font-size: var(--text-sm);
+  font-size: var(--fs-eyebrow);
   font-weight: 600;
-  color: var(--clr-text);
-  text-align: center;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--home-eyebrow);
+  margin: 0 0 14px;
+}
+
+.h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--home-heading);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.h3 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 3.6vw, 1.75rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--home-heading);
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .homeHero .container {
-    grid-template-columns: 1fr !important;
+.lead {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--home-body);
+  margin: 16px 0 0;
+  max-width: 60ch;
+}
+
+/* Centred section header block */
+.head {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.head .lead {
+  margin-inline: auto;
+}
+
+/* Brand rule — replaces the old gold divider */
+.rule {
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--home-rule);
+  margin: 18px 0 0;
+}
+.ruleCenter {
+  margin-inline: auto;
+}
+
+/* ── 1. Hero ──────────────────────────────────────────────────────────────
+   Light, editorial hero over a looping background video. The copy column is
+   held to the left on wide screens so the video's subject stays visible in
+   the right half; below 900px the scrim goes uniform and the copy sits over
+   the whole frame.                                                        */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(560px, 82vh, 860px);
+  padding-block: clamp(56px, 10vw, 96px);
+  background: var(--tp-lavender-050);
+}
+
+/* Sits between the video stage (z-index -2) and the copy. Mobile-first: an
+   even wash that keeps every line of text on a calm field. */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(247, 246, 251, 0.9) 0%,
+      rgba(247, 246, 251, 0.78) 45%,
+      rgba(247, 246, 251, 0.94) 100%
+    );
+}
+
+.heroInner {
+  max-width: 34rem;
+}
+
+.heroEyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+  margin: 0 0 18px;
+}
+
+.heroTitle {
+  font-family: var(--tp-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 12vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  color: var(--tp-ink);
+  margin: 0;
+}
+
+.heroLead {
+  font-size: clamp(1.0625rem, 4vw, 1.1875rem);
+  line-height: 1.58;
+  color: var(--tp-slate);
+  margin: 22px 0 0;
+  max-width: 32ch;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 6vw, 40px);
+}
+/* Full-width CTA on the narrowest phones, auto-width from 420px up. */
+.heroActions > * {
+  flex: 1 1 100%;
+}
+
+/* ── Hero trust bar ─────────────────────────────────────────────────────── */
+.trust {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: clamp(40px, 9vw, 72px) 0 0;
+}
+.trustItem {
+  margin: 0;
+  min-width: 0;
+}
+/* The rating reads as the headline signal, so it takes the full row on the
+   narrowest layouts rather than being squeezed into a half column. */
+.trustItem:first-child {
+  grid-column: 1 / -1;
+}
+.trustLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-slate);
+  margin: 0 0 7px;
+}
+.trustValue {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--tp-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tp-ink);
+}
+.stars {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 13px;
+  fill: var(--tp-gold);
+}
+
+@media (min-width: 420px) {
+  .heroActions > * {
+    flex: 0 0 auto;
   }
-  .homeAboutGrid {
-    grid-template-columns: 1fr !important;
+}
+
+@media (min-width: 560px) {
+  .heroTitle {
+    font-size: clamp(3.25rem, 8vw, 4rem);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding-block: clamp(72px, 8vw, 120px);
+  }
+  /* Weighted to the left so the headline never sits on busy video. */
+  .heroScrim {
+    background:
+      linear-gradient(
+        96deg,
+        rgba(247, 246, 251, 0.97) 0%,
+        rgba(247, 246, 251, 0.93) 28%,
+        rgba(247, 246, 251, 0.6) 52%,
+        rgba(247, 246, 251, 0.28) 72%,
+        rgba(247, 246, 251, 0.55) 100%
+      ),
+      linear-gradient(180deg, rgba(247, 246, 251, 0.5) 0%, transparent 22%, rgba(247, 246, 251, 0.6) 100%);
+  }
+  .heroInner {
+    max-width: 41rem;
+  }
+  .heroTitle {
+    font-size: clamp(4rem, 5.4vw, 6rem);
+  }
+  .heroLead {
+    font-size: clamp(1.125rem, 1.15vw, 1.4rem);
+    line-height: 1.55;
+    max-width: 30rem;
+    margin-top: 30px;
+  }
+  .heroActions {
+    margin-top: 46px;
+  }
+  /* Two explicit columns rather than a wrapping flex row: the third item
+     lands under the first, flush to the same left edge, instead of
+     inheriting a divider it should not have. */
+  .trust {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: start;
+    gap: 22px 0;
+  }
+  .trustItem:first-child {
+    grid-column: 1;
+  }
+  .trustItem + .trustItem {
+    padding-left: 30px;
+    border-left: 1px solid var(--tp-line);
+  }
+  .trustItem:last-child {
+    grid-column: 1;
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* ── 2 / 9. Logo strips ─────────────────────────────────────────────────── */
+.logoStrip {
+  background: var(--tp-paper);
+  padding-block: clamp(28px, 4vw, 40px);
+  border-block: 1px solid var(--tp-line);
+}
+.logoStripTop {
+  border-top: none;
+}
+.logoStripLabel {
+  text-align: center;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-slate);
+  margin: 0 0 20px;
+}
+
+/* ── 3. Watch ─────────────────────────────────────────────────────────────
+   Centred editorial heading over two film panels. One column on phones so
+   each player keeps a usable width; two from 768px up.                    */
+.watchEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 16px;
+}
+.watchSparkle {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.watchTitle {
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  max-width: 17ch;
+  margin-inline: auto;
+  /* `.h2` balances its lines; this heading reads better with a long first
+     line and a short second, as in the design. */
+  text-wrap: pretty;
+}
+
+.watchGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 4vw, 40px);
+}
+
+.watchItem {
+  margin: 0;
+  min-width: 0;
+}
+
+/* The dark panel is the element's own background, so it reads as a finished
+   surface before a source is attached and while a poster is still loading. */
+.watchVideo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 2.2vw, 26px);
+  background: linear-gradient(180deg, #211e42 0%, #14122c 100%);
+  box-shadow: var(--tp-shadow-md);
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .watchGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .watchTitle {
+    font-size: clamp(2.75rem, 3.7vw, 4.25rem);
+    max-width: 30ch;
+  }
+}
+
+/* ── 4. About / the surgeon ───────────────────────────────────────────────
+   Portrait card beside a credential column. The grid stretches both cells to
+   the same row height and the portrait fills its cell, so the image's top and
+   bottom edges line up exactly with the column beside it at every width.   */
+.expert {
+  background: var(--tp-lavender-050);
+}
+
+.expertGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: stretch;
+}
+
+/* ── Portrait ───────────────────────────────────────────────────────────── */
+.expertMedia {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  min-height: 380px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--tp-radius-xl);
+  overflow: hidden;
+  background: var(--tp-lavender-100);
+  box-shadow: var(--tp-shadow-md);
+}
+.expertPortrait {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.expertPill {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+}
+
+.expertBadge {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--tp-radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--tp-shadow-sm);
+}
+.expertBadgeIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--tp-indigo-700);
+  color: #fff;
+}
+.expertBadgeTitle {
+  display: block;
+  font-family: var(--tp-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tp-ink);
+}
+.expertBadgeMeta {
+  display: block;
+  font-size: var(--fs-caption);
+  color: var(--tp-slate);
+  margin-top: 2px;
+}
+
+.medalIcon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+/* ── Credential column ──────────────────────────────────────────────────── */
+.expertBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.expertEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 14px;
+}
+.expertTitle {
+  font-size: clamp(1.9rem, 6.4vw, 2.5rem);
+  text-wrap: pretty;
+}
+.expertCred {
+  font-size: var(--text-base);
+  color: var(--tp-lavender-600);
+  margin: 10px 0 0;
+}
+.expertText {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--home-body);
+  margin: 20px 0 0;
+  max-width: 62ch;
+}
+
+.expertList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  margin: clamp(24px, 4vw, 32px) 0 0;
+  padding: clamp(24px, 4vw, 32px) 0 0;
+  border-top: 1px solid var(--tp-hairline);
+}
+.expertListItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: var(--fs-body-sm);
+  line-height: 1.55;
+  color: var(--tp-ink);
+}
+.checkIcon {
+  width: 21px;
+  height: 21px;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--tp-gold);
+  stroke-width: 1.5;
+}
+
+.expertCta {
+  margin-top: clamp(28px, 4vw, 36px);
+}
+
+@media (min-width: 1000px) {
+  .expertGrid {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(40px, 4.5vw, 72px);
+  }
+  /* Height now comes from the text column, so the portrait matches it
+     top and bottom rather than imposing its own ratio. */
+  .expertMedia {
+    aspect-ratio: auto;
+    min-height: 520px;
+  }
+  .expertTitle {
+    font-size: clamp(2.25rem, 2.9vw, 3rem);
+  }
+}
+
+/* ── 5. Treatments ────────────────────────────────────────────────────────
+   The rail itself lives in TreatmentsCarousel.module.css; only the section
+   frame is here. The carousel sits outside `.container` so the cards can run
+   past the page gutters.                                                   */
+.treatments {
+  background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-fog));
+  overflow: hidden;
+}
+
+/* ── 6. The journey ───────────────────────────────────────────────────────
+   Dark band carrying the glass step cards. The card styling itself lives in
+   JourneyCards.module.css; this is the surface it sits on.               */
+.journey {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(64px, 9vw, 112px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, #241d4d 0%, transparent 60%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 55%, var(--tp-indigo-950) 100%);
+}
+
+/* Two soft brand blobs. They are what the cards' backdrop-filter has to
+   work with — on a flat background the glass would be indistinguishable
+   from a plain translucent panel. */
+.journeyGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38% 46% at 22% 38%, rgba(69, 61, 155, 0.5), transparent 70%),
+    radial-gradient(34% 44% at 78% 62%, rgba(188, 160, 221, 0.24), transparent 72%);
+  filter: blur(28px);
+}
+
+.journeyHead {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(32px, 5vw, 56px);
+}
+.journeyTitle {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 4.6vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.journeyCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+/* ── 7. Video testimonials ──────────────────────────────────────────────── */
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+/* Drawn, not fetched: the rating49.svg this replaced is missing from the
+   uploads origin and rendered as a broken image. */
+.ratingScore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--tp-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-ink);
+}
+.ratingScore .stars {
+  width: 92px;
+  height: 15px;
+}
+.ratingText {
+  font-size: var(--fs-body-sm);
+  color: var(--tp-slate);
+  margin: 0;
+}
+.videoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.disclaimer {
+  text-align: center;
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+  color: var(--tp-slate);
+  max-width: 62ch;
+  margin: clamp(24px, 4vw, 36px) auto 0;
+}
+@media (min-width: 640px) {
+  .videoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .videoGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ── 10. Clinic team ──────────────────────────────────────────────────────
+   Section frame only; the slideshow lives in TeamCarousel.module.css.     */
+.team {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--tp-fog) 0%, var(--tp-lavender-050) 100%);
+}
+.teamGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(26% 34% at 12% 22%, rgba(188, 160, 221, 0.42), transparent 70%),
+    radial-gradient(24% 32% at 88% 78%, rgba(138, 132, 186, 0.34), transparent 72%);
+  filter: blur(30px);
+}
+
+.teamLink {
+  color: var(--tp-indigo-700);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.teamLink:hover {
+  color: var(--tp-indigo-600);
+}
+
+.teamCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+/* ── 12. Closing CTA ──────────────────────────────────────────────────────
+   Deep indigo panel: headline and actions on the left, a glass fee card on
+   the right. One column below 1000px with the fee card underneath.       */
+.beginSection {
+  padding-block: clamp(40px, 6vw, 72px);
+  background: var(--tp-paper);
+}
+
+.beginPanel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 60px);
+  border-radius: clamp(24px, 3vw, 34px);
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(115, 108, 171, 0.5), transparent 60%),
+    linear-gradient(120deg, var(--tp-indigo-900) 0%, var(--tp-indigo-800) 48%, var(--tp-indigo-700) 100%);
+  box-shadow: var(--tp-shadow-lg);
+}
+
+.beginTitle {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.16;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+.beginLead {
+  font-size: var(--fs-body-md);
+  line-height: 1.62;
+  color: var(--tp-lavender-200);
+  margin: 18px 0 0;
+  max-width: 44ch;
+}
+.beginActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(26px, 4vw, 34px);
+}
+/* Full-width buttons on the narrowest phones, side by side from 420px. */
+.beginActions > * {
+  flex: 1 1 100%;
+}
+
+/* ── Fee card ───────────────────────────────────────────────────────────── */
+.fees {
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--tp-radius-lg);
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.feesLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* lavender-200 rather than a translucent white: contrast stays fixed
+     wherever the panel's gradient sits behind the card. */
+  color: var(--tp-lavender-200);
+  margin: 0 0 18px;
+}
+.feesList {
+  margin: 0;
+}
+.feesRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.feesRow:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.feesName {
+  font-size: var(--fs-body-sm);
+  color: #fff;
+  margin: 0;
+}
+.feesPrice {
+  font-family: var(--tp-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-200);
+  margin: 0;
+  white-space: nowrap;
+}
+.feesNote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--tp-lavender-200);
+}
+
+@media (min-width: 420px) {
+  .beginActions > * {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .beginPanel {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(40px, 5vw, 72px);
+  }
+}
+
+/* ── 13. VAT note ───────────────────────────────────────────────────────── */
+.vat {
+  background: var(--tp-paper);
+  border-top: 1px solid var(--tp-line);
+  padding-block: 24px;
+}
+.vatText {
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+  color: var(--tp-slate);
+  margin: 0;
+  max-width: 90ch;
+}
+
+/* ── Motion preferences ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .watchVideo {
+    transition: none;
   }
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import styles from "./VideoCard.module.css";
 
 interface VideoCardProps {
   thumbnailSrc: string;
@@ -9,134 +10,86 @@ interface VideoCardProps {
   videoUrl: string;
 }
 
+const YOUTUBE_ID = /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+
+function getEmbedUrl(url: string) {
+  const match = url.match(YOUTUBE_ID);
+  return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1` : url;
+}
+
 export default function VideoCard({ thumbnailSrc, title, videoUrl }: VideoCardProps) {
   const [open, setOpen] = useState(false);
 
-  const getEmbedUrl = (url: string) => {
-    const youtubeRegex =
-      /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/;
-    const match = url.match(youtubeRegex);
-    return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1` : url;
-  };
+  // Escape closes the lightbox, and the page behind it stays put instead of
+  // scrolling under the overlay.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
     <>
-      <div
-        style={{
-          background: "var(--clr-bg-subtle)",
-          borderRadius: "var(--radius-lg)",
-          overflow: "hidden",
-          cursor: "pointer",
-          transition: "transform var(--duration) var(--ease-out), box-shadow var(--duration) var(--ease-out)",
-        }}
+      {/* A real <button>, so the card is reachable by keyboard and announced
+          as activatable — the previous onClick-on-a-div was neither. Hover and
+          lift are pure CSS rather than inline style mutations from JS. */}
+      <button
+        type="button"
+        className={styles.card}
         onClick={() => setOpen(true)}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-          (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-lg)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-          (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-        }}
+        aria-label={`Play video: ${title}`}
       >
-        <div style={{ position: "relative", aspectRatio: "16/9" }}>
+        <span className={styles.thumb}>
           <Image
             src={thumbnailSrc}
-            alt={title}
+            alt=""
             fill
-            style={{ objectFit: "cover" }}
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "hsl(220 25% 12% / 0.3)",
-            }}
-          >
-            <div
-              style={{
-                width: "56px",
-                height: "56px",
-                borderRadius: "9999px",
-                background: "hsl(0 0% 100% / 0.9)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 4px 20px hsl(220 25% 12% / 0.3)",
-              }}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="var(--clr-primary)"
-                style={{ width: "22px", height: "22px", marginLeft: "3px" }}
-              >
+          <span className={styles.scrim}>
+            <span className={styles.play}>
+              <svg className={styles.playIcon} viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8 5v14l11-7z" />
               </svg>
-            </div>
-          </div>
-        </div>
-        <p
-          style={{
-            padding: "0.875rem 1rem",
-            fontSize: "var(--text-sm)",
-            fontWeight: 600,
-            color: "var(--clr-text)",
-            textAlign: "center",
-          }}
-        >
-          {title}
-        </p>
-      </div>
+            </span>
+          </span>
+        </span>
+        <span className={styles.title}>{title}</span>
+      </button>
 
       {open && (
         <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "hsl(220 25% 12% / 0.85)",
-            zIndex: 1000,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1rem",
-          }}
+          className={styles.backdrop}
+          role="dialog"
+          aria-modal="true"
+          aria-label={title}
           onClick={() => setOpen(false)}
         >
-          <div
-            style={{
-              position: "relative",
-              width: "min(900px, 100%)",
-              aspectRatio: "16/9",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
             <button
+              type="button"
               onClick={() => setOpen(false)}
               aria-label="Close video"
-              style={{
-                position: "absolute",
-                top: "-2.5rem",
-                right: 0,
-                background: "none",
-                border: "none",
-                color: "#fff",
-                fontSize: "1.5rem",
-                cursor: "pointer",
-                padding: "0.25rem",
-                lineHeight: 1,
-              }}
+              className={styles.close}
+              autoFocus
             >
-              ✕
+              <svg className={styles.closeIcon} viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
             </button>
             <iframe
               src={getEmbedUrl(videoUrl)}
               title={title}
               allow="autoplay; encrypted-media; fullscreen"
-              style={{ width: "100%", height: "100%", border: "none", borderRadius: "var(--radius-lg)" }}
+              className={styles.frame}
             />
           </div>
         </div>

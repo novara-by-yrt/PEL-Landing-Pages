@@ -1,0 +1,142 @@
+.card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  background: var(--tp-paper);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 260ms var(--tp-ease), box-shadow 260ms var(--tp-ease),
+    border-color 260ms var(--tp-ease);
+  box-shadow: var(--tp-shadow-xs);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--tp-lavender-200);
+  box-shadow: var(--tp-shadow-md);
+}
+.card:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+}
+
+.thumb {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--tp-lavender-050);
+}
+.thumb img {
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(18, 16, 54, 0.18), rgba(44, 42, 122, 0.38));
+}
+
+.play {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 22px rgba(18, 16, 54, 0.32);
+  transition: transform 260ms var(--tp-ease);
+}
+.card:hover .play {
+  transform: scale(1.08);
+}
+.playIcon {
+  width: 22px;
+  height: 22px;
+  margin-left: 3px;
+  fill: var(--tp-indigo-700);
+}
+
+.title {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 18px;
+  font-family: var(--tp-body);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--tp-ink);
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Lightbox ───────────────────────────────────────────────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(18, 16, 54, 0.88);
+}
+
+.dialog {
+  position: relative;
+  width: min(900px, 100%);
+}
+
+.close {
+  position: absolute;
+  top: -52px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 200ms var(--tp-ease);
+}
+.close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.closeIcon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: var(--tp-radius-lg);
+  background: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .play,
+  .close {
+    transition: none;
+  }
+  .card:hover,
+  .card:hover .play {
+    transform: none;
+  }
+}

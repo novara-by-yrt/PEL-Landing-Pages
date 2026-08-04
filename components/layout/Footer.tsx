@@ -1,111 +1,161 @@
+import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { CLINIC, SOCIALS } from "@/lib/clinic";
+import styles from "./Footer.module.css";
 
-const FOOTER_COLS = [
-  {
-    heading: "Surgical Treatments",
-    links: [
-      { href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk", label: "Upper Lid Blepharoplasty" },
-      { href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk", label: "Eye Bag Removal" },
-      { href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", label: "Ptosis Surgery" },
-      { href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk", label: "Double Eyelid Surgery" },
-      { href: "/surgical/browlift-treatment-uk", label: "Brow Lift" },
-      { href: "/surgical/festoons-malar-bags-treatment-uk", label: "Festoons & Malar Bags" },
-      { href: "/surgical/eyelid-surgery/chalazion-removal-uk", label: "Chalazion Removal" },
-      { href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk", label: "Revision Blepharoplasty" },
-    ],
-  },
-  {
-    heading: "Non-Surgical Treatments",
-    links: [
-      { href: "/non-surgical/tear-trough-fillers-uk", label: "Tear Trough Fillers" },
-      { href: "/non-surgical/polynucleotide-treatment-uk", label: "Polynucleotides" },
-      { href: "/non-surgical/morpheus8-treatment-uk", label: "Morpheus8" },
-      { href: "/non-surgical/endolift-for-malar-bags-uk", label: "Endolift®" },
-      { href: "/non-surgical/sofwave-treatment-uk", label: "Sofwave™" },
-      { href: "/non-surgical/ultraclear-laser-treatment-uk", label: "UltraClear Laser" },
-      { href: "/non-surgical/chemical-peel-treatment-uk", label: "Chemical Peel" },
-      { href: "/non-surgical/emface-treatment-uk", label: "EMFACE" },
-    ],
-  },
-  {
-    heading: "Eye Conditions",
-    links: [
-      { href: "/condition/hooded-eyelids", label: "Hooded Eyelids" },
-      { href: "/condition/eye-bags", label: "Eye Bags" },
-      { href: "/condition/droopy-ptosis-eye", label: "Droopy Eyelids" },
-      { href: "/condition/dark-circles-under-eyes", label: "Dark Circles" },
-      { href: "/condition/chalazion", label: "Chalazion" },
-      { href: "/condition/xanthelasma", label: "Xanthelasma" },
-      { href: "/condition/crows-feet", label: "Crow's Feet" },
-      { href: "/condition/eyelid-cancer", label: "Eyelid Cancer" },
-    ],
-  },
+const QUICK_LINKS = [
+  { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
+  { href: "/meet-team", label: "About the Clinic" },
+  { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
+  { href: "/before-after", label: "Before & After" },
+  { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
+  { href: "/contact", label: "Contact" },
 ];
 
-const SOCIALS = [
-  { label: "Instagram", href: "https://www.instagram.com/drsabrinashahdesaiofficial/" },
-  { label: "X / Twitter", href: "https://twitter.com/perfecteyesltd" },
+const POPULAR_TREATMENTS = [
+  {
+    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
+    label: "Upper Eyelid Blepharoplasty",
+  },
+  {
+    href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
+    label: "Eye Bag Removal Blepharoplasty",
+  },
+  { href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", label: "Ptosis Surgery" },
+  { href: "/surgical/browlift-treatment-uk", label: "Browlift Treatment" },
+  { href: "/non-surgical/tear-trough-fillers-uk", label: "Tear Trough Fillers" },
 ];
+
+const LEGAL_LINKS = [
+  { href: "/privacy-notice-1", label: "Privacy Notice 1" },
+  { href: "/privacy-notice-2", label: "Privacy Notice 2" },
+  { href: "/non-surgical-terms-conditions", label: "Non Surgical Terms Conditions" },
+];
+
+const SOCIAL_ICONS: Record<string, React.ReactNode> = {
+  Instagram: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  "X / Twitter": (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.6 3h6.2l4.2 5.6L17.5 3z" />
+    </svg>
+  ),
+};
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="pel-footer" role="contentinfo">
+    <footer className={styles.footer} role="contentinfo">
+      <div className="container">
+        <div className={styles.grid}>
+          <nav className={styles.colStart} aria-label="Quick links">
+            <h2 className={styles.colHead}>Quick links</h2>
+            <ul className={styles.list}>
+              {QUICK_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={styles.link}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-      <div className="pel-footer-inner">
-        <div className="pel-footer-grid">
-          <div className="pel-footer-brand-col">
-            <div className="pel-footer-brand">Perfect Eyes Ltd</div>
-            <div className="pel-footer-tagline">Eyes · Face · Skin</div>
-            <p className="pel-footer-desc">
-              London&rsquo;s leading cosmetic eye surgery and non-surgical aesthetic clinic. Expert care from Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth.
+          <div className={styles.brand}>
+            {/* The transparent PNG, not the JPEG: the JPEG carries a baked
+                white background, which would show as a hard white block if
+                the card behind it ever changes. */}
+            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic — home">
+              <Image
+                src="/PEL_logo_without_background.png"
+                alt="The Perfect Eyes Clinic"
+                width={719}
+                height={347}
+                sizes="(min-width: 640px) 210px, 180px"
+                className={styles.markImg}
+              />
+            </Link>
+
+            <span className={styles.markRule} aria-hidden="true" />
+
+            <p className={styles.tagline}>
+              A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai.
             </p>
-            <div className="pel-footer-contact">
-              <span className="pel-footer-row">
-                <span className="pel-footer-row-icon"><TpIcon name="pin" size={16} /></span>
-                9 Harley Street, London, W1G 9QY
-              </span>
-              <a href="tel:+442074864886" className="pel-footer-row">
-                <span className="pel-footer-row-icon"><TpIcon name="phone" size={16} /></span>
-                020 7486 4886
-              </a>
-              <a href="mailto:perfecteyesltd@gmail.com" className="pel-footer-row">
-                <span className="pel-footer-row-icon"><TpIcon name="mail" size={16} /></span>
-                perfecteyesltd@gmail.com
-              </a>
+
+            <div className={styles.socials}>
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.social}
+                >
+                  {SOCIAL_ICONS[social.label]}
+                  {social.label}
+                </a>
+              ))}
             </div>
+
+            <address className={styles.contact}>
+              <span className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="pin" size={16} />
+                </span>
+                {CLINIC.address}
+              </span>
+              <a href={CLINIC.phoneHref} className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="phone" size={16} />
+                </span>
+                {CLINIC.phoneDisplay}
+              </a>
+              <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="mail" size={16} />
+                </span>
+                {CLINIC.email}
+              </a>
+            </address>
           </div>
 
-          {FOOTER_COLS.map((col) => (
-            <div key={col.heading} className="pel-footer-col">
-              <div className="pel-footer-col-head">{col.heading}</div>
-              <ul>
-                {col.links.map((link, linkIndex) => (
-                  <li key={`${link.href}-${linkIndex}`}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <nav className={styles.colEnd} aria-label="Popular treatments">
+            <h2 className={styles.colHead}>Popular treatments</h2>
+            <ul className={styles.list}>
+              {POPULAR_TREATMENTS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={styles.link}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div className="pel-footer-bottom">
-          <div className="pel-footer-copy">
-            <p>© {currentYear} Perfect Eyes Ltd · Harley Street, London. All rights reserved.</p>
-            <p>Registered in England &amp; Wales. Company No. 10036376.</p>
-          </div>
-          <nav aria-label="Legal and social links" className="pel-footer-legal">
-            <Link href="/privacy-notice">Privacy Notice</Link>
-            <Link href="/non-surgical-terms-conditions">Terms &amp; Conditions</Link>
-            <Link href="/before-after">Before &amp; After</Link>
-            <Link href="/publications">Publications</Link>
-            {SOCIALS.map((s) => (
-              <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+        <div className={styles.bottom}>
+          <nav className={styles.legal} aria-label="Legal">
+            {LEGAL_LINKS.map((item) => (
+              <Link key={item.href} href={item.href} className={styles.legalLink}>
+                {item.label}
+              </Link>
             ))}
           </nav>
+
+          <div className={styles.fine}>
+            <p>
+              © {currentYear} {CLINIC.name}. All rights reserved. Registered in England &amp;
+              Wales, company no. {CLINIC.companyNumber}.
+            </p>
+            <p>{CLINIC.addressShort}</p>
+          </div>
         </div>
       </div>
     </footer>
