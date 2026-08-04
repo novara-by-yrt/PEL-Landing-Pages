@@ -19,10 +19,15 @@ interface NavGroup {
 interface NavItem {
   label: string;
   href: string;
+  /** Points off-site; renders a plain anchor that opens in a new tab. */
+  external?: boolean;
   variant?: "simple" | "grid" | "mega";
   children?: SimpleLink[];
   groups?: NavGroup[];
 }
+
+/** The Shopify storefront — same destination as the skincare link under Eye Journey. */
+const SHOP_HREF = "https://drsabrina.com/collections/all";
 
 const SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Upper Lid Blepharoplasty", href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk" },
@@ -96,6 +101,7 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "Before & After", href: "/before-after" },
+  { label: "Shop", href: SHOP_HREF, external: true },
 ];
 
 const PHONE = "020 7486 4886";
@@ -167,7 +173,18 @@ export default function Header() {
         <nav className="pel-links" aria-label="Main navigation" ref={navRef}>
           {NAV.map((item, navIndex) => {
             if (!item.variant) {
-              return (
+              return item.external ? (
+                <a
+                  key={`${item.href}-${navIndex}`}
+                  href={item.href}
+                  className="pel-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : (
                 <Link key={`${item.href}-${navIndex}`} href={item.href} className="pel-link">
                   {item.label}
                 </Link>
@@ -399,6 +416,16 @@ export default function Header() {
 
           <Link href="/before-after" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Before &amp; After</Link>
           <Link href="/publications" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Publications</Link>
+          <a
+            href={SHOP_HREF}
+            className="pel-drawer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setDrawerOpen(false)}
+          >
+            Shop
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
         </nav>
 
         <div className="pel-drawer-foot">
