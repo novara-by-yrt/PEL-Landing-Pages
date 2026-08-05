@@ -242,6 +242,24 @@
   border-left: none;
 }
 
+/* Press credit. The wordmark replaces the value text, so it is sized to sit
+   on the same baseline weight as the other trust values rather than
+   dominating them. */
+.trustItemPress .trustValue {
+  min-height: 22px;
+}
+.pressLogo {
+  display: block;
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+@media (min-width: 900px) {
+  .pressLogo {
+    height: 22px;
+  }
+}
+
 /* ── Hero Google rating ───────────────────────────────────────────────────
    A glass card rather than a bare line: the score reads at a glance, the
    mark attributes it, and the stars and count sit together beside it.
@@ -350,9 +368,10 @@
   .heroActions {
     margin-top: 46px;
   }
-  /* Two explicit columns rather than a wrapping flex row: the third item
-     lands under the first, flush to the same left edge, instead of
-     inheriting a divider it should not have. */
+  /* Two explicit columns rather than a wrapping flex row, so items land in a
+     predictable 2x2 and only the right-hand column carries a divider. Keying
+     the rule to the column (nth-child) rather than to adjacency means adding
+     or removing a trust item cannot leave a stray rule in column one. */
   .trust {
     display: grid;
     grid-template-columns: max-content max-content;
@@ -360,15 +379,17 @@
     /* Column gap keeps the divider off the rating card's edge. */
     gap: 22px 28px;
   }
+  /* The rating drops out of its full-width mobile row so the four items form
+     a true 2x2 — without this it spans both columns and the parity below
+     puts a divider in column one. */
   .trustItem:first-child {
     grid-column: 1;
   }
-  .trustItem + .trustItem {
-    padding-left: 30px;
+  .trustItem:nth-child(even) {
+    padding-left: 28px;
     border-left: 1px solid var(--tp-line);
   }
-  .trustItem:last-child {
-    grid-column: 1;
+  .trustItem:nth-child(odd) {
     padding-left: 0;
     border-left: none;
   }

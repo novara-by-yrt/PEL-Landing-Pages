@@ -21,7 +21,10 @@
 .pubEmpty button { padding: 0.6rem 1.4rem; border-radius: 999px; background: var(--tp-indigo-700); color: #fff; border: none; cursor: pointer; font-family: var(--tp-body); font-weight: 600; }
 .pubEmpty button:hover { background: var(--tp-indigo-600); }
 
-.pubGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+/* min() keeps the 320px floor from exceeding the space actually available:
+   at a 320px viewport the padded container is only ~272px, and a hard floor
+   pushed the cards into horizontal scroll. */
+.pubGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 1.5rem; }
 .pubCard {
   background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: 1.75rem;
   display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--tp-shadow-xs);

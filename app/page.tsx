@@ -356,6 +356,19 @@ export default function HomePage() {
                 <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
                 <dd className={styles.trustValue}>Registered &amp; accredited</dd>
               </div>
+              <div className={`${styles.trustItem} ${styles.trustItemPress}`}>
+                <dt className={styles.trustLabel}>As featured in</dt>
+                <dd className={styles.trustValue}>
+                  {/* Black wordmark: the hero scrim keeps this corner light. */}
+                  <Image
+                    src="/Tatler-black.png"
+                    alt="Tatler"
+                    width={288}
+                    height={80}
+                    className={styles.pressLogo}
+                  />
+                </dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -386,7 +399,7 @@ export default function HomePage() {
                 edges line up exactly with the column beside it. */}
             <figure className={styles.expertMedia}>
               <Image
-                src="/uploads/2025/12/Dr-Sabrina2-1.png"
+                src="/Dr.%20Sabrina%20Profile.png"
                 alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon"
                 fill
                 sizes="(min-width: 1000px) 42vw, 100vw"
