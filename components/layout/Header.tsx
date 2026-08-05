@@ -199,10 +199,35 @@ export default function Header() {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 40);
-    onScroll();
+    /**
+     * Two separate thresholds, not one. With a single boundary, any scroll
+     * that hovers around it flips the bar back and forth — and because going
+     * solid also shrinks the bar, that reads as a flicker. Going solid at 72px
+     * but only reverting below 24px leaves a dead band the shrink cannot
+     * bounce inside.
+     *
+     * Reads are batched into a frame so a fast scroll cannot queue a state
+     * update per event.
+     */
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setSolid((wasSolid) => (wasSolid ? y > 24 : y > 72));
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(read);
+    };
+
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -231,7 +256,13 @@ export default function Header() {
   }, [drawerOpen]);
 
   return (
-    <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
+    <>
+      {/* Holds the bar's full-size height in the flow. The bar itself is
+          fixed, so shrinking it cannot move the page underneath — which is
+          what made the transition judder while scrolling. */}
+      <div className="pel-nav-spacer" aria-hidden="true" />
+
+      <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
       <a className="sr-only" href="#main-content">Skip to main content</a>
 
       <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
@@ -549,6 +580,7 @@ export default function Header() {
           </a>
         </div>
       </aside>
-    </header>
+      </header>
+    </>
   );
 }
