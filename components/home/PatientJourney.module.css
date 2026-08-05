@@ -1,6 +1,6 @@
 /* The Perfect360™ patient journey — the one dark band on the home page.
-   Mobile-first: everything is a single column until 900px, where the two
-   pathways sit side by side as they do on the printed sheet. */
+   A shared consultation, then a tab set: picking a pathway reveals its steps.
+   Mobile-first — tabs stack until 760px, steps go two-up at 900px. */
 
 .journey {
   position: relative;
@@ -141,62 +141,152 @@
   box-shadow: 0 0 0 5px rgba(188, 160, 221, 0.18);
 }
 
-/* ── Pathways ───────────────────────────────────────────────────────────── */
-.pathways {
-  display: grid;
-  gap: clamp(20px, 3vw, 28px);
+/* ── Pathway picker ─────────────────────────────────────────────────────
+   Two large tabs. Mobile-first: stacked full width, side by side from 760px.
+   The selected one lifts onto a brand gradient so the choice is obvious at a
+   glance rather than only from a thin underline. */
+.pick {
+  text-align: center;
+  /* Clears the branch dot above, which the label would otherwise sit on. */
+  margin: clamp(14px, 2vw, 20px) 0 clamp(16px, 2.5vw, 22px);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-lavender-300);
 }
 
-.pathway {
-  display: flex;
-  flex-direction: column;
-  padding: clamp(22px, 3.2vw, 30px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.tabs {
+  display: grid;
+  gap: 14px;
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 44px;
+  padding: clamp(16px, 2.6vw, 22px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--tp-radius-lg);
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 30px 70px -44px rgba(0, 0, 0, 0.85);
+  text-align: left;
+  cursor: pointer;
   transition:
-    transform 260ms var(--tp-ease),
-    border-color 260ms var(--tp-ease),
-    background 260ms var(--tp-ease);
+    transform 240ms var(--tp-ease),
+    border-color 240ms var(--tp-ease),
+    background 240ms var(--tp-ease),
+    box-shadow 240ms var(--tp-ease);
 }
-.pathway:hover {
-  transform: translateY(-3px);
-  border-color: rgba(188, 160, 221, 0.5);
-  background: rgba(255, 255, 255, 0.09);
+.tab:hover {
+  transform: translateY(-2px);
+  border-color: rgba(188, 160, 221, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+}
+.tab:focus-visible {
+  outline: 3px solid var(--tp-lavender-300);
+  outline-offset: 3px;
+}
+.tabActive {
+  border-color: transparent;
+  background:
+    linear-gradient(rgba(18, 16, 54, 0.6), rgba(18, 16, 54, 0.6)) padding-box,
+    linear-gradient(130deg, var(--tp-lavender-300), var(--tp-indigo-600)) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 26px 60px -34px rgba(188, 160, 221, 0.75);
 }
 
-.pathwayHead {
-  margin-bottom: clamp(18px, 2.5vw, 24px);
+.tabIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--tp-lavender-200);
+  transition: background 240ms var(--tp-ease), color 240ms var(--tp-ease);
 }
-.pathwayEyebrow {
+.tabActive .tabIcon {
+  border-color: transparent;
+  background: linear-gradient(140deg, var(--tp-indigo-600), var(--tp-lavender-400));
+  color: #fff;
+}
+
+.tabText {
+  display: block;
+  min-width: 0;
+}
+.tabEyebrow {
   display: block;
   font-size: var(--fs-caption);
   font-weight: 600;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tp-lavender-300);
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
-.pathwayTitle {
+.tabTitle {
+  display: block;
   font-family: var(--tp-display);
-  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-size: clamp(1.125rem, 3vw, 1.375rem);
   font-weight: 600;
   line-height: 1.2;
   color: #fff;
-  margin: 0;
 }
-/* Brand rule under each pathway name. */
-.pathwayTitle::after {
-  content: "";
+.tabSummary {
   display: block;
-  width: 52px;
-  height: 3px;
-  margin-top: 14px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--tp-lavender-300), rgba(188, 160, 221, 0.15));
+  margin-top: 7px;
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* Chevron turns to point down at the panel it has opened. */
+.tabMark {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 260ms var(--tp-ease), color 240ms var(--tp-ease);
+}
+.tabActive .tabMark {
+  transform: rotate(90deg);
+  color: var(--tp-lavender-200);
+}
+
+/* ── Revealed panel ─────────────────────────────────────────────────────── */
+.panel {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+.panel:focus-visible {
+  outline: 3px solid var(--tp-lavender-300);
+  outline-offset: 4px;
+  border-radius: var(--tp-radius-lg);
+}
+.panelInner {
+  padding: clamp(22px, 3.2vw, 34px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--tp-radius-lg);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 70px -44px rgba(0, 0, 0, 0.85);
+  animation: panel-in 320ms var(--tp-ease) both;
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── Steps ──────────────────────────────────────────────────────────────── */
@@ -213,7 +303,26 @@
   grid-template-columns: 36px minmax(0, 1fr);
   gap: 14px;
   padding-block: 14px;
+  /* Each step fades in just behind the one above it, so the pathway reads as
+     a sequence rather than appearing all at once. */
+  animation: step-in 380ms var(--tp-ease) both;
 }
+.step:nth-child(1) { animation-delay: 40ms; }
+.step:nth-child(2) { animation-delay: 90ms; }
+.step:nth-child(3) { animation-delay: 140ms; }
+.step:nth-child(4) { animation-delay: 190ms; }
+.step:nth-child(5) { animation-delay: 240ms; }
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Spine joining the markers, stopping at the last one. */
 .step:not(:last-child)::before {
   content: "";
@@ -246,11 +355,18 @@
   padding-top: 6px;
 }
 .stepTitle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   margin: 0;
   font-size: var(--fs-body-sm);
   font-weight: 600;
   line-height: 1.35;
   color: #fff;
+}
+.stepTitle svg {
+  flex: none;
+  color: var(--tp-lavender-300);
 }
 .stepDetail {
   list-style: none;
@@ -265,7 +381,7 @@
 
 /* ── Eyes · Face · Skin focus ───────────────────────────────────────────── */
 .focus {
-  margin-top: auto;
+  margin-top: clamp(22px, 3vw, 30px);
   padding-top: clamp(18px, 2.5vw, 24px);
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
@@ -323,12 +439,14 @@
   margin-top: clamp(36px, 5vw, 56px);
 }
 
-/* ── Two columns once there is room ─────────────────────────────────────── */
-@media (min-width: 900px) {
-  .pathways {
+/* ── Wider viewports ────────────────────────────────────────────────────── */
+@media (min-width: 760px) {
+  .tabs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
   }
+}
+
+@media (min-width: 900px) {
   .consultList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 24px;
@@ -337,14 +455,30 @@
   .consultItem:last-child {
     grid-column: 1 / -1;
   }
+  /* Steps sit in two columns once the panel is wide enough to hold them
+     without the detail lists becoming cramped. */
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(28px, 4vw, 56px);
+  }
+  .step:not(:last-child)::before {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pathway,
+  .tab,
+  .tabIcon,
+  .tabMark,
   .focusItem {
     transition: none;
   }
-  .pathway:hover {
+  .tab:hover {
     transform: none;
+  }
+  /* The reveal still has to happen — it just arrives without motion. */
+  .panelInner,
+  .step {
+    animation: none;
   }
 }
