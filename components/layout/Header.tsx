@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { CLINIC } from "@/lib/clinic";
+import ClinicPhone, { ClinicPhoneIcon } from "@/components/shared/ClinicPhone";
 
 interface SimpleLink {
   label: string;
@@ -197,10 +197,6 @@ const NAV: NavItem[] = [
   { label: "Blog", href: "/blog" },
 ];
 
-/* Phone comes from lib/clinic so the header, footer and contact panel can
-   never publish three different numbers. */
-const PHONE = CLINIC.phoneDisplay;
-const PHONE_HREF = CLINIC.phoneHref;
 const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
 export default function Header() {
@@ -433,9 +429,7 @@ export default function Header() {
         </nav>
 
         <div className="pel-actions">
-          <a href={PHONE_HREF} className="pel-phone" aria-label={`Call ${PHONE}`} title={PHONE}>
-            <TpIcon name="phone" size={17} />
-          </a>
+          <ClinicPhoneIcon className="pel-phone" />
           <Link href={BOOK_HREF} className="pel-cta">
             <span className="pel-cta-long">Book a Consultation</span>
             <span className="pel-cta-short">Book</span>
@@ -589,10 +583,7 @@ export default function Header() {
           <Link href={BOOK_HREF} className="pel-cta pel-cta-full" onClick={() => setDrawerOpen(false)}>
             Book a Consultation <TpIcon name="arrow" size={17} />
           </Link>
-          <a href={PHONE_HREF} className="pel-drawer-phone">
-            <TpIcon name="phone" size={17} />
-            {PHONE}
-          </a>
+          <ClinicPhone className="pel-drawer-phone" icon />
         </div>
       </aside>
       </header>

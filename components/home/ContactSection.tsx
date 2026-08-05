@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import CallbackForm from "./CallbackForm";
 import styles from "./ContactSection.module.css";
@@ -53,9 +54,7 @@ export default function ContactSection() {
                 </span>
                 <span>
                   <span className={styles.rowLabel}>Call or message</span>
-                  <a href={CLINIC.phoneHref} className={styles.rowValue}>
-                    {CLINIC.phoneDisplay}
-                  </a>
+                  <ClinicPhone className={styles.rowValue} />
                 </span>
               </div>
 
