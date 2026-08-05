@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import ClinicPhone, { ClinicPhoneIcon } from "@/components/shared/ClinicPhone";
+import { RESULT_CATEGORIES } from "@/lib/results";
 
 interface SimpleLink {
   label: string;
@@ -82,23 +83,30 @@ const SKIN_CONDITIONS: SimpleLink[] = [
   { label: "Eyelid Cancer", href: "/condition/eyelid-cancer" },
 ];
 
-/* Before/after galleries, split the way the results panel presents them. Every
-   entry is an existing case study under content/before-after. */
-const SURGICAL_RESULTS: SimpleLink[] = [
-  { label: "Upper Blepharoplasty", href: "/before-after/upper-blepharoplasty" },
-  { label: "Lower Blepharoplasty (Eyebag removal)", href: "/before-after/lower-blepharoplasty-eyebag-removal" },
-  { label: "Ptosis Surgery", href: "/before-after/ptosis-surgery" },
-  { label: "Asian Blepharoplasty", href: "/before-after/asian-blepharoplasty" },
-  { label: "Revision Blepharoplasty", href: "/before-after/revision-blepharoplasty" },
-];
+/* Before/after galleries. The split lives in lib/results so this panel and
+   the Results index page can never present different categories; the labels
+   are the case-study titles from content/before-after/. */
+const RESULT_TITLES: Record<string, string> = {
+  "upper-blepharoplasty": "Upper Blepharoplasty",
+  "lower-blepharoplasty-eyebag-removal": "Lower Blepharoplasty (Eyebag removal)",
+  "ptosis-surgery": "Ptosis Surgery",
+  "asian-blepharoplasty": "Asian Blepharoplasty",
+  "revision-blepharoplasty": "Revision Blepharoplasty",
+  blepharoplasty: "Blepharoplasty",
+  polynucleotides: "Polynucleotides",
+  morpheus8: "Morpheus8",
+  "ultraclear-laser": "Ultraclear Lasers",
+  "superior-sulcus-filler": "Superior Sulcus Filler",
+  sofwave: "Sofwave\u2122",
+};
 
-const NON_SURGICAL_RESULTS: SimpleLink[] = [
-  { label: "Polynucleotides", href: "/before-after/polynucleotides" },
-  { label: "Morpheus8", href: "/before-after/morpheus8" },
-  { label: "Ultraclear Lasers", href: "/before-after/ultraclear-laser" },
-  { label: "Superior Sulcus Filler", href: "/before-after/superior-sulcus-filler" },
-  { label: "Sofwave\u2122", href: "/before-after/sofwave" },
-];
+const RESULT_GROUPS: NavGroup[] = RESULT_CATEGORIES.map((category) => ({
+  label: category.label,
+  sub: category.slugs.map((slug) => ({
+    label: RESULT_TITLES[slug] ?? slug,
+    href: `/before-after/${slug}`,
+  })),
+}));
 
 /**
  * One row inside a dropdown panel. External destinations need a plain anchor
@@ -188,10 +196,7 @@ const NAV: NavItem[] = [
     href: "/before-after",
     variant: "mega",
     viewAll: { label: "View All Results", href: "/before-after" },
-    groups: [
-      { label: "Surgical", sub: SURGICAL_RESULTS },
-      { label: "Non-Surgical", sub: NON_SURGICAL_RESULTS },
-    ],
+    groups: RESULT_GROUPS,
   },
   { label: "Shop", href: SHOP_HREF, external: true },
   { label: "Blog", href: "/blog" },
