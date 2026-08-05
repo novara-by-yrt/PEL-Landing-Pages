@@ -5,7 +5,7 @@ import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
-import JourneyCards, { type JourneyStep } from "@/components/home/JourneyCards";
+import PatientJourney from "@/components/home/PatientJourney";
 import PatientStories from "@/components/home/PatientStories";
 import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
 import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
@@ -189,25 +189,6 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
 ];
 
 
-/** Copy transcribed from the approved design for this section. */
-const JOURNEY_STEPS: JourneyStep[] = [
-  {
-    title: "Listen & assess",
-    text: "A thorough medical consultation to understand your concerns, anatomy and expectations.",
-  },
-  {
-    title: "Curate a plan",
-    text: "A holistic, 360° plan blending surgical and non-surgical options, nothing over-treated.",
-  },
-  {
-    title: "Treat with precision",
-    text: "Signature techniques prioritising safety, natural results and minimal downtime.",
-  },
-  {
-    title: "Care through recovery",
-    text: "Clear aftercare and attentive follow-up until you are fully healed and happy.",
-  },
-];
 
 /**
  * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
@@ -509,36 +490,7 @@ export default function HomePage() {
       <PatientStories stories={PATIENT_STORIES} />
 
       {/* ── 7. THE JOURNEY ───────────────────────────────────────────────── */}
-      <section className={styles.journey} aria-labelledby="journey-title">
-        {/* Soft brand-coloured glow behind the rail. Without something to
-            refract, glass cards on a flat field read as plain panels. */}
-        <span className={styles.journeyGlow} aria-hidden="true" />
-
-        <div className="container">
-          <div className={styles.journeyHead}>
-            <h2 id="journey-title" className={styles.journeyTitle}>
-              The Perfect360&trade; journey. A curated journey, not a single procedure
-            </h2>
-          </div>
-
-          <JourneyCards steps={JOURNEY_STEPS} />
-
-          <div className={styles.journeyCta}>
-            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
-              Book A Compatibility Call
-              <span className="tp-btn-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M5 12h13M12.5 6l6 6-6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PatientJourney />
 
       {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section

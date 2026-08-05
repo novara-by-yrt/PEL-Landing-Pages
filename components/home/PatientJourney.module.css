@@ -1,0 +1,350 @@
+/* The Perfect360™ patient journey — the one dark band on the home page.
+   Mobile-first: everything is a single column until 900px, where the two
+   pathways sit side by side as they do on the printed sheet. */
+
+.journey {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(64px, 9vw, 112px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, #241d4d 0%, transparent 60%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 55%, var(--tp-indigo-950) 100%);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38% 46% at 22% 34%, rgba(69, 61, 155, 0.55), transparent 70%),
+    radial-gradient(34% 44% at 78% 66%, rgba(188, 160, 221, 0.26), transparent 72%);
+  filter: blur(28px);
+}
+
+/* ── Heading ────────────────────────────────────────────────────────────── */
+.head {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto clamp(32px, 5vw, 52px);
+}
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-300);
+  margin-bottom: 14px;
+}
+.title {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 4.6vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+.lead {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: rgba(255, 255, 255, 0.72);
+  margin: 14px 0 0;
+}
+
+/* ── Shared consultation ────────────────────────────────────────────────── */
+.consult {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: clamp(22px, 3.5vw, 32px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--tp-radius-lg);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.85);
+}
+.consultHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.consultIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(140deg, var(--tp-indigo-600), var(--tp-lavender-400));
+}
+.consultLabel {
+  margin: 0;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-lavender-300);
+}
+.consultName {
+  margin: 3px 0 0;
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 2.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff;
+}
+.consultList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.consultItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: var(--fs-body-sm);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+.consultItem svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--tp-lavender-300);
+}
+
+/* ── The split ──────────────────────────────────────────────────────────── */
+.branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: clamp(28px, 4vw, 44px);
+}
+.branchStem {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08));
+}
+.branchDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tp-lavender-300);
+  box-shadow: 0 0 0 5px rgba(188, 160, 221, 0.18);
+}
+
+/* ── Pathways ───────────────────────────────────────────────────────────── */
+.pathways {
+  display: grid;
+  gap: clamp(20px, 3vw, 28px);
+}
+
+.pathway {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 3.2vw, 30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--tp-radius-lg);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 70px -44px rgba(0, 0, 0, 0.85);
+  transition:
+    transform 260ms var(--tp-ease),
+    border-color 260ms var(--tp-ease),
+    background 260ms var(--tp-ease);
+}
+.pathway:hover {
+  transform: translateY(-3px);
+  border-color: rgba(188, 160, 221, 0.5);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.pathwayHead {
+  margin-bottom: clamp(18px, 2.5vw, 24px);
+}
+.pathwayEyebrow {
+  display: block;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--tp-lavender-300);
+  margin-bottom: 8px;
+}
+.pathwayTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  margin: 0;
+}
+/* Brand rule under each pathway name. */
+.pathwayTitle::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-lavender-300), rgba(188, 160, 221, 0.15));
+}
+
+/* ── Steps ──────────────────────────────────────────────────────────────── */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 14px;
+  padding-block: 14px;
+}
+/* Spine joining the markers, stopping at the last one. */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 17px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.stepMarker {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--tp-lavender-200);
+}
+.stepNumber {
+  font-family: var(--tp-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+}
+.stepBody {
+  min-width: 0;
+  padding-top: 6px;
+}
+.stepTitle {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+}
+.stepDetail {
+  list-style: none;
+  margin: 7px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ── Eyes · Face · Skin focus ───────────────────────────────────────────── */
+.focus {
+  margin-top: auto;
+  padding-top: clamp(18px, 2.5vw, 24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.focusCore {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 12px 18px;
+  border: 1px solid rgba(188, 160, 221, 0.42);
+  border-radius: 999px;
+  font-family: var(--tp-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(188, 160, 221, 0.12);
+}
+.focusList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.focusItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: var(--fs-caption);
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.86);
+  transition: border-color 200ms var(--tp-ease), background 200ms var(--tp-ease);
+}
+.focusItem:hover {
+  border-color: rgba(188, 160, 221, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+}
+.focusItem svg {
+  flex: none;
+  color: var(--tp-lavender-300);
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+/* ── Two columns once there is room ─────────────────────────────────────── */
+@media (min-width: 900px) {
+  .pathways {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .consultList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+  /* The written plan is the outcome of the four above it, so it spans. */
+  .consultItem:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathway,
+  .focusItem {
+    transition: none;
+  }
+  .pathway:hover {
+    transform: none;
+  }
+}
