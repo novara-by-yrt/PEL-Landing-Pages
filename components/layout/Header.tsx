@@ -56,18 +56,29 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
 ];
 
+/* Conditions, split across the three panel columns.
+   ⚠️ Every condition page under content/condition/ is periorbital — there are
+   no face-only or skin-only condition pages — so this grouping is by the
+   nature of the complaint, not by separate content sets. Worth a clinical
+   eye before it ships. */
 const EYE_CONDITIONS: SimpleLink[] = [
   { label: "Hooded Eyelids", href: "/condition/hooded-eyelids" },
-  { label: "Eye Bags", href: "/condition/eye-bags" },
   { label: "Droopy Eyelids", href: "/condition/droopy-ptosis-eye" },
-  { label: "Dark Circles", href: "/condition/dark-circles-under-eyes" },
+  { label: "Eye Bags", href: "/condition/eye-bags" },
   { label: "Hollow/Sunken Eyes", href: "/condition/hollow-sunken-eyes" },
-  { label: "Crow's Feet", href: "/condition/crows-feet" },
   { label: "Swollen Eyelids", href: "/condition/swollen-eyelids" },
-  { label: "Chalazion", href: "/condition/chalazion" },
-  { label: "Xanthelasma", href: "/condition/xanthelasma" },
   { label: "Monolids", href: "/condition/monolids" },
   { label: "Thyroid Puffy Eyes", href: "/condition/thyroid-disease-puffy-eyes" },
+  { label: "Chalazion", href: "/condition/chalazion" },
+];
+
+const FACE_CONDITIONS: SimpleLink[] = [
+  { label: "Crow's Feet", href: "/condition/crows-feet" },
+  { label: "Dark Circles", href: "/condition/dark-circles-under-eyes" },
+];
+
+const SKIN_CONDITIONS: SimpleLink[] = [
+  { label: "Xanthelasma", href: "/condition/xanthelasma" },
   { label: "Eyelid Cancer", href: "/condition/eyelid-cancer" },
 ];
 
@@ -146,8 +157,12 @@ const NAV: NavItem[] = [
   {
     label: "Eye Conditions",
     href: "/condition/hooded-eyelids",
-    variant: "grid",
-    children: EYE_CONDITIONS,
+    variant: "mega",
+    groups: [
+      { label: "Eyes", sub: EYE_CONDITIONS },
+      { label: "Face", sub: FACE_CONDITIONS },
+      { label: "Skin", sub: SKIN_CONDITIONS },
+    ],
   },
   {
     label: "Treatments",
