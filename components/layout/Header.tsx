@@ -144,7 +144,7 @@ const NAV: NavItem[] = [
     ],
   },
   {
-    label: "Conditions",
+    label: "Eye Conditions",
     href: "/condition/hooded-eyelids",
     variant: "grid",
     children: EYE_CONDITIONS,
@@ -179,7 +179,7 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "Shop", href: SHOP_HREF, external: true },
-  { label: "Blogs", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 /* Phone comes from lib/clinic so the header, footer and contact panel can
@@ -436,86 +436,107 @@ export default function Header() {
         </div>
 
         <nav className="pel-drawer-links" aria-label="Mobile navigation">
-          {/* About has its own accordion group below, so only Home is listed
-              here — otherwise the drawer shows "About" twice. */}
-          <Link href="/" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
+          {/* Driven by NAV in order, so the drawer can never drift out of step
+              with the desktop bar. Plain entries render as links; the rest
+              become accordion groups. */}
+          {NAV.map((item) => {
+            if (!item.variant) {
+              return item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="pel-drawer-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  {item.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="pel-drawer-link"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
 
-          {NAV.filter((i) => i.variant).map((item) => (
-            <div key={item.label} className="pel-drawer-group">
-              <button
-                type="button"
-                className="pel-drawer-link pel-drawer-toggle"
-                aria-expanded={expanded === item.label}
-                onClick={() => setExpanded((v) => (v === item.label ? null : item.label))}
-              >
-                {item.label}
-                <TpIcon name={expanded === item.label ? "minus" : "plus"} size={18} />
-              </button>
-              {expanded === item.label && (
-                <div className="pel-drawer-sub">
-                  {item.variant === "mega"
-                    ? item.groups!.map((g) => {
-                        const key = `${item.label}::${g.label}`;
-                        const isOpen = subExpanded === key;
-                        return (
-                          <div key={g.label} className="pel-drawer-subgroup">
-                            <button
-                              type="button"
-                              className="pel-drawer-subhead"
-                              aria-expanded={isOpen}
-                              onClick={() => setSubExpanded((v) => (v === key ? null : key))}
-                            >
-                              {g.label}
-                              <TpIcon name={isOpen ? "minus" : "plus"} size={15} />
-                            </button>
-                            {isOpen && (
-                              <div className="pel-drawer-subgroup-list">
-                                {g.sub.map((s) => (
-                                  <Link key={s.href} href={s.href} className="pel-drawer-sublink" onClick={() => setDrawerOpen(false)}>
-                                    {s.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })
-                    : item.children!.map((c) => (
-                        <a
-                          key={c.href}
-                          href={c.href}
-                          className="pel-drawer-sublink"
-                          {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          onClick={() => setDrawerOpen(false)}
-                        >
-                          {c.label}
-                        </a>
-                      ))}
-                  {item.viewAll && (
-                    <Link
-                      href={item.viewAll.href}
-                      className="pel-drawer-sublink pel-drawer-viewall"
-                      onClick={() => setDrawerOpen(false)}
-                    >
-                      {item.viewAll.label}
-                    </Link>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <a
-            href={SHOP_HREF}
-            className="pel-drawer-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setDrawerOpen(false)}
-          >
-            Shop
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <Link href="/blog" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Blogs</Link>
+            return (
+              <div key={item.label} className="pel-drawer-group">
+                <button
+                  type="button"
+                  className="pel-drawer-link pel-drawer-toggle"
+                  aria-expanded={expanded === item.label}
+                  onClick={() => setExpanded((v) => (v === item.label ? null : item.label))}
+                >
+                  {item.label}
+                  <TpIcon name={expanded === item.label ? "minus" : "plus"} size={18} />
+                </button>
+                {expanded === item.label && (
+                  <div className="pel-drawer-sub">
+                    {item.variant === "mega"
+                      ? item.groups!.map((g) => {
+                          const key = `${item.label}::${g.label}`;
+                          const isOpen = subExpanded === key;
+                          return (
+                            <div key={g.label} className="pel-drawer-subgroup">
+                              <button
+                                type="button"
+                                className="pel-drawer-subhead"
+                                aria-expanded={isOpen}
+                                onClick={() => setSubExpanded((v) => (v === key ? null : key))}
+                              >
+                                {g.label}
+                                <TpIcon name={isOpen ? "minus" : "plus"} size={15} />
+                              </button>
+                              {isOpen && (
+                                <div className="pel-drawer-subgroup-list">
+                                  {g.sub.map((sub) => (
+                                    <Link
+                                      key={sub.href}
+                                      href={sub.href}
+                                      className="pel-drawer-sublink"
+                                      onClick={() => setDrawerOpen(false)}
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })
+                      : item.children!.map((child) => (
+                          <a
+                            key={child.href}
+                            href={child.href}
+                            className="pel-drawer-sublink"
+                            {...(child.external
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : {})}
+                            onClick={() => setDrawerOpen(false)}
+                          >
+                            {child.label}
+                          </a>
+                        ))}
+                    {item.viewAll && (
+                      <Link
+                        href={item.viewAll.href}
+                        className="pel-drawer-sublink pel-drawer-viewall"
+                        onClick={() => setDrawerOpen(false)}
+                      >
+                        {item.viewAll.label}
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="pel-drawer-foot">
