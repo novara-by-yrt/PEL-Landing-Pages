@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { CLINIC } from "@/lib/clinic";
+import ClinicPhone, { ClinicPhoneIcon } from "@/components/shared/ClinicPhone";
+import { RESULT_CATEGORIES } from "@/lib/results";
 
 interface SimpleLink {
   label: string;
@@ -56,38 +57,56 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
 ];
 
+/* Conditions, split across the three panel columns.
+   ⚠️ Every condition page under content/condition/ is periorbital — there are
+   no face-only or skin-only condition pages — so this grouping is by the
+   nature of the complaint, not by separate content sets. Worth a clinical
+   eye before it ships. */
 const EYE_CONDITIONS: SimpleLink[] = [
   { label: "Hooded Eyelids", href: "/condition/hooded-eyelids" },
-  { label: "Eye Bags", href: "/condition/eye-bags" },
   { label: "Droopy Eyelids", href: "/condition/droopy-ptosis-eye" },
-  { label: "Dark Circles", href: "/condition/dark-circles-under-eyes" },
+  { label: "Eye Bags", href: "/condition/eye-bags" },
   { label: "Hollow/Sunken Eyes", href: "/condition/hollow-sunken-eyes" },
-  { label: "Crow's Feet", href: "/condition/crows-feet" },
   { label: "Swollen Eyelids", href: "/condition/swollen-eyelids" },
-  { label: "Chalazion", href: "/condition/chalazion" },
-  { label: "Xanthelasma", href: "/condition/xanthelasma" },
   { label: "Monolids", href: "/condition/monolids" },
   { label: "Thyroid Puffy Eyes", href: "/condition/thyroid-disease-puffy-eyes" },
+  { label: "Chalazion", href: "/condition/chalazion" },
+];
+
+const FACE_CONDITIONS: SimpleLink[] = [
+  { label: "Crow's Feet", href: "/condition/crows-feet" },
+  { label: "Dark Circles", href: "/condition/dark-circles-under-eyes" },
+];
+
+const SKIN_CONDITIONS: SimpleLink[] = [
+  { label: "Xanthelasma", href: "/condition/xanthelasma" },
   { label: "Eyelid Cancer", href: "/condition/eyelid-cancer" },
 ];
 
-/* Before/after galleries, split the way the results panel presents them. Every
-   entry is an existing case study under content/before-after. */
-const SURGICAL_RESULTS: SimpleLink[] = [
-  { label: "Upper Blepharoplasty", href: "/before-after/upper-blepharoplasty" },
-  { label: "Lower Blepharoplasty (Eyebag removal)", href: "/before-after/lower-blepharoplasty-eyebag-removal" },
-  { label: "Ptosis Surgery", href: "/before-after/ptosis-surgery" },
-  { label: "Asian Blepharoplasty", href: "/before-after/asian-blepharoplasty" },
-  { label: "Revision Blepharoplasty", href: "/before-after/revision-blepharoplasty" },
-];
+/* Before/after galleries. The split lives in lib/results so this panel and
+   the Results index page can never present different categories; the labels
+   are the case-study titles from content/before-after/. */
+const RESULT_TITLES: Record<string, string> = {
+  "upper-blepharoplasty": "Upper Blepharoplasty",
+  "lower-blepharoplasty-eyebag-removal": "Lower Blepharoplasty (Eyebag removal)",
+  "ptosis-surgery": "Ptosis Surgery",
+  "asian-blepharoplasty": "Asian Blepharoplasty",
+  "revision-blepharoplasty": "Revision Blepharoplasty",
+  blepharoplasty: "Blepharoplasty",
+  polynucleotides: "Polynucleotides",
+  morpheus8: "Morpheus8",
+  "ultraclear-laser": "Ultraclear Lasers",
+  "superior-sulcus-filler": "Superior Sulcus Filler",
+  sofwave: "Sofwave\u2122",
+};
 
-const NON_SURGICAL_RESULTS: SimpleLink[] = [
-  { label: "Polynucleotides", href: "/before-after/polynucleotides" },
-  { label: "Morpheus8", href: "/before-after/morpheus8" },
-  { label: "Ultraclear Lasers", href: "/before-after/ultraclear-laser" },
-  { label: "Superior Sulcus Filler", href: "/before-after/superior-sulcus-filler" },
-  { label: "Sofwave\u2122", href: "/before-after/sofwave" },
-];
+const RESULT_GROUPS: NavGroup[] = RESULT_CATEGORIES.map((category) => ({
+  label: category.label,
+  sub: category.slugs.map((slug) => ({
+    label: RESULT_TITLES[slug] ?? slug,
+    href: `/before-after/${slug}`,
+  })),
+}));
 
 /**
  * One row inside a dropdown panel. External destinations need a plain anchor
@@ -144,10 +163,14 @@ const NAV: NavItem[] = [
     ],
   },
   {
-    label: "Conditions",
+    label: "Eye Conditions",
     href: "/condition/hooded-eyelids",
-    variant: "grid",
-    children: EYE_CONDITIONS,
+    variant: "mega",
+    groups: [
+      { label: "Eyes", sub: EYE_CONDITIONS },
+      { label: "Face", sub: FACE_CONDITIONS },
+      { label: "Skin", sub: SKIN_CONDITIONS },
+    ],
   },
   {
     label: "Treatments",
@@ -173,19 +196,12 @@ const NAV: NavItem[] = [
     href: "/before-after",
     variant: "mega",
     viewAll: { label: "View All Results", href: "/before-after" },
-    groups: [
-      { label: "Surgical", sub: SURGICAL_RESULTS },
-      { label: "Non-Surgical", sub: NON_SURGICAL_RESULTS },
-    ],
+    groups: RESULT_GROUPS,
   },
   { label: "Shop", href: SHOP_HREF, external: true },
-  { label: "Blogs", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
-/* Phone comes from lib/clinic so the header, footer and contact panel can
-   never publish three different numbers. */
-const PHONE = CLINIC.phoneDisplay;
-const PHONE_HREF = CLINIC.phoneHref;
 const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
 export default function Header() {
@@ -199,10 +215,35 @@ export default function Header() {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 40);
-    onScroll();
+    /**
+     * Two separate thresholds, not one. With a single boundary, any scroll
+     * that hovers around it flips the bar back and forth — and because going
+     * solid also shrinks the bar, that reads as a flicker. Going solid at 72px
+     * but only reverting below 24px leaves a dead band the shrink cannot
+     * bounce inside.
+     *
+     * Reads are batched into a frame so a fast scroll cannot queue a state
+     * update per event.
+     */
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setSolid((wasSolid) => (wasSolid ? y > 24 : y > 72));
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(read);
+    };
+
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -231,7 +272,13 @@ export default function Header() {
   }, [drawerOpen]);
 
   return (
-    <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
+    <>
+      {/* Holds the bar's full-size height in the flow. The bar itself is
+          fixed, so shrinking it cannot move the page underneath — which is
+          what made the transition judder while scrolling. */}
+      <div className="pel-nav-spacer" aria-hidden="true" />
+
+      <header className={`pel-nav${solid ? "" : " at-top"}`} role="banner">
       <a className="sr-only" href="#main-content">Skip to main content</a>
 
       <div className={`pel-pill${solid ? " is-solid" : " is-top"}`}>
@@ -387,9 +434,7 @@ export default function Header() {
         </nav>
 
         <div className="pel-actions">
-          <a href={PHONE_HREF} className="pel-phone" aria-label={`Call ${PHONE}`} title={PHONE}>
-            <TpIcon name="phone" size={17} />
-          </a>
+          <ClinicPhoneIcon className="pel-phone" />
           <Link href={BOOK_HREF} className="pel-cta">
             <span className="pel-cta-long">Book a Consultation</span>
             <span className="pel-cta-short">Book</span>
@@ -436,98 +481,117 @@ export default function Header() {
         </div>
 
         <nav className="pel-drawer-links" aria-label="Mobile navigation">
-          {/* About has its own accordion group below, so only Home is listed
-              here — otherwise the drawer shows "About" twice. */}
-          <Link href="/" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
+          {/* Driven by NAV in order, so the drawer can never drift out of step
+              with the desktop bar. Plain entries render as links; the rest
+              become accordion groups. */}
+          {NAV.map((item) => {
+            if (!item.variant) {
+              return item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="pel-drawer-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  {item.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="pel-drawer-link"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
 
-          {NAV.filter((i) => i.variant).map((item) => (
-            <div key={item.label} className="pel-drawer-group">
-              <button
-                type="button"
-                className="pel-drawer-link pel-drawer-toggle"
-                aria-expanded={expanded === item.label}
-                onClick={() => setExpanded((v) => (v === item.label ? null : item.label))}
-              >
-                {item.label}
-                <TpIcon name={expanded === item.label ? "minus" : "plus"} size={18} />
-              </button>
-              {expanded === item.label && (
-                <div className="pel-drawer-sub">
-                  {item.variant === "mega"
-                    ? item.groups!.map((g) => {
-                        const key = `${item.label}::${g.label}`;
-                        const isOpen = subExpanded === key;
-                        return (
-                          <div key={g.label} className="pel-drawer-subgroup">
-                            <button
-                              type="button"
-                              className="pel-drawer-subhead"
-                              aria-expanded={isOpen}
-                              onClick={() => setSubExpanded((v) => (v === key ? null : key))}
-                            >
-                              {g.label}
-                              <TpIcon name={isOpen ? "minus" : "plus"} size={15} />
-                            </button>
-                            {isOpen && (
-                              <div className="pel-drawer-subgroup-list">
-                                {g.sub.map((s) => (
-                                  <Link key={s.href} href={s.href} className="pel-drawer-sublink" onClick={() => setDrawerOpen(false)}>
-                                    {s.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })
-                    : item.children!.map((c) => (
-                        <a
-                          key={c.href}
-                          href={c.href}
-                          className="pel-drawer-sublink"
-                          {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          onClick={() => setDrawerOpen(false)}
-                        >
-                          {c.label}
-                        </a>
-                      ))}
-                  {item.viewAll && (
-                    <Link
-                      href={item.viewAll.href}
-                      className="pel-drawer-sublink pel-drawer-viewall"
-                      onClick={() => setDrawerOpen(false)}
-                    >
-                      {item.viewAll.label}
-                    </Link>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <a
-            href={SHOP_HREF}
-            className="pel-drawer-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setDrawerOpen(false)}
-          >
-            Shop
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <Link href="/blog" className="pel-drawer-link" onClick={() => setDrawerOpen(false)}>Blogs</Link>
+            return (
+              <div key={item.label} className="pel-drawer-group">
+                <button
+                  type="button"
+                  className="pel-drawer-link pel-drawer-toggle"
+                  aria-expanded={expanded === item.label}
+                  onClick={() => setExpanded((v) => (v === item.label ? null : item.label))}
+                >
+                  {item.label}
+                  <TpIcon name={expanded === item.label ? "minus" : "plus"} size={18} />
+                </button>
+                {expanded === item.label && (
+                  <div className="pel-drawer-sub">
+                    {item.variant === "mega"
+                      ? item.groups!.map((g) => {
+                          const key = `${item.label}::${g.label}`;
+                          const isOpen = subExpanded === key;
+                          return (
+                            <div key={g.label} className="pel-drawer-subgroup">
+                              <button
+                                type="button"
+                                className="pel-drawer-subhead"
+                                aria-expanded={isOpen}
+                                onClick={() => setSubExpanded((v) => (v === key ? null : key))}
+                              >
+                                {g.label}
+                                <TpIcon name={isOpen ? "minus" : "plus"} size={15} />
+                              </button>
+                              {isOpen && (
+                                <div className="pel-drawer-subgroup-list">
+                                  {g.sub.map((sub) => (
+                                    <Link
+                                      key={sub.href}
+                                      href={sub.href}
+                                      className="pel-drawer-sublink"
+                                      onClick={() => setDrawerOpen(false)}
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })
+                      : item.children!.map((child) => (
+                          <a
+                            key={child.href}
+                            href={child.href}
+                            className="pel-drawer-sublink"
+                            {...(child.external
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : {})}
+                            onClick={() => setDrawerOpen(false)}
+                          >
+                            {child.label}
+                          </a>
+                        ))}
+                    {item.viewAll && (
+                      <Link
+                        href={item.viewAll.href}
+                        className="pel-drawer-sublink pel-drawer-viewall"
+                        onClick={() => setDrawerOpen(false)}
+                      >
+                        {item.viewAll.label}
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="pel-drawer-foot">
           <Link href={BOOK_HREF} className="pel-cta pel-cta-full" onClick={() => setDrawerOpen(false)}>
             Book a Consultation <TpIcon name="arrow" size={17} />
           </Link>
-          <a href={PHONE_HREF} className="pel-drawer-phone">
-            <TpIcon name="phone" size={17} />
-            {PHONE}
-          </a>
+          <ClinicPhone className="pel-drawer-phone" icon />
         </div>
       </aside>
-    </header>
+      </header>
+    </>
   );
 }

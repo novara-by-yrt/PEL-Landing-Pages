@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PublicationsList from "@/components/PublicationsList";
 import { getAllPosts } from "@/lib/mdx";
@@ -123,6 +124,7 @@ export default function PublicationsPage() {
         <section className={styles.pubHero}>
           <div className={styles.pubHeroGlow} />
           <div className={styles.pubHeroInner}>
+            <div className={styles.pubHeroCopy}>
             <nav aria-label="Breadcrumb" className={styles.pubBreadcrumb}>
               <Link href="/">Home</Link>
               <span aria-hidden="true">/</span>
@@ -151,6 +153,22 @@ export default function PublicationsPage() {
                 <div className={styles.pubStatLabel}>Medical Journals &amp; PubMed</div>
               </div>
             </div>
+            </div>
+
+            {/* Portrait alongside the copy from 900px up; below that the hero
+                stays a single column and the image is dropped rather than
+                pushing the heading off a phone screen. */}
+            <figure className={styles.pubHeroFigure}>
+              <Image
+                src="/Dr%20Sabrina%20Publications.jpeg"
+                alt="Dr Sabrina Shah-Desai"
+                width={1066}
+                height={1600}
+                sizes="(min-width: 1200px) 400px, 34vw"
+                className={styles.pubHeroImg}
+                priority
+              />
+            </figure>
           </div>
         </section>
 

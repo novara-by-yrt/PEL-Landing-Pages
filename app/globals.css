@@ -162,6 +162,9 @@
 html {
   font-size: 100%;
   scroll-behavior: smooth;
+  /* The header is fixed, so anchor targets need clearing beneath it or they
+     land under the bar. 88px is the scrolled (compact) bar plus a margin. */
+  scroll-padding-top: 88px;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }

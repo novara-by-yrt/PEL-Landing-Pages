@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC, SOCIALS } from "@/lib/clinic";
 import styles from "./Footer.module.css";
 
@@ -112,12 +113,12 @@ export default function Footer() {
                 </span>
                 {CLINIC.address}
               </span>
-              <a href={CLINIC.phoneHref} className={styles.contactRow}>
+              <ClinicPhone className={styles.contactRow}>
                 <span className={styles.contactIcon}>
                   <TpIcon name="phone" size={16} />
                 </span>
                 {CLINIC.phoneDisplay}
-              </a>
+              </ClinicPhone>
               <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
                 <span className={styles.contactIcon}>
                   <TpIcon name="mail" size={16} />

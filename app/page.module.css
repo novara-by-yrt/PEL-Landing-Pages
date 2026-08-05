@@ -242,6 +242,24 @@
   border-left: none;
 }
 
+/* Press credit. The wordmark replaces the value text, so it is sized to sit
+   on the same baseline weight as the other trust values rather than
+   dominating them. */
+.trustItemPress .trustValue {
+  min-height: 22px;
+}
+.pressLogo {
+  display: block;
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+@media (min-width: 900px) {
+  .pressLogo {
+    height: 22px;
+  }
+}
+
 /* ── Hero Google rating ───────────────────────────────────────────────────
    A glass card rather than a bare line: the score reads at a glance, the
    mark attributes it, and the stars and count sit together beside it.
@@ -350,9 +368,10 @@
   .heroActions {
     margin-top: 46px;
   }
-  /* Two explicit columns rather than a wrapping flex row: the third item
-     lands under the first, flush to the same left edge, instead of
-     inheriting a divider it should not have. */
+  /* Two explicit columns rather than a wrapping flex row, so items land in a
+     predictable 2x2 and only the right-hand column carries a divider. Keying
+     the rule to the column (nth-child) rather than to adjacency means adding
+     or removing a trust item cannot leave a stray rule in column one. */
   .trust {
     display: grid;
     grid-template-columns: max-content max-content;
@@ -360,15 +379,17 @@
     /* Column gap keeps the divider off the rating card's edge. */
     gap: 22px 28px;
   }
+  /* The rating drops out of its full-width mobile row so the four items form
+     a true 2x2 — without this it spans both columns and the parity below
+     puts a divider in column one. */
   .trustItem:first-child {
     grid-column: 1;
   }
-  .trustItem + .trustItem {
-    padding-left: 30px;
+  .trustItem:nth-child(even) {
+    padding-left: 28px;
     border-left: 1px solid var(--tp-line);
   }
-  .trustItem:last-child {
-    grid-column: 1;
+  .trustItem:nth-child(odd) {
     padding-left: 0;
     border-left: none;
   }
@@ -567,54 +588,6 @@
 .treatments {
   background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-fog));
   overflow: hidden;
-}
-
-/* ── 6. The journey ───────────────────────────────────────────────────────
-   Dark band carrying the glass step cards. The card styling itself lives in
-   JourneyCards.module.css; this is the surface it sits on.               */
-.journey {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding-block: clamp(64px, 9vw, 112px);
-  background:
-    radial-gradient(120% 90% at 50% 0%, #241d4d 0%, transparent 60%),
-    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 55%, var(--tp-indigo-950) 100%);
-}
-
-/* Two soft brand blobs. They are what the cards' backdrop-filter has to
-   work with — on a flat background the glass would be indistinguishable
-   from a plain translucent panel. */
-.journeyGlow {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(38% 46% at 22% 38%, rgba(69, 61, 155, 0.5), transparent 70%),
-    radial-gradient(34% 44% at 78% 62%, rgba(188, 160, 221, 0.24), transparent 72%);
-  filter: blur(28px);
-}
-
-.journeyHead {
-  text-align: center;
-  max-width: 44rem;
-  margin: 0 auto clamp(32px, 5vw, 56px);
-}
-.journeyTitle {
-  font-family: var(--tp-display);
-  font-weight: 600;
-  font-size: clamp(1.375rem, 4.6vw, 2rem);
-  line-height: 1.28;
-  letter-spacing: var(--ls-tight);
-  color: #fff;
-  margin: 0;
-  text-wrap: balance;
-}
-
-.journeyCta {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(36px, 5vw, 56px);
 }
 
 /* ── 7. Video testimonials ──────────────────────────────────────────────── */

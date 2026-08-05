@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC } from "@/lib/clinic";
 import styles from "./BeginJourney.module.css";
 
@@ -37,10 +38,7 @@ export default function BeginJourney() {
                   </svg>
                 </span>
               </Link>
-              <a href={CLINIC.phoneHref} className="tp-btn tp-btn-outline-light">
-                <TpIcon name="phone" size={17} />
-                {CLINIC.phoneDisplay}
-              </a>
+              <ClinicPhone className="tp-btn tp-btn-outline-light" icon />
             </div>
           </div>
 
