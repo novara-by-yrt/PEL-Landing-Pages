@@ -227,7 +227,9 @@ const CLINIC_TEAM: TeamMember[] = [
     name: "Dr Sabrina Shah-Desai",
     role: "Board Certified Cosmetic Oculoplastic Surgeon",
     credentials: ["MS", "FRCS"],
-    image: "/uploads/2025/12/Dr-Sabrina2-1.png",
+    /* The same portrait the About section uses, so she looks consistent
+       across the page. */
+    image: "/Dr.%20Sabrina%20Profile.png",
   },
   {
     name: "Dr Janine",
