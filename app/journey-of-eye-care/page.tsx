@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { TreatmentExpert, TreatmentCTA } from "@/components/treatment";
+import ContactSection from "@/components/home/ContactSection";
 import { EyeCareJourney } from "@/components/journey/EyeCareJourney";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -43,6 +44,7 @@ export default function JourneyOfEyeCarePage() {
       <div className="tp">
         <TreatmentExpert />
         <TreatmentCTA />
+        <ContactSection />
       </div>
     </>
   );

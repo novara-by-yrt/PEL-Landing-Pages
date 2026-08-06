@@ -33,6 +33,11 @@ type Section =
       heading: { lead: string; accent: string };
       image: string;
       imageAlt: string;
+      /* Where the desktop crop anchors. Desktop sizes the figure from the text
+         column beside it, so the photo has to be cropped to fill; portraits
+         want "center top", wider shots want "center". Phones ignore this —
+         they letterbox the whole frame instead. */
+      imagePosition?: string;
       caption: { title: string; meta: string };
       body?: React.ReactNode;
       asides: Aside[];
@@ -122,6 +127,9 @@ const SECTIONS: Section[] = [
     heading: { lead: "A pro tip for ", accent: "makeup wearers." },
     image: "/uploads/2026/01/Dr-Sabrina-Render-New-7-1.jpg",
     imageAlt: "Dr Sabrina in clinic",
+    /* A wider in-clinic shot: anchoring the crop to the top cut the subject
+       out of the desktop frame entirely. */
+    imagePosition: "center",
     caption: { title: "Removing long-wear makeup", meta: "Without irritating the skin" },
     body: (
       <>
@@ -161,8 +169,8 @@ const SECTIONS: Section[] = [
     tone: "paper",
     eyebrow: "The Dr Sabrina Range",
     heading: { lead: "An award-winning ", accent: "eye skincare collection." },
-    image: "/uploads/2025/10/askques-img-1-1-2.jpg",
-    imageAlt: "Dr Sabrina with the periorbital skincare range",
+    image: "/uploads/2026/02/OJV3052_new-1-1.jpg",
+    imageAlt: "Dr Sabrina Shah-Desai with the Dr Sabrina skincare range",
     caption: { title: "Perfect 360 Eye Illuminate", meta: "Powered by the Kiara Molecule™" },
     body: (
       <p>
@@ -539,7 +547,14 @@ function PanelSection({ section }: { section: Extract<Section, { kind: "panel" }
             ))}
           </div>
 
-          <figure className={styles.figure}>
+          <figure
+            className={styles.figure}
+            style={
+              section.imagePosition
+                ? ({ "--figure-position": section.imagePosition } as React.CSSProperties)
+                : undefined
+            }
+          >
             <Image
               src={section.image}
               alt={section.imageAlt}
@@ -561,10 +576,17 @@ function PanelSection({ section }: { section: Extract<Section, { kind: "panel" }
 }
 
 function StepSection({ section }: { section: Extract<Section, { kind: "step" }> }) {
+  /* Steps 1 and 4 are a statement rather than a menu — with no card grid to
+     anchor the left edge, a lone left-aligned paragraph left most of the row
+     empty, so they centre instead. */
+  const centred = !section.subTreatments;
+
   return (
     <section
       id={section.id}
-      className={`${styles.section} ${styles.stepSection} ${styles[section.tone]}`}
+      className={`${styles.section} ${styles.stepSection} ${styles[section.tone]} ${
+        centred ? styles.stepCentred : ""
+      }`}
       aria-labelledby={`${section.id}-heading`}
     >
       {/* Oversized ghost numeral, the way the home page's journey cards carry
@@ -607,8 +629,11 @@ function StepSection({ section }: { section: Extract<Section, { kind: "step" }> 
 
         {section.subTreatments && (
           <ul className={styles.subGrid}>
-            {section.subTreatments.map((sub) => (
+            {section.subTreatments.map((sub, i) => (
               <li key={sub.title} className={styles.subCard}>
+                <span className={styles.subIndex} aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <h3 className={styles.subTitle}>{sub.title}</h3>
                 {sub.body.map((paragraph) => (
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
@@ -663,20 +688,24 @@ export function EyeCareJourney({
             </p>
           </div>
 
-          <ul className={styles.traits}>
-            {EYE_TRAITS.map((trait) => (
-              <li key={trait.title} className={styles.trait}>
-                <span className={styles.traitIcon} aria-hidden="true">
-                  <TpIcon name={trait.icon} size={18} />
-                </span>
-                <span className={styles.traitTitle}>{trait.title}</span>
-              </li>
-            ))}
-          </ul>
-          <p className={styles.traitsNote}>
-            The skin around your eyes is different from the rest of your face &mdash; which is why
-            it&rsquo;s often the first to show signs of fatigue, dryness, or ageing.
-          </p>
+          {/* One divided panel rather than three loose boxes: the three traits
+              are facets of a single claim, and the shared frame says so. */}
+          <div className={styles.traitPanel}>
+            <ul className={styles.traits}>
+              {EYE_TRAITS.map((trait) => (
+                <li key={trait.title} className={styles.trait}>
+                  <span className={styles.traitIcon} aria-hidden="true">
+                    <TpIcon name={trait.icon} size={20} />
+                  </span>
+                  <span className={styles.traitTitle}>{trait.title}</span>
+                </li>
+              ))}
+            </ul>
+            <p className={styles.traitsNote}>
+              The skin around your eyes is different from the rest of your face &mdash; which is
+              why it&rsquo;s often the first to show signs of fatigue, dryness, or ageing.
+            </p>
+          </div>
         </div>
       </section>
 

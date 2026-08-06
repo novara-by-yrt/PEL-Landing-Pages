@@ -28,8 +28,9 @@
 .cream { background: var(--tp-cream); }
 .fog { background: var(--tp-fog); }
 
-/* A soft lavender bloom behind the tinted sections, matching the wash the
-   home page puts behind its team and treatment sections. */
+/* A soft lavender bloom behind every field, matching the wash the home page
+   puts behind its team and treatment sections. */
+.paper::before,
 .cream::before,
 .fog::before {
   content: "";
@@ -98,10 +99,20 @@
   margin: 18px 0 0;
 }
 
+/* One framed panel with hairline dividers, rather than three floating boxes.
+   The traits are facets of a single claim, and the note is its conclusion. */
+.traitPanel {
+  max-width: 62rem;
+  margin-inline: auto;
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-xl);
+  background: linear-gradient(160deg, var(--tp-paper), var(--tp-lavender-050));
+  box-shadow: var(--tp-shadow-sm);
+  overflow: hidden;
+}
 .traits {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -109,30 +120,26 @@
 .trait {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 20px;
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-paper);
-  border: 1px solid var(--tp-line);
-  box-shadow: var(--tp-shadow-xs);
-  transition: transform 260ms var(--tp-ease), border-color 260ms var(--tp-ease),
-    box-shadow 260ms var(--tp-ease);
+  gap: 16px;
+  padding: clamp(22px, 3vw, 30px);
+  border-top: 1px solid var(--tp-line);
+  transition: background 260ms var(--tp-ease);
 }
-.trait:hover {
-  transform: translateY(var(--j-card-lift));
-  border-color: var(--tp-lavender-300);
-  box-shadow: var(--tp-shadow-md);
-}
+.trait:first-child { border-top: none; }
+.trait:hover { background: rgba(255, 255, 255, 0.7); }
 .traitIcon {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 999px;
   background: var(--tp-lavender-100);
+  border: 1px solid var(--tp-lavender-200);
   color: var(--tp-indigo-700);
+  transition: transform 260ms var(--tp-ease);
 }
+.trait:hover .traitIcon { transform: scale(1.06); }
 .traitTitle {
   font-family: var(--tp-display);
   font-size: var(--fs-heading-sm);
@@ -141,8 +148,10 @@
   color: var(--tp-ink);
 }
 .traitsNote {
-  max-width: 62ch;
-  margin: clamp(20px, 3vw, 26px) auto 0;
+  margin: 0;
+  padding: clamp(20px, 3vw, 26px) clamp(22px, 3vw, 30px);
+  border-top: 1px solid var(--tp-line);
+  background: var(--tp-lavender-050);
   text-align: center;
   font-size: var(--fs-body-sm);
   line-height: 1.6;
@@ -288,11 +297,13 @@
   align-items: stretch;
 }
 
+/* Portrait box on phones. The photography is portrait, and a landscape box
+   under `cover` cropped most of each frame away. */
 .figure {
   position: relative;
   height: 100%;
   min-height: 320px;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   margin: 0;
   border-radius: var(--tp-radius-xl);
   overflow: hidden;
@@ -300,23 +311,33 @@
   border: 1px solid var(--tp-hairline);
   box-shadow: var(--tp-shadow-lg);
 }
+/* `contain` on phones so the whole frame is visible whatever shape the photo
+   is; the figure's own gradient fills any letterbox. Desktop switches back to
+   `cover`, where the figure is sized by the text column and must fill it. */
 .figureImg {
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms var(--tp-ease);
 }
 .figure:hover .figureImg { transform: scale(1.04); }
-/* Keeps the caption legible over whatever part of the photo it lands on. */
+/* On phones the photo is letterboxed rather than cropped, so a scrim would
+   darken bare background as often as image. The caption becomes a glass chip
+   instead, which reads over either. The scrim returns on desktop. */
 .figureScrim {
+  display: none;
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(18, 16, 54, 0) 55%, rgba(18, 16, 54, 0.55) 100%);
 }
 .figureCaption {
   position: absolute;
-  inset: auto 0 0;
-  padding: clamp(18px, 3vw, 26px);
-  color: #fff;
+  inset: auto 14px 14px;
+  padding: 13px 16px;
+  border-radius: var(--tp-radius-md);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--tp-shadow-sm);
 }
 .figureCaptionTitle {
   display: block;
@@ -324,6 +345,7 @@
   font-size: clamp(1.0625rem, 3vw, 1.25rem);
   font-weight: 600;
   line-height: 1.25;
+  color: var(--tp-ink);
 }
 .figureCaptionMeta {
   display: block;
@@ -331,7 +353,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--tp-lavender-200);
+  color: var(--tp-lavender-600);
   margin-top: 6px;
 }
 
@@ -619,6 +641,27 @@
 }
 
 .stepHead { max-width: 720px; }
+
+/* Steps with no card grid beneath them centre instead, so the section reads
+   as a statement rather than a column stranded against the left edge. */
+.stepCentred .stepHead {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+.stepCentred .rule { margin-inline: auto; }
+.stepCentred .stepIntro { margin-inline: auto; }
+.stepCentred .callout {
+  margin-inline: auto;
+  text-align: left;
+}
+/* Centred behind the badge rather than parked in the empty right margin. */
+.stepCentred .stepGhost {
+  top: 50%;
+  right: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .stepBadge {
   display: inline-flex;
   align-items: center;
@@ -667,6 +710,8 @@
   padding: 0;
 }
 .subCard {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   padding: clamp(20px, 3vw, 26px);
@@ -674,6 +719,7 @@
   border: 1px solid var(--tp-line);
   border-radius: var(--tp-radius-lg);
   box-shadow: var(--tp-shadow-xs);
+  overflow: hidden;
   transition: transform 280ms var(--tp-ease), border-color 280ms var(--tp-ease),
     box-shadow 280ms var(--tp-ease);
 }
@@ -682,6 +728,35 @@
   border-color: var(--tp-lavender-300);
   box-shadow: var(--tp-shadow-md);
 }
+/* Lavender wash blooming from the top corner on hover — the light-surface
+   counterpart to the specular highlight on the home page's glass cards. */
+.subCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px circle at 100% 0%, rgba(188, 160, 221, 0.2), transparent 62%);
+  opacity: 0;
+  transition: opacity 320ms var(--tp-ease);
+}
+.subCard:hover::after { opacity: 1; }
+
+/* Decorative index, set in the display serif and kept faint so it reads as
+   texture rather than as a step order. */
+.subIndex {
+  position: absolute;
+  top: clamp(14px, 2vw, 20px);
+  right: clamp(16px, 2.4vw, 24px);
+  font-family: var(--tp-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-300);
+  opacity: 0.4;
+  user-select: none;
+  transition: opacity 280ms var(--tp-ease);
+}
+.subCard:hover .subIndex { opacity: 0.75; }
 /* A short brand rule appears on hover, the way the home page's cards reveal
    their accent. */
 .subCard::before {
@@ -697,6 +772,8 @@
 }
 .subCard:hover::before { opacity: 1; width: 52px; }
 .subTitle {
+  /* Keeps the title clear of the index numeral in the top-right corner. */
+  padding-right: clamp(46px, 8vw, 64px);
   margin: 0 0 10px;
   font-family: var(--tp-display);
   font-size: var(--fs-heading-sm);
@@ -815,7 +892,15 @@
 /* ── Breakpoints ────────────────────────────────────────────────────────── */
 @media (min-width: 640px) {
   .traits { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .trait { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .trait {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    /* Dividers turn vertical once the traits sit side by side. */
+    border-top: none;
+    border-left: 1px solid var(--tp-line);
+  }
+  .trait:first-child { border-left: none; }
   .roadmapGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -829,11 +914,31 @@
     gap: clamp(40px, 4.5vw, 72px);
   }
   /* Height now comes from the text column, so the photograph matches it top
-     and bottom rather than imposing its own ratio. */
+     and bottom rather than imposing its own ratio. A box whose shape is
+     dictated by the copy beside it can only be filled by cropping, so the
+     photos go back to `cover` here and take their scrim and inset caption
+     back with them. */
   .figure {
     aspect-ratio: auto;
     min-height: 520px;
   }
+  .figureImg {
+    object-fit: cover;
+    /* Per-panel crop anchor, set inline from `imagePosition`. */
+    object-position: var(--figure-position, center top);
+  }
+  .figureScrim { display: block; }
+  .figureCaption {
+    inset: auto 0 0;
+    padding: clamp(18px, 3vw, 26px);
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+  .figureCaptionTitle { color: #fff; }
+  .figureCaptionMeta { color: var(--tp-lavender-200); }
   /* Every other panel flips, so the page alternates rather than marching. The
      template flips with it so the prose always keeps the wider column. */
   .reverse { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
@@ -854,6 +959,9 @@
   .linkArrow,
   .subCard,
   .subCard::before,
+  .subCard::after,
+  .subIndex,
+  .traitIcon,
   .routineCard,
   .roadmapCard,
   .roadmapArrow {
@@ -870,6 +978,7 @@
   .roadmapCard:hover {
     transform: none;
   }
+  .trait:hover .traitIcon { transform: none; }
   .linkCard:hover .linkArrow,
   .roadmapCard:hover .roadmapArrow {
     transform: none;
