@@ -4,22 +4,11 @@ import { TpIcon } from "@/components/treatment/TpIcon";
 import CallbackForm from "./CallbackForm";
 import styles from "./ContactSection.module.css";
 
-import { CLINIC, MAPS_URL, SOCIALS } from "@/lib/clinic";
+import { CLINIC, MAPS_URL } from "@/lib/clinic";
 
-const SOCIAL_ICONS: Record<string, React.ReactNode> = {
-  Instagram: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  "X / Twitter": (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.6 3h6.2l4.2 5.6L17.5 3z" />
-    </svg>
-  ),
-};
+/* The social accounts are not linked here — the footer carries them on every
+   page, so repeating them in this panel was a second copy of the same links
+   directly above the first. They still live in lib/clinic. */
 
 function ExternalArrow() {
   return (
@@ -105,21 +94,6 @@ export default function ContactSection() {
                   </a>
                 </span>
               </div>
-            </div>
-
-            <div className={styles.socials}>
-              {SOCIALS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.social}
-                >
-                  {SOCIAL_ICONS[social.label]}
-                  {social.label}
-                </a>
-              ))}
             </div>
           </div>
 

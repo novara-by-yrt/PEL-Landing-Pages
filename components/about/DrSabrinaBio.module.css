@@ -158,9 +158,10 @@
   box-shadow: var(--tp-shadow-lg);
   margin: 0;
 }
+/* Contained on phones so the whole portrait is visible; see .figureImg. */
 .heroImg {
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms var(--tp-ease);
 }
 .heroFigure:hover .heroImg { transform: scale(1.03); }
@@ -250,38 +251,42 @@
   gap: clamp(28px, 4vw, 56px);
   align-items: stretch;
 }
+/* Portrait box on phones. The photography is portrait, and the 4/3 landscape
+   box this used to be cropped most of each frame away. */
 .figure {
   position: relative;
   height: 100%;
   min-height: 320px;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   margin: 0;
   border-radius: var(--tp-radius-xl);
   overflow: hidden;
   background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
   box-shadow: var(--tp-shadow-lg);
 }
+/* `contain` on phones so the whole frame is visible whatever shape the photo
+   is; the figure's own gradient fills any letterbox. Desktop switches back to
+   `cover`, where the figure is sized by the text column and must fill it. */
 .figureImg {
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms var(--tp-ease);
 }
 .figure:hover .figureImg { transform: scale(1.04); }
-/* Keeps the caption legible over whatever part of the photo it lands on. */
-.figureScrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(18, 16, 54, 0) 55%,
-    rgba(18, 16, 54, 0.55) 100%
-  );
-}
+/* On phones the photo is letterboxed rather than cropped, so a scrim would
+   darken bare background as often as image. The caption becomes a glass chip
+   instead — the same treatment as the hero badge — which reads over either.
+   The scrim comes back on desktop, where the photo fills the frame. */
+.figureScrim { display: none; }
 .figureCaption {
   position: absolute;
-  inset: auto 0 0;
-  padding: clamp(18px, 3vw, 26px);
-  color: #fff;
+  inset: auto 14px 14px;
+  padding: 13px 16px;
+  border-radius: var(--tp-radius-md);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--tp-shadow-sm);
 }
 .figureCaptionTitle {
   display: block;
@@ -289,6 +294,7 @@
   font-size: clamp(1.0625rem, 3vw, 1.25rem);
   font-weight: 600;
   line-height: 1.25;
+  color: var(--tp-ink);
 }
 .figureCaptionMeta {
   display: block;
@@ -296,7 +302,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--tp-lavender-200);
+  color: var(--tp-lavender-600);
   margin-top: 6px;
 }
 
@@ -779,11 +785,31 @@
     gap: clamp(40px, 4.5vw, 72px);
   }
   /* Height now comes from the text column, so the photograph matches it top
-     and bottom rather than imposing its own ratio. */
+     and bottom rather than imposing its own ratio. A box whose shape is
+     dictated by the copy beside it can only be filled by cropping, so the
+     photos go back to `cover` here and take their scrim and inset caption
+     back with them. */
   .figure {
     aspect-ratio: auto;
     min-height: 540px;
   }
+  .figureImg,
+  .heroImg {
+    object-fit: cover;
+    object-position: center top;
+  }
+  .figureScrim { display: block; }
+  .figureCaption {
+    inset: auto 0 0;
+    padding: clamp(18px, 3vw, 26px);
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+  .figureCaptionTitle { color: #fff; }
+  .figureCaptionMeta { color: var(--tp-lavender-200); }
   /* Every other panel flips, so the page alternates rather than marching.
      The template flips with it so the prose always takes the wider column —
      ordering alone would hand the narrow one to whichever side the text
