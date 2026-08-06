@@ -375,12 +375,14 @@
 .proseBody strong { color: var(--tp-ink); font-weight: 600; }
 
 /* ── Structured blocks under the prose ──────────────────────────────────── */
-.aside,
-.asidePlain {
+.aside {
   margin-top: clamp(26px, 4vw, 34px);
   padding-top: clamp(24px, 3.5vw, 30px);
   border-top: 1px solid var(--tp-hairline);
 }
+/* A bare link carries no label, so it needs no divider of its own — it reads
+   as the tail of the block above it rather than as a new one. */
+.asidePlain { margin-top: clamp(12px, 2vw, 16px); }
 .asideLabel {
   font-family: var(--tp-body);
   font-size: 0.6875rem;

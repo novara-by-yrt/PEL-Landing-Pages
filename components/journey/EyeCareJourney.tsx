@@ -169,8 +169,8 @@ const SECTIONS: Section[] = [
     tone: "paper",
     eyebrow: "The Dr Sabrina Range",
     heading: { lead: "An award-winning ", accent: "eye skincare collection." },
-    image: "/uploads/2025/10/askques-img-1-1-2.jpg",
-    imageAlt: "Dr Sabrina with the periorbital skincare range",
+    image: "/uploads/2025/09/Sabrina-1.jpg",
+    imageAlt: "Dr Sabrina Shah-Desai",
     caption: { title: "Perfect 360 Eye Illuminate", meta: "Powered by the Kiara Molecule™" },
     body: (
       <p>
@@ -178,6 +178,8 @@ const SECTIONS: Section[] = [
         brings the same precision she applies in theatre to a daily periorbital skincare ritual.
       </p>
     ),
+    /* One labelled block, then a note and the shop link, rather than three
+       separate labelled blocks each with its own divider and gutter. */
     asides: [
       {
         kind: "cards",
@@ -185,23 +187,23 @@ const SECTIONS: Section[] = [
         items: [
           {
             title: "A triple-action serum",
-            text: "Targets fine lines, wrinkles, dark circles, puffiness and thinning “crepey” skin by restructuring skin, reinforcing its barrier, and brightening from within.",
+            text: "Targets fine lines, dark circles, puffiness and thinning “crepey” skin by restructuring skin, reinforcing its barrier and brightening from within.",
           },
           {
             title: "The Kiara Molecule™",
-            text: "Its hero ingredient combines seven actives working in harmony to fade dark spots, smooth creases, and boost elasticity.",
+            text: "Seven actives working in harmony to fade dark spots, smooth creases and boost elasticity.",
           },
         ],
       },
       {
-        kind: "facts",
-        label: "Independent Complife study",
-        items: [
-          {
-            value: "6 weeks",
-            text: "Over two-thirds of users saw visible improvements: smoother, brighter and firmer skin.",
-          },
-        ],
+        kind: "note",
+        icon: "star",
+        text: (
+          <>
+            <strong>Six weeks:</strong> in an independent Complife study, over two-thirds of users
+            saw visible improvements, with smoother, brighter and firmer skin.
+          </>
+        ),
       },
       {
         kind: "link",
