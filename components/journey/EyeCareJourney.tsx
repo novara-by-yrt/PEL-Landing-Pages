@@ -576,17 +576,10 @@ function PanelSection({ section }: { section: Extract<Section, { kind: "panel" }
 }
 
 function StepSection({ section }: { section: Extract<Section, { kind: "step" }> }) {
-  /* Steps 1 and 4 are a statement rather than a menu — with no card grid to
-     anchor the left edge, a lone left-aligned paragraph left most of the row
-     empty, so they centre instead. */
-  const centred = !section.subTreatments;
-
   return (
     <section
       id={section.id}
-      className={`${styles.section} ${styles.stepSection} ${styles[section.tone]} ${
-        centred ? styles.stepCentred : ""
-      }`}
+      className={`${styles.section} ${styles.stepSection} ${styles[section.tone]}`}
       aria-labelledby={`${section.id}-heading`}
     >
       {/* Oversized ghost numeral, the way the home page's journey cards carry

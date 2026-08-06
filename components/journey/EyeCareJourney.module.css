@@ -620,7 +620,7 @@
 }
 
 /* ── Step section ───────────────────────────────────────────────────────── */
-.stepSection { padding-block: clamp(56px, 7vw, 104px); }
+.stepSection { padding-block: clamp(44px, 5.5vw, 80px); }
 
 /* Oversized ghost numeral behind the heading, echoing the numbered cards on
    the home page's journey band. Hidden from assistive tech and from narrow
@@ -628,39 +628,35 @@
 .stepGhost {
   display: none;
   position: absolute;
-  top: clamp(8px, 2vw, 24px);
-  right: clamp(16px, 4vw, 64px);
+  top: clamp(6px, 1.4vw, 16px);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: -1;
   font-family: var(--tp-display);
-  font-size: clamp(9rem, 18vw, 16rem);
+  font-size: clamp(8rem, 15vw, 13rem);
   font-weight: 600;
-  line-height: 0.8;
+  /* Full line box, so the numeral's ascender isn't clipped by the section's
+     own overflow: hidden. */
+  line-height: 1;
   color: var(--tp-indigo-700);
   opacity: 0.05;
   user-select: none;
 }
 
-.stepHead { max-width: 720px; }
-
-/* Steps with no card grid beneath them centre instead, so the section reads
-   as a statement rather than a column stranded against the left edge. */
-.stepCentred .stepHead {
+/* Every step centres its head, whether or not a card grid follows: the grid
+   below is full width and symmetrical, so a left-aligned column above it read
+   as an unbalanced margin rather than as a deliberate edge. */
+.stepHead {
   max-width: 760px;
   margin-inline: auto;
   text-align: center;
 }
-.stepCentred .rule { margin-inline: auto; }
-.stepCentred .stepIntro { margin-inline: auto; }
-.stepCentred .callout {
+.stepHead .rule { margin-inline: auto; }
+/* The callout keeps ragged-right body text — centring several lines of prose
+   inside a bordered box is harder to read than centring the box itself. */
+.callout {
   margin-inline: auto;
   text-align: left;
-}
-/* Centred behind the badge rather than parked in the empty right margin. */
-.stepCentred .stepGhost {
-  top: 50%;
-  right: auto;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .stepBadge {
   display: inline-flex;
@@ -694,19 +690,19 @@
 
 .stepIntro {
   max-width: 62ch;
-  margin: 20px 0 0;
+  margin: 16px auto 0;
   font-size: var(--fs-body-md);
   line-height: var(--lh-relaxed);
   color: var(--tp-slate);
 }
-.stepCta { margin-top: clamp(22px, 3vw, 28px); }
+.stepCta { margin-top: clamp(18px, 2.4vw, 24px); }
 
 .subGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(14px, 2vw, 20px);
+  gap: clamp(12px, 1.6vw, 16px);
   list-style: none;
-  margin: clamp(32px, 4.5vw, 48px) 0 0;
+  margin: clamp(26px, 3.5vw, 38px) 0 0;
   padding: 0;
 }
 .subCard {
@@ -714,7 +710,7 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 3vw, 26px);
+  padding: clamp(18px, 2.2vw, 22px);
   background: var(--tp-paper);
   border: 1px solid var(--tp-line);
   border-radius: var(--tp-radius-lg);
@@ -748,7 +744,7 @@
   top: clamp(14px, 2vw, 20px);
   right: clamp(16px, 2.4vw, 24px);
   font-family: var(--tp-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem);
   font-weight: 600;
   line-height: 1;
   color: var(--tp-lavender-300);
@@ -762,19 +758,19 @@
 .subCard::before {
   content: "";
   display: block;
-  width: 34px;
+  width: 30px;
   height: 3px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   border-radius: 999px;
   background: var(--j-rule);
   opacity: 0.45;
   transition: opacity 280ms var(--tp-ease), width 280ms var(--tp-ease);
 }
-.subCard:hover::before { opacity: 1; width: 52px; }
+.subCard:hover::before { opacity: 1; width: 46px; }
 .subTitle {
   /* Keeps the title clear of the index numeral in the top-right corner. */
-  padding-right: clamp(46px, 8vw, 64px);
-  margin: 0 0 10px;
+  padding-right: clamp(40px, 7vw, 54px);
+  margin: 0 0 8px;
   font-family: var(--tp-display);
   font-size: var(--fs-heading-sm);
   font-weight: 600;
@@ -782,9 +778,9 @@
   color: var(--tp-ink);
 }
 .subCard p {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-size: var(--fs-body-sm);
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--tp-slate);
 }
 .subCard p:last-child { margin-bottom: 0; }
