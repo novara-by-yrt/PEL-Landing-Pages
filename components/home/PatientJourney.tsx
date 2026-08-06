@@ -27,7 +27,6 @@ type Pathway = {
   id: string;
   eyebrow: string;
   title: string;
-  summary: string;
   icon: string;
   steps: Step[];
   /** Shown under the steps — only the non-surgical pathway has these. */
@@ -48,7 +47,6 @@ const PATHWAYS: Pathway[] = [
     id: "surgical",
     eyebrow: "Pathway one",
     title: "Surgical Pathway",
-    summary: "Planning, surgery and structured follow-up through to maintenance.",
     icon: "pulse",
     steps: [
       {
@@ -84,7 +82,6 @@ const PATHWAYS: Pathway[] = [
     id: "non-surgical",
     eyebrow: "Pathway two",
     title: "Non-Surgical Pathway",
-    summary: "A complimentary consultation, a tailored plan and ongoing care.",
     icon: "sparkle",
     steps: [
       {
@@ -218,10 +215,9 @@ export default function PatientJourney() {
                 <span className={styles.tabText}>
                   <span className={styles.tabEyebrow}>{item.eyebrow}</span>
                   <span className={styles.tabTitle}>{item.title}</span>
-                  <span className={styles.tabSummary}>{item.summary}</span>
                 </span>
                 <span className={styles.tabMark} aria-hidden="true">
-                  <TpIcon name="chevron" size={16} />
+                  <TpIcon name="check" size={15} />
                 </span>
               </button>
             );

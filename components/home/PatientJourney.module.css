@@ -143,9 +143,13 @@
 }
 
 /* ── Pathway picker ─────────────────────────────────────────────────────
-   Two large tabs. Mobile-first: stacked full width, side by side from 760px.
-   The selected one lifts onto a brand gradient so the choice is obvious at a
-   glance rather than only from a thin underline. */
+   Two tabs, side by side at every width — with the descriptive line gone
+   they are short enough to pair even at 320px, and seeing both at once is
+   what makes the choice obvious.
+
+   The selected tab is a solid brand fill rather than a tinted border: on a
+   dark band a border alone barely registers, whereas a filled panel with a
+   pointer into the content below is unmistakable. */
 .pick {
   text-align: center;
   /* Clears the branch dot above, which the label would otherwise sit on. */
@@ -159,24 +163,26 @@
 
 .tabs {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .tab {
   position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 8px;
   width: 100%;
   min-height: 44px;
-  padding: clamp(15px, 2.2vw, 19px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: clamp(14px, 1.8vw, 18px) clamp(10px, 1.6vw, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--tp-radius-lg);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   transition:
     transform 240ms var(--tp-ease),
@@ -186,36 +192,50 @@
 }
 .tab:hover {
   transform: translateY(-2px);
-  border-color: rgba(188, 160, 221, 0.55);
-  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(188, 160, 221, 0.6);
+  background: rgba(255, 255, 255, 0.09);
 }
 .tab:focus-visible {
   outline: 3px solid var(--tp-lavender-300);
   outline-offset: 3px;
 }
+
 .tabActive {
   border-color: transparent;
-  background:
-    linear-gradient(rgba(18, 16, 54, 0.6), rgba(18, 16, 54, 0.6)) padding-box,
-    linear-gradient(130deg, var(--tp-lavender-300), var(--tp-indigo-600)) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 26px 60px -34px rgba(188, 160, 221, 0.75);
+  background: linear-gradient(135deg, var(--tp-indigo-600) 0%, var(--tp-lavender-600) 100%);
+  box-shadow: 0 22px 48px -22px rgba(138, 132, 186, 0.9);
+}
+.tabActive:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--tp-indigo-600) 0%, var(--tp-lavender-600) 100%);
+}
+/* Notch pointing down into the panel the tab has opened. */
+.tabActive::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 3px;
+  background: var(--tp-lavender-600);
 }
 
 .tabIcon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.08);
   color: var(--tp-lavender-200);
   transition: background 240ms var(--tp-ease), color 240ms var(--tp-ease);
 }
 .tabActive .tabIcon {
-  border-color: transparent;
-  background: linear-gradient(140deg, var(--tp-indigo-600), var(--tp-lavender-400));
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
@@ -230,34 +250,39 @@
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tp-lavender-300);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  transition: color 240ms var(--tp-ease);
+}
+.tabActive .tabEyebrow {
+  color: #fff;
 }
 .tabTitle {
   display: block;
   font-family: var(--tp-display);
-  font-size: clamp(1.1875rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 2.6vw, 1.375rem);
   font-weight: 600;
   line-height: 1.2;
   color: #fff;
-}
-.tabSummary {
-  display: block;
-  margin-top: 6px;
-  font-size: clamp(0.875rem, 1.7vw, 0.9375rem);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.68);
+  text-wrap: balance;
 }
 
-/* Chevron turns to point down at the panel it has opened. */
+/* A tick, shown only on the selected tab — with the descriptive line gone it
+   is the clearest possible "this one". */
 .tabMark {
   display: grid;
   place-items: center;
-  color: rgba(255, 255, 255, 0.4);
-  transition: transform 260ms var(--tp-ease), color 240ms var(--tp-ease);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--tp-indigo-700);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 220ms var(--tp-ease), transform 220ms var(--tp-ease);
 }
 .tabActive .tabMark {
-  transform: rotate(90deg);
-  color: var(--tp-lavender-200);
+  opacity: 1;
+  transform: none;
 }
 
 /* ── Revealed panel ─────────────────────────────────────────────────────── */
@@ -441,12 +466,6 @@
 }
 
 /* ── Wider viewports ────────────────────────────────────────────────────── */
-@media (min-width: 760px) {
-  .tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (min-width: 900px) {
   .consultList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -481,8 +500,12 @@
   .tab,
   .tabIcon,
   .tabMark,
+  .tabEyebrow,
   .focusItem {
     transition: none;
+  }
+  .tabActive .tabMark {
+    transform: none;
   }
   .tab:hover {
     transform: none;
