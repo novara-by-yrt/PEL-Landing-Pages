@@ -53,16 +53,15 @@ const PANELS: Panel[] = [
         <p>
           With over two decades of surgical and non-surgical experience, Dr Sabrina Shah-Desai is
           considered one of the safest, most experienced eye and face rejuvenation experts
-          practising in the UK. Her extensive training, combined with a caring and empathetic
-          nature, makes her a natural choice for patients seeking the very best treatments.
+          practising in the UK.
         </p>
         <p>
           She is listed on the{" "}
           <strong>
             Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons
           </strong>{" "}
-          &mdash; recognition of her expertise, her commitment to high standards, and the trust she
-          has earned from both peers and patients in the aesthetic industry.
+          &mdash; recognition of her expertise and of the trust she has earned from peers and
+          patients alike.
         </p>
       </>
     ),
@@ -70,10 +69,12 @@ const PANELS: Panel[] = [
       {
         kind: "awards",
         label: "Awards & recognition",
+        /* Kept to one line each where possible, and the two MyFaceMyBody
+           citations share a row, so the list scans in a single glance. */
         items: [
           {
             year: "2019–2026",
-            text: "Tatler Top Doctors Guide — leading expert in eye treatments, six consecutive years",
+            text: "Tatler Top Doctors Guide — leading expert in eye treatments",
           },
           {
             year: "2023",
@@ -89,11 +90,7 @@ const PANELS: Panel[] = [
           },
           {
             year: "2019",
-            text: "“Medical Aesthetic Practitioner: Highly Commended” — MyFaceMyBody",
-          },
-          {
-            year: "2019",
-            text: "Voted one of the Global 100 most influential aesthetic practitioners — MyFaceMyBody",
+            text: "“Medical Aesthetic Practitioner: Highly Commended” and Global 100 most influential aesthetic practitioners — MyFaceMyBody",
           },
         ],
       },

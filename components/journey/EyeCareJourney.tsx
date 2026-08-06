@@ -112,11 +112,11 @@ const SECTIONS: Section[] = [
     id: "step-1",
     tone: "cream",
     step: 1,
-    heading: { lead: "Skincare — ", accent: "the foundation of eye health." },
+    heading: { lead: "Skincare: ", accent: "the foundation of eye health." },
     intro:
-      "Think of skincare as your eye area’s daily nutrition — it’s the starting point of a lifelong relationship with how your eyes look and feel. Whether you’re 25 and preventing your first fine lines or 55 and focused on restoring radiance, it begins here.",
+      "Think of skincare as your eye area’s daily nutrition, the starting point of a lifelong relationship with how your eyes look and feel. Whether you’re 25 and preventing your first fine lines or 55 and focused on restoring radiance, it begins here.",
     callout:
-      "Start by choosing a gentle cleanser that’s safe to use around the eyes — one that removes makeup while also hydrating and soothing. A lightweight, calming cleanser with skin-loving ingredients like aloe vera leaves your eye area soft, clean, and ready for the next steps.",
+      "Start by choosing a gentle cleanser that’s safe to use around the eyes, one that removes makeup while also hydrating and soothing. A lightweight, calming cleanser with skin-loving ingredients like aloe vera leaves your eye area soft, clean, and ready for the next steps.",
   },
   {
     kind: "panel",
@@ -137,11 +137,11 @@ const SECTIONS: Section[] = [
           Use a small amount of your gentle cleanser and lather it lightly around damp eyes. Then
           place warm, damp cotton pads over your closed eyes and let them sit for a couple of
           seconds before gently wiping them away. This lifts away makeup without irritating your
-          skin &mdash; a game changer if you wear long-lasting eye products.
+          skin, and it is a game changer if you wear long-lasting eye products.
         </p>
         <p>
           Daily care not only helps prevent early signs of ageing but keeps your eye area balanced
-          and resilient. But skincare isn&rsquo;t just about what you apply &mdash; it&rsquo;s also
+          and resilient. But skincare isn&rsquo;t just about what you apply; it&rsquo;s also
           about how you live.
         </p>
       </>
@@ -199,7 +199,7 @@ const SECTIONS: Section[] = [
         items: [
           {
             value: "6 weeks",
-            text: "Over two-thirds of users saw visible improvements — smoother, brighter and firmer skin.",
+            text: "Over two-thirds of users saw visible improvements: smoother, brighter and firmer skin.",
           },
         ],
       },
@@ -259,7 +259,7 @@ const SECTIONS: Section[] = [
         Elevate your evening ritual with a device that brings spa-grade light therapy home, using
         red and near-infrared wavelengths to flood your skin with collagen-boosting, cell-repairing
         light. Cleanse your face, apply the hydrocolloid patch, and secure the mask for ten
-        minutes &mdash; then follow with the Perfect 360 Eye Illuminate serum to lock in benefits.
+        minutes, then follow with the Perfect 360 Eye Illuminate serum to lock in benefits.
       </p>
     ),
     asides: [
@@ -276,7 +276,7 @@ const SECTIONS: Section[] = [
         icon: "star",
         text: (
           <>
-            <strong>Runner-up, Best LED Tool</strong> &mdash; Get The Gloss Beauty Awards 2024.
+            <strong>Runner-up, Best LED Tool</strong> at the Get The Gloss Beauty Awards 2024.
           </>
         ),
       },
@@ -287,7 +287,7 @@ const SECTIONS: Section[] = [
     id: "step-2",
     tone: "paper",
     step: 2,
-    heading: { lead: "Non-surgical treatments — ", accent: "when skincare isn’t enough." },
+    heading: { lead: "Non-surgical treatments: ", accent: "when skincare isn’t enough." },
     intro:
       "As we age or face specific concerns like deep tear troughs or persistent puffiness, skincare alone may not suffice. Non-surgical treatments offer a minimally invasive way to enhance your appearance with little to no downtime, performed in a CQC-regulated environment for maximum safety and efficacy.",
     cta: { label: "Explore Non-Surgical Treatments", href: "/#treatments" },
@@ -303,27 +303,27 @@ const SECTIONS: Section[] = [
         title: "Morpheus8",
         body: [
           "Combines microneedling with radiofrequency energy to tighten and remodel skin from within, softening crepey skin and improving overall texture around the eyes.",
-          "Minimal downtime, but high-impact tightening—especially powerful for those seeing early signs of skin laxity.",
+          "Minimal downtime, but high-impact tightening, especially powerful for those seeing early signs of skin laxity.",
         ],
       },
       {
         title: "Sofwave",
         body: [
           "This non-invasive ultrasound treatment targets the deeper layers of the skin to stimulate collagen without damaging the surface. Perfect for: lifting brows, under-eye tightening, subtle firming.",
-          "Often called the “lunchtime lift”—painless, quick, and with zero recovery time.",
+          "Often called the “lunchtime lift”: painless, quick, and with zero recovery time.",
         ],
       },
       {
         title: "Polynucleotides",
         body: [
-          "Next-generation biostimulators derived from purified DNA fragments that encourage deep cellular repair, hydration, and collagen production—ideal for fragile, crepey under-eye skin.",
+          "Next-generation biostimulators derived from purified DNA fragments that encourage deep cellular repair, hydration, and collagen production, ideal for fragile, crepey under-eye skin.",
           "A natural yet science-led solution that strengthens the skin's foundation over time, without adding volume.",
         ],
       },
       {
         title: "Emface Eyes",
         body: [
-          "Combines synchronised radiofrequency and HIFES™ to tone the delicate muscles around the eyes while tightening the overlying skin—no needles, no downtime.",
+          "Combines synchronised radiofrequency and HIFES™ to tone the delicate muscles around the eyes while tightening the overlying skin, with no needles and no downtime.",
           "Think of it as a facial workout that delivers visibly lifted, more open eyes, often after just a few sessions.",
         ],
       },
@@ -334,25 +334,25 @@ const SECTIONS: Section[] = [
     id: "step-3",
     tone: "cream",
     step: 3,
-    heading: { lead: "Surgical treatments — ", accent: "precision for lasting change." },
+    heading: { lead: "Surgical treatments: ", accent: "precision for lasting change." },
     cta: { label: "Learn About Eye Surgery Options", href: "/#treatments" },
     subTreatments: [
       {
         title: "Upper and Lower Eyelid Surgery (Blepharoplasty)",
         body: [
-          "Perfect for: hooded eyelids, under-eye bags, loose skin or fat bulges. Dr Sabrina uses her advanced “invisible zip stitch” technique to remove excess skin and fat, refresh the contours around the eyes, and create a lighter, more rested appearance—often with no visible scars.",
+          "Perfect for: hooded eyelids, under-eye bags, loose skin or fat bulges. Dr Sabrina uses her advanced “invisible zip stitch” technique to remove excess skin and fat, refresh the contours around the eyes, and create a lighter, more rested appearance, often with no visible scars.",
         ],
       },
       {
         title: "Ptosis Surgery (“Scarless” Correction)",
         body: [
-          "Perfect for: droopy upper eyelids caused by weakened eyelid muscles. A refined, minimally invasive technique restores function and symmetry—with “scarless” correction performed from the inside of the eyelid, leaving no external trace.",
+          "Perfect for: droopy upper eyelids caused by weakened eyelid muscles. A refined, minimally invasive technique restores function and symmetry, with “scarless” correction performed from the inside of the eyelid, leaving no external trace.",
         ],
       },
       {
         title: "Brow Lift",
         body: [
-          "Perfect for: low or sagging brows, tired or closed-off eye appearance. A subtle lift to the brow can dramatically open up the upper face, reduce forehead creases, and enhance the shape of the eyes—without an “over-pulled” look.",
+          "Perfect for: low or sagging brows, tired or closed-off eye appearance. A subtle lift to the brow can dramatically open up the upper face, reduce forehead creases, and enhance the shape of the eyes, without an “over-pulled” look.",
         ],
       },
       {
@@ -364,7 +364,7 @@ const SECTIONS: Section[] = [
       {
         title: "Festoon & Malar Bag Treatment",
         body: [
-          "Perfect for: puffy, swollen areas on the upper cheeks or below the eyes, often mistaken for eye bags. A multi-layered approach targets the true cause of puffiness—fluid retention, fat, or muscle laxity.",
+          "Perfect for: puffy, swollen areas on the upper cheeks or below the eyes, often mistaken for eye bags. A multi-layered approach targets the true cause of puffiness, whether fluid retention, fat, or muscle laxity.",
         ],
       },
       {
@@ -376,7 +376,7 @@ const SECTIONS: Section[] = [
       {
         title: "Revision Surgery",
         body: [
-          "Perfect for: unsatisfactory results from previous procedures. If you've had eyelid surgery elsewhere and are unhappy with the results—asymmetry, scarring, or unnatural outcomes—Dr Sabrina offers expert revision procedures designed to restore natural balance.",
+          "Perfect for: unsatisfactory results from previous procedures. If you've had eyelid surgery elsewhere and are unhappy with the results (asymmetry, scarring, or unnatural outcomes), Dr Sabrina offers expert revision procedures designed to restore natural balance.",
         ],
       },
     ],
@@ -386,7 +386,7 @@ const SECTIONS: Section[] = [
     id: "step-4",
     tone: "fog",
     step: 4,
-    heading: { lead: "Back to skincare — ", accent: "maintaining your results." },
+    heading: { lead: "Back to skincare: ", accent: "maintaining your results." },
     intro:
       "Incorporate The Relax & Refresh Duo into your daily routine to gently cleanse, deeply hydrate, and calm the eye area while supporting long-term skin comfort and resilience. The Eye Regenerate LED Mask enhances post-treatment recovery by stimulating cellular repair.",
     callout:
@@ -405,14 +405,14 @@ const ROUTINE = [
   {
     icon: "pulse",
     name: "Eye Regenerate LED Mask",
-    cadence: "3–5 times weekly",
+    cadence: "3-5 times weekly",
     detail: "Enhances cellular repair and prolongs the benefits of professional procedures.",
   },
   {
     icon: "shield",
     name: "Eye Protect SPF30 Cream",
     cadence: "Daily",
-    detail: "Protects against UV damage — a critical step in preventing future ageing.",
+    detail: "Protects against UV damage, a critical step in preventing future ageing.",
   },
 ];
 
@@ -661,7 +661,7 @@ export function EyeCareJourney({
         siteUrl={siteUrl}
         eyebrow="The Perfect360™ Experience"
         h1="The Journey of Eye Care: A Lifelong Commitment to Your Vision"
-        lead="A guided pathway for eye, face and skin health — from everyday skincare through to surgery and the long-term care that keeps your results looking their best."
+        lead="A guided pathway for eye, face and skin health, from everyday skincare through to surgery and the long-term care that keeps your results looking their best."
       />
 
       {/* ── Opening statement and roadmap ───────────────────────────────── */}
@@ -677,14 +677,10 @@ export function EyeCareJourney({
             </h2>
             <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
             <p className={styles.introLead}>
-              Our eyes are more than a feature &mdash; they&rsquo;re our storytellers. They smile
-              before our lips do, tear up when words fall short, and reflect joy, exhaustion,
-              wisdom, and wonder.
-            </p>
-            <p className={styles.introLead}>
-              Dr Sabrina&rsquo;s approach is rooted in her unparalleled knowledge of peri-orbital
-              anatomy. Her 360-degree philosophy addresses both aesthetic and functional concerns,
-              ensuring your eyes not only look vibrant but also feel healthy.
+              Our eyes are our storytellers. Rooted in her unparalleled knowledge of
+              peri-orbital anatomy, Dr Sabrina&rsquo;s 360-degree philosophy addresses both
+              aesthetic and functional concerns, so your eyes not only look vibrant but also
+              feel healthy.
             </p>
           </div>
 
@@ -702,7 +698,7 @@ export function EyeCareJourney({
               ))}
             </ul>
             <p className={styles.traitsNote}>
-              The skin around your eyes is different from the rest of your face &mdash; which is
+              The skin around your eyes is different from the rest of your face, which is
               why it&rsquo;s often the first to show signs of fatigue, dryness, or ageing.
             </p>
           </div>
@@ -810,7 +806,7 @@ export function EyeCareJourney({
             </p>
             <p className={styles.manifestoText}>
               During your consultation, Dr Sabrina assesses your concerns, lifestyle, and goals,
-              weaving together skincare, treatments, and surgery as needed &mdash; ensuring results
+              weaving together skincare, treatments, and surgery as needed, ensuring results
               that feel authentically you.
             </p>
             <div className={styles.manifestoCta}>

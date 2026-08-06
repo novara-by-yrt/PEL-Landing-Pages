@@ -312,12 +312,12 @@
   justify-content: center;
   min-width: 0;
 }
-.proseBody { margin-top: 22px; }
+.proseBody { margin-top: 20px; }
 .proseBody p {
   font-size: var(--fs-body-md);
   line-height: var(--lh-relaxed);
   color: var(--tp-slate);
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   max-width: 58ch;
 }
 .proseBody p:last-child { margin-bottom: 0; }
@@ -332,8 +332,8 @@
 
 /* ── Structured blocks under the prose ──────────────────────────────────── */
 .aside {
-  margin-top: clamp(26px, 4vw, 34px);
-  padding-top: clamp(24px, 3.5vw, 30px);
+  margin-top: clamp(20px, 3vw, 26px);
+  padding-top: clamp(18px, 2.5vw, 23px);
   border-top: 1px solid var(--tp-hairline);
 }
 .asideLabel {
@@ -343,14 +343,14 @@
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tp-lavender-600);
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 
 /* Awards — a year rail beside the citation, so the list scans by date. */
 .awards {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -358,8 +358,8 @@
 .award {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4px;
-  padding: 13px 16px;
+  gap: 3px;
+  padding: 10px 14px;
   border-radius: var(--tp-radius-md);
   background: var(--tp-paper);
   border: 1px solid var(--tp-line);
