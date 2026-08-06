@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { TreatmentExpert, TreatmentCTA } from "@/components/treatment";
+import ContactSection from "@/components/home/ContactSection";
 import { EyeCareJourney } from "@/components/journey/EyeCareJourney";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 const URL = `${SITE_URL}/journey-of-eye-care`;
 const DESCRIPTION =
-  "A lifelong, four-step approach to eye care — skincare, non-surgical treatments, surgery and long-term maintenance, guided by Dr Sabrina Shah-Desai.";
+  "A lifelong, four-step approach to eye care: skincare, non-surgical treatments, surgery and long-term maintenance, guided by Dr Sabrina Shah-Desai.";
 
 export const metadata: Metadata = {
   title: "The Journey of Eye Care | Perfect Eyes Ltd",
@@ -43,6 +44,7 @@ export default function JourneyOfEyeCarePage() {
       <div className="tp">
         <TreatmentExpert />
         <TreatmentCTA />
+        <ContactSection />
       </div>
     </>
   );
