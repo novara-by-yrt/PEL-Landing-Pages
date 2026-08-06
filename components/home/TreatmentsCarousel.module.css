@@ -49,9 +49,16 @@
 }
 
 /* ── Prev / next ────────────────────────────────────────────────────────── */
+/* Hidden on phones: the rail is swipeable there, so the buttons only crowd
+   the tabs and pull them off centre. They come back once there is room. */
 .arrows {
-  display: flex;
+  display: none;
   gap: 10px;
+}
+@media (min-width: 640px) {
+  .arrows {
+    display: flex;
+  }
 }
 .arrow {
   display: grid;
