@@ -526,10 +526,16 @@ export function DrSabrinaBio({
             </div>
 
             <figure className={styles.heroFigure}>
+              {/* Intrinsic rather than `fill`: on phones the figure takes its
+                  height from the photograph, so the frame is exactly the image
+                  at full container width — nothing cropped and no letterbox.
+                  width/height only reserve space before it loads; `height:
+                  auto` hands the final ratio back to the file itself. */}
               <Image
                 src="/uploads/2024/10/A59Z5738ggcopy-1.jpg"
                 alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon, in her clinic"
-                fill
+                width={1200}
+                height={1500}
                 sizes="(min-width: 900px) 44vw, 100vw"
                 loading="eager"
                 className={styles.heroImg}
@@ -574,7 +580,8 @@ export function DrSabrinaBio({
                 <Image
                   src={panel.image}
                   alt={panel.imageAlt}
-                  fill
+                  width={1200}
+                  height={1500}
                   sizes="(min-width: 1000px) 46vw, 100vw"
                   className={styles.figureImg}
                 />
