@@ -9,6 +9,7 @@ import {
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
+import ContactSection from "@/components/home/ContactSection";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
@@ -224,13 +225,19 @@ function TreatmentPage({
         <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
         <TreatmentContent content={content} />
         <TreatmentExpert />
-        <TreatmentPricing pricing={treatment.pricing} title={frontmatter.title} />
+        <TreatmentPricing
+          pricing={treatment.pricing}
+          title={frontmatter.title}
+          pricingTitle={treatment.pricingTitle}
+          pricingLead={treatment.pricingLead}
+        />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
         <TreatmentReviews reviews={treatment.reviews} />
         <TreatmentSimilar items={treatment.similarTreatments} />
         <TreatmentCTA />
         <RelatedBlogs />
         <RealSelfWidget />
+        <ContactSection />
       </div>
     </>
   );
