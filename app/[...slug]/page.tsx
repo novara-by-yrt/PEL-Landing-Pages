@@ -176,7 +176,16 @@ export default async function CatchAllPageRoute({
   );
 
   if (treatment) {
-    return <TreatmentPage treatment={treatment} frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;
+    return (
+      <TreatmentPage
+        treatment={treatment}
+        treatmentSlug={fileSlug}
+        frontmatter={frontmatter}
+        content={content}
+        breadcrumbItems={breadcrumbItems}
+        schemas={schemas}
+      />
+    );
   }
 
   if (fileSlug === "dr-sabrina-shah-desai") {
@@ -195,12 +204,14 @@ export default async function CatchAllPageRoute({
 
 function TreatmentPage({
   treatment,
+  treatmentSlug,
   frontmatter,
   content,
   breadcrumbItems,
   schemas,
 }: {
   treatment: TreatmentMeta;
+  treatmentSlug: string;
   frontmatter: PostFrontmatter;
   content: string;
   breadcrumbItems: BreadcrumbItem[];
@@ -233,7 +244,7 @@ function TreatmentPage({
         />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
         <TreatmentReviews reviews={treatment.reviews} />
-        <TreatmentSimilar items={treatment.similarTreatments} />
+        <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />
         <RealSelfWidget />
