@@ -1,0 +1,189 @@
+/* The treatment page's long-form body.
+
+   An editorial column inside a paper card, on the same tinted field the rest
+   of the page uses. Headings carry the brand rule, lists become ticked rows,
+   and the measure is held to ~68 characters. Mobile-first. */
+
+.tpContent {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(44px, 5.5vw, 88px);
+  background: linear-gradient(180deg, var(--tp-paper), var(--tp-lavender-050));
+}
+.tpContentGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(26% 34% at 8% 12%, rgba(188, 160, 221, 0.24), transparent 70%),
+    radial-gradient(24% 32% at 94% 88%, rgba(138, 132, 186, 0.2), transparent 72%);
+  filter: blur(26px);
+}
+
+.tpContentCard {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: clamp(24px, 4vw, 56px);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-xl);
+  background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-md);
+}
+
+.tpContentBody {
+  color: var(--tp-slate);
+  font-family: var(--tp-body);
+}
+
+/* ── Headings ─────────────────────────────────────────────────────────────
+   Each section heading carries a short brand rule above it, so a long body
+   reads as a sequence of parts rather than one undifferentiated run. */
+.tpContentBody h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 3vw, 1.75rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: clamp(36px, 5vw, 52px) 0 0;
+  text-wrap: balance;
+}
+.tpContentBody h2::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+}
+.tpContentBody > h2:first-child {
+  margin-top: 0;
+}
+
+.tpContentBody h3,
+.tpContentBody h4 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--tp-ink);
+  margin: clamp(26px, 3.5vw, 34px) 0 0;
+}
+.tpContentBody h3 { font-size: var(--fs-heading-md); }
+.tpContentBody h4 { font-size: var(--fs-heading-sm); }
+
+/* ── Body copy ────────────────────────────────────────────────────────── */
+.tpContentBody p {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 16px 0 0;
+  max-width: 68ch;
+}
+.tpContentBody b,
+.tpContentBody strong {
+  font-weight: 600;
+  color: var(--tp-ink);
+}
+.tpContentBody a {
+  color: var(--tp-indigo-700);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.tpContentBody a:hover { color: var(--tp-indigo-600); }
+
+/* ── Lists ────────────────────────────────────────────────────────────────
+   Ticked rows rather than bullets, matching the credential lists elsewhere. */
+.tpContentBody ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  max-width: 68ch;
+}
+.tpContentBody ul li {
+  position: relative;
+  padding-left: 30px;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--tp-ink);
+}
+.tpContentBody ul li::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--tp-lavender-100);
+  border: 1.5px solid var(--tp-lavender-300);
+}
+.tpContentBody ul li::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  width: 6px;
+  height: 3px;
+  border-left: 1.5px solid var(--tp-indigo-700);
+  border-bottom: 1.5px solid var(--tp-indigo-700);
+  transform: rotate(-45deg);
+}
+
+.tpContentBody ol {
+  margin: 18px 0 0;
+  padding-left: 1.25rem;
+  list-style: decimal;
+  max-width: 68ch;
+}
+.tpContentBody ol li {
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--tp-ink);
+  margin-bottom: 8px;
+}
+
+.tpContentBody blockquote {
+  margin: clamp(22px, 3vw, 28px) 0 0;
+  padding: 18px 20px;
+  border: 1px solid var(--tp-lavender-200);
+  border-left: 3px solid var(--tp-gold);
+  border-radius: var(--tp-radius-md);
+  background: var(--tp-lavender-050);
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+  color: var(--tp-slate);
+}
+.tpContentBody blockquote p { margin: 0; }
+
+.tpContentBody img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: clamp(22px, 3vw, 30px) 0 0;
+  border-radius: var(--tp-radius-lg);
+  box-shadow: var(--tp-shadow-sm);
+}
+
+.tpContentBody table {
+  width: 100%;
+  margin: clamp(22px, 3vw, 30px) 0 0;
+  border-collapse: collapse;
+  font-size: var(--fs-body-sm);
+}
+.tpContentBody th,
+.tpContentBody td {
+  padding: 12px 14px;
+  border: 1px solid var(--tp-line);
+  text-align: left;
+}
+.tpContentBody th {
+  background: var(--tp-lavender-050);
+  color: var(--tp-ink);
+  font-weight: 600;
+}
