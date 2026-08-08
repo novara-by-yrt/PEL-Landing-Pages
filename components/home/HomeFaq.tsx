@@ -18,7 +18,24 @@ export type HomeFaqItem = { question: string; answer: string };
  * stay in the DOM. A `<details>` element hides its content outright when
  * closed, so it cannot transition.
  */
-export default function HomeFaq({ items }: { items: HomeFaqItem[] }) {
+export default function HomeFaq({
+  items,
+  eyebrow = "Good to know",
+  title = "Your questions, answered",
+  lead = "Still unsure? Our team is glad to talk you through anything before you book.",
+  /* Treatment FAQ questions and answers arrive as HTML from MDX (entities
+     included); the home page's are plain text. Both render through the same
+     panel. */
+  contentIsHtml = false,
+  footer,
+}: {
+  items: HomeFaqItem[];
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  contentIsHtml?: boolean;
+  footer?: React.ReactNode;
+}) {
   const [openIndex, setOpenIndex] = useState(0);
   const baseId = useId();
 
@@ -31,14 +48,13 @@ export default function HomeFaq({ items }: { items: HomeFaqItem[] }) {
           <div className={styles.intro}>
             <span className={styles.eyebrow}>
               <TpIcon name="shield" size={13} />
-              Good to know
+              {eyebrow}
             </span>
             <h2 id={`${baseId}-title`} className={styles.title}>
-              Your questions, answered
+              {title}
             </h2>
-            <p className={styles.lead}>
-              Still unsure? Our team is glad to talk you through anything before you book.
-            </p>
+            <p className={styles.lead}>{lead}</p>
+            {footer && <div className={styles.footer}>{footer}</div>}
           </div>
 
           <ul className={styles.list}>
@@ -62,7 +78,11 @@ export default function HomeFaq({ items }: { items: HomeFaqItem[] }) {
                       aria-controls={panelId}
                       onClick={() => setOpenIndex(open ? -1 : i)}
                     >
-                      <span>{item.question}</span>
+                      {contentIsHtml ? (
+                        <span dangerouslySetInnerHTML={{ __html: item.question }} />
+                      ) : (
+                        <span>{item.question}</span>
+                      )}
                       <span className={styles.toggle} aria-hidden="true">
                         <svg viewBox="0 0 24 24" className={styles.toggleIcon}>
                           <path d="M5 12h14" strokeLinecap="round" />
@@ -79,7 +99,14 @@ export default function HomeFaq({ items }: { items: HomeFaqItem[] }) {
                     className={styles.answerWrap}
                   >
                     <div className={styles.answerInner}>
-                      <p className={styles.answer}>{item.answer}</p>
+                      {contentIsHtml ? (
+                        <div
+                          className={styles.answer}
+                          dangerouslySetInnerHTML={{ __html: item.answer }}
+                        />
+                      ) : (
+                        <p className={styles.answer}>{item.answer}</p>
+                      )}
                     </div>
                   </div>
                 </li>

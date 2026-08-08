@@ -227,3 +227,26 @@
     transition: none;
   }
 }
+
+/* Optional slot under the intro copy — the treatment pages put their
+   "ask a question" CTA here rather than below the accordion. */
+.footer {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+
+/* Treatment answers arrive as HTML, so the elements inside need the same
+   rhythm the plain-text answer paragraph already has. */
+.answer p { margin: 0 0 0.75rem; }
+.answer p:last-child { margin-bottom: 0; }
+.answer ul,
+.answer ol { margin: 0 0 0.75rem; padding-left: 1.25rem; }
+.answer ul { list-style: disc; }
+.answer ol { list-style: decimal; }
+.answer li { margin-bottom: 0.35rem; }
+.answer a {
+  color: var(--tp-indigo-700);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.answer strong { color: var(--tp-ink); font-weight: 600; }

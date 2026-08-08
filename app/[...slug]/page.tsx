@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs, pageExistsExact, type PostFrontmatter } from "@/lib/mdx";
 import {
@@ -10,6 +11,10 @@ import {
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import ContactSection from "@/components/home/ContactSection";
+import PatientStories from "@/components/home/PatientStories";
+import HomeFaq from "@/components/home/HomeFaq";
+import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
+import { PATIENT_STORIES } from "@/lib/reviews";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
@@ -20,10 +25,8 @@ import {
   TreatmentFactBar,
   TreatmentAdvantages,
   TreatmentContent,
-  TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
-  TreatmentReviews,
   RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
@@ -201,6 +204,16 @@ export default async function CatchAllPageRoute({
 }
 
 // ── Treatment page layout ────────────────────────────────────────────────────
+//
+// Every treatment renders through this one component, so a section changed
+// here changes on all of them — that is the intent, and new treatments pick it
+// up with no extra work.
+//
+// Three of the sections are the home page's own components rather than
+// treatment-only variants, and should stay that way:
+//   • MeetDrSabrina  — the home About panel, with the treatment page's title.
+//   • HomeFaq        — the home accordion, fed the page's own FAQ items.
+//   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
 
 function TreatmentPage({
   treatment,
@@ -235,15 +248,26 @@ function TreatmentPage({
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
         <TreatmentContent content={content} />
-        <TreatmentExpert />
+        <MeetDrSabrina id="expert" title="Meet the Expert: Dr Sabrina Shah-Desai" />
         <TreatmentPricing
           pricing={treatment.pricing}
           title={frontmatter.title}
           pricingTitle={treatment.pricingTitle}
           pricingLead={treatment.pricingLead}
         />
-        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
-        <TreatmentReviews reviews={treatment.reviews} />
+        <HomeFaq
+          items={frontmatter.faq ?? []}
+          eyebrow={`Patient questions about ${frontmatter.title}`}
+          title="Frequently asked questions"
+          lead="Call or email us today, we would be delighted to answer your questions."
+          contentIsHtml
+          footer={
+            <Link href="/contact" className="tp-btn tp-btn-primary">
+              Ask a Question or Book an Appointment
+            </Link>
+          }
+        />
+        <PatientStories stories={PATIENT_STORIES} />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />
