@@ -1,17 +1,103 @@
-.tpOverviewGrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
-.tpOverviewGrid.noImage { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
-@media (max-width: 860px) { .tpOverviewGrid { grid-template-columns: 1fr; } }
-.tpOverviewText p { font-size: 1.0625rem; line-height: 1.72; color: var(--tp-slate); margin: 1.1rem 0 0; }
-.tpOverviewText p:first-of-type { margin-top: 1.4rem; }
-.tpOverviewFrame {
-  position: relative; width: 100%; aspect-ratio: 4 / 3.2; border-radius: var(--tp-radius-xl);
-  background: linear-gradient(150deg, var(--tp-lavender-200), var(--tp-lavender-050));
-  box-shadow: var(--tp-shadow-md); overflow: hidden;
+/* Condition-page overview ("What is X?").
+
+   Written in the home page's design language: a display-serif heading with a
+   brand rule, a lavender bloom behind the field, and a hover-lift on the
+   photograph — rather than an inline-styled heading on a bare white field.
+   Mobile-first. */
+
+.tpOverview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
-.tpOverviewFrame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tpOverviewGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(26% 34% at 10% 16%, rgba(188, 160, 221, 0.22), transparent 70%),
+    radial-gradient(24% 32% at 92% 84%, rgba(138, 132, 186, 0.18), transparent 72%);
+  filter: blur(28px);
+}
+
+.tpOverviewGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+.tpOverviewGrid.noImage {
+  grid-template-columns: 1fr;
+  max-width: 780px;
+  margin-inline: auto;
+  text-align: center;
+}
+.noImage .tpOverviewRule { margin-inline: auto; }
+
+.tpOverviewHeading {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  line-height: 1.18;
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 14px 0 0;
+  text-wrap: balance;
+}
+.tpOverviewRule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 18px 0 0;
+}
+
+.tpOverviewText p {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--tp-slate);
+  margin: 1.1rem 0 0;
+}
+.tpOverviewText p:first-of-type { margin-top: 1.4rem; }
+
+.tpOverviewFrame {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 4 / 3.2;
+  border-radius: var(--tp-radius-xl);
+  background: linear-gradient(150deg, var(--tp-lavender-200), var(--tp-lavender-050));
+  box-shadow: var(--tp-shadow-md);
+  overflow: hidden;
+}
+.tpOverviewImg {
+  object-fit: cover;
+  transition: transform 600ms var(--tp-ease);
+}
+.tpOverviewFrame:hover .tpOverviewImg { transform: scale(1.04); }
 .tpOverviewBadge {
-  position: absolute; top: 18px; left: 18px; z-index: 2;
-  padding: 7px 14px; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);
-  border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--tp-indigo-700);
+}
+
+@media (min-width: 861px) {
+  .tpOverviewGrid { grid-template-columns: 1.1fr 0.9fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpOverviewImg { transition: none; }
+  .tpOverviewFrame:hover .tpOverviewImg { transform: none; }
 }

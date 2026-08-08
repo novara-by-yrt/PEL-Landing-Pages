@@ -20,13 +20,16 @@ export function TreatmentOverview({
   const hasImage = Boolean(image);
 
   return (
-    <section className="tp-section">
+    <section className={`tp-section ${styles.tpOverview}`}>
+      <span className={styles.tpOverviewGlow} aria-hidden="true" />
       <div className={`container ${styles.tpOverviewGrid}${hasImage ? "" : ` ${styles.noImage}`}`}>
         <div>
-          <span className="tp-eyebrow"><TpIcon name="clipboard" size={13} />{eyebrow}</span>
-          <h2 style={{ fontFamily: "var(--tp-display)", fontWeight: 600, fontSize: "clamp(1.6rem, 3.2vw, 2.35rem)", lineHeight: 1.18, letterSpacing: "-0.01em", color: "var(--tp-ink)", margin: "14px 0 0" }}>
-            {heading}
-          </h2>
+          <span className="tp-eyebrow">
+            <TpIcon name="clipboard" size={13} />
+            {eyebrow}
+          </span>
+          <h2 className={styles.tpOverviewHeading}>{heading}</h2>
+          <span className={styles.tpOverviewRule} aria-hidden="true" />
           <div className={styles.tpOverviewText}>
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -35,10 +38,17 @@ export function TreatmentOverview({
         </div>
 
         {hasImage && (
-          <div className={styles.tpOverviewFrame}>
+          <figure className={styles.tpOverviewFrame}>
             {imageBadge && <span className={styles.tpOverviewBadge}>{imageBadge}</span>}
-            <Image src={image!} alt={heading} fill sizes="(max-width: 860px) 100vw, 45vw" loading="lazy" />
-          </div>
+            <Image
+              src={image!}
+              alt={heading}
+              fill
+              sizes="(max-width: 860px) 100vw, 45vw"
+              loading="lazy"
+              className={styles.tpOverviewImg}
+            />
+          </figure>
         )}
       </div>
     </section>

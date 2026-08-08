@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TpIcon } from "./TpIcon";
 import type { SimilarTreatmentItem } from "./types";
 import styles from "./TreatmentSpotlight.module.css";
@@ -20,21 +21,36 @@ export function TreatmentSpotlight({
   if (items.length === 0) return null;
 
   return (
-    <section className="tp-section tp-fog">
+    <section className={`tp-section tp-fog ${styles.tpSpotlightSection}`}>
+      <span className={styles.tpSpotlightGlow} aria-hidden="true" />
       <div className="container">
-        <div className="tp-head">
-          <span className="tp-eyebrow"><TpIcon name="compass" size={13} />{eyebrow}</span>
+        <div className="tp-head tp-center">
+          <span className="tp-eyebrow">
+            <TpIcon name="compass" size={13} />
+            {eyebrow}
+          </span>
           <h2>{heading}</h2>
+          <span className={styles.tpSpotlightRule} aria-hidden="true" />
         </div>
 
         <div className={styles.tpSpotlightList}>
           {items.map((t) => (
             <div key={t.title} className={styles.tpSpotlight}>
               <div className={styles.tpSpotlightMedia}>
-                <Image src={t.image} alt={t.title} fill sizes="(max-width: 780px) 100vw, 45vw" loading="lazy" />
+                <Image
+                  src={t.image}
+                  alt={t.title}
+                  fill
+                  sizes="(max-width: 780px) 100vw, 45vw"
+                  loading="lazy"
+                  className={styles.tpSpotlightImg}
+                />
               </div>
               <div className={styles.tpSpotlightBody}>
-                <span className={styles.tpSpotlightTag}><TpIcon name="shield" size={13} />Recommended Procedure</span>
+                <span className={styles.tpSpotlightTag}>
+                  <TpIcon name="shield" size={13} />
+                  Recommended Procedure
+                </span>
                 <h3>{t.title}</h3>
                 {t.description && <p>{t.description}</p>}
 
@@ -57,9 +73,12 @@ export function TreatmentSpotlight({
                     </div>
                   )}
                   {t.href && (
-                    <a href={t.href} className="tp-btn tp-btn-primary">
-                      View Treatment Details <TpIcon name="arrow" size={17} />
-                    </a>
+                    <Link href={t.href} className="tp-btn tp-btn-primary">
+                      View Treatment Details
+                      <span className="tp-btn-arrow" aria-hidden="true">
+                        <TpIcon name="arrow" size={16} />
+                      </span>
+                    </Link>
                   )}
                 </div>
               </div>

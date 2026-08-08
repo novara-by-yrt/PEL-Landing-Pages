@@ -7,16 +7,19 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/schema";
+import Link from "next/link";
 import { resolveHeroImage, ACCREDITATION_LOGOS } from "@/lib/page-utils";
-import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
+import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
+import HomeFaq from "@/components/home/HomeFaq";
+import PatientStories from "@/components/home/PatientStories";
+import { PATIENT_STORIES } from "@/lib/reviews";
 import {
   PageHero,
   TreatmentOverview,
   TreatmentAdvantages,
   TreatmentSpotlight,
   TreatmentSimilar,
-  TreatmentExpert,
-  TreatmentFAQ,
   TreatmentCTA,
 } from "@/components/treatment";
 
@@ -56,6 +59,13 @@ export async function generateMetadata({
 // causes, accreditation strip, related-treatment spotlight, expert section,
 // FAQ, CTA — all driven by frontmatter so each condition's MDX file (in
 // content/condition/) stays the single source of truth.
+//
+// Three sections are the home page's own components, not condition-page
+// variants, matching the treatment template's convention — see the comment
+// above TreatmentPage in app/[...slug]/page.tsx:
+//   • MeetDrSabrina  — the home About panel, with this page's own title.
+//   • HomeFaq        — the home accordion, fed the page's own FAQ items.
+//   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
 export default async function ConditionPage({
   params,
 }: {
@@ -125,9 +135,7 @@ export default async function ConditionPage({
         )}
 
         {frontmatter.showAccreditation && (
-          <div style={{ background: "#fff", padding: "2.5rem 0", borderTop: "1px solid var(--tp-line)", borderBottom: "1px solid var(--tp-line)" }}>
-            <AutoScrollCarousel items={ACCREDITATION_LOGOS} speed={35} />
-          </div>
+          <AccreditedStrip logos={ACCREDITATION_LOGOS} />
         )}
 
         {frontmatter.relatedTreatments && frontmatter.relatedTreatments.length > 0 && (
@@ -146,9 +154,23 @@ export default async function ConditionPage({
           )
         )}
 
-        {frontmatter.showExpertSection && <TreatmentExpert />}
+        {frontmatter.showExpertSection && (
+          <MeetDrSabrina id="expert" title="Meet the Expert: Dr Sabrina Shah-Desai" />
+        )}
 
-        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
+        <HomeFaq
+          items={frontmatter.faq ?? []}
+          eyebrow={`Patient questions about ${frontmatter.title}`}
+          title="Frequently asked questions"
+          lead="Call or email us today, we would be delighted to answer your questions."
+          contentIsHtml
+          footer={
+            <Link href="/contact" className="tp-btn tp-btn-primary">
+              Ask a Question or Book an Appointment
+            </Link>
+          }
+        />
+        <PatientStories stories={PATIENT_STORIES} />
         <TreatmentCTA />
       </div>
     </>
