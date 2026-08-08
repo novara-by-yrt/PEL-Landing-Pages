@@ -1,5 +1,6 @@
 .tpOverviewGrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
 .tpOverviewGrid.noImage { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
+.tpOverviewGrid.imageLeft { grid-template-columns: 0.9fr 1.1fr; }
 @media (max-width: 860px) { .tpOverviewGrid { grid-template-columns: 1fr; } }
 .tpOverviewText p { font-size: 1.0625rem; line-height: 1.72; color: var(--tp-slate); margin: 1.1rem 0 0; }
 .tpOverviewText p:first-of-type { margin-top: 1.4rem; }

@@ -12,6 +12,8 @@ export function TreatmentHero({
   subtitle,
   heroImage,
   heroImageAlt,
+  heroBadge = "Before & After",
+  heroBg,
 }: {
   breadcrumbItems: BreadcrumbItem[];
   siteUrl: string;
@@ -20,10 +22,15 @@ export function TreatmentHero({
   subtitle?: string;
   heroImage?: string;
   heroImageAlt: string;
+  heroBadge?: string;
+  heroBg?: string;
 }) {
   return (
     <section className={styles.tpHero}>
 
+      {heroBg && (
+        <Image src={heroBg} alt="" fill priority className={styles.tpHeroBg} aria-hidden="true" />
+      )}
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowA}`} />
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowB}`} />
       <div className={`container ${styles.tpHeroInner}`}>
@@ -60,7 +67,7 @@ export function TreatmentHero({
 
         <div className={styles.tpHeroRight}>
           <div className={styles.tpHeroFrame}>
-            <span className={styles.tpHeroBadge}>Before &amp; After</span>
+            {heroBadge && <span className={styles.tpHeroBadge}>{heroBadge}</span>}
             {heroImage && (
               /* Above the fold — LCP element on treatment pages. */
               <Image src={heroImage} alt={heroImageAlt} fill sizes="(max-width: 980px) 100vw, 42vw" priority />

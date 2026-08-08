@@ -10,6 +10,7 @@ import {
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
+import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
@@ -19,6 +20,7 @@ import {
   TreatmentHero,
   TreatmentFactBar,
   TreatmentAdvantages,
+  TreatmentOverview,
   TreatmentContent,
   TreatmentExpert,
   TreatmentPricing,
@@ -220,9 +222,20 @@ function TreatmentPage({
           subtitle={treatment.subtitle}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
+          heroBadge={treatment.heroBadge}
+          heroBg={treatment.heroBg}
         />
+        <AccreditedStrip />
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
+        {frontmatter.overviewPanels?.map((panel, i) => (
+          <TreatmentOverview
+            key={i}
+            {...panel}
+            heading={panel.heading || frontmatter.title}
+            imageSide={i % 2 === 0 ? "right" : "left"}
+          />
+        ))}
         <TreatmentContent content={content} />
         <BeforeAfterGallery
           gallery={frontmatter.gallery}

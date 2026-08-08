@@ -2426,5 +2426,71 @@
         "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
       }
     ]
+  },
+  "eyeball-removal": {
+    "heroImage": "/uploads/2018/11/blind-eye-removal-diagram.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "heroBadge": "Surgical Procedure",
+    "h1": "Blind Eye Removal",
+    "subtitle": "For a blind eye that is painful or disfigured, or an eye with a malignant tumour.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "60–90 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "General"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Day Case"
+      },
+      {
+        "label": "Eye Padded",
+        "value": "First 48 Hours"
+      },
+      {
+        "label": "Artificial Eye Fitted",
+        "value": "After 4–6 Weeks"
+      }
+    ],
+    "advantages": [],
+    "pricing": [],
+    "similarTreatments": [],
+    "type": "surgical"
+  },
+  "artificial-eye-implants": {
+    "heroImage": "/uploads/2018/11/Artificial-Eyes-and-Orbital-Implants-london-uk.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "heroBadge": "Surgical Procedure",
+    "h1": "Artificial Eyes and Orbital Implants",
+    "subtitle": "To rebuild the eye socket after removal of a blind eye.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "60–90 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "General"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Day Case"
+      },
+      {
+        "label": "Eye Padded",
+        "value": "First 48 Hours"
+      },
+      {
+        "label": "Artificial Eye Fitted",
+        "value": "After 4–6 Weeks"
+      }
+    ],
+    "advantages": [],
+    "pricing": [],
+    "similarTreatments": [],
+    "type": "surgical"
   }
 }

@@ -67,6 +67,7 @@ export interface PostFrontmatter {
   schema?: SchemaData;
   faq?: FaqItem[];
   overview?: OverviewData;
+  overviewPanels?: OverviewData[];
   causes?: CauseItem[];
   causesEyebrow?: string;
   causesHeading?: string;
