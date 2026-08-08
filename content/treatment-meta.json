@@ -2307,5 +2307,124 @@
         "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
       }
     ]
+  },
+  "blepharoplasty-treatment-in-london": {
+    "heroImage": "/uploads/2024/08/blepharoplasty.png",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Blepharoplasty Treatment in London",
+    "subtitle": "Achieve bright, youthful eyes with comprehensive enhancement for upper and lower eyelids. Our precise approach targets both areas, reducing puffiness and restoring the radiance in your eyes.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "1–2 Hours"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Local, Sedation or General"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Day Case"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 Week"
+      },
+      {
+        "label": "Final results",
+        "value": "10 Years to a Lifetime"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Refreshed and Youthful Appearance",
+        "description": "Blepharoplasty helps to remove saggy skin and fat, giving your eyes a smoother and more youthful look."
+      },
+      {
+        "title": "Enhanced Confidence",
+        "description": "With a more rejuvenated appearance, blepharoplasty can boost your self-confidence and overall quality of life."
+      },
+      {
+        "title": "Reduced Eye Strain",
+        "description": "Blepharoplasty can reduce eye strain and fatigue, making it easier to read, drive, and perform daily tasks."
+      },
+      {
+        "title": "Improved Vision",
+        "description": "By removing excess skin, blepharoplasty can improve your visual field."
+      }
+    ],
+    "pricing": [
+      "From £14,000 inclusive of hospital and anaesthetist charges, under general anaesthetic. Pre-assessment tests and an overnight stay may be required at an additional cost.",
+      "Dr Sabrina Shah-Desai consults at 121 Harley Street and performs the blepharoplasty operation at the Hospital of St John & St Elizabeth."
+    ],
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg",
+        "description": "For moderate to severe saggy eyelids"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg",
+        "description": "For removing moderate to severe eye bags"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg",
+        "description": "Puffy, saddle-bag swelling on the upper cheeks"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg",
+        "description": "Ptosis is a drooping of the upper eyelid"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
+        "description": "Upper-lid crease assessment and refinement"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg",
+        "description": "Chalazion, xanthelasma"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
+        "description": "Revolutionary minimally invasive jawline lift"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
+        "description": "Chin, jawline, marionette and nasolabial folds, cheek and temples fillers"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
   }
 }
