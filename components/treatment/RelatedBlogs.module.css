@@ -1,1 +1,23 @@
-.tpBlogsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.75rem; margin-top: 2.5rem; }
+.tpBlogsRule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 16px auto 0;
+}
+
+/* Three across rather than as-many-as-fit: six posts then make two full rows
+   instead of four and a stranded pair. */
+.tpBlogsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2vw, 22px);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 560px) {
+  .tpBlogsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1000px) {
+  .tpBlogsGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
