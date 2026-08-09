@@ -1,0 +1,86 @@
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-paper) 78%);
+  padding: clamp(3rem, 6vw, 5rem) 1.5rem;
+}
+.heroInner {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center;
+}
+@media (max-width: 860px) { .heroInner { grid-template-columns: 1fr; text-align: center; } }
+.heroTitle {
+  font-family: var(--tp-display); font-weight: 600; font-size: clamp(2.2rem, 4.6vw, 3.2rem);
+  line-height: 1.12; color: var(--tp-ink); margin: 16px 0 12px;
+}
+.heroTagline { font-size: 1.25rem; color: var(--tp-indigo-700); font-weight: 600; margin: 0 0 6px; }
+.heroSub { font-size: 1.0625rem; color: var(--tp-slate); margin: 0 0 28px; }
+.heroImageWrap {
+  position: relative; width: 100%; max-width: 420px; height: 420px; margin: 0 auto;
+  background: radial-gradient(circle at 50% 35%, var(--tp-lavender-100), transparent 70%);
+  border-radius: 50%;
+}
+.heroImageWrap img { object-fit: contain !important; padding: 1rem; }
+
+.aboutBlock { max-width: 680px; margin: 0 auto; text-align: center; }
+.aboutBlock h2 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.6rem, 3.2vw, 2.2rem); color: var(--tp-ink); margin: 14px 0 18px; }
+.aboutBlock p { font-size: 1.0625rem; line-height: 1.7; color: var(--tp-slate); margin: 0 0 1rem; }
+
+.plansHead { max-width: 640px; margin: 0 auto 3rem; }
+.plansHead p { margin-top: 0.75rem; color: var(--tp-slate); }
+
+.plansGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.75rem; }
+.planCard {
+  background: #fff; border-radius: var(--tp-radius-lg); overflow: hidden;
+  box-shadow: var(--tp-shadow-sm); display: flex; flex-direction: column;
+}
+.planImage { position: relative; width: 100%; aspect-ratio: 1 / 1; }
+.planImage img { object-fit: cover; }
+.planBody { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.planBody h3 { font-family: var(--tp-display); font-weight: 600; font-size: 1.25rem; color: var(--tp-ink); margin: 0 0 4px; }
+.planTagline { font-size: 0.875rem; color: var(--tp-mist); font-style: italic; margin: 0 0 12px; }
+.planPrice { font-family: var(--tp-display); font-weight: 600; font-size: 1.75rem; color: var(--tp-indigo-700); margin: 0 0 16px; }
+.planPrice span { font-family: var(--tp-body); font-weight: 400; font-size: 0.9rem; color: var(--tp-mist); }
+.planBody h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tp-slate); margin: 0.75rem 0 0.5rem; }
+.planBody ul { margin: 0 0 0.5rem; padding-left: 1.1rem; }
+.planBody li { font-size: 0.875rem; line-height: 1.55; color: var(--tp-slate); margin-bottom: 0.4rem; }
+.planBody .tp-btn { margin-top: auto; }
+.planBody button { margin-top: 1.25rem; width: 100%; justify-content: center; }
+
+.financeBlock { max-width: 620px; margin: 0 auto; text-align: center; }
+.financeBlock h2 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--tp-ink); margin: 0 0 14px; }
+.financeBlock p { font-size: 1rem; color: var(--tp-slate); line-height: 1.65; }
+.financeLogos { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1.75rem 0; }
+.financeLogos img { height: 32px; width: auto; }
+.financeLogos span { color: var(--tp-mist); font-size: 1.25rem; }
+.financeNote { font-size: 0.8125rem; color: var(--tp-mist); }
+
+.whyGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+.whyCard { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: 1.75rem; text-align: center; }
+.whyIcon {
+  display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px;
+  border-radius: 12px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); margin-bottom: 1rem;
+}
+.whyCard h3 { font-family: var(--tp-display); font-weight: 600; font-size: 1.0625rem; color: var(--tp-ink); margin: 0 0 4px; }
+.whyCard p { font-size: 0.875rem; color: var(--tp-mist); margin: 0; }
+
+.closingCta {
+  background: linear-gradient(160deg, var(--tp-indigo-700), #4a3f9e);
+  color: #fff; text-align: center; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem;
+}
+.closingCta h2 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.75rem, 3.6vw, 2.4rem); color: #fff; margin: 0 0 10px; }
+.closingCta p { font-size: 1.0625rem; color: rgba(255,255,255,0.85); margin: 0 0 28px; }
+
+.modalOverlay {
+  position: fixed; inset: 0; z-index: 100; background: rgba(15,13,46,0.6);
+  display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+}
+.modalContent {
+  position: relative; background: #fff; border-radius: var(--tp-radius-lg); max-width: 560px; width: 100%;
+  max-height: 90vh; overflow-y: auto; padding: 2rem;
+}
+.modalContent h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin: 0 0 1rem; text-align: center; }
+.modalClose {
+  position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--tp-lavender-050); color: var(--tp-ink); display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+}
+.modalIframe { width: 100%; min-height: 500px; border: none; }

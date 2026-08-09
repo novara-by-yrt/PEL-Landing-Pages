@@ -41,6 +41,7 @@ export interface TreatmentMeta {
   heroImage: string;
   heroBg: string;
   heroBadge?: string;
+  heroBgOpacity?: number;
   h1: string;
   subtitle: string;
   type: string;

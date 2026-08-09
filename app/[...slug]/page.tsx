@@ -256,6 +256,7 @@ function TreatmentPage({
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
           heroBg={treatment.heroBg}
+          heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
