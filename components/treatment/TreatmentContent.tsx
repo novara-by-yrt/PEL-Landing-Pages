@@ -9,6 +9,10 @@ import styles from "./TreatmentContent.module.css";
  * inheriting the site-wide `.prose` defaults.
  */
 export function TreatmentContent({ content }: { content: string }) {
+  /* A few generic pages carry no real body (old WP category-landing stubs) —
+     skip the card entirely rather than showing an empty paper rectangle. */
+  if (!content.trim()) return null;
+
   return (
     <section className={styles.tpContent}>
       <span className={styles.tpContentGlow} aria-hidden="true" />

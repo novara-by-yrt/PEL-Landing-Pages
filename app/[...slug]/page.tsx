@@ -26,7 +26,6 @@ import {
   TreatmentAdvantages,
   TreatmentContent,
   TreatmentPricing,
-  TreatmentFAQ,
   RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
@@ -283,6 +282,11 @@ function TreatmentPage({
 // thank-you, terms, and other one-off pages): hero, prose content, optional
 // FAQ, CTA. The 12 "Eye Conditions" pages have their own rich template at
 // app/condition/[slug]/page.tsx and live in content/condition/.
+//
+// Two sections are the home page's own components, matching the convention
+// on the treatment and condition templates:
+//   • HomeFaq        — the home accordion, fed the page's own FAQ items.
+//   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
 
 function GenericPage({
   frontmatter,
@@ -308,11 +312,23 @@ function GenericPage({
           heroImageAlt={frontmatter.title}
         />
 
-        <div className="container prose-container" style={{ padding: "3rem 1.5rem 1rem" }}>
-          <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
+        <TreatmentContent content={content} />
 
-        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
+        {frontmatter.faq?.length ? (
+          <HomeFaq
+            items={frontmatter.faq}
+            eyebrow={`Patient questions about ${frontmatter.title}`}
+            title="Frequently asked questions"
+            lead="Call or email us today, we would be delighted to answer your questions."
+            contentIsHtml
+            footer={
+              <Link href="/contact" className="tp-btn tp-btn-primary">
+                Ask a Question or Book an Appointment
+              </Link>
+            }
+          />
+        ) : null}
+        <PatientStories stories={PATIENT_STORIES} />
         <TreatmentCTA />
       </div>
     </>
