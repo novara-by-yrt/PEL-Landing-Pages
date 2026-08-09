@@ -1842,10 +1842,10 @@
     ]
   },
   "chemical-peel": {
-    "heroImage": "/uploads/2025/02/tatler-3.png",
+    "heroImage": "/uploads/2025/01/Benefits-of-Chemical-Peel-1-1.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Chemical Peel in London - Show off your natural radiance and reduce the appearance of under-eye puffiness and dark circles.",
-    "subtitle": "Let our Chemical Peel treatment remove bags and dead skin cells, refine pores, &amp; even out your skin tone, giving you a refreshed and luminous look.",
+    "subtitle": "Let our Chemical Peel treatment remove bags and dead skin cells, refine pores, & even out your skin tone, giving you a refreshed and luminous look.",
     "glance": [
       {
         "label": "Duration",
@@ -1870,24 +1870,28 @@
       {
         "label": "Addresses",
         "value": "Eye bags, dark circles"
+      },
+      {
+        "label": "Down time",
+        "value": "Minimal downtime"
       }
     ],
     "advantages": [
       {
-        "title": "Improved Skin Texture",
-        "description": "Chemical peels remove dead skin cells and reveal smoother, more radiant skin beneath."
+        "title": "Smooths Out Wrinkles",
+        "description": "Peels remove fine lines and wrinkles, which helps you look and feel more youthful and radiant."
       },
       {
-        "title": "Reduces Dark Circles",
-        "description": "Targeted peels can significantly reduce the appearance of dark circles and uneven pigmentation."
+        "title": "Non-Invasive Solution",
+        "description": "This treatment is a needle-free and surgery-free option to achieve your desired look with minimal downtime."
       },
       {
-        "title": "Minimal Downtime",
-        "description": "Superficial peels require minimal recovery time, making them convenient for busy schedules."
+        "title": "Evens Skin Tone",
+        "description": "Peels balance skin texture, reducing blemishes and uneven tone for a more uniform complexion."
       },
       {
-        "title": "Customisable",
-        "description": "Peels can be tailored to your specific skin concerns and type for optimal results."
+        "title": "Lifts and Tightens",
+        "description": "Peels offer a non-surgical alternative to lifting and tightening the under-eye skin for a more youthful appearance."
       }
     ],
     "pricing": [],
@@ -2505,5 +2509,64 @@
     "pricing": [],
     "similarTreatments": [],
     "type": "surgical"
+  },
+  "dark-circles-and-polynucleotides-or-mesotherapy": {
+    "heroImage": "/uploads/2024/08/PolynucleotideEyeTreatment1-2.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Dark Circles and Polynucleotides or Mesotherapy",
+    "subtitle": "Polynucleotides and mesotherapy stimulate collagen production and cell turnover to brighten and rejuvenate the delicate under-eye area.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "15 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Numbing Cream"
+      },
+      {
+        "label": "Down time",
+        "value": "Minimal"
+      },
+      {
+        "label": "Course",
+        "value": "2–3 Sessions, Every 3–4 Weeks"
+      },
+      {
+        "label": "Final results",
+        "value": "Repeated Annually"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Gradual Results",
+        "description": "Perfect for those seeking a natural, subtle improvement."
+      },
+      {
+        "title": "Negligible Downtime",
+        "description": "You may be a little bruised for a few days."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon and her team."
+      }
+    ],
+    "pricing": [],
+    "similarTreatments": [],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "This treatment really worked for me and I do recommend this to anyone looking for a smooth, clean, clear skin, not only that it helped reduce the dark circles too. I'm thankful to Sabrina for giving me the right advice, I've had an amazing experience with her and her team.",
+        "href": "https://www.realself.com/review/london-shah-desai-amazing-experience-amazing-treatment"
+      },
+      {
+        "quote": "I am delighted with my treatment and I am often told how youthful and fresh my skin looks and how amazing at the age of 51 I have no lines! I personally would not let another surgeon anywhere near my face as I completely trust Sabrina and her work.",
+        "href": "https://www.realself.com/review/london-shah-desai-tixel-fantastic-results-downtime"
+      },
+      {
+        "quote": "Sabrina has created a warm welcoming atmosphere absent at so many practices and the personal interest shown not only by Sabrina but also the wonderful ladies that work there (Lindsey, thank you for everything) makes you feel totally at ease.",
+        "href": "https://www.realself.com/review/london-silhouette-soft"
+      }
+    ]
   }
 }

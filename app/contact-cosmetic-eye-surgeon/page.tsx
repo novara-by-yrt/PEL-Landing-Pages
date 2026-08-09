@@ -1,0 +1,117 @@
+import type { Metadata } from "next";
+import Script from "next/script";
+import { PageHero, TpIcon } from "@/components/treatment";
+import ClinicPhone from "@/components/shared/ClinicPhone";
+import { CLINIC, CONSULTATION_FEES, MAPS_URL } from "@/lib/clinic";
+import styles from "./page.module.css";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+
+export const metadata: Metadata = {
+  title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Ltd.",
+  description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us Today!",
+  alternates: { canonical: `${SITE_URL}/contact-cosmetic-eye-surgeon` },
+  openGraph: {
+    url: `${SITE_URL}/contact-cosmetic-eye-surgeon`,
+    type: "website",
+    title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Ltd.",
+    description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us today!",
+  },
+};
+
+export default function ContactCosmeticEyeSurgeonPage() {
+  return (
+    <div className="tp">
+      <PageHero
+        breadcrumbItems={[
+          { name: "Home", url: SITE_URL },
+          { name: "Contact", url: "" },
+        ]}
+        siteUrl={SITE_URL}
+        h1="Contact Us"
+        lead="If you are interested in any of our treatments or need further information, we are here to answer. Feel free to contact us by phone, email, or by filling out the form below."
+      />
+
+      <section className="tp-section">
+        <div className={`container ${styles.grid}`}>
+          <div className={styles.card}>
+            <span className="tp-eyebrow">
+              <TpIcon name="shield" size={13} />
+              Consultation Fees
+            </span>
+            <dl className={styles.feesList}>
+              {CONSULTATION_FEES.map((fee) => (
+                <div key={fee.label} className={styles.feesRow}>
+                  <dt>{fee.label}</dt>
+                  <dd>{fee.price}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <div className={styles.card}>
+            <span className="tp-eyebrow">
+              <TpIcon name="sparkle" size={13} />
+              For Enquiries
+            </span>
+            <h2 className={styles.contactName}>Mrs Sabrina Shah-Desai</h2>
+            <p className={styles.contactTitle}>Consultant Ophthalmologist &amp; Oculoplastic Surgeon</p>
+
+            <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className={styles.detailRow}>
+              <TpIcon name="pin" size={16} />
+              {CLINIC.address}
+            </a>
+            <ClinicPhone className={styles.detailRow} icon />
+            <a href={`mailto:${CLINIC.email}`} className={styles.detailRow}>
+              <TpIcon name="mail" size={16} />
+              {CLINIC.email}
+            </a>
+            <p className={styles.hours}>
+              {CLINIC.hours.map((h) => `${h.day}: ${h.time}`).join(" · ")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="tp-section tp-fog">
+        <div className="container">
+          <div className={styles.formCard}>
+            <div className="tp-head">
+              <span className="tp-eyebrow">
+                <TpIcon name="quote" size={13} />
+                Ask Us Anything
+              </span>
+              <h2>Book an Appointment</h2>
+              <p>Fill out the form below to be contacted by a member of our team.</p>
+            </div>
+            <iframe
+              src="https://link.perfecteyesltd.com/widget/form/3vO7PCFhNgeqCV8cP2kL"
+              className={styles.formIframe}
+              title="Book an appointment"
+            />
+          </div>
+        </div>
+      </section>
+      <Script src="https://link.perfecteyesltd.com/js/form_embed.js" strategy="lazyOnload" />
+
+      <section className="tp-section">
+        <div className={`container ${styles.notices}`}>
+          <p>
+            <strong>Confidentiality:</strong> all enquiries are always treated confidentially. Please note Dr
+            Shah-Desai does not offer free consultations.
+          </p>
+          <p>
+            If you are one of our private patients in need of urgent out-of-hours advice, please contact our
+            emergency phone, which you should have from our previous correspondence.
+          </p>
+          <p>
+            <strong>Complaints:</strong> although Dr Shah-Desai seeks to offer you the highest level of service,
+            if you have cause for complaint please email{" "}
+            <a href="mailto:manager@perfecteyesltd.com">manager@perfecteyesltd.com</a>. Our complaints policy can
+            be found <a href="/uploads/2018/11/ComplaintsPolicyPEL.pdf" target="_blank" rel="noopener noreferrer">here</a>.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}

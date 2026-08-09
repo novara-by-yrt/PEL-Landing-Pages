@@ -1,0 +1,41 @@
+.grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem;
+}
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg);
+  padding: 2rem; box-shadow: var(--tp-shadow-sm);
+}
+
+.feesList { margin: 1.25rem 0 0; }
+.feesRow {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: 0.85rem 0; border-bottom: 1px solid var(--tp-hairline);
+}
+.feesRow:last-child { border-bottom: none; }
+.feesRow dt { font-size: 0.9375rem; color: var(--tp-slate); margin: 0; }
+.feesRow dd { font-family: var(--tp-display); font-weight: 600; font-size: 1.0625rem; color: var(--tp-ink); margin: 0; white-space: nowrap; }
+
+.contactName { font-family: var(--tp-display); font-weight: 600; font-size: 1.35rem; color: var(--tp-ink); margin: 1rem 0 0.2rem; }
+.contactTitle { font-size: 0.9375rem; color: var(--tp-slate); margin: 0 0 1.25rem; }
+
+.detailRow {
+  display: flex; align-items: center; gap: 10px; font-size: 0.9375rem; color: var(--tp-slate);
+  text-decoration: none; padding: 0.5rem 0; border-top: 1px solid var(--tp-hairline);
+}
+.detailRow:first-of-type { border-top: none; }
+.detailRow:hover { color: var(--tp-indigo-700); }
+.detailRow svg { flex-shrink: 0; color: var(--tp-indigo-700); }
+
+.hours { font-size: 0.875rem; color: var(--tp-mist); margin: 0.75rem 0 0; }
+
+.formCard {
+  background: #fff; border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-md);
+  padding: clamp(1.5rem, 4vw, 3rem); max-width: 700px; margin: 0 auto;
+}
+.formIframe { width: 100%; min-height: 1001px; border: none; border-radius: var(--tp-radius-md); margin-top: 1.5rem; }
+
+.notices { max-width: 760px; }
+.notices p { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; margin: 0 0 1rem; }
+.notices a { color: var(--tp-indigo-700); }
