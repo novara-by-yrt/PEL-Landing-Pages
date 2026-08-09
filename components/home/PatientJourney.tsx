@@ -132,8 +132,6 @@ export default function PatientJourney() {
     tabRefs.current[next]?.focus();
   }
 
-  const pathway = PATHWAYS[active];
-
   return (
     <section className={styles.journey} aria-labelledby="journey-title">
       {/* Two soft brand blobs. They are what the glass panels' backdrop-filter
