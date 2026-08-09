@@ -715,6 +715,18 @@
       {
         "label": "Final results",
         "value": "Immediate"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "None"
+      },
+      {
+        "label": "Addresses",
+        "value": "Eyelid Stye and Chalazion"
+      },
+      {
+        "label": "Down time",
+        "value": "1 Week"
       }
     ],
     "advantages": [
@@ -736,7 +748,8 @@
       }
     ],
     "pricing": [
-      "Chalazion Removal - Starting from £700 per chalazion removal\\nDr Shah-Desai performs chalazion removal procedures at 121 Harley Street."
+      "Chalazion Removal - Starting from £700 per chalazion removal.",
+      "Dr Shah-Desai performs chalazion removal procedures at 121 Harley Street."
     ],
     "similarTreatments": [
       {
