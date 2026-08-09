@@ -3,6 +3,7 @@ import Script from "next/script";
 import { PageHero, TpIcon } from "@/components/treatment";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC, CONSULTATION_FEES, MAPS_URL } from "@/lib/clinic";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Ltd.",
     description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us today!",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

@@ -5,6 +5,7 @@ import PublicationsList from "@/components/PublicationsList";
 import { getAllPosts } from "@/lib/mdx";
 import { TpIcon } from "@/components/treatment";
 import { BlogCTA } from "@/components/blog/BlogCTA";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
       "Peer-reviewed scientific publications, clinical research papers, and medical journal articles by Dr Sabrina Shah-Desai.",
     url: `${SITE_URL}/publications`,
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
