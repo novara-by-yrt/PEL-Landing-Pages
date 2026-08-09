@@ -243,19 +243,6 @@
   display: block;
   min-width: 0;
 }
-.tabEyebrow {
-  display: block;
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--tp-lavender-300);
-  margin-bottom: 4px;
-  transition: color 240ms var(--tp-ease);
-}
-.tabActive .tabEyebrow {
-  color: #fff;
-}
 .tabTitle {
   display: block;
   font-family: var(--tp-display);
@@ -500,7 +487,6 @@
   .tab,
   .tabIcon,
   .tabMark,
-  .tabEyebrow,
   .focusItem {
     transition: none;
   }

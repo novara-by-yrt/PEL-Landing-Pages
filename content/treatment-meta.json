@@ -178,7 +178,20 @@
         "description": "Incisions are hidden in the natural eyelid crease and closed with fine sutures to maintain a natural lid shape."
       }
     ],
-    "pricing": [],
+    "pricing": [
+      {
+        "name": "Unilateral Upper Eyelid Lift (Upper Lid Blepharoplasty)",
+        "price": "from £5,000",
+        "note": "inclusive of hospital charge & local anaesthetic"
+      },
+      {
+        "name": "Bilateral Upper Eyelid Lift (Upper Lid Blepharoplasty)",
+        "price": "from £6,000",
+        "note": "inclusive of hospital charge & local anaesthetic"
+      }
+    ],
+    "pricingTitle": "Upper Eyelid Blepharoplasty",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total upper eyelid lift cost in the UK during the consultation.",
     "similarTreatments": [
       {
         "title": "Festoons and malar bags",

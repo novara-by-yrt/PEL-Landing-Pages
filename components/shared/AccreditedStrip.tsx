@@ -1,7 +1,9 @@
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import styles from "./AccreditedStrip.module.css";
 
-const AWARD_LOGOS = [
+type Logo = { src: string; alt: string; width?: number; height?: number };
+
+const AWARD_LOGOS: Logo[] = [
   /* The black wordmark, not the white one: this strip sits on --tp-paper, so
      the white artwork would be invisible. Its true 288x80 dimensions let the
      marquee scale it on height without distorting the letterforms. */
@@ -15,12 +17,25 @@ const AWARD_LOGOS = [
   { src: "/uploads/2024/09/71.png", alt: "BOPSS British Oculoplastic Surgery Society" },
 ];
 
-/** The "Accredited & recognised by" marquee, shared across pages. */
-export default function AccreditedStrip() {
+/**
+ * The "Accredited & recognised by" marquee, shared across pages.
+ *
+ * `logos` and `label` are overridable so the condition-page template can pass
+ * its own, more specific alt text (naming each college by name) instead of
+ * the home page's award list — everything else about the strip, including
+ * the frame around it, stays identical everywhere it appears.
+ */
+export default function AccreditedStrip({
+  logos = AWARD_LOGOS,
+  label = "Accredited & recognised by",
+}: {
+  logos?: Logo[];
+  label?: string;
+}) {
   return (
     <section className={styles.strip} aria-label="Accreditations and recognition">
-      <p className={styles.label}>Accredited &amp; recognised by</p>
-      <AutoScrollCarousel items={AWARD_LOGOS} speed={35} />
+      <p className={styles.label}>{label}</p>
+      <AutoScrollCarousel items={logos} speed={35} />
     </section>
   );
 }

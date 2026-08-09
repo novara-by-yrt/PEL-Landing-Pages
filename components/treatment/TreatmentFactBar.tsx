@@ -11,6 +11,7 @@ export function TreatmentFactBar({ glance, title }: { glance: GlanceItem[]; titl
         <div className={styles.tpFactbarHead}>
           <span className="tp-eyebrow"><TpIcon name="clock" size={13} />Treatment overview</span>
           <h2>{title} at a Glance</h2>
+          <span className={styles.tpFactbarRule} aria-hidden="true" />
         </div>
         <div className={styles.tpFactbarGrid}>
           {glance.map((item) => (

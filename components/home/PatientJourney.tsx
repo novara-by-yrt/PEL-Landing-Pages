@@ -25,7 +25,6 @@ type Step = {
 
 type Pathway = {
   id: string;
-  eyebrow: string;
   title: string;
   icon: string;
   steps: Step[];
@@ -45,7 +44,6 @@ const CONSULTATION = [
 const PATHWAYS: Pathway[] = [
   {
     id: "surgical",
-    eyebrow: "Pathway one",
     title: "Surgical Pathway",
     icon: "pulse",
     steps: [
@@ -80,7 +78,6 @@ const PATHWAYS: Pathway[] = [
   },
   {
     id: "non-surgical",
-    eyebrow: "Pathway two",
     title: "Non-Surgical Pathway",
     icon: "sparkle",
     steps: [
@@ -135,8 +132,6 @@ export default function PatientJourney() {
     tabRefs.current[next]?.focus();
   }
 
-  const pathway = PATHWAYS[active];
-
   return (
     <section className={styles.journey} aria-labelledby="journey-title">
       {/* Two soft brand blobs. They are what the glass panels' backdrop-filter
@@ -183,7 +178,7 @@ export default function PatientJourney() {
         </div>
 
         <p className={styles.pick} id={`${baseId}-pick`}>
-          Choose a pathway to see what happens next
+          Choose a pathway.
         </p>
 
         <div
@@ -213,7 +208,6 @@ export default function PatientJourney() {
                   <TpIcon name={item.icon} size={19} />
                 </span>
                 <span className={styles.tabText}>
-                  <span className={styles.tabEyebrow}>{item.eyebrow}</span>
                   <span className={styles.tabTitle}>{item.title}</span>
                 </span>
                 <span className={styles.tabMark} aria-hidden="true">

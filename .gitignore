@@ -48,3 +48,22 @@ next-env.d.ts
 # Python bytecode from the skill search tool
 __pycache__/
 *.pyc
+
+# Playwright CLI: local workspace/session state and machine-specific browser
+# config (this repo's dev container points it at a preinstalled Chromium
+# path that won't exist on other machines) — not something to share.
+/.playwright/
+/.playwright-cli/
+
+# Personal/local Claude Code overrides — not shared project config. This one
+# in particular can carry hooks with machine-specific absolute paths (e.g.
+# a SessionStart hook added by `headroom wrap claude` pointing at
+# /root/.local/bin/headroom), which would be broken or unwanted for anyone
+# else opening this repo without that exact local setup.
+/.claude/settings.local.json
+
+# Serena (code-memory MCP, pulled in as a default side effect of
+# `headroom wrap claude`) — project cache and local overrides. Not something
+# this project has adopted as shared tooling, so not committing its config
+# or generated symbol-cache pickles.
+/.serena/

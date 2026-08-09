@@ -1,0 +1,94 @@
+/* 404 page.
+
+   The same light-lavender-field-with-glow treatment every hero on the site
+   uses, rather than a one-off inline-styled block with the pre-redesign
+   teal/gold gradient and the old .btn-* button classes. Mobile-first. */
+
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: clamp(48px, 8vw, 96px) 1.5rem;
+  background: linear-gradient(180deg, var(--tp-lavender-050) 0%, var(--tp-paper) 78%);
+  text-align: center;
+}
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(32% 42% at 18% 22%, rgba(188, 160, 221, 0.42), transparent 70%),
+    radial-gradient(30% 40% at 84% 78%, rgba(138, 132, 186, 0.3), transparent 72%);
+  filter: blur(32px);
+}
+
+.inner {
+  max-width: 34rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+}
+
+.code {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(4rem, 14vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  background: linear-gradient(135deg, var(--tp-indigo-700), var(--tp-lavender-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 18px 0 0;
+}
+
+.title {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4.5vw, 2.125rem);
+  line-height: 1.2;
+  color: var(--tp-ink);
+  margin: 8px 0 0;
+}
+
+.rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 20px auto 0;
+}
+
+.lead {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 18px auto 0;
+  max-width: 40ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(26px, 4vw, 34px);
+}
+.actions > * { flex: 1 1 100%; }
+
+@media (min-width: 480px) {
+  .actions > * { flex: 0 0 auto; }
+}

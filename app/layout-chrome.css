@@ -36,12 +36,23 @@
 
 .pel-wordmark{font-family:var(--tp-display);font-size:20px;font-weight:600;letter-spacing:0.03em;color:var(--tp-indigo-900);white-space:nowrap}
 .pel-wordmark-sub{font-family:var(--tp-body);font-size:8.5px;letter-spacing:0.34em;color:var(--tp-lavender-500);margin-top:4px}
-.pel-links{display:flex;justify-content:center;align-items:center;gap:2px;min-width:0;justify-self:center;width:fit-content;max-width:100%;padding:5px 10px;border-radius:999px;background:var(--tp-lavender-050)}
+.pel-links{position:relative;display:flex;justify-content:center;align-items:center;gap:2px;min-width:0;justify-self:center;width:fit-content;max-width:100%;padding:5px 10px;border-radius:999px;background:var(--tp-lavender-050)}
 .pel-navitem{position:relative;display:flex;align-items:center}
-.pel-link{position:relative;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease),background 160ms var(--tp-ease)}
-.pel-link:hover{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
+.pel-link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease)}
+.pel-link:hover{color:var(--tp-indigo-700)}
 .pel-link-has-menu svg{transition:transform 220ms var(--tp-ease)}
-.pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
+.pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700)}
+
+/* Tubelight highlight: a single glowing bar that glides between nav items on
+   hover/focus, replacing what was an invisible hover background (identical
+   in colour to the pill it sat on). Position/size are written from JS
+   (Header.tsx) as inline styles — this rule only owns appearance and the
+   left/top/width/height/opacity transitions. */
+.pel-lamp{position:absolute;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--tp-paper);box-shadow:var(--tp-shadow-xs);opacity:0;pointer-events:none;z-index:0;transition:left 320ms var(--tp-ease),top 320ms var(--tp-ease),width 320ms var(--tp-ease),height 320ms var(--tp-ease),opacity 200ms var(--tp-ease)}
+.pel-lamp.is-visible{opacity:1}
+.pel-lamp::before{content:"";position:absolute;top:-3px;left:50%;width:28px;height:3px;transform:translateX(-50%);border-radius:999px;background:linear-gradient(90deg,var(--tp-indigo-700),var(--tp-lavender-300))}
+.pel-lamp::after{content:"";position:absolute;top:-11px;left:50%;width:46px;height:20px;transform:translateX(-50%);border-radius:999px;background:var(--tp-lavender-300);opacity:0.5;filter:blur(10px)}
+@media(prefers-reduced-motion:reduce){.pel-lamp{transition:opacity 200ms var(--tp-ease)}}
 .pel-navitem.has-panel .pel-link-has-menu svg{transform:rotate(-90deg)}
 .pel-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;z-index:10}
 .pel-dropdown-inner{background:var(--tp-paper);border-radius:24px;box-shadow:0 30px 70px -28px rgba(24,20,64,.42),0 2px 10px rgba(24,20,64,.06);padding:0;overflow:hidden;animation:pel-panel-in 180ms var(--tp-ease) both}
@@ -165,4 +176,41 @@
    opposite way without duplicating the animation. */
 .logo-scroll-track.is-reverse {
   animation-direction: reverse;
+}
+
+/* ── Reveal footer ─────────────────────────────────────────────────────────
+   The footer stays pinned to the bottom of the viewport for the whole page
+   and is uncovered only once the user has scrolled past the rest of the
+   content, like a curtain lifting, rather than simply appearing at the end
+   of the page.
+
+   How: the footer is `position: fixed`, so it never occupies flow space of
+   its own — #footer-spacer (an empty element right after #main-content)
+   reserves that scroll room instead. #main-content sits in a higher
+   stacking layer with an opaque background, so it covers the fixed footer
+   for as long as its own content is what should be on screen; once the
+   page scrolls past #main-content into the (transparent) spacer, there is
+   nothing left above the footer and it becomes visible underneath.
+
+   This only works because the footer is taken out of flow entirely: an
+   in-flow sticky/negative-margin version can't produce a real gap, since a
+   negative margin shortens where a *sibling* sits without ever shortening
+   the element's own painted box — #main-content would still visually reach
+   every pixel down to the last scrollable position and the footer would
+   never have room to appear. A spacer that genuinely adds scrollable height
+   is what creates that room.
+
+   --footer-h is written by Footer.tsx (a ResizeObserver on the footer's own
+   height, since its rendered height changes with viewport width and content
+   reflow). It defaults to 0px, so before that JS runs the spacer is zero
+   height and the footer sits flush at the bottom — no flash of broken
+   layout, just the ordinary (non-revealing) footer placement. */
+#main-content {
+  position: relative;
+  z-index: 1;
+  background: var(--clr-bg);
+}
+
+#footer-spacer {
+  height: var(--footer-h, 0px);
 }

@@ -90,6 +90,53 @@ const nextConfig: NextConfig = {
 
   // Strict mode for better React error catching
   reactStrictMode: true,
+
+  // Baseline security headers. The CSP allows 'unsafe-inline' for scripts and
+  // styles because the site relies on inline JSON-LD (<script
+  // type="application/ld+json">) on nearly every page and a handful of
+  // inline style={{...}} attributes — a nonce-based policy would need
+  // middleware and touching every one of those call sites. frame-src allows
+  // YouTube specifically for the video embeds in components/home/VideoCard;
+  // img-src/media-src allow Wistia's CDN for the home hero's background
+  // video (components/home/HeroVideo) — its poster frame is an <img>-style
+  // fetch, the actual clip is a native <video> source, both served straight
+  // from Wistia rather than through this site.
+  async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https://fast.wistia.com",
+      "media-src 'self' https://embed-ssl.wistia.com",
+      "font-src 'self' data:",
+      "connect-src 'self'",
+      "frame-src https://www.youtube.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+    ].join("; ");
+
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: csp },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

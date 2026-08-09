@@ -29,6 +29,12 @@ export function TreatmentFAQ({ faq, title }: { faq?: FaqItem[]; title: string })
             Patient Questions About {title}
           </span>
           <h2>Frequently Asked Questions</h2>
+          <span className={styles.tpFaqRule} aria-hidden="true" />
+          {/* The heading column was otherwise empty beside a tall accordion. */}
+          <p className={styles.tpFaqLead}>
+            The questions patients ask most often, answered by the clinic. If yours
+            isn&rsquo;t here, ask us directly &mdash; we would be delighted to help.
+          </p>
         </div>
         <div>
           <ul className={styles.tpFaqList}>

@@ -177,7 +177,14 @@ body {
   background-color: var(--clr-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* `clip` (not `hidden`) on the second line: some engines treat any
+     non-visible overflow value on an ancestor as making it the scrolling
+     container for `position: sticky` descendants, which breaks the sticky
+     footer reveal below. `clip` prevents horizontal overflow the same way
+     without creating a scroll container; `hidden` stays first as the
+     fallback for browsers that don't support `clip`. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img, video, svg {

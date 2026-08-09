@@ -16,9 +16,10 @@ export function RelatedBlogs({ excludeSlug }: { excludeSlug?: string } = {}) {
   return (
     <section className="tp-section tp-fog">
       <div className="container">
-        <div className="tp-head">
+        <div className="tp-head tp-center">
           <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />From the journal</span>
           <h2>Related Blogs</h2>
+          <span className={styles.tpBlogsRule} aria-hidden="true" />
         </div>
         <div className={styles.tpBlogsGrid}>
           {posts.map((post) => (

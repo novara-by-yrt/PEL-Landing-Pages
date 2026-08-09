@@ -395,6 +395,25 @@
   }
 }
 
+/* ── Hero trust block — mobile polish ─────────────────────────────────────
+   Scoped below the 900px hero breakpoint so none of this touches the desktop
+   2x2 layout above. Two concrete fixes: the trust grid mixed a 20px row gap
+   with a 24px column gap — one value now, used both ways, reads as
+   deliberate rather than incidental. The Google card gets a little more
+   internal padding, and the CTA-to-trust-block gap floor is raised, so the
+   "take the test" pair and the trust signals beneath them read as two
+   distinct, evenly-spaced groups rather than the second one crowding the
+   first on the narrowest phones. */
+@media (max-width: 899px) {
+  .trust {
+    gap: 24px;
+    margin-top: clamp(48px, 9vw, 72px);
+  }
+  .googleCard {
+    padding: 14px 20px 14px 16px;
+  }
+}
+
 /* ── 2 / 9. Logo strips ─────────────────────────────────────────────────── */
 .logoStrip {
   background: var(--tp-paper);
@@ -418,167 +437,6 @@
   text-transform: uppercase;
   color: var(--tp-slate);
   margin: 0 0 20px;
-}
-
-/* ── 4. About / the surgeon ───────────────────────────────────────────────
-   Portrait card beside a credential column. The grid stretches both cells to
-   the same row height and the portrait fills its cell, so the image's top and
-   bottom edges line up exactly with the column beside it at every width.   */
-.expert {
-  background: var(--tp-lavender-050);
-}
-
-.expertGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(28px, 5vw, 64px);
-  align-items: stretch;
-}
-
-/* ── Portrait ───────────────────────────────────────────────────────────── */
-.expertMedia {
-  position: relative;
-  margin: 0;
-  height: 100%;
-  min-height: 380px;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--tp-radius-xl);
-  overflow: hidden;
-  background: var(--tp-lavender-100);
-  box-shadow: var(--tp-shadow-md);
-}
-.expertPortrait {
-  object-fit: cover;
-  object-position: center top;
-}
-
-
-.expertBadge {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  left: 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: var(--tp-radius-md);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--tp-shadow-sm);
-}
-.expertBadgeIcon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: var(--tp-indigo-700);
-  color: #fff;
-}
-.expertBadgeTitle {
-  display: block;
-  font-family: var(--tp-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--tp-ink);
-}
-.expertBadgeMeta {
-  display: block;
-  font-size: var(--fs-caption);
-  color: var(--tp-slate);
-  margin-top: 2px;
-}
-
-.medalIcon {
-  width: 17px;
-  height: 17px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-}
-
-/* ── Credential column ──────────────────────────────────────────────────── */
-.expertBody {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-.expertEyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--tp-lavender-600);
-  margin: 0 0 14px;
-}
-.expertTitle {
-  font-size: clamp(1.9rem, 6.4vw, 2.5rem);
-  text-wrap: pretty;
-}
-.expertCred {
-  font-size: var(--text-base);
-  color: var(--tp-lavender-600);
-  margin: 10px 0 0;
-}
-.expertText {
-  font-size: var(--fs-body-md);
-  line-height: var(--lh-relaxed);
-  color: var(--home-body);
-  margin: 20px 0 0;
-  max-width: 62ch;
-}
-
-.expertList {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  list-style: none;
-  margin: clamp(24px, 4vw, 32px) 0 0;
-  padding: clamp(24px, 4vw, 32px) 0 0;
-  border-top: 1px solid var(--tp-hairline);
-}
-.expertListItem {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 12px;
-  align-items: start;
-  font-size: var(--fs-body-sm);
-  line-height: 1.55;
-  color: var(--tp-ink);
-}
-.checkIcon {
-  width: 21px;
-  height: 21px;
-  margin-top: 1px;
-  fill: none;
-  stroke: var(--tp-gold);
-  stroke-width: 1.5;
-}
-
-.expertCta {
-  margin-top: clamp(28px, 4vw, 36px);
-}
-
-@media (min-width: 1000px) {
-  .expertGrid {
-    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
-    gap: clamp(40px, 4.5vw, 72px);
-  }
-  /* Height now comes from the text column, so the portrait matches it
-     top and bottom rather than imposing its own ratio. */
-  .expertMedia {
-    aspect-ratio: auto;
-    min-height: 520px;
-  }
-  .expertTitle {
-    font-size: clamp(2.25rem, 2.9vw, 3rem);
-  }
 }
 
 /* ── 5. Treatments ────────────────────────────────────────────────────────

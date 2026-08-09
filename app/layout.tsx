@@ -5,6 +5,7 @@ import "./design-system.css";
 import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/shared/CookieConsent";
 import { buildOrganizationSchema } from "@/lib/schema";
 
 // ── Fonts ────────────────────────────────────────────────────────────────
@@ -74,7 +75,9 @@ export default function RootLayout({
       <body>
         <Header />
         <main id="main-content">{children}</main>
+        <div id="footer-spacer" aria-hidden="true" />
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

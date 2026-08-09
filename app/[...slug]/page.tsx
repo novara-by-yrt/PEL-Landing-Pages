@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs, pageExistsExact, type PostFrontmatter } from "@/lib/mdx";
 import {
@@ -9,12 +10,17 @@ import {
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
+import ContactSection from "@/components/home/ContactSection";
+import PatientStories from "@/components/home/PatientStories";
+import HomeFaq from "@/components/home/HomeFaq";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import { PATIENT_STORIES } from "@/lib/reviews";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
+import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
@@ -22,6 +28,7 @@ import {
   TreatmentAdvantages,
   TreatmentOverview,
   TreatmentContent,
+  TreatmentBeforeAfter,
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
@@ -178,7 +185,16 @@ export default async function CatchAllPageRoute({
   );
 
   if (treatment) {
-    return <TreatmentPage treatment={treatment} frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;
+    return (
+      <TreatmentPage
+        treatment={treatment}
+        treatmentSlug={fileSlug}
+        frontmatter={frontmatter}
+        content={content}
+        breadcrumbItems={breadcrumbItems}
+        schemas={schemas}
+      />
+    );
   }
 
   if (fileSlug === "dr-sabrina-shah-desai") {
@@ -194,21 +210,37 @@ export default async function CatchAllPageRoute({
 }
 
 // ── Treatment page layout ────────────────────────────────────────────────────
+//
+// Every treatment renders through this one component, so a section changed
+// here changes on all of them — that is the intent, and new treatments pick it
+// up with no extra work.
+//
+// Three of the sections are the home page's own components rather than
+// treatment-only variants, and should stay that way:
+//   • MeetDrSabrina  — the home About panel, with the treatment page's title.
+//   • HomeFaq        — the home accordion, fed the page's own FAQ items.
+//   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
 
 function TreatmentPage({
   treatment,
+  treatmentSlug,
   frontmatter,
   content,
   breadcrumbItems,
   schemas,
 }: {
   treatment: TreatmentMeta;
+  treatmentSlug: string;
   frontmatter: PostFrontmatter;
   content: string;
   breadcrumbItems: BreadcrumbItem[];
   schemas: React.ReactNode;
 }) {
   const isSurgical = treatment.type === "surgical";
+  const beforeAfterSlug = TREATMENT_BEFORE_AFTER[treatmentSlug];
+  const beforeAfterGallery = beforeAfterSlug
+    ? getPostBySlug("before-after", beforeAfterSlug)?.frontmatter.gallery
+    : undefined;
 
   return (
     <>
@@ -243,14 +275,25 @@ function TreatmentPage({
           description={frontmatter.galleryDescription}
           title={frontmatter.title}
         />
+        <TreatmentBeforeAfter
+          gallery={beforeAfterGallery}
+          title={frontmatter.title}
+          isSurgical={isSurgical}
+        />
         <TreatmentExpert />
-        <TreatmentPricing pricing={treatment.pricing} title={frontmatter.title} />
+        <TreatmentPricing
+          pricing={treatment.pricing}
+          title={frontmatter.title}
+          pricingTitle={treatment.pricingTitle}
+          pricingLead={treatment.pricingLead}
+        />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
         <TreatmentReviews reviews={treatment.reviews} />
-        <TreatmentSimilar items={treatment.similarTreatments} />
+        <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />
         <RealSelfWidget />
+        <ContactSection />
       </div>
     </>
   );
@@ -261,6 +304,11 @@ function TreatmentPage({
 // thank-you, terms, and other one-off pages): hero, prose content, optional
 // FAQ, CTA. The 12 "Eye Conditions" pages have their own rich template at
 // app/condition/[slug]/page.tsx and live in content/condition/.
+//
+// Two sections are the home page's own components, matching the convention
+// on the treatment and condition templates:
+//   • HomeFaq        — the home accordion, fed the page's own FAQ items.
+//   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
 
 function GenericPage({
   frontmatter,
@@ -286,11 +334,23 @@ function GenericPage({
           heroImageAlt={frontmatter.title}
         />
 
-        <div className="container prose-container" style={{ padding: "3rem 1.5rem 1rem" }}>
-          <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
+        <TreatmentContent content={content} />
 
-        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
+        {frontmatter.faq?.length ? (
+          <HomeFaq
+            items={frontmatter.faq}
+            eyebrow={`Patient questions about ${frontmatter.title}`}
+            title="Frequently asked questions"
+            lead="Call or email us today, we would be delighted to answer your questions."
+            contentIsHtml
+            footer={
+              <Link href="/contact" className="tp-btn tp-btn-primary">
+                Ask a Question or Book an Appointment
+              </Link>
+            }
+          />
+        ) : null}
+        <PatientStories stories={PATIENT_STORIES} />
         <TreatmentCTA />
       </div>
     </>

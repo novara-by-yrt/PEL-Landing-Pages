@@ -55,9 +55,11 @@ export function TreatmentHero({
 
           <h1 className={styles.tpH1}>{h1}</h1>
 
+          <span className={styles.tpHeroRule} aria-hidden="true" />
+
           {subtitle && <p className={styles.tpSub}>{subtitle}</p>}
 
-          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+          <div className={styles.tpHeroActions}>
             <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
               Take the Free Self-Test <TpIcon name="arrow" size={17} />
             </Link>

@@ -2,8 +2,18 @@
 .tpExpert::before { content: ''; position: absolute; top: -140px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(167,156,211,0.32), transparent 70%); }
 .tpExpertInner { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center; }
 @media (max-width: 700px) { .tpExpertInner { grid-template-columns: 1fr; } }
-.tpExpertInner > img { width: 200px; height: 260px; object-fit: cover; border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-lg); }
-.tpExpertContent h2 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 1rem; color: #fff; }
+.tpExpertInner > img { width: 200px; height: 260px; object-fit: cover; border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-lg); transition: transform 280ms var(--tp-ease), box-shadow 280ms var(--tp-ease); }
+.tpExpertInner > img:hover { transform: translateY(-4px); box-shadow: 0 40px 80px -34px rgba(0,0,0,0.6); }
+.tpExpertContent h2 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); margin: 0; color: #fff; text-wrap: balance; }
+.tpExpertRule { display: block; width: 56px; height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--tp-lavender-300), var(--tp-lavender-100)); margin: 18px 0 0; }
+.tpExpertContent > p:first-of-type { margin-top: 18px; }
 .tpExpertContent p { font-size: 0.95rem; color: var(--tp-lavender-200); line-height: 1.7; margin: 0 0 1.1rem; }
 .tpAwards { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-.tpAward { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.7rem; font-weight: 600; color: var(--tp-lavender-100); }
+.tpAward { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.7rem; font-weight: 600; color: var(--tp-lavender-100); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background 240ms var(--tp-ease), border-color 240ms var(--tp-ease); }
+.tpAward:hover { background: rgba(255,255,255,0.16); border-color: rgba(216,204,238,0.4); }
+.tpExpertCta { margin-top: 1.6rem; display: inline-flex; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tpExpertInner > img, .tpAward { transition: none; }
+  .tpExpertInner > img:hover { transform: none; }
+}

@@ -10,6 +10,9 @@
   .tpFaqIntro { position: sticky; top: clamp(88px, 12vh, 132px); }
 }
 
+.tpFaqRule { display: block; width: 48px; height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300)); margin: 18px 0 0; }
+.tpFaqLead { margin: 18px 0 0; max-width: 42ch; font-size: 0.9375rem; line-height: 1.7; color: var(--tp-slate); }
+
 .tpFaqList { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 
 .tpFaqItem {

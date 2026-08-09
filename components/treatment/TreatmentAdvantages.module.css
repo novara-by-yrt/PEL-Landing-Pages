@@ -1,5 +1,106 @@
-.tpBenefitsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2.25rem; margin-top: 3rem; }
-.tpBenefit { display: flex; flex-direction: column; gap: 12px; }
-.tpBenefitIcon { width: 48px; height: 48px; border-radius: var(--tp-radius-md); background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
-.tpBenefit h3 { font-family: var(--tp-display); font-size: 1.2rem; font-weight: 600; color: var(--tp-ink); margin: 2px 0 0; }
-.tpBenefit p { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.6; margin: 0; }
+/* Treatment advantages.
+
+   Cards in the home page's language rather than bare columns: paper surface,
+   hairline border, soft shadow, an accent rule that grows on hover, and a
+   lavender wash blooming from the top corner. Mobile-first. */
+
+.tpBenefitsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.8vw, 18px);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.tpBenefit {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 2.6vw, 26px);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-xs);
+  overflow: hidden;
+  transition: transform 280ms var(--tp-ease), border-color 280ms var(--tp-ease),
+    box-shadow 280ms var(--tp-ease);
+}
+.tpBenefit:hover {
+  transform: translateY(-6px);
+  border-color: var(--tp-lavender-300);
+  box-shadow: var(--tp-shadow-md);
+}
+/* The light-surface counterpart to the specular highlight on the home page's
+   glass cards. */
+.tpBenefit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px circle at 100% 0%, rgba(188, 160, 221, 0.2), transparent 62%);
+  opacity: 0;
+  transition: opacity 320ms var(--tp-ease);
+}
+.tpBenefit:hover::after { opacity: 1; }
+
+.tpBenefitIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: var(--tp-lavender-100);
+  border: 1px solid var(--tp-lavender-200);
+  color: var(--tp-indigo-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 280ms var(--tp-ease);
+}
+.tpBenefit:hover .tpBenefitIcon { transform: scale(1.06); }
+
+.tpBenefit h3 {
+  font-family: var(--tp-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--tp-ink);
+  margin: 2px 0 0;
+}
+.tpBenefit p {
+  font-size: 0.9375rem;
+  color: var(--tp-slate);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Brand rule anchored to the foot of the card, growing on hover. */
+.tpBenefit h3::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  opacity: 0.45;
+  transition: opacity 280ms var(--tp-ease), width 280ms var(--tp-ease);
+}
+.tpBenefit:hover h3::after { opacity: 1; width: 44px; }
+
+@media (min-width: 560px) {
+  .tpBenefitsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1000px) {
+  .tpBenefitsGrid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpBenefit,
+  .tpBenefit::after,
+  .tpBenefitIcon,
+  .tpBenefit h3::after {
+    transition: none;
+  }
+  .tpBenefit:hover { transform: none; }
+  .tpBenefit:hover .tpBenefitIcon { transform: none; }
+}

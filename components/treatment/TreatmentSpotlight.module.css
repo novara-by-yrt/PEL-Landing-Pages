@@ -1,14 +1,42 @@
+/* Recommended-treatment spotlight (1–2 items).
+
+   The home page's card language on a wider, media-plus-body layout: hairline
+   border, soft shadow, lift on hover, a lavender bloom behind the field, and
+   an image zoom to match the treatment carousel. Mobile-first. */
+.tpSpotlightSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.tpSpotlightGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(26% 34% at 8% 14%, rgba(188, 160, 221, 0.24), transparent 70%),
+    radial-gradient(24% 32% at 94% 86%, rgba(138, 132, 186, 0.2), transparent 72%);
+  filter: blur(26px);
+}
+.tpSpotlightRule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 16px auto 0;
+}
+
 .tpSpotlightList { display: flex; flex-direction: column; gap: 1.75rem; margin-top: 2.75rem; }
 .tpSpotlight {
-  display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 0;
-  background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-xl);
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  background: var(--tp-paper); border: 1px solid var(--tp-line); border-radius: var(--tp-radius-xl);
   overflow: hidden; box-shadow: var(--tp-shadow-sm);
-  transition: transform 260ms var(--tp-ease), box-shadow 260ms var(--tp-ease);
+  transition: transform 260ms var(--tp-ease), border-color 260ms var(--tp-ease), box-shadow 260ms var(--tp-ease);
 }
-.tpSpotlight:hover { transform: translateY(-3px); box-shadow: var(--tp-shadow-md); }
-@media (max-width: 780px) { .tpSpotlight { grid-template-columns: 1fr; } }
+.tpSpotlight:hover { transform: translateY(-4px); border-color: var(--tp-lavender-300); box-shadow: var(--tp-shadow-md); }
 .tpSpotlightMedia { position: relative; min-height: 280px; overflow: hidden; background: var(--tp-lavender-050); }
-.tpSpotlightMedia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tpSpotlightImg { object-fit: cover; transition: transform 600ms var(--tp-ease); }
+.tpSpotlight:hover .tpSpotlightImg { transform: scale(1.04); }
 .tpSpotlightBody { padding: clamp(1.75rem, 3vw, 2.75rem); display: flex; flex-direction: column; }
 .tpSpotlightTag {
   align-self: flex-start; display: inline-flex; align-items: center; gap: 6px;
@@ -24,3 +52,16 @@
 .tpSpotlightPrice { display: flex; flex-direction: column; }
 .tpSpotlightPriceLabel { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tp-mist); }
 .tpSpotlightPriceValue { font-family: var(--tp-display); font-size: 1.4rem; font-weight: 600; color: var(--tp-indigo-700); }
+
+@media (min-width: 780px) {
+  .tpSpotlight { grid-template-columns: 0.85fr 1.15fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpSpotlight,
+  .tpSpotlightImg {
+    transition: none;
+  }
+  .tpSpotlight:hover { transform: none; }
+  .tpSpotlight:hover .tpSpotlightImg { transform: none; }
+}

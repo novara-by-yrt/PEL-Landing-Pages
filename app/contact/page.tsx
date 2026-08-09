@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import ClinicPhone from "@/components/shared/ClinicPhone";
+import { CLINIC } from "@/lib/clinic";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { PageHero } from "@/components/treatment/PageHero";
 import styles from "./page.module.css";
@@ -103,9 +104,11 @@ export default function ContactPage() {
 
             <div className={styles.contactDetails}>
               <div className={styles.contactDetailsLabel}>Contact Details</div>
-              <div className={styles.contactDetailsRow}><TpIcon name="pin" size={16} />9 Harley Street, London, W1G 9QY</div>
+              {/* From lib/clinic, not typed in here: the address and email were
+                  hardcoded to the values that file documents as superseded. */}
+              <div className={styles.contactDetailsRow}><TpIcon name="pin" size={16} />{CLINIC.address}</div>
               <div className={styles.contactDetailsRow}><TpIcon name="phone" size={15} /><ClinicPhone /></div>
-              <div className={styles.contactDetailsRow}><TpIcon name="mail" size={16} /><a href="mailto:perfecteyesltd@gmail.com">perfecteyesltd@gmail.com</a></div>
+              <div className={styles.contactDetailsRow}><TpIcon name="mail" size={16} /><a href={`mailto:${CLINIC.email}`}>{CLINIC.email}</a></div>
             </div>
           </div>
 

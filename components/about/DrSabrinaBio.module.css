@@ -149,19 +149,19 @@
 }
 .heroActions > * { flex: 1 1 100%; }
 
+/* Same as the panel figures: the portrait sets its own height on phones. */
 .heroFigure {
   position: relative;
-  aspect-ratio: 4 / 5;
   border-radius: var(--tp-radius-xl);
   overflow: hidden;
   background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
   box-shadow: var(--tp-shadow-lg);
   margin: 0;
 }
-/* Contained on phones so the whole portrait is visible; see .figureImg. */
 .heroImg {
-  object-fit: contain;
-  object-position: center;
+  display: block;
+  width: 100%;
+  height: auto;
   transition: transform 700ms var(--tp-ease);
 }
 .heroFigure:hover .heroImg { transform: scale(1.03); }
@@ -251,25 +251,21 @@
   gap: clamp(28px, 4vw, 56px);
   align-items: stretch;
 }
-/* Portrait box on phones. The photography is portrait, and the 4/3 landscape
-   box this used to be cropped most of each frame away. */
+/* On phones the figure has no ratio of its own: the photograph sits in normal
+   flow at full container width and sets the height, so it is displayed whole,
+   edge to edge, with no crop and no letterbox whatever shape the file is. */
 .figure {
   position: relative;
-  height: 100%;
-  min-height: 320px;
-  aspect-ratio: 4 / 5;
   margin: 0;
   border-radius: var(--tp-radius-xl);
   overflow: hidden;
   background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
   box-shadow: var(--tp-shadow-lg);
 }
-/* `contain` on phones so the whole frame is visible whatever shape the photo
-   is; the figure's own gradient fills any letterbox. Desktop switches back to
-   `cover`, where the figure is sized by the text column and must fill it. */
 .figureImg {
-  object-fit: contain;
-  object-position: center;
+  display: block;
+  width: 100%;
+  height: auto;
   transition: transform 700ms var(--tp-ease);
 }
 .figure:hover .figureImg { transform: scale(1.04); }
@@ -777,6 +773,20 @@
 
 @media (min-width: 900px) {
   .heroGrid { grid-template-columns: 1.05fr 0.95fr; }
+  /* Two columns: the portrait now matches the copy column's height, so it is
+     taken out of flow and cropped to fill, as on the panels below. */
+  .heroFigure {
+    height: 100%;
+    min-height: 520px;
+  }
+  .heroImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -790,11 +800,16 @@
      photos go back to `cover` here and take their scrim and inset caption
      back with them. */
   .figure {
-    aspect-ratio: auto;
+    height: 100%;
     min-height: 540px;
   }
-  .figureImg,
-  .heroImg {
+  /* Out of flow so the figure's height comes from the grid row rather than
+     from the photograph, and the photograph fills whatever shape that is. */
+  .figureImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center top;
   }
