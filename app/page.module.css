@@ -395,6 +395,25 @@
   }
 }
 
+/* ── Hero trust block — mobile polish ─────────────────────────────────────
+   Scoped below the 900px hero breakpoint so none of this touches the desktop
+   2x2 layout above. Two concrete fixes: the trust grid mixed a 20px row gap
+   with a 24px column gap — one value now, used both ways, reads as
+   deliberate rather than incidental. The Google card gets a little more
+   internal padding, and the CTA-to-trust-block gap floor is raised, so the
+   "take the test" pair and the trust signals beneath them read as two
+   distinct, evenly-spaced groups rather than the second one crowding the
+   first on the narrowest phones. */
+@media (max-width: 899px) {
+  .trust {
+    gap: 24px;
+    margin-top: clamp(48px, 9vw, 72px);
+  }
+  .googleCard {
+    padding: 14px 20px 14px 16px;
+  }
+}
+
 /* ── 2 / 9. Logo strips ─────────────────────────────────────────────────── */
 .logoStrip {
   background: var(--tp-paper);
