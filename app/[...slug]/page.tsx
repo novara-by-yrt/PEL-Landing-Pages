@@ -29,6 +29,7 @@ import {
   TreatmentOverview,
   TreatmentContent,
   TreatmentBeforeAfter,
+  TreatmentVideoTestimonials,
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
@@ -281,6 +282,7 @@ function TreatmentPage({
           title={frontmatter.title}
           isSurgical={isSurgical}
         />
+        <TreatmentVideoTestimonials data={frontmatter.videoTestimonials} />
         <TreatmentExpert />
         <TreatmentPricing
           pricing={treatment.pricing}
@@ -336,6 +338,12 @@ function GenericPage({
         />
 
         <TreatmentContent content={content} />
+        <BeforeAfterGallery
+          gallery={frontmatter.gallery}
+          heading={frontmatter.galleryHeading}
+          description={frontmatter.galleryDescription}
+          title={frontmatter.title}
+        />
 
         {frontmatter.faq?.length ? (
           <HomeFaq

@@ -1,0 +1,40 @@
+.tpVideoRule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 16px auto 0;
+}
+
+.tpRatingBadge {
+  display: block;
+  margin: 20px auto 0;
+  height: auto;
+  max-width: 239px;
+}
+
+.tpVideoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2vw, 22px);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.tpTrustRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 48px);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.tpTrustRow img {
+  height: auto;
+  width: auto;
+  max-height: 32px;
+}
+
+@media (min-width: 640px) {
+  .tpVideoGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -158,6 +158,18 @@
       {
         "label": "Final Results",
         "value": "up to 10 years"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "Blood, MRSA, +/- ECG"
+      },
+      {
+        "label": "Addresses",
+        "value": "Redundant upper-lid skin resting on lashes, eyelid heaviness, or visual-field shadowing"
+      },
+      {
+        "label": "Down time",
+        "value": "1–2 Weeks"
       }
     ],
     "advantages": [
@@ -2950,5 +2962,67 @@
       }
     ],
     "type": "surgical"
+  },
+  "eyelid-swelling-migrated-fillers-hyaluronidase-dissolving": {
+    "heroImage": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Eyelid Swelling / Migrated Fillers & Hyaluronidase Dissolving",
+    "subtitle": "Hyalase™ is an enzyme which breaks down hyaluronic acid, commonly used to dissolve dermal fillers that have migrated, caused swelling, or led to an unacceptable outcome.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "15 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Numbing Cream"
+      },
+      {
+        "label": "Down time",
+        "value": "Minimal"
+      },
+      {
+        "label": "Final results",
+        "value": "24–48 Hours"
+      },
+      {
+        "label": "Course",
+        "value": "1–2 Injections"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Immediate Result",
+        "description": "Perfect for those seeking an instant improvement."
+      },
+      {
+        "title": "Minimal Downtime",
+        "description": "You can return to work straight away."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon and a team trained by her."
+      }
+    ],
+    "pricing": [
+      "1st Dissolve — £600",
+      "2nd Dissolve — £400"
+    ],
+    "similarTreatments": [],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "This treatment really worked for me and I do recommend this to anyone looking for a smooth, clean, clear skin, not only that it helped reduce the dark circles too. I'm thankful to Sabrina for giving me the right advice, I've had an amazing experience with her and her team.",
+        "href": "https://www.realself.com/review/london-shah-desai-amazing-experience-amazing-treatment"
+      },
+      {
+        "quote": "I am delighted with my treatment and I am often told how youthful and fresh my skin looks and how amazing at the age of 51 I have no lines! I personally would not let another surgeon anywhere near my face as I completely trust Sabrina and her work.",
+        "href": "https://www.realself.com/review/london-shah-desai-tixel-fantastic-results-downtime"
+      },
+      {
+        "quote": "Sabrina has created a warm welcoming atmosphere absent at so many practices and the personal interest shown not only by Sabrina but also the wonderful ladies that work there (Lindsey, thank you for everything) makes you feel totally at ease.",
+        "href": "https://www.realself.com/review/london-silhouette-soft"
+      }
+    ]
   }
 }

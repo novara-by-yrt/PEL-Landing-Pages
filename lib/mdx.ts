@@ -51,6 +51,19 @@ export interface RelatedTreatmentItem {
   facts?: { label: string; value: string }[];
 }
 
+export interface VideoTestimonialItem {
+  thumbnail: string;
+  title: string;
+  url: string;
+}
+
+export interface VideoTestimonialsData {
+  heading?: string;
+  ratingBadge?: string;
+  ratingBadgeAlt?: string;
+  videos: VideoTestimonialItem[];
+}
+
 export interface PostFrontmatter {
   title: string;
   slug: string;
@@ -80,6 +93,7 @@ export interface PostFrontmatter {
   galleryHeading?: string;
   galleryDescription?: string;
   gallery?: GalleryItem[];
+  videoTestimonials?: VideoTestimonialsData;
 }
 
 export interface GalleryItem {
