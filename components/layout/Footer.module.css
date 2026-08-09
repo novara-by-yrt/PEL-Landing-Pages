@@ -5,6 +5,14 @@
    lists align outward toward the page edges. */
 
 .footer {
+  /* Reveal footer: see the comment above #main-content in layout-chrome.css
+     for how the two work together. Fixed (not sticky/relative) so it never
+     takes up flow space of its own — #footer-spacer reserves that instead. */
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
   background: var(--tp-indigo-950);
   color: var(--tp-lavender-200);
   padding-block: clamp(40px, 5vw, 60px);

@@ -74,6 +74,7 @@ export default function RootLayout({
       <body>
         <Header />
         <main id="main-content">{children}</main>
+        <div id="footer-spacer" aria-hidden="true" />
         <Footer />
       </body>
     </html>

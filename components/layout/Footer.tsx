@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -51,9 +54,30 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const footerRef = useRef<HTMLElement>(null);
+
+  /* Publishes the footer's own rendered height as a CSS custom property, so
+     #main-content (layout-chrome.css) can pull the footer up underneath its
+     tail by exactly that amount for the sticky-reveal effect. A
+     ResizeObserver rather than a one-off measurement, since the footer's
+     height changes with viewport width (columns stack on mobile) and with
+     content reflow (e.g. a webfont swapping in). */
+  useEffect(() => {
+    const el = footerRef.current;
+    if (!el) return;
+
+    const publishHeight = () => {
+      document.documentElement.style.setProperty("--footer-h", `${el.offsetHeight}px`);
+    };
+
+    publishHeight();
+    const observer = new ResizeObserver(publishHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <footer className={styles.footer} role="contentinfo">
+    <footer ref={footerRef} className={styles.footer} role="contentinfo">
       <div className="container">
         <div className={styles.grid}>
           <nav className={styles.colStart} aria-label="Quick links">
