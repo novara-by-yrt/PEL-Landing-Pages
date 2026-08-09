@@ -19,12 +19,14 @@ import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
+import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
   TreatmentFactBar,
   TreatmentAdvantages,
   TreatmentContent,
+  TreatmentBeforeAfter,
   TreatmentPricing,
   RealSelfWidget,
   TreatmentSimilar,
@@ -230,6 +232,10 @@ function TreatmentPage({
   schemas: React.ReactNode;
 }) {
   const isSurgical = treatment.type === "surgical";
+  const beforeAfterSlug = TREATMENT_BEFORE_AFTER[treatmentSlug];
+  const beforeAfterGallery = beforeAfterSlug
+    ? getPostBySlug("before-after", beforeAfterSlug)?.frontmatter.gallery
+    : undefined;
 
   return (
     <>
@@ -247,6 +253,11 @@ function TreatmentPage({
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
         <TreatmentContent content={content} />
+        <TreatmentBeforeAfter
+          gallery={beforeAfterGallery}
+          title={frontmatter.title}
+          isSurgical={isSurgical}
+        />
         <MeetDrSabrina id="expert" title="Meet the Expert: Dr Sabrina Shah-Desai" />
         <TreatmentPricing
           pricing={treatment.pricing}
