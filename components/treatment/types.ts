@@ -40,6 +40,7 @@ export type PriceItem =
 export interface TreatmentMeta {
   heroImage: string;
   heroBg: string;
+  heroBadge?: string;
   h1: string;
   subtitle: string;
   type: string;

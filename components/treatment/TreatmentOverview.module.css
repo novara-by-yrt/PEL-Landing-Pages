@@ -1,15 +1,4 @@
-/* Condition-page overview ("What is X?").
-
-   Written in the home page's design language: a display-serif heading with a
-   brand rule, a lavender bloom behind the field, and a hover-lift on the
-   photograph — rather than an inline-styled heading on a bare white field.
-   Mobile-first. */
-
-.tpOverview {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
+.tpOverviewGrid.imageLeft { grid-template-columns: 0.9fr 1.1fr; }
 .tpOverviewGlow {
   position: absolute;
   inset: 0;

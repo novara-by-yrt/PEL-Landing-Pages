@@ -13,7 +13,8 @@ import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import ContactSection from "@/components/home/ContactSection";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
-import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
+import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
+import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import pageHierarchy from "@/content/page-hierarchy.json";
 import urlMapData from "@/content/url-map.json";
@@ -25,9 +26,13 @@ import {
   TreatmentHero,
   TreatmentFactBar,
   TreatmentAdvantages,
+  TreatmentOverview,
   TreatmentContent,
   TreatmentBeforeAfter,
+  TreatmentExpert,
   TreatmentPricing,
+  TreatmentFAQ,
+  TreatmentReviews,
   RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
@@ -249,35 +254,41 @@ function TreatmentPage({
           subtitle={treatment.subtitle}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
+          heroBadge={treatment.heroBadge}
+          heroBg={treatment.heroBg}
         />
+        <AccreditedStrip />
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
+        {frontmatter.overviewPanels?.map((panel, i) => (
+          <TreatmentOverview
+            key={i}
+            {...panel}
+            heading={panel.heading || frontmatter.title}
+            imageSide={i % 2 === 0 ? "right" : "left"}
+          />
+        ))}
         <TreatmentContent content={content} />
+        <BeforeAfterGallery
+          gallery={frontmatter.gallery}
+          heading={frontmatter.galleryHeading}
+          description={frontmatter.galleryDescription}
+          title={frontmatter.title}
+        />
         <TreatmentBeforeAfter
           gallery={beforeAfterGallery}
           title={frontmatter.title}
           isSurgical={isSurgical}
         />
-        <MeetDrSabrina id="expert" title="Meet the Expert: Dr Sabrina Shah-Desai" />
+        <TreatmentExpert />
         <TreatmentPricing
           pricing={treatment.pricing}
           title={frontmatter.title}
           pricingTitle={treatment.pricingTitle}
           pricingLead={treatment.pricingLead}
         />
-        <HomeFaq
-          items={frontmatter.faq ?? []}
-          eyebrow={`Patient questions about ${frontmatter.title}`}
-          title="Frequently asked questions"
-          lead="Call or email us today, we would be delighted to answer your questions."
-          contentIsHtml
-          footer={
-            <Link href="/contact" className="tp-btn tp-btn-primary">
-              Ask a Question or Book an Appointment
-            </Link>
-          }
-        />
-        <PatientStories stories={PATIENT_STORIES} />
+        <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
+        <TreatmentReviews reviews={treatment.reviews} />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />

@@ -1,0 +1,15 @@
+.hero {
+  position: relative; overflow: hidden; color: #fff; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: clamp(420px, 62vh, 680px);
+  background:
+    linear-gradient(160deg, rgba(18,16,54,0.82), rgba(69,61,155,0.78)),
+    url('/uploads/2018/11/Non-surgical-facelift-london-1.jpg') center top / cover no-repeat;
+  padding: clamp(3.5rem, 7vw, 5.5rem) 1.5rem;
+}
+.heroGlow { position: absolute; top: -180px; left: 50%; transform: translateX(-50%); width: 560px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(188,160,221,0.32), transparent 70%); pointer-events: none; }
+.hero .tp-eyebrow { justify-content: center; color: var(--tp-lavender-300); }
+.hero h1 { position: relative; font-family: var(--tp-display); font-weight: 600; font-size: clamp(2.1rem, 5vw, 3.1rem); line-height: 1.15; color: #fff; margin: 16px auto 0; max-width: 20ch; }
+.hero p { position: relative; font-size: 1.0625rem; color: rgba(255,255,255,0.82); max-width: 52ch; margin: 1rem auto 0; line-height: 1.6; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.75rem; }

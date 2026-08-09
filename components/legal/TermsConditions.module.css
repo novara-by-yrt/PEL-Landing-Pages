@@ -1,0 +1,178 @@
+/* Non-Surgical Terms & Conditions.
+
+   Same visual language as components/about/Philosophy.module.css — light
+   lavender hero, serif display headings with an accented tail, gradient
+   brand rule — but the body is a single reading column, not alternating
+   panels: this is a reference document, not a narrative one. The two
+   contractual notices (VAT, non-refundable) get a callout treatment so they
+   read as load-bearing rather than disappearing into the paragraph flow.
+
+   All colour comes from the semantic --tp-* tokens; no raw hex here. */
+
+.page {
+  --lg-rule: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+
+  background: var(--tp-paper);
+  color: var(--tp-slate);
+  font-family: var(--tp-body);
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 14px;
+}
+
+.rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--lg-rule);
+  margin: 20px 0 0;
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(420px, 78vh, 820px);
+  padding-block: clamp(48px, 6vw, 80px);
+  color: #fff;
+}
+.heroBg { position: absolute; inset: 0; z-index: -2; }
+.heroBg img { object-fit: cover; object-position: center 30%; }
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, rgba(15, 13, 46, 0.92) 0%, rgba(18, 16, 54, 0.62) 45%, rgba(35, 33, 105, 0.42) 100%);
+}
+.hero .container { width: 100%; }
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 20px;
+}
+.breadcrumb a { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+.breadcrumb a:hover { color: #fff; }
+.hero .eyebrow { color: var(--tp-lavender-300); }
+.heroTitle {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+}
+.heroLead {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-lavender-100);
+  margin: 18px 0 0;
+  max-width: 62ch;
+}
+
+/* ── Document body ─────────────────────────────────────────────────────── */
+.body {
+  padding-block: clamp(48px, 7vw, 88px);
+}
+.column {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.section { margin-top: clamp(40px, 6vw, 64px); }
+.section:first-child { margin-top: 0; }
+
+.h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 3.4vw, 1.625rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--tp-line);
+}
+
+.h3 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: var(--fs-heading-sm);
+  color: var(--tp-ink);
+  margin: 24px 0 10px;
+}
+
+.p {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 0 0 14px;
+}
+.p:last-child { margin-bottom: 0; }
+.p strong { color: var(--tp-ink); font-weight: 600; }
+.p a {
+  color: var(--tp-indigo-700);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.p a:hover { color: var(--tp-indigo-600); }
+
+.list {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listItem {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+}
+.listItem::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tp-lavender-400);
+}
+
+/* A contractual notice, set apart from ordinary paragraphs so it reads as
+   load-bearing rather than disappearing into the flow. */
+.callout {
+  margin: 18px 0;
+  padding: 16px 20px;
+  border-radius: var(--tp-radius-lg);
+  background: var(--tp-lavender-050);
+  border: 1px solid var(--tp-lavender-200);
+  border-left: 3px solid var(--tp-indigo-700);
+}
+.callout p {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-ink);
+}
+.callout strong { color: var(--tp-indigo-700); font-weight: 700; }
