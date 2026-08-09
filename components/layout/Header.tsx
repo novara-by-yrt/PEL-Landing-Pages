@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -204,6 +204,14 @@ const NAV: NavItem[] = [
 
 const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
+/** left/top/width/height of the tubelight lamp, in pixels relative to `.pel-links`. */
+interface LampRect {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
 export default function Header() {
   const [solid, setSolid] = useState(false);
   const [openItem, setOpenItem] = useState<string | null>(null);
@@ -213,6 +221,43 @@ export default function Header() {
   const [subExpanded, setSubExpanded] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  /* Tubelight nav highlight: a single glowing bar that glides to whichever
+     top-level item is hovered or focused, rather than each item drawing its
+     own (previously invisible — see layout-chrome.css) hover background.
+     `highlighted` names the item; `lampRect` is its last measured box, kept
+     around after `highlighted` clears so the lamp fades out in place instead
+     of jumping to a corner. */
+  const [highlighted, setHighlighted] = useState<string | null>(null);
+  const [lampRect, setLampRect] = useState<LampRect | null>(null);
+  const itemRefs = useRef<Map<string, HTMLElement>>(new Map());
+
+  const registerNavItem = (label: string) => (el: HTMLElement | null) => {
+    if (el) itemRefs.current.set(label, el);
+    else itemRefs.current.delete(label);
+  };
+
+  useLayoutEffect(() => {
+    if (!highlighted) return;
+
+    const measure = () => {
+      const el = itemRefs.current.get(highlighted);
+      const container = navRef.current;
+      if (!el || !container) return;
+      const elRect = el.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      setLampRect({
+        left: elRect.left - containerRect.left,
+        top: elRect.top - containerRect.top,
+        width: elRect.width,
+        height: elRect.height,
+      });
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [highlighted]);
 
   useEffect(() => {
     /**
@@ -301,21 +346,50 @@ export default function Header() {
         </Link>
 
         <nav className="pel-links" aria-label="Main navigation" ref={navRef}>
+          <span
+            className={`pel-lamp${highlighted ? " is-visible" : ""}`}
+            style={
+              lampRect
+                ? {
+                    left: lampRect.left,
+                    top: lampRect.top,
+                    width: lampRect.width,
+                    height: lampRect.height,
+                  }
+                : undefined
+            }
+            aria-hidden="true"
+          />
+
           {NAV.map((item, navIndex) => {
             if (!item.variant) {
               return item.external ? (
                 <a
                   key={`${item.href}-${navIndex}`}
+                  ref={registerNavItem(item.label)}
                   href={item.href}
                   className="pel-link"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onMouseEnter={() => setHighlighted(item.label)}
+                  onMouseLeave={() => setHighlighted(null)}
+                  onFocus={() => setHighlighted(item.label)}
+                  onBlur={() => setHighlighted(null)}
                 >
                   {item.label}
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : (
-                <Link key={`${item.href}-${navIndex}`} href={item.href} className="pel-link">
+                <Link
+                  key={`${item.href}-${navIndex}`}
+                  ref={registerNavItem(item.label)}
+                  href={item.href}
+                  className="pel-link"
+                  onMouseEnter={() => setHighlighted(item.label)}
+                  onMouseLeave={() => setHighlighted(null)}
+                  onFocus={() => setHighlighted(item.label)}
+                  onBlur={() => setHighlighted(null)}
+                >
                   {item.label}
                 </Link>
               );
@@ -326,16 +400,28 @@ export default function Header() {
             return (
               <div
                 key={item.label}
+                ref={registerNavItem(item.label)}
                 className={`pel-navitem${isOpen ? " has-panel" : ""}`}
-                onMouseEnter={() => setOpenItem(item.label)}
-                onMouseLeave={() => { setOpenItem(null); setActiveGroup(null); }}
+                onMouseEnter={() => { setOpenItem(item.label); setHighlighted(item.label); }}
+                onMouseLeave={() => { setOpenItem(null); setActiveGroup(null); setHighlighted(null); }}
+                onFocus={() => { setOpenItem(item.label); setHighlighted(item.label); }}
+                onBlur={(e) => {
+                  if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+                  setOpenItem(null);
+                  setActiveGroup(null);
+                  setHighlighted(null);
+                }}
               >
                 <button
                   type="button"
                   className="pel-link pel-link-has-menu"
                   aria-haspopup="true"
                   aria-expanded={isOpen}
-                  onClick={() => setOpenItem(isOpen ? null : item.label)}
+                  onClick={() => {
+                    const next = isOpen ? null : item.label;
+                    setOpenItem(next);
+                    setHighlighted(next);
+                  }}
                 >
                   {item.label}
                   <TpIcon name="chevron" size={13} style={{ transform: "rotate(90deg)" }} />

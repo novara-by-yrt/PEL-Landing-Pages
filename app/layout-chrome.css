@@ -36,12 +36,23 @@
 
 .pel-wordmark{font-family:var(--tp-display);font-size:20px;font-weight:600;letter-spacing:0.03em;color:var(--tp-indigo-900);white-space:nowrap}
 .pel-wordmark-sub{font-family:var(--tp-body);font-size:8.5px;letter-spacing:0.34em;color:var(--tp-lavender-500);margin-top:4px}
-.pel-links{display:flex;justify-content:center;align-items:center;gap:2px;min-width:0;justify-self:center;width:fit-content;max-width:100%;padding:5px 10px;border-radius:999px;background:var(--tp-lavender-050)}
+.pel-links{position:relative;display:flex;justify-content:center;align-items:center;gap:2px;min-width:0;justify-self:center;width:fit-content;max-width:100%;padding:5px 10px;border-radius:999px;background:var(--tp-lavender-050)}
 .pel-navitem{position:relative;display:flex;align-items:center}
-.pel-link{position:relative;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease),background 160ms var(--tp-ease)}
-.pel-link:hover{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
+.pel-link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease)}
+.pel-link:hover{color:var(--tp-indigo-700)}
 .pel-link-has-menu svg{transition:transform 220ms var(--tp-ease)}
-.pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700);background:var(--tp-lavender-050)}
+.pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700)}
+
+/* Tubelight highlight: a single glowing bar that glides between nav items on
+   hover/focus, replacing what was an invisible hover background (identical
+   in colour to the pill it sat on). Position/size are written from JS
+   (Header.tsx) as inline styles — this rule only owns appearance and the
+   left/top/width/height/opacity transitions. */
+.pel-lamp{position:absolute;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--tp-paper);box-shadow:var(--tp-shadow-xs);opacity:0;pointer-events:none;z-index:0;transition:left 320ms var(--tp-ease),top 320ms var(--tp-ease),width 320ms var(--tp-ease),height 320ms var(--tp-ease),opacity 200ms var(--tp-ease)}
+.pel-lamp.is-visible{opacity:1}
+.pel-lamp::before{content:"";position:absolute;top:-3px;left:50%;width:28px;height:3px;transform:translateX(-50%);border-radius:999px;background:linear-gradient(90deg,var(--tp-indigo-700),var(--tp-lavender-300))}
+.pel-lamp::after{content:"";position:absolute;top:-11px;left:50%;width:46px;height:20px;transform:translateX(-50%);border-radius:999px;background:var(--tp-lavender-300);opacity:0.5;filter:blur(10px)}
+@media(prefers-reduced-motion:reduce){.pel-lamp{transition:opacity 200ms var(--tp-ease)}}
 .pel-navitem.has-panel .pel-link-has-menu svg{transform:rotate(-90deg)}
 .pel-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;z-index:10}
 .pel-dropdown-inner{background:var(--tp-paper);border-radius:24px;box-shadow:0 30px 70px -28px rgba(24,20,64,.42),0 2px 10px rgba(24,20,64,.06);padding:0;overflow:hidden;animation:pel-panel-in 180ms var(--tp-ease) both}
