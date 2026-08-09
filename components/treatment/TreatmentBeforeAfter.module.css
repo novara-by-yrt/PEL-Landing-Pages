@@ -104,11 +104,21 @@
   stroke-width: 1.9;
 }
 
+@media (min-width: 640px) {
+  /* Tablet: noticeably bigger than the mobile card so the before/after
+     detail actually reads, without giving up the "roughly 3 across"
+     rail feel once desktop widens it further below. */
+  .track {
+    grid-auto-columns: min(58vw, 380px);
+  }
+}
+
 @media (min-width: 1000px) {
   /* The rail gets side gutters wide enough to seat the arrows, so they sit
      beside the cards instead of on top of a photo. */
   .track {
     padding-inline: 76px;
+    grid-auto-columns: 420px;
   }
   .viewport {
     scroll-padding-inline: 76px;
