@@ -13,6 +13,7 @@ import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import HomeFaq from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
+import ContactSection from "@/components/home/ContactSection";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import {
   PageHero,
@@ -60,12 +61,13 @@ export async function generateMetadata({
 // FAQ, CTA — all driven by frontmatter so each condition's MDX file (in
 // content/condition/) stays the single source of truth.
 //
-// Three sections are the home page's own components, not condition-page
+// Four sections are the home page's own components, not condition-page
 // variants, matching the treatment template's convention — see the comment
 // above TreatmentPage in app/[...slug]/page.tsx:
 //   • MeetDrSabrina  — the home About panel, with this page's own title.
 //   • HomeFaq        — the home accordion, fed the page's own FAQ items.
 //   • PatientStories — the home reviews rail, fed the shared PATIENT_STORIES.
+//   • ContactSection — the home "Contact our clinic" form, unmodified.
 export default async function ConditionPage({
   params,
 }: {
@@ -172,6 +174,7 @@ export default async function ConditionPage({
         />
         <PatientStories stories={PATIENT_STORIES} />
         <TreatmentCTA />
+        <ContactSection />
       </div>
     </>
   );
