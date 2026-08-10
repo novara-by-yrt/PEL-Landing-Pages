@@ -19,14 +19,6 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/before-after` },
 };
 
-function Arrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function BeforeAfterIndexPage() {
   const cases = getAllPosts("before-after");
   const bySlug = new Map(cases.map((c) => [c.slug, c]));
@@ -161,7 +153,6 @@ export default function BeforeAfterIndexPage() {
                         {summary ? <p className={styles.cardText}>{summary}</p> : null}
                         <span className={styles.cardCta}>
                           View case
-                          <Arrow />
                         </span>
                       </div>
                     </Link>

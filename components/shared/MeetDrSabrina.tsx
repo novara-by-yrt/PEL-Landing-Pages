@@ -41,14 +41,6 @@ function CheckMark() {
   );
 }
 
-function Arrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function MeetDrSabrina({
   id = "about",
   title = "Meet Dr Sabrina Shah-Desai",
@@ -121,9 +113,6 @@ export default function MeetDrSabrina({
             <div className={styles.expertCta}>
               <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
                 Book a consultation
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <Arrow />
-                </span>
               </Link>
             </div>
           </div>

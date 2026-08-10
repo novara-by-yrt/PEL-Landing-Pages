@@ -132,7 +132,6 @@ export function TeamGrid({ members }: { members: Member[] }) {
               {active.bookable && (
                 <Link href="/contact" className="tp-btn tp-btn-primary tp-btn-block" style={{ marginTop: 6 }}>
                   Book a Consultation
-                  <TpIcon name="arrow" size={16} />
                 </Link>
               )}
             </div>

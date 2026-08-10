@@ -68,7 +68,7 @@ export function RealSelfWidget() {
               ))}
             </div>
             <a href={`${PROFILE_URL}#reviews`} target="_blank" rel="noopener noreferrer nofollow" className={styles.tpRsMore}>
-              Read all RealSelf reviews <TpIcon name="arrow" size={15} />
+              Read all RealSelf reviews
             </a>
           </div>
           <div>
@@ -82,7 +82,7 @@ export function RealSelfWidget() {
               ))}
             </div>
             <a href={`${PROFILE_URL}#qa`} target="_blank" rel="noopener noreferrer nofollow" className={styles.tpRsMore}>
-              View all answers <TpIcon name="arrow" size={15} />
+              View all answers
             </a>
           </div>
         </div>

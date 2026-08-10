@@ -61,7 +61,7 @@ export function TreatmentHero({
 
           <div className={styles.tpHeroActions}>
             <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
-              Take the Free Self-Test <TpIcon name="arrow" size={17} />
+              Take the Free Self-Test
             </Link>
             <Link href="/contact" className="tp-btn tp-btn-secondary">Book Consultation</Link>
           </div>

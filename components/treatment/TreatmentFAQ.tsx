@@ -77,7 +77,7 @@ export function TreatmentFAQ({ faq, title }: { faq?: FaqItem[]; title: string })
           <div className={styles.tpFaqAsk}>
             <p>Call or email us today, we would be delighted to answer your questions.</p>
             <Link href="/contact" className="tp-btn tp-btn-primary">
-              Ask a Question or Book an Appointment <TpIcon name="arrow" size={17} />
+              Ask a Question or Book an Appointment
             </Link>
           </div>
         </div>

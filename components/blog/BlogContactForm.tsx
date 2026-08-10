@@ -63,7 +63,7 @@ export function BlogContactForm() {
           </div>
           {status === "error" && <p className={styles.blogConnectError}>{errorMsg}</p>}
           <button type="submit" className="tp-btn tp-btn-primary" style={{ width: "100%", justifyContent: "center" }} disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Send Message"} <TpIcon name="arrow" size={17} />
+            {status === "sending" ? "Sending…" : "Send Message"}
           </button>
         </form>
       )}

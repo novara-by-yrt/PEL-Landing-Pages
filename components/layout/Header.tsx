@@ -524,7 +524,6 @@ export default function Header() {
           <Link href={BOOK_HREF} className="pel-cta">
             <span className="pel-cta-long">Book a Consultation</span>
             <span className="pel-cta-short">Book</span>
-            <TpIcon name="arrow" size={16} />
           </Link>
         </div>
 
@@ -672,7 +671,7 @@ export default function Header() {
 
         <div className="pel-drawer-foot">
           <Link href={BOOK_HREF} className="pel-cta pel-cta-full" onClick={() => setDrawerOpen(false)}>
-            Book a Consultation <TpIcon name="arrow" size={17} />
+            Book a Consultation
           </Link>
           <ClinicPhone className="pel-drawer-phone" icon />
         </div>

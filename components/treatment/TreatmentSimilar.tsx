@@ -90,9 +90,6 @@ export function TreatmentSimilar({
                   {target && (
                     <span className={styles.tpSimilarExplore}>
                       Explore
-                      <span className={styles.tpSimilarArrow} aria-hidden="true">
-                        <TpIcon name="arrow" size={15} />
-                      </span>
                     </span>
                   )}
                 </span>

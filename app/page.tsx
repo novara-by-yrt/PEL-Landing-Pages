@@ -298,15 +298,6 @@ export default function HomePage() {
             <div className={styles.heroActions}>
               <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
                 Take the Eyelid Surgery Test
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M5 12h13M12.5 6l6 6-6 6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
               </Link>
               <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-secondary">
                 Book a Consultation

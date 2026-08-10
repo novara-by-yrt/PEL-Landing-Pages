@@ -119,52 +119,6 @@
 .tp-btn-outline-light:hover { background: rgba(255, 255, 255, 0.18); }
 .tp-btn-outline-light:focus-visible { outline-color: #fff; }
 
-/* Optional trailing arrow badge. It is an add-on inside `.tp-btn`, not a new
-   button, so a CTA that carries one keeps the exact same height, radius,
-   padding and focus ring as one that does not. */
-.tp-btn-arrow {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  margin-right: -12px;
-  margin-left: 3px;
-  /* Pulled out of the line box so the badge rides inside the button's own
-     min-height instead of stretching it taller than a plain CTA. */
-  margin-block: -7px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  transition: transform 220ms var(--tp-ease), background 220ms var(--tp-ease);
-}
-.tp-btn-arrow svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.9;
-}
-.tp-btn:hover .tp-btn-arrow {
-  background: rgba(255, 255, 255, 0.28);
-  transform: translateX(3px);
-}
-.tp-btn-lg .tp-btn-arrow {
-  width: 34px;
-  height: 34px;
-  margin-right: -18px;
-  margin-left: 6px;
-  margin-block: -8px;
-}
-/* On light-background variants the badge needs the inverse treatment. */
-.tp-btn-secondary .tp-btn-arrow,
-.tp-btn-inverse .tp-btn-arrow {
-  background: var(--tp-lavender-100);
-}
-.tp-btn-secondary:hover .tp-btn-arrow,
-.tp-btn-inverse:hover .tp-btn-arrow {
-  background: var(--tp-lavender-200);
-}
-
 /* Sizes / layout modifiers */
 .tp-btn-lg {
   min-height: 54px;
@@ -174,10 +128,8 @@
 .tp-btn-block { width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
-  .tp-btn,
-  .tp-btn-arrow { transition: none; }
+  .tp-btn { transition: none; }
   .tp-btn:hover { transform: none; }
-  .tp-btn:hover .tp-btn-arrow { transform: none; }
   .tp-btn:active { transform: none; }
 }
 
