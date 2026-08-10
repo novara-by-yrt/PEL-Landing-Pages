@@ -57,10 +57,7 @@ function Card({ item, clone }: { item: Treatment; clone?: boolean }) {
       <div className={styles.body}>
         <h3 className={styles.title}>{item.title}</h3>
         <p className={styles.blurb}>{item.blurb}</p>
-        <span className={styles.explore}>
-          Explore
-          <Arrow />
-        </span>
+        <span className={styles.explore}>Learn more</span>
       </div>
     </Link>
   );

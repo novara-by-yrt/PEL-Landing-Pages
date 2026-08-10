@@ -194,22 +194,9 @@
   font-weight: 600;
   color: var(--tp-indigo-700);
 }
-.explore svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  transition: transform 240ms var(--tp-ease);
-}
-.card:hover .explore svg {
-  transform: translateX(4px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card,
   .media img,
-  .explore svg,
   .arrow,
   .tab {
     transition: none;
@@ -218,8 +205,7 @@
   .arrow:hover {
     transform: none;
   }
-  .card:hover .media img,
-  .card:hover .explore svg {
+  .card:hover .media img {
     transform: none;
   }
 }

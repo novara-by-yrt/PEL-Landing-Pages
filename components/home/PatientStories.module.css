@@ -265,13 +265,6 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.readOn svg {
-  width: 13px;
-  height: 13px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .arrow {

@@ -182,13 +182,6 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
                       className={styles.readOn}
                     >
                       Read on {story.source}
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                          d="M8 16L16 8M9.5 8H16v6.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
                     </a>
                   ) : null}
                 </figcaption>
