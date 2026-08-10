@@ -9,7 +9,6 @@ export interface Treatment {
   image: string;
   title: string;
   href: string;
-  tag: string;
   blurb: string;
 }
 
@@ -54,7 +53,6 @@ function Card({ item, clone }: { item: Treatment; clone?: boolean }) {
           loading="lazy"
         />
         <span className={styles.mediaScrim} aria-hidden="true" />
-        <span className={styles.tag}>{item.tag}</span>
       </div>
       <div className={styles.body}>
         <h3 className={styles.title}>{item.title}</h3>

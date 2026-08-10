@@ -163,21 +163,6 @@
   );
 }
 
-.tag {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  padding: 7px 13px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tp-indigo-700);
-}
-
 .body {
   display: flex;
   flex-direction: column;

@@ -7,7 +7,6 @@ import styles from "./TreatmentHero.module.css";
 export function TreatmentHero({
   breadcrumbItems,
   siteUrl,
-  isSurgical,
   h1,
   subtitle,
   heroImage,
@@ -17,7 +16,6 @@ export function TreatmentHero({
 }: {
   breadcrumbItems: BreadcrumbItem[];
   siteUrl: string;
-  isSurgical: boolean;
   h1: string;
   subtitle?: string;
   heroImage?: string;
@@ -47,11 +45,6 @@ export function TreatmentHero({
               </span>
             ))}
           </nav>
-
-          <span className="tp-eyebrow">
-            <TpIcon name="eye" size={13} />
-            {isSurgical ? "Surgical · Eyes" : "Non-Surgical · Eyes"}
-          </span>
 
           <h1 className={styles.tpH1}>{h1}</h1>
 
