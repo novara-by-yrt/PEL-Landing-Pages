@@ -40,6 +40,7 @@ export interface OverviewData {
   paragraphs: string[];
   image?: string;
   imageBadge?: string;
+  video?: string;
 }
 
 export interface RelatedTreatmentItem {

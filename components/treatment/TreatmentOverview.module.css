@@ -82,6 +82,57 @@
   color: var(--tp-indigo-700);
 }
 
+.tpOverviewPlayBtn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.tpOverviewPlayBtn img { object-fit: cover; }
+.tpOverviewPlayBtn:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+}
+
+.tpOverviewScrim {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(18, 16, 54, 0.18), rgba(44, 42, 122, 0.38));
+}
+
+.tpOverviewPlay {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 22px rgba(18, 16, 54, 0.32);
+  transition: transform 260ms var(--tp-ease);
+}
+.tpOverviewPlayBtn:hover .tpOverviewPlay { transform: scale(1.08); }
+.tpOverviewPlayIcon {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;
+  fill: var(--tp-indigo-700);
+}
+
+.tpOverviewFrameEmbed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+
 @media (min-width: 861px) {
   .tpOverviewGrid { grid-template-columns: 1.1fr 0.9fr; }
 }
@@ -89,4 +140,6 @@
 @media (prefers-reduced-motion: reduce) {
   .tpOverviewImg { transition: none; }
   .tpOverviewFrame:hover .tpOverviewImg { transform: none; }
+  .tpOverviewPlay { transition: none; }
+  .tpOverviewPlayBtn:hover .tpOverviewPlay { transform: none; }
 }
