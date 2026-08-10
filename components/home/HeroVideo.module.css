@@ -11,17 +11,9 @@
   background: var(--tp-lavender-050);
 }
 
-/* Wistia's swatch frame, used as the static fallback when motion is
-   reduced. When the video renders, its own `poster` attribute plays this
-   role instead — there is never an empty rectangle either way. */
-.poster {
-  position: absolute;
-  inset: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
+/* The <video>'s own `poster` attribute is the still frame in every state —
+   before the clip loads, and permanently when the visitor prefers reduced
+   motion — so there is never an empty rectangle. */
 .player {
   position: absolute;
   inset: 0;

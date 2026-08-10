@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     // "type": "module" in package.json) — not part of the app bundle, so
     // the TypeScript-aware `require()` rule doesn't apply to them.
     "scripts/**",
+    // Vendored editor/agent tooling, likewise CommonJS and not app code.
+    ".claude/**",
   ]),
 ]);
 

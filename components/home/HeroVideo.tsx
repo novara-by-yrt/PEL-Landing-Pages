@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./HeroVideo.module.css";
 
 const MEDIA_ID = "82n4t7ug2e";
@@ -26,17 +26,42 @@ const SOURCE_DESKTOP = "https://embed-ssl.wistia.com/deliveries/f23a6837b804502c
  *    browser decodes it natively, and nothing renders empty while it loads
  *    because the poster frame covers the gap.
  *
- * 2. The player only mounts when the visitor has not asked for reduced
+ * 2. The clip only downloads when the visitor has not asked for reduced
  *    motion. Hiding an autoplaying video in CSS still downloads and decodes
- *    it; not rendering it means the request is never made, and the still
- *    frame is what they get instead.
+ *    it; `preload="none"` plus a play() call gated on the media query means
+ *    the request is never made, and the poster frame is what they get
+ *    instead.
  */
 export default function HeroVideo() {
-  const [motionAllowed, setMotionAllowed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
+  /* Start playback only when the visitor hasn't asked for reduced motion.
+     Deliberately `.play()` from an effect rather than an `autoplay`
+     attribute, and deliberately the same <video> element in every state:
+     an earlier version swapped a poster <div> for a <video> once this
+     check ran, which tore down an already-painted element ~450ms into
+     every page load and left the bare stage colour showing while the new
+     element re-decoded its poster — a visible flash on each refresh,
+     worst on iOS.
+
+     With `preload="none"` the clip is still never fetched unless play()
+     is called, so reduced-motion visitors pay nothing for the element
+     being present — they just keep the poster frame, same as before. */
   useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setMotionAllowed(!query.matches);
+    const sync = () => {
+      if (query.matches) {
+        el.pause();
+      } else {
+        // Muted + playsInline, so autoplay policies allow this; a rejection
+        // (older iOS in Low Power Mode) just leaves the poster showing.
+        void el.play().catch(() => {});
+      }
+    };
+
     sync();
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
@@ -44,22 +69,18 @@ export default function HeroVideo() {
 
   return (
     <div className={styles.stage} aria-hidden="true">
-      {motionAllowed ? (
-        <video
-          className={styles.player}
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-        >
-          <source src={SOURCE_MOBILE} type="video/mp4" media="(max-width: 899px)" />
-          <source src={SOURCE_DESKTOP} type="video/mp4" />
-        </video>
-      ) : (
-        <div className={styles.poster} style={{ backgroundImage: `url(${POSTER})` }} />
-      )}
+      <video
+        ref={videoRef}
+        className={styles.player}
+        poster={POSTER}
+        muted
+        loop
+        playsInline
+        preload="none"
+      >
+        <source src={SOURCE_MOBILE} type="video/mp4" media="(max-width: 899px)" />
+        <source src={SOURCE_DESKTOP} type="video/mp4" />
+      </video>
     </div>
   );
 }
