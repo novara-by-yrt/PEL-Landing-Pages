@@ -47,6 +47,8 @@ export interface TreatmentMeta {
   type: string;
   glance: GlanceItem[];
   advantages: AdvantageItem[];
+  /** Overrides "Advantages of {title} Treatment" — for titles that already end in "Treatment". */
+  advantagesHeading?: string;
   pricing: PriceItem[];
   /** Overrides the treatment title in the "… Cost in London" heading. */
   pricingTitle?: string;

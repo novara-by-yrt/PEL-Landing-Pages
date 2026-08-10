@@ -31,6 +31,7 @@ import {
   TreatmentContent,
   TreatmentBeforeAfter,
   TreatmentVideoTestimonials,
+  TeamBioCarousel,
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
@@ -262,7 +263,11 @@ function TreatmentPage({
         />
         <AccreditedStrip />
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
-        <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
+        <TreatmentAdvantages
+          advantages={treatment.advantages}
+          title={frontmatter.title}
+          heading={treatment.advantagesHeading}
+        />
         {frontmatter.overviewPanels?.map((panel, i) => (
           <TreatmentOverview
             key={i}
@@ -284,6 +289,7 @@ function TreatmentPage({
           isSurgical={isSurgical}
         />
         <TreatmentVideoTestimonials data={frontmatter.videoTestimonials} />
+        <TeamBioCarousel data={frontmatter.teamBios} />
         <TreatmentExpert />
         <TreatmentPricing
           pricing={treatment.pricing}

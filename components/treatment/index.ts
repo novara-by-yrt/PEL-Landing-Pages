@@ -16,6 +16,7 @@ export { BeforeAfterGallery } from "./BeforeAfterGallery";
 export { BeforeAfterNav } from "./BeforeAfterNav";
 export { TreatmentBeforeAfter } from "./TreatmentBeforeAfter";
 export { TreatmentVideoTestimonials } from "./TreatmentVideoTestimonials";
+export { TeamBioCarousel } from "./TeamBioCarousel";
 export { TreatmentCTA } from "./TreatmentCTA";
 export { TpIcon, glanceIconKey } from "./TpIcon";
 export type { TreatmentMeta, GlanceItem, AdvantageItem, SimilarTreatmentItem, ReviewItem, BreadcrumbItem } from "./types";

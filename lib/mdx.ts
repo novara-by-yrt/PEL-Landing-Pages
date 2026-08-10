@@ -65,6 +65,19 @@ export interface VideoTestimonialsData {
   videos: VideoTestimonialItem[];
 }
 
+export interface TeamBioMember {
+  name: string;
+  role: string;
+  bio: string;
+  qualifications?: string[];
+}
+
+export interface TeamBiosData {
+  heading?: string;
+  image?: string;
+  members: TeamBioMember[];
+}
+
 export interface PostFrontmatter {
   title: string;
   slug: string;
@@ -95,6 +108,7 @@ export interface PostFrontmatter {
   galleryDescription?: string;
   gallery?: GalleryItem[];
   videoTestimonials?: VideoTestimonialsData;
+  teamBios?: TeamBiosData;
 }
 
 export interface GalleryItem {
