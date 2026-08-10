@@ -12,7 +12,9 @@
  *   then: 121 Harley Street, London, W1G 6AX · +44 7476 544881 · info@perfecteyesltd.com
  *   now: phone updated to 020 7183 5121, matching the number live on
  *        perfecteyesltd.com today (the old mobile number is still the one
- *        published in that site's JSON-LD, so it may be stale there too).
+ *        published in that site's JSON-LD, so it may be stale there too);
+ *        email consolidated to enquiries@ — info@, manager@ and secretary@
+ *        were all previously published in different places.
  *
  * Confirm these are current before this goes live — a wrong number on a
  * clinic site sends patients nowhere.
@@ -21,7 +23,7 @@ export const CLINIC = {
   name: "Perfect Eyes Ltd",
   phoneDisplay: "020 7183 5121",
   phoneHref: "tel:+442071835121",
-  email: "info@perfecteyesltd.com",
+  email: "enquiries@perfecteyesltd.com",
   addressShort: "121 Harley Street, London",
   address: "Perfect Eyes Ltd, 121 Harley Street, London, W1G 6AX",
   companyNumber: "10036376",

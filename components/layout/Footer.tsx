@@ -57,23 +57,44 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
 
   /* Publishes the footer's own rendered height as a CSS custom property, so
-     #main-content (layout-chrome.css) can pull the footer up underneath its
-     tail by exactly that amount for the sticky-reveal effect. A
-     ResizeObserver rather than a one-off measurement, since the footer's
-     height changes with viewport width (columns stack on mobile) and with
-     content reflow (e.g. a webfont swapping in). */
+     #footer-spacer (layout-chrome.css) can reserve exactly that much scroll
+     room for the reveal effect. A ResizeObserver rather than a one-off
+     measurement, since the footer's height changes with viewport width
+     (columns stack on mobile) and with content reflow (e.g. a webfont
+     swapping in).
+
+     The reveal only works while the footer fits on screen: it is
+     `position: fixed`, so any part of it taller than the viewport sits above
+     the top edge and can never be scrolled to. Stacked into one column on a
+     phone the footer runs ~1450px against a ~640–850px viewport, which left
+     the top third — the whole Quick links column — permanently unreachable.
+     So measure against the viewport and, when it cannot fit, hand the footer
+     back to normal flow (`data-reveal="off"`) and zero the spacer. */
   useEffect(() => {
     const el = footerRef.current;
     if (!el) return;
 
-    const publishHeight = () => {
-      document.documentElement.style.setProperty("--footer-h", `${el.offsetHeight}px`);
+    const sync = () => {
+      const fits = el.offsetHeight <= window.innerHeight;
+      el.dataset.reveal = fits ? "on" : "off";
+      document.documentElement.style.setProperty(
+        "--footer-h",
+        fits ? `${el.offsetHeight}px` : "0px",
+      );
     };
 
-    publishHeight();
-    const observer = new ResizeObserver(publishHeight);
+    sync();
+    const observer = new ResizeObserver(sync);
     observer.observe(el);
-    return () => observer.disconnect();
+    /* Rotating a phone changes the viewport without necessarily changing the
+       footer's own height, so the observer alone would miss it. */
+    window.addEventListener("resize", sync);
+    window.addEventListener("orientationchange", sync);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", sync);
+      window.removeEventListener("orientationchange", sync);
+    };
   }, []);
 
   return (

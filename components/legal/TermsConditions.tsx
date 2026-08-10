@@ -55,7 +55,7 @@ const SECTIONS: Section[] = [
           <>
             For revision consultations, all documents relating to previous treatments/surgery must be
             submitted to{" "}
-            <a href="mailto:secretary@perfecteyesltd.com">secretary@perfecteyesltd.com</a> prior to
+            <a href="mailto:enquiries@perfecteyesltd.com">enquiries@perfecteyesltd.com</a> prior to
             your appointment.
           </>,
         ],
@@ -169,7 +169,7 @@ const SECTIONS: Section[] = [
           <>
             Although Dr Shah-Desai seeks to offer you the highest level of service, if you do have
             cause for complaint please email{" "}
-            <a href="mailto:manager@perfecteyesltd.com">manager@perfecteyesltd.com</a>. Our
+            <a href="mailto:enquiries@perfecteyesltd.com">enquiries@perfecteyesltd.com</a>. Our
             complaints policy can be found{" "}
             <a href="/uploads/2018/11/ComplaintsPolicyPEL.pdf" target="_blank" rel="noopener noreferrer">
               here

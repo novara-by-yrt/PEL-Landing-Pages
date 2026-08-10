@@ -18,6 +18,14 @@
   padding-block: clamp(40px, 5vw, 60px);
 }
 
+/* Footer taller than the viewport — typically any phone, where the columns
+   stack. A fixed element cannot be scrolled, so the overflow above the top
+   edge would be unreachable; fall back to ordinary flow, where the whole
+   footer scrolls into view. Footer.tsx sets this and zeroes --footer-h. */
+.footer[data-reveal="off"] {
+  position: static;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;

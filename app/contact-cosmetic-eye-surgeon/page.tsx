@@ -109,7 +109,7 @@ export default function ContactCosmeticEyeSurgeonPage() {
           <p>
             <strong>Complaints:</strong> although Dr Shah-Desai seeks to offer you the highest level of service,
             if you have cause for complaint please email{" "}
-            <a href="mailto:manager@perfecteyesltd.com">manager@perfecteyesltd.com</a>. Our complaints policy can
+            <a href="mailto:enquiries@perfecteyesltd.com">enquiries@perfecteyesltd.com</a>. Our complaints policy can
             be found <a href="/uploads/2018/11/ComplaintsPolicyPEL.pdf" target="_blank" rel="noopener noreferrer">here</a>.
           </p>
         </div>
