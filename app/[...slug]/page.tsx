@@ -21,6 +21,7 @@ import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
@@ -130,7 +131,7 @@ export async function generateMetadata({
         "",
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
-        : [],
+        : [DEFAULT_OG_IMAGE],
     },
   };
 }

@@ -15,6 +15,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
 import ContactSection from "@/components/home/ContactSection";
 import { PATIENT_STORIES } from "@/lib/reviews";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import {
   PageHero,
   TreatmentOverview,
@@ -51,7 +52,9 @@ export async function generateMetadata({
       type: "website",
       title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
       description: frontmatter.seo?.og?.description || frontmatter.seo?.description || frontmatter.excerpt || "",
-      images: frontmatter.featuredImage ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }] : [],
+      images: frontmatter.featuredImage
+        ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
+        : [DEFAULT_OG_IMAGE],
     },
   };
 }

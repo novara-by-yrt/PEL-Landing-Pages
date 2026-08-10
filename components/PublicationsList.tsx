@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./PublicationsList.module.css";
@@ -19,63 +19,65 @@ interface PublicationsListProps {
   initialPublications: PublicationItem[];
 }
 
+const categories = [
+  "All",
+  "Ptosis & Eyelid Surgery",
+  "Fillers & Complications",
+  "Ophthalmic Pathology",
+];
+
 export default function PublicationsList({ initialPublications }: PublicationsListProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = [
-    "All",
-    "Ptosis & Eyelid Surgery",
-    "Fillers & Complications",
-    "Ophthalmic Pathology",
-  ];
+  /* Filtered inline rather than in a useMemo: the React Compiler is enabled
+     on this project and memoizes this for us, and the hand-written useMemo
+     that used to wrap it was one the compiler couldn't preserve — which made
+     it bail out of optimizing the entire component. */
+  const filteredPublications = initialPublications.filter((pub) => {
+    const matchesSearch =
+      searchQuery === "" ||
+      pub.rawTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pub.journal.toLowerCase().includes(searchQuery.toLowerCase());
 
-  const filteredPublications = useMemo(() => {
-    return initialPublications.filter((pub) => {
-      const matchesSearch =
-        searchQuery === "" ||
-        pub.rawTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pub.journal.toLowerCase().includes(searchQuery.toLowerCase());
+    if (!matchesSearch) return false;
 
-      if (!matchesSearch) return false;
+    if (selectedCategory === "All") return true;
 
-      if (selectedCategory === "All") return true;
+    const titleLower = pub.rawTitle.toLowerCase();
 
-      const titleLower = pub.rawTitle.toLowerCase();
+    if (selectedCategory === "Ptosis & Eyelid Surgery") {
+      return (
+        titleLower.includes("ptosis") ||
+        titleLower.includes("eyelid") ||
+        titleLower.includes("lid") ||
+        titleLower.includes("blepharoptosis")
+      );
+    }
 
-      if (selectedCategory === "Ptosis & Eyelid Surgery") {
-        return (
-          titleLower.includes("ptosis") ||
-          titleLower.includes("eyelid") ||
-          titleLower.includes("lid") ||
-          titleLower.includes("blepharoptosis")
-        );
-      }
+    if (selectedCategory === "Fillers & Complications") {
+      return (
+        titleLower.includes("filler") ||
+        titleLower.includes("hyaluronic") ||
+        titleLower.includes("occlusion") ||
+        titleLower.includes("edema") ||
+        titleLower.includes("dark circles")
+      );
+    }
 
-      if (selectedCategory === "Fillers & Complications") {
-        return (
-          titleLower.includes("filler") ||
-          titleLower.includes("hyaluronic") ||
-          titleLower.includes("occlusion") ||
-          titleLower.includes("edema") ||
-          titleLower.includes("dark circles")
-        );
-      }
+    if (selectedCategory === "Ophthalmic Pathology") {
+      return (
+        titleLower.includes("lymphoma") ||
+        titleLower.includes("bcc") ||
+        titleLower.includes("carcinoma") ||
+        titleLower.includes("aspergillosis") ||
+        titleLower.includes("scleral") ||
+        titleLower.includes("blind eye")
+      );
+    }
 
-      if (selectedCategory === "Ophthalmic Pathology") {
-        return (
-          titleLower.includes("lymphoma") ||
-          titleLower.includes("bcc") ||
-          titleLower.includes("carcinoma") ||
-          titleLower.includes("aspergillosis") ||
-          titleLower.includes("scleral") ||
-          titleLower.includes("blind eye")
-        );
-      }
-
-      return true;
-    });
-  }, [initialPublications, searchQuery, selectedCategory]);
+    return true;
+  });
 
   return (
     <section id="publications-list-section">

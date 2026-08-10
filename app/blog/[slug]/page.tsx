@@ -14,6 +14,7 @@ import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogContactForm } from "@/components/blog/BlogContactForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -58,7 +59,7 @@ export async function generateMetadata({
         "",
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
-        : [],
+        : [DEFAULT_OG_IMAGE],
       publishedTime: frontmatter.date,
       modifiedTime: frontmatter.modified,
     },

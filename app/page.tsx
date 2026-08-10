@@ -15,6 +15,7 @@ import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import { PATIENT_STORIES } from "@/lib/reviews";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
     title: "London's Leading Cosmetic Eye Surgeon - Perfect Eyes Ltd",
     description:
       "Rejuvenate your eyes with blepharoplasty, fillers, and laser treatments by Dr. Sabrina Shah-Desai, leading cosmetic eye surgeon in London.",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

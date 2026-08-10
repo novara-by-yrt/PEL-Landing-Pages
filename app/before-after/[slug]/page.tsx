@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import {
   PageHero,
   BeforeAfterGallery,
@@ -44,7 +45,7 @@ export async function generateMetadata({
       type: "website",
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
-        : [],
+        : [DEFAULT_OG_IMAGE],
     },
   };
 }

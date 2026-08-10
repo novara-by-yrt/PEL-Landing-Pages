@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
 import { buildOrganizationSchema } from "@/lib/schema";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 // ── Fonts ────────────────────────────────────────────────────────────────
 // Brand pairing per the Perfect Eyes design system: Newsreader (display)
@@ -48,9 +49,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Perfect Eyes Ltd",
     locale: "en_GB",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import { TermsConditions } from "@/components/legal/TermsConditions";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 const URL = `${SITE_URL}/dr-sabrina-shah-desai/non-surgical-terms-conditions`;
@@ -11,7 +12,12 @@ export const metadata: Metadata = {
   title: "Terms & Conditions | Perfect Eyes Ltd",
   description: DESCRIPTION,
   alternates: { canonical: URL },
-  openGraph: { type: "website", url: URL, title: "Terms & Conditions | Perfect Eyes Ltd" },
+  openGraph: {
+    type: "website",
+    url: URL,
+    title: "Terms & Conditions | Perfect Eyes Ltd",
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default function TermsConditionsPage() {

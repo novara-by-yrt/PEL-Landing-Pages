@@ -3,6 +3,7 @@ import { getAllPosts } from "@/lib/mdx";
 import { TpIcon, TreatmentCTA } from "@/components/treatment";
 import { BlogCard } from "@/components/blog/BlogCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Case Studies - Thyroid Eye Disease, Blepharoplasty, Scarless droopy eyelid (ptosis) repair, Male Eyelid Lifts, Skin Cancer, Liquid Facelifts, Eyebag Surgery UK.",
   alternates: { canonical: `${SITE_URL}/case-studies` },
-  openGraph: { url: `${SITE_URL}/case-studies`, type: "website" },
+  openGraph: { url: `${SITE_URL}/case-studies`, type: "website", images: [DEFAULT_OG_IMAGE] },
 };
 
 // ISR — revalidate every hour so new case studies appear without a full rebuild

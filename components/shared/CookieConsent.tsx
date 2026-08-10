@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
-import { getCookieConsent, setCookieConsent } from "@/lib/cookie-consent";
+import {
+  getCookieConsentSnapshot,
+  getServerCookieConsentSnapshot,
+  setCookieConsent,
+  subscribeToCookieConsent,
+} from "@/lib/cookie-consent";
 import styles from "./CookieConsent.module.css";
 
 /**
@@ -10,22 +15,24 @@ import styles from "./CookieConsent.module.css";
  * regulatory guidance is explicit that rejecting must be no harder than
  * accepting, so this is never a single "OK" button that implies consent.
  *
- * Renders nothing until after the client has checked localStorage, so a
- * visitor who already chose never sees a flash of the banner on navigation.
+ * Renders nothing until the client has read localStorage (the server
+ * snapshot is "unknown"), so a visitor who already chose never sees a flash
+ * of the banner. Read through useSyncExternalStore rather than a
+ * setState-in-effect: localStorage plus its change event is exactly the
+ * "external store" that hook exists for, and it keeps the value consistent
+ * if a choice is made in another tab.
  */
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+  const consent = useSyncExternalStore(
+    subscribeToCookieConsent,
+    getCookieConsentSnapshot,
+    getServerCookieConsentSnapshot
+  );
 
-  useEffect(() => {
-    setVisible(getCookieConsent() === null);
-  }, []);
+  // "unknown" (server / pre-hydration) and a stored choice both render nothing.
+  if (consent !== null) return null;
 
-  if (!visible) return null;
-
-  const choose = (value: "accepted" | "rejected") => {
-    setCookieConsent(value);
-    setVisible(false);
-  };
+  const choose = (value: "accepted" | "rejected") => setCookieConsent(value);
 
   return (
     <div className={styles.banner} role="region" aria-label="Cookie consent">
