@@ -81,7 +81,10 @@
     box-shadow 220ms var(--tp-ease),
     color 220ms var(--tp-ease);
 }
-.tp-btn:hover { transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) {
+  .tp-btn:hover { transform: translateY(-2px); }
+}
+.tp-btn:active { transform: scale(0.97); }
 .tp-btn:focus-visible {
   outline: 2px solid var(--tp-indigo-600);
   outline-offset: 3px;
@@ -175,6 +178,7 @@
   .tp-btn-arrow { transition: none; }
   .tp-btn:hover { transform: none; }
   .tp-btn:hover .tp-btn-arrow { transform: none; }
+  .tp-btn:active { transform: none; }
 }
 
 /* ── Long-form prose inside a .tp page ──────────────────────────────────── */

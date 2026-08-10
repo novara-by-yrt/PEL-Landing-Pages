@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./VideoCard.module.css";
 
@@ -19,49 +19,54 @@ function getEmbedUrl(url: string) {
 
 export default function VideoCard({ thumbnailSrc, title, videoUrl }: VideoCardProps) {
   const [playing, setPlaying] = useState(false);
+  // Flips a frame after the iframe mounts, so the crossfade has a starting
+  // value to transition from instead of the embed just appearing on top.
+  const [entered, setEntered] = useState(false);
 
-  if (playing) {
-    return (
-      <div className={styles.card}>
-        <span className={styles.thumb}>
+  useEffect(() => {
+    if (!playing) return;
+    const frame = requestAnimationFrame(() => setEntered(true));
+    return () => cancelAnimationFrame(frame);
+  }, [playing]);
+
+  return (
+    <div className={styles.card}>
+      <span className={styles.thumb}>
+        {playing ? (
           <iframe
             src={getEmbedUrl(videoUrl)}
             title={title}
             allow="autoplay; encrypted-media; fullscreen"
-            className={styles.frame}
+            className={`${styles.frame} ${entered ? styles.frameVisible : ""}`}
           />
-        </span>
-        <span className={styles.title}>{title}</span>
-      </div>
-    );
-  }
+        ) : null}
 
-  return (
-    // A real <button>, so the card is reachable by keyboard and announced
-    // as activatable — the previous onClick-on-a-div was neither. Hover and
-    // lift are pure CSS rather than inline style mutations from JS.
-    <button
-      type="button"
-      className={styles.card}
-      onClick={() => setPlaying(true)}
-      aria-label={`Play video: ${title}`}
-    >
-      <span className={styles.thumb}>
-        <Image
-          src={thumbnailSrc}
-          alt=""
-          fill
-          sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw"
-        />
-        <span className={styles.scrim}>
-          <span className={styles.play}>
-            <svg className={styles.playIcon} viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+        {/* Stays mounted and fades out under the embed rather than
+            unmounting, so the swap crossfades instead of teleporting. */}
+        <button
+          type="button"
+          className={`${styles.thumbButton} ${playing ? styles.thumbButtonHidden : ""}`}
+          onClick={() => setPlaying(true)}
+          aria-label={`Play video: ${title}`}
+          aria-hidden={playing || undefined}
+          tabIndex={playing ? -1 : undefined}
+        >
+          <Image
+            src={thumbnailSrc}
+            alt=""
+            fill
+            sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw"
+          />
+          <span className={styles.scrim}>
+            <span className={styles.play}>
+              <svg className={styles.playIcon} viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
           </span>
-        </span>
+        </button>
       </span>
       <span className={styles.title}>{title}</span>
-    </button>
+    </div>
   );
 }

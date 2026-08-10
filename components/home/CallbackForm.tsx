@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Reveal from "@/components/shared/Reveal";
 import styles from "./ContactSection.module.css";
 
 type Status = { kind: "idle" | "sending" } | { kind: "ok" | "error"; message: string };
@@ -218,14 +219,16 @@ export default function CallbackForm() {
         </label>
 
         {status.kind === "ok" || status.kind === "error" ? (
-          <p
-            role="status"
-            className={`${styles.status} ${
-              status.kind === "ok" ? styles.statusOk : styles.statusError
-            }`}
-          >
-            {status.message}
-          </p>
+          <Reveal>
+            <p
+              role="status"
+              className={`${styles.status} ${
+                status.kind === "ok" ? styles.statusOk : styles.statusError
+              }`}
+            >
+              {status.message}
+            </p>
+          </Reveal>
         ) : null}
 
         <button

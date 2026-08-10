@@ -14,6 +14,7 @@ import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
+import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -354,21 +355,27 @@ export default function HomePage() {
       </section>
 
       {/* ── 2. AWARDS & RECOGNITION ───────────────────────────────────────── */}
-      <section
-        className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
-        aria-label="Awards and recognition"
-      >
-        <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
-        {/* Travels the opposite way to the accreditation strip below it, so
-            the two rows read as a pair rather than one long band. */}
-        <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
-      </section>
+      <Reveal>
+        <section
+          className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
+          aria-label="Awards and recognition"
+        >
+          <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
+          {/* Travels the opposite way to the accreditation strip below it, so
+              the two rows read as a pair rather than one long band. */}
+          <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
+        </section>
+      </Reveal>
 
       {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
-      <AccreditedStrip />
+      <Reveal>
+        <AccreditedStrip />
+      </Reveal>
 
       {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
-      <MeetDrSabrina />
+      <Reveal>
+        <MeetDrSabrina />
+      </Reveal>
 
       {/* ── 5. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
@@ -376,21 +383,25 @@ export default function HomePage() {
         className={`${styles.section} ${styles.treatments}`}
         aria-labelledby="treatments-title"
       >
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>What we treat</span>
-            <h2 id="treatments-title" className={styles.h2}>
-              Our Specialist Treatments and Procedures
-            </h2>
-            <p className={styles.lead}>
-              From surgical eyelid work to non-surgical skin and injectable treatments, each
-              planned around your anatomy and goals.
-            </p>
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>What we treat</span>
+              <h2 id="treatments-title" className={styles.h2}>
+                Our Specialist Treatments and Procedures
+              </h2>
+              <p className={styles.lead}>
+                From surgical eyelid work to non-surgical skin and injectable treatments, each
+                planned around your anatomy and goals.
+              </p>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Full-bleed rail: the cards run past the container edges so the
-            carousel reads as continuous rather than as a boxed row. */}
+            carousel reads as continuous rather than as a boxed row. Left out
+            of the reveal above — it drives its own drift as soon as it
+            mounts, and fading a moving rail in double-animates it. */}
         <TreatmentsCarousel
           groups={[
             { id: "surgical", label: "Surgical", items: SURGICAL_TREATMENTS },
@@ -400,10 +411,14 @@ export default function HomePage() {
       </section>
 
       {/* ── 6. PATIENT STORIES ────────────────────────────────────────────── */}
-      <PatientStories stories={PATIENT_STORIES} />
+      <Reveal>
+        <PatientStories stories={PATIENT_STORIES} />
+      </Reveal>
 
       {/* ── 7. THE JOURNEY ───────────────────────────────────────────────── */}
-      <PatientJourney />
+      <Reveal>
+        <PatientJourney />
+      </Reveal>
 
       {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
@@ -411,30 +426,40 @@ export default function HomePage() {
         aria-labelledby="videos-title"
       >
         <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>In their words</span>
-            <h2 id="videos-title" className={styles.h2}>
-              Patient Testimonials
-            </h2>
-            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
-          </div>
+          <Reveal>
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>In their words</span>
+              <h2 id="videos-title" className={styles.h2}>
+                Patient Testimonials
+              </h2>
+              <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            </div>
+          </Reveal>
 
           <div className={styles.videoGrid}>
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
-              title="A Happy Perfect Eyes Clinic's Patient"
-              videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
-            />
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/perfecteyes.png"
-              title="Upper Lid Blepharoplasty"
-              videoUrl="https://www.youtube.com/watch?v=f-Z-4ET4YbQ"
-            />
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/perfecteyes-2.png"
-              title="Dermal Fillers Testimonial"
-              videoUrl="https://www.youtube.com/shorts/L0sNTnUmLBw"
-            />
+            {/* A small stagger, not one each — three cards seen once per
+                visit, not a list scrolled past all day. */}
+            <Reveal delay={0}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
+                title="A Happy Perfect Eyes Clinic's Patient"
+                videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
+              />
+            </Reveal>
+            <Reveal delay={80}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/perfecteyes.png"
+                title="Upper Lid Blepharoplasty"
+                videoUrl="https://www.youtube.com/watch?v=f-Z-4ET4YbQ"
+              />
+            </Reveal>
+            <Reveal delay={160}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/perfecteyes-2.png"
+                title="Dermal Fillers Testimonial"
+                videoUrl="https://www.youtube.com/shorts/L0sNTnUmLBw"
+              />
+            </Reveal>
           </div>
 
           <p className={styles.disclaimer}>
@@ -451,40 +476,48 @@ export default function HomePage() {
       >
         <span className={styles.teamGlow} aria-hidden="true" />
 
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>Our people</span>
-            <h2 id="team-title" className={styles.h2}>
-              Meet The Clinic Team
-            </h2>
-            <p className={styles.lead}>
-              Elegant &amp; discreet, the clinic ensures an environment that meets the highest
-              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
-              key areas by the{" "}
-              <a
-                href="https://www.cqc.org.uk/location/1-5591490767"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.teamLink}
-              >
-                Care Quality Commission
-              </a>{" "}
-              (CQC) in 2022.
-            </p>
-          </div>
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>Our people</span>
+              <h2 id="team-title" className={styles.h2}>
+                Meet The Clinic Team
+              </h2>
+              <p className={styles.lead}>
+                Elegant &amp; discreet, the clinic ensures an environment that meets the highest
+                standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
+                key areas by the{" "}
+                <a
+                  href="https://www.cqc.org.uk/location/1-5591490767"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.teamLink}
+                >
+                  Care Quality Commission
+                </a>{" "}
+                (CQC) in 2022.
+              </p>
+            </div>
 
-          <TeamCarousel members={CLINIC_TEAM} />
-        </div>
+            <TeamCarousel members={CLINIC_TEAM} />
+          </div>
+        </Reveal>
       </section>
 
       {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
-      <BeginJourney />
+      <Reveal>
+        <BeginJourney />
+      </Reveal>
 
       {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
-      <HomeFaq items={HOME_FAQ} />
+      <Reveal>
+        <HomeFaq items={HOME_FAQ} />
+      </Reveal>
 
       {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
-      <ContactSection />
+      <Reveal>
+        <ContactSection />
+      </Reveal>
 
       {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
