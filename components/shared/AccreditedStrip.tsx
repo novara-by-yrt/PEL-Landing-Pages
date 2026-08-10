@@ -1,13 +1,15 @@
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import styles from "./AccreditedStrip.module.css";
 
-type Logo = { src: string; alt: string; width?: number; height?: number };
+type Logo = { src: string; alt: string; width?: number; height?: number; tile?: boolean };
 
 const AWARD_LOGOS: Logo[] = [
-  /* The black wordmark, not the white one: this strip sits on --tp-paper, so
-     the white artwork would be invisible. Its true 288x80 dimensions let the
-     marquee scale it on height without distorting the letterforms. */
-  { src: "/Tatler-black.png", alt: "Tatler", width: 288, height: 80 },
+  /* The supplied masthead is white-on-black, so on this light strip it reads
+     as a solid black tile rather than a bare wordmark — `.tatlerTile` rounds
+     its corners so that lands as a deliberate badge. Its true 2172x724
+     dimensions let the marquee scale it on height without distorting the
+     letterforms. */
+  { src: "/tatler-logo.png", alt: "Tatler", width: 2172, height: 724, tile: true },
   { src: "/uploads/2024/09/11.png", alt: "Award logo 1" },
   { src: "/uploads/2024/09/22.png", alt: "Award logo 2" },
   { src: "/uploads/2024/09/31.png", alt: "Award logo 3" },

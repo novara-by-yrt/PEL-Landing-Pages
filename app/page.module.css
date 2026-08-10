@@ -253,6 +253,9 @@
   height: 20px;
   width: auto;
   object-fit: contain;
+  /* The masthead artwork carries its own solid black field; rounding it makes
+     the block read as a deliberate badge rather than a raw rectangle. */
+  border-radius: 4px;
 }
 @media (min-width: 900px) {
   .pressLogo {

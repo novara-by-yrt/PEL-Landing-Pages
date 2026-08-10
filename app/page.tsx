@@ -215,23 +215,23 @@ const CLINIC_TEAM: TeamMember[] = [
     credentials: ["MS", "FRCS"],
     /* The same portrait the About section uses, so she looks consistent
        across the page. */
-    image: "/Dr.%20Sabrina%20Profile.png",
+    image: "/dr-sabrina-profile.png",
   },
   {
     name: "Dr Janine",
     role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
-    image: "/uploads/2026/04/DR-JANINE.webp",
+    image: "/dr-janine.png",
   },
   {
     name: "Dr Hemmali",
     role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
-    image: "/uploads/2026/04/Dr-Hemmali.webp",
+    image: "/dr-hemmali.png",
   },
   {
     name: "Irvana",
     role: "Qualified therapist — Perfect Skin Studio",
     credentials: ["Level 4 Laser"],
-    image: "/uploads/2026/04/Irvana.webp",
+    image: "/irvana.png",
   },
 ];/**
  * Credential pull-outs for the About section. Every line is existing site
@@ -312,12 +312,14 @@ export default function HomePage() {
               <div className={`${styles.trustItem} ${styles.trustItemPress}`}>
                 <dt className={styles.trustLabel}>As featured in</dt>
                 <dd className={styles.trustValue}>
-                  {/* Black wordmark: the hero scrim keeps this corner light. */}
+                  {/* The masthead is white-on-black, so against the light hero
+                      corner it reads as a solid tile — rounded in CSS so that
+                      lands as a deliberate badge. */}
                   <Image
-                    src="/Tatler-black.png"
+                    src="/tatler-logo.png"
                     alt="Tatler"
-                    width={288}
-                    height={80}
+                    width={2172}
+                    height={724}
                     className={styles.pressLogo}
                   />
                 </dd>

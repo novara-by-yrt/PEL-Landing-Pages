@@ -58,7 +58,7 @@ export default function MeetDrSabrina({
               edges line up exactly with the column beside it. */}
           <figure className={styles.expertMedia}>
             <Image
-              src="/Dr.%20Sabrina%20Profile.png"
+              src="/dr-sabrina-profile.png"
               alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon"
               fill
               sizes="(min-width: 1000px) 42vw, 100vw"
