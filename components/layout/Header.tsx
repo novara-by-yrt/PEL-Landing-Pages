@@ -53,7 +53,6 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Endolift®", href: "/non-surgical/endolift-for-malar-bags-uk" },
   { label: "Sofwave™", href: "/non-surgical/sofwave-treatment-uk" },
   { label: "UltraClear Laser", href: "/non-surgical/ultraclear-laser-treatment-uk" },
-  { label: "Chemical Peel", href: "/non-surgical/chemical-peel-treatment-uk" },
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
 ];
 
