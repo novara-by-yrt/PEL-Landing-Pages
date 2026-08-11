@@ -533,29 +533,6 @@
   outline: 2px solid var(--tp-indigo-600);
   outline-offset: 3px;
 }
-.linkArrow {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  background: var(--tp-lavender-100);
-  color: var(--tp-indigo-700);
-  transition: transform 260ms var(--tp-ease), background 260ms var(--tp-ease);
-}
-.linkArrow svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-.linkCard:hover .linkArrow {
-  background: var(--tp-lavender-200);
-  transform: translateX(3px);
-}
-
 /* Ticked rows — short credential statements. */
 .ticks {
   display: flex;
@@ -842,7 +819,6 @@
   .fact,
   .miniCard,
   .linkCard,
-  .linkArrow,
   .milestone {
     transition: none;
   }
@@ -856,5 +832,4 @@
   .milestone:hover {
     transform: none;
   }
-  .linkCard:hover .linkArrow { transform: none; }
 }

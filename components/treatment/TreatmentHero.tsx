@@ -7,7 +7,6 @@ import styles from "./TreatmentHero.module.css";
 export function TreatmentHero({
   breadcrumbItems,
   siteUrl,
-  isSurgical,
   h1,
   subtitle,
   heroImage,
@@ -18,7 +17,6 @@ export function TreatmentHero({
 }: {
   breadcrumbItems: BreadcrumbItem[];
   siteUrl: string;
-  isSurgical: boolean;
   h1: string;
   subtitle?: string;
   heroImage?: string;
@@ -59,11 +57,6 @@ export function TreatmentHero({
             ))}
           </nav>
 
-          <span className="tp-eyebrow">
-            <TpIcon name="eye" size={13} />
-            {isSurgical ? "Surgical · Eyes" : "Non-Surgical · Eyes"}
-          </span>
-
           <h1 className={styles.tpH1}>{h1}</h1>
 
           <span className={styles.tpHeroRule} aria-hidden="true" />
@@ -72,7 +65,7 @@ export function TreatmentHero({
 
           <div className={styles.tpHeroActions}>
             <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
-              Take the Free Self-Test <TpIcon name="arrow" size={17} />
+              Take the Free Self-Test
             </Link>
             <Link href="/contact" className="tp-btn tp-btn-secondary">Book Consultation</Link>
           </div>

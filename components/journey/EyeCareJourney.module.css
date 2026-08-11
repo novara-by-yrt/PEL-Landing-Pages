@@ -83,14 +83,6 @@
 .head { max-width: 640px; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
 .headCenter { max-width: 720px; margin-inline: auto; text-align: center; }
 
-.arrowSvg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.9;
-}
-
 /* ── Opening statement ──────────────────────────────────────────────────── */
 .introLead {
   font-size: var(--fs-body-md);
@@ -267,25 +259,6 @@
   color: var(--tp-lavender-200);
   margin: 10px 0 clamp(18px, 3vw, 24px);
 }
-.roadmapArrow {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  /* Pinned to the bottom of the card so the four arrows sit on one line even
-     though the descriptions wrap to different depths. */
-  margin-top: auto;
-  padding-top: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  transition: transform 260ms var(--tp-ease), background 260ms var(--tp-ease);
-}
-.roadmapCard:hover .roadmapArrow {
-  background: rgba(255, 255, 255, 0.24);
-  transform: translateX(3px);
-}
-
 /* ── Alternating text/media panel ─────────────────────────────────────────
    The grid stretches both cells to the same row height and the photograph
    fills its cell, so image and copy line up top and bottom — the technique
@@ -574,23 +547,6 @@
   outline: 2px solid var(--tp-indigo-600);
   outline-offset: 3px;
 }
-.linkArrow {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  background: var(--tp-lavender-100);
-  color: var(--tp-indigo-700);
-  transition: transform 260ms var(--tp-ease), background 260ms var(--tp-ease);
-}
-.linkArrow .arrowSvg { width: 15px; height: 15px; stroke-width: 2; }
-.linkCard:hover .linkArrow {
-  background: var(--tp-lavender-200);
-  transform: translateX(3px);
-}
-
 /* Highlight note / step callout — one standout line, flagged in brand gold. */
 .note,
 .callout {
@@ -954,15 +910,13 @@
   .fact,
   .miniCard,
   .linkCard,
-  .linkArrow,
   .subCard,
   .subCard::before,
   .subCard::after,
   .subIndex,
   .traitIcon,
   .routineCard,
-  .roadmapCard,
-  .roadmapArrow {
+  .roadmapCard {
     transition: none;
   }
   .figure:hover .figureImg,
@@ -977,8 +931,4 @@
     transform: none;
   }
   .trait:hover .traitIcon { transform: none; }
-  .linkCard:hover .linkArrow,
-  .roadmapCard:hover .roadmapArrow {
-    transform: none;
-  }
 }

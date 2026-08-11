@@ -418,14 +418,6 @@ const ROUTINE = [
   },
 ];
 
-function Arrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.arrowSvg}>
-      <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function AsideBlock({ aside }: { aside: Aside }) {
   if (aside.kind === "note") {
     return (
@@ -439,14 +431,7 @@ function AsideBlock({ aside }: { aside: Aside }) {
   }
 
   if (aside.kind === "link") {
-    const inner = (
-      <>
-        <span>{aside.text}</span>
-        <span className={styles.linkArrow} aria-hidden="true">
-          <Arrow />
-        </span>
-      </>
-    );
+    const inner = <span>{aside.text}</span>;
     return (
       <div className={styles.asidePlain}>
         {aside.external ? (
@@ -615,9 +600,6 @@ function StepSection({ section }: { section: Extract<Section, { kind: "step" }> 
           {section.cta && (
             <Link href={section.cta.href} className={`tp-btn tp-btn-secondary ${styles.stepCta}`}>
               {section.cta.label}
-              <span className="tp-btn-arrow" aria-hidden="true">
-                <Arrow />
-              </span>
             </Link>
           )}
         </div>
@@ -725,9 +707,6 @@ export function EyeCareJourney({
                   <span className={styles.roadmapNum}>{item.step}</span>
                   <span className={styles.roadmapCardTitle}>{item.title}</span>
                   <span className={styles.roadmapCardText}>{item.text}</span>
-                  <span className={styles.roadmapArrow} aria-hidden="true">
-                    <Arrow />
-                  </span>
                 </Link>
               </li>
             ))}
@@ -807,9 +786,6 @@ export function EyeCareJourney({
             <div className={styles.manifestoCta}>
               <Link href="/contact" className="tp-btn tp-btn-inverse">
                 Book your consultation
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <Arrow />
-                </span>
               </Link>
             </div>
           </div>

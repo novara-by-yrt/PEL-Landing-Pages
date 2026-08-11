@@ -78,9 +78,6 @@ export function TreatmentPricing({
 
           <Link href="/contact" className={`tp-btn tp-btn-primary tp-btn-block ${styles.tpPriceCta}`}>
             Book a medical consultation
-            <span className="tp-btn-arrow" aria-hidden="true">
-              <TpIcon name="arrow" size={16} />
-            </span>
           </Link>
         </div>
       </div>

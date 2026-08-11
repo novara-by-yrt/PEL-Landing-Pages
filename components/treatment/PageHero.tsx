@@ -57,7 +57,7 @@ export function PageHero({
           {hasImage && (
             <div className={styles.tpPageHeroCtas}>
               <Link href="/self-test-survey" className="tp-btn tp-btn-inverse">
-                Take the Eyelid Surgery Test <TpIcon name="arrow" size={17} />
+                Take the Eyelid Surgery Test
               </Link>
               <Link href="/contact" className="tp-btn" style={{ color: "#fff", border: "1px solid rgba(255,255,255,0.3)" }}>
                 Book a Consultation

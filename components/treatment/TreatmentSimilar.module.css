@@ -114,20 +114,6 @@
   font-weight: 600;
   color: var(--tp-indigo-700);
 }
-.tpSimilarArrow {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: var(--tp-lavender-100);
-  transition: transform 260ms var(--tp-ease), background 260ms var(--tp-ease);
-}
-.tpSimilarCard:hover .tpSimilarArrow {
-  background: var(--tp-lavender-200);
-  transform: translateX(3px);
-}
-
 @media (min-width: 560px) {
   .tpSimilarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -137,11 +123,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tpSimilarCard,
-  .tpSimilarPhoto,
-  .tpSimilarArrow {
+  .tpSimilarPhoto {
     transition: none;
   }
   .tpSimilarCard:hover { transform: none; }
-  .tpSimilarCard:hover .tpSimilarPhoto,
-  .tpSimilarCard:hover .tpSimilarArrow { transform: none; }
+  .tpSimilarCard:hover .tpSimilarPhoto { transform: none; }
 }

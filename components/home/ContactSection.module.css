@@ -147,13 +147,6 @@ a.rowValue:hover {
 .directions:hover {
   color: #fff;
 }
-.directions svg {
-  width: 13px;
-  height: 13px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
 
 /* ── Form card ──────────────────────────────────────────────────────────── */
 .card {

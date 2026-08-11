@@ -10,14 +10,6 @@ import { CLINIC, MAPS_URL } from "@/lib/clinic";
    page, so repeating them in this panel was a second copy of the same links
    directly above the first. They still live in lib/clinic. */
 
-function ExternalArrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M8 16L16 8M9.5 8H16v6.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function ContactSection() {
   return (
     <section className={styles.section} aria-labelledby="contact-title">
@@ -90,7 +82,6 @@ export default function ContactSection() {
                     className={styles.directions}
                   >
                     Get directions
-                    <ExternalArrow />
                   </a>
                 </span>
               </div>

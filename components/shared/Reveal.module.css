@@ -1,0 +1,19 @@
+/* Fade-up entrance, gated to fire once per section. transform + opacity
+   only, so this never costs layout or paint. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms var(--tp-ease), transform 600ms var(--tp-ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

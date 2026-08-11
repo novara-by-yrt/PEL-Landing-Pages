@@ -252,7 +252,6 @@ function TreatmentPage({
         <TreatmentHero
           breadcrumbItems={breadcrumbItems}
           siteUrl={SITE_URL}
-          isSurgical={isSurgical}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
           heroImage={treatment.heroImage}

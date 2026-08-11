@@ -14,6 +14,7 @@ import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
+import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -64,63 +65,54 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     image: "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg",
     title: "Upper Lid Blepharoplasty",
     href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
-    tag: "Eyes",
     blurb: "Removes the redundant upper-lid skin that hoods the eye, restoring the lid's natural contour.",
   },
   {
     image: "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg",
     title: "Eye Bag Surgery",
     href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
-    tag: "Eyes",
     blurb: "Lower-lid surgery addressing under-eye bags, puffiness and the shadow they cast.",
   },
   {
     image: "/uploads/2018/10/eyeboost.jpg",
     title: "Festoons & Malar Bags",
     href: "/surgical/festoons-malar-bags-treatment-uk",
-    tag: "Eyes",
     blurb: "Treatment for fluid-filled festoons and malar bags across the lower lid and upper cheek.",
   },
   {
     image: "/uploads/2018/11/Ptosis-surgery-uk.jpg",
     title: "Ptosis Surgery",
     href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk",
-    tag: "Eyes",
     blurb: "Tightens the muscle that lifts a drooping upper eyelid, reopening the eye.",
   },
   {
     image: "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
     title: "Double Eyelid Surgery",
     href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk",
-    tag: "Eyes",
     blurb: "Creates or refines an upper-lid crease, planned around Asian eyelid anatomy.",
   },
   {
     image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
     title: "Hyaluronidase Dissolving",
     href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
-    tag: "Revision",
     blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
   },
   {
     image: "/uploads/2024/07/eyelid-lump.jpg",
     title: "Eyelid Lump & Bump Removal",
     href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
-    tag: "Eyes",
     blurb: "Assessment and removal of cysts, chalazia and other lesions on the eyelid.",
   },
   {
     image: "/uploads/2025/03/revision-surgeyr-1-min.jpg",
     title: "Revision Blepharoplasty",
     href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
-    tag: "Revision",
     blurb: "Corrective work after previous eyelid surgery or filler complications.",
   },
   {
     image: "/uploads/2025/03/browlift-min.jpg",
     title: "Brow Lift",
     href: "/surgical/browlift-treatment-uk",
-    tag: "Brow",
     blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
   },
 ];
@@ -130,63 +122,54 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
     href: "/non-surgical/endolift-for-malar-bags-uk",
-    tag: "Laser",
     blurb: "Laser-assisted tightening of the lower lid and malar area, without incisions.",
   },
   {
     image: "/uploads/2025/03/Morpheus-min.jpg",
     title: "Morpheus8",
     href: "/non-surgical/morpheus8-treatment-uk",
-    tag: "Skin",
     blurb: "Radiofrequency microneedling that remodels and firms facial skin.",
   },
   {
     image: "/uploads/2024/09/supeor-sulcus.jpg",
     title: "Superior Sulcus Filler",
     href: "/non-surgical-injectables-medical-aesthetic",
-    tag: "Injectable",
     blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
   {
     image: "/uploads/2018/10/tear-trough-treatment-london.jpg",
     title: "Tear Trough Fillers",
     href: "/non-surgical/tear-trough-fillers-uk",
-    tag: "Injectable",
     blurb: "Softens under-eye hollows with precisely placed hyaluronic acid.",
   },
   {
     image: "/uploads/2018/10/Ultherapy-london.jpg",
     title: "Ellansé",
     href: "/ellanse",
-    tag: "Injectable",
     blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
   },
   {
     image: "/uploads/2024/09/ultraclear-laser.jpg",
     title: "UltraClear Laser",
     href: "/non-surgical/ultraclear-laser-treatment-uk",
-    tag: "Laser",
     blurb: "Cold-fibre laser resurfacing that targets texture, tone and fine lines.",
   },
   {
     image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
     title: "Non-Surgical Facial Contouring",
     href: "/non-surgical-facial-contouring",
-    tag: "Injectable",
     blurb: "Injectable contouring to rebalance facial proportions without surgery.",
   },
   {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
     href: "/non-surgical/sofwave-treatment-uk",
-    tag: "Skin",
     blurb: "Ultrasound energy that lifts and tightens skin across the brow and face.",
   },
   {
     image: "/uploads/2025/06/Plasma-Pen.jpg",
     title: "Plexr / Plasma Pen",
     href: "/plexr-plasma-pen",
-    tag: "Skin",
     blurb: "Plasma treatment for eyelid skin laxity as an alternative to surgery.",
   },
 ];
@@ -232,23 +215,23 @@ const CLINIC_TEAM: TeamMember[] = [
     credentials: ["MS", "FRCS"],
     /* The same portrait the About section uses, so she looks consistent
        across the page. */
-    image: "/Dr.%20Sabrina%20Profile.png",
+    image: "/dr-sabrina-profile.png",
   },
   {
     name: "Dr Janine",
     role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
-    image: "/uploads/2026/04/DR-JANINE.webp",
+    image: "/dr-janine.png",
   },
   {
     name: "Dr Hemmali",
     role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
-    image: "/uploads/2026/04/Dr-Hemmali.webp",
+    image: "/dr-hemmali.png",
   },
   {
     name: "Irvana",
     role: "Qualified therapist — Perfect Skin Studio",
     credentials: ["Level 4 Laser"],
-    image: "/uploads/2026/04/Irvana.webp",
+    image: "/irvana.png",
   },
 ];/**
  * Credential pull-outs for the About section. Every line is existing site
@@ -297,15 +280,6 @@ export default function HomePage() {
             <div className={styles.heroActions}>
               <Link href="/self-test-survey" className="tp-btn tp-btn-primary">
                 Take the Eyelid Surgery Test
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M5 12h13M12.5 6l6 6-6 6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
               </Link>
               <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-secondary">
                 Book a Consultation
@@ -338,12 +312,14 @@ export default function HomePage() {
               <div className={`${styles.trustItem} ${styles.trustItemPress}`}>
                 <dt className={styles.trustLabel}>As featured in</dt>
                 <dd className={styles.trustValue}>
-                  {/* Black wordmark: the hero scrim keeps this corner light. */}
+                  {/* The masthead is white-on-black, so against the light hero
+                      corner it reads as a solid tile — rounded in CSS so that
+                      lands as a deliberate badge. */}
                   <Image
-                    src="/Tatler-black.png"
+                    src="/tatler-logo.png"
                     alt="Tatler"
-                    width={288}
-                    height={80}
+                    width={2172}
+                    height={724}
                     className={styles.pressLogo}
                   />
                 </dd>
@@ -354,21 +330,27 @@ export default function HomePage() {
       </section>
 
       {/* ── 2. AWARDS & RECOGNITION ───────────────────────────────────────── */}
-      <section
-        className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
-        aria-label="Awards and recognition"
-      >
-        <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
-        {/* Travels the opposite way to the accreditation strip below it, so
-            the two rows read as a pair rather than one long band. */}
-        <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
-      </section>
+      <Reveal>
+        <section
+          className={`${styles.logoStrip} ${styles.logoStripTop} ${styles.awardStrip}`}
+          aria-label="Awards and recognition"
+        >
+          <p className={styles.logoStripLabel}>Awards &amp; Recognition</p>
+          {/* Travels the opposite way to the accreditation strip below it, so
+              the two rows read as a pair rather than one long band. */}
+          <AutoScrollCarousel items={AWARD_BADGES} speed={45} reverse size="badge" />
+        </section>
+      </Reveal>
 
       {/* ── 3. ACCREDITED BY ──────────────────────────────────────────────── */}
-      <AccreditedStrip />
+      <Reveal>
+        <AccreditedStrip />
+      </Reveal>
 
       {/* ── 4. ABOUT ──────────────────────────────────────────────────────── */}
-      <MeetDrSabrina />
+      <Reveal>
+        <MeetDrSabrina />
+      </Reveal>
 
       {/* ── 5. TREATMENTS ─────────────────────────────────────────────────── */}
       <section
@@ -376,21 +358,25 @@ export default function HomePage() {
         className={`${styles.section} ${styles.treatments}`}
         aria-labelledby="treatments-title"
       >
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>What we treat</span>
-            <h2 id="treatments-title" className={styles.h2}>
-              Our Specialist Treatments and Procedures
-            </h2>
-            <p className={styles.lead}>
-              From surgical eyelid work to non-surgical skin and injectable treatments, each
-              planned around your anatomy and goals.
-            </p>
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>What we treat</span>
+              <h2 id="treatments-title" className={styles.h2}>
+                Our Specialist Treatments and Procedures
+              </h2>
+              <p className={styles.lead}>
+                From surgical eyelid work to non-surgical skin and injectable treatments, each
+                planned around your anatomy and goals.
+              </p>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Full-bleed rail: the cards run past the container edges so the
-            carousel reads as continuous rather than as a boxed row. */}
+            carousel reads as continuous rather than as a boxed row. Left out
+            of the reveal above — it drives its own drift as soon as it
+            mounts, and fading a moving rail in double-animates it. */}
         <TreatmentsCarousel
           groups={[
             { id: "surgical", label: "Surgical", items: SURGICAL_TREATMENTS },
@@ -400,10 +386,14 @@ export default function HomePage() {
       </section>
 
       {/* ── 6. PATIENT STORIES ────────────────────────────────────────────── */}
-      <PatientStories stories={PATIENT_STORIES} />
+      <Reveal>
+        <PatientStories stories={PATIENT_STORIES} />
+      </Reveal>
 
       {/* ── 7. THE JOURNEY ───────────────────────────────────────────────── */}
-      <PatientJourney />
+      <Reveal>
+        <PatientJourney />
+      </Reveal>
 
       {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
@@ -411,30 +401,40 @@ export default function HomePage() {
         aria-labelledby="videos-title"
       >
         <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>In their words</span>
-            <h2 id="videos-title" className={styles.h2}>
-              Patient Testimonials
-            </h2>
-            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
-          </div>
+          <Reveal>
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>In their words</span>
+              <h2 id="videos-title" className={styles.h2}>
+                Patient Testimonials
+              </h2>
+              <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            </div>
+          </Reveal>
 
           <div className={styles.videoGrid}>
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
-              title="A Happy Perfect Eyes Clinic's Patient"
-              videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
-            />
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/perfecteyes.png"
-              title="Upper Lid Blepharoplasty"
-              videoUrl="https://www.youtube.com/watch?v=f-Z-4ET4YbQ"
-            />
-            <VideoCard
-              thumbnailSrc="/uploads/2025/03/perfecteyes-2.png"
-              title="Dermal Fillers Testimonial"
-              videoUrl="https://www.youtube.com/shorts/L0sNTnUmLBw"
-            />
+            {/* A small stagger, not one each — three cards seen once per
+                visit, not a list scrolled past all day. */}
+            <Reveal delay={0}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
+                title="A Happy Perfect Eyes Clinic's Patient"
+                videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
+              />
+            </Reveal>
+            <Reveal delay={80}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/perfecteyes.png"
+                title="Upper Lid Blepharoplasty"
+                videoUrl="https://www.youtube.com/watch?v=f-Z-4ET4YbQ"
+              />
+            </Reveal>
+            <Reveal delay={160}>
+              <VideoCard
+                thumbnailSrc="/uploads/2025/03/perfecteyes-2.png"
+                title="Dermal Fillers Testimonial"
+                videoUrl="https://www.youtube.com/shorts/L0sNTnUmLBw"
+              />
+            </Reveal>
           </div>
 
           <p className={styles.disclaimer}>
@@ -451,40 +451,48 @@ export default function HomePage() {
       >
         <span className={styles.teamGlow} aria-hidden="true" />
 
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>Our people</span>
-            <h2 id="team-title" className={styles.h2}>
-              Meet The Clinic Team
-            </h2>
-            <p className={styles.lead}>
-              Elegant &amp; discreet, the clinic ensures an environment that meets the highest
-              standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
-              key areas by the{" "}
-              <a
-                href="https://www.cqc.org.uk/location/1-5591490767"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.teamLink}
-              >
-                Care Quality Commission
-              </a>{" "}
-              (CQC) in 2022.
-            </p>
-          </div>
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>Our people</span>
+              <h2 id="team-title" className={styles.h2}>
+                Meet The Clinic Team
+              </h2>
+              <p className={styles.lead}>
+                Elegant &amp; discreet, the clinic ensures an environment that meets the highest
+                standards of safety and hygiene and received a &ldquo;good rating&rdquo; in all 5
+                key areas by the{" "}
+                <a
+                  href="https://www.cqc.org.uk/location/1-5591490767"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.teamLink}
+                >
+                  Care Quality Commission
+                </a>{" "}
+                (CQC) in 2022.
+              </p>
+            </div>
 
-          <TeamCarousel members={CLINIC_TEAM} />
-        </div>
+            <TeamCarousel members={CLINIC_TEAM} />
+          </div>
+        </Reveal>
       </section>
 
       {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
-      <BeginJourney />
+      <Reveal>
+        <BeginJourney />
+      </Reveal>
 
       {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
-      <HomeFaq items={HOME_FAQ} />
+      <Reveal>
+        <HomeFaq items={HOME_FAQ} />
+      </Reveal>
 
       {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
-      <ContactSection />
+      <Reveal>
+        <ContactSection />
+      </Reveal>
 
       {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
