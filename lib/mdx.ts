@@ -40,6 +40,7 @@ export interface OverviewData {
   paragraphs: string[];
   image?: string;
   imageBadge?: string;
+  video?: string;
 }
 
 export interface RelatedTreatmentItem {
@@ -49,6 +50,32 @@ export interface RelatedTreatmentItem {
   href?: string;
   priceFrom?: string;
   facts?: { label: string; value: string }[];
+}
+
+export interface VideoTestimonialItem {
+  thumbnail: string;
+  title: string;
+  url: string;
+}
+
+export interface VideoTestimonialsData {
+  heading?: string;
+  ratingBadge?: string;
+  ratingBadgeAlt?: string;
+  videos: VideoTestimonialItem[];
+}
+
+export interface TeamBioMember {
+  name: string;
+  role: string;
+  bio: string;
+  qualifications?: string[];
+}
+
+export interface TeamBiosData {
+  heading?: string;
+  image?: string;
+  members: TeamBioMember[];
 }
 
 export interface PostFrontmatter {
@@ -80,6 +107,8 @@ export interface PostFrontmatter {
   galleryHeading?: string;
   galleryDescription?: string;
   gallery?: GalleryItem[];
+  videoTestimonials?: VideoTestimonialsData;
+  teamBios?: TeamBiosData;
 }
 
 export interface GalleryItem {

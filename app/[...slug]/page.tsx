@@ -30,6 +30,8 @@ import {
   TreatmentOverview,
   TreatmentContent,
   TreatmentBeforeAfter,
+  TreatmentVideoTestimonials,
+  TeamBioCarousel,
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
@@ -256,10 +258,15 @@ function TreatmentPage({
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
           heroBg={treatment.heroBg}
+          heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
         <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
-        <TreatmentAdvantages advantages={treatment.advantages} title={frontmatter.title} />
+        <TreatmentAdvantages
+          advantages={treatment.advantages}
+          title={frontmatter.title}
+          heading={treatment.advantagesHeading}
+        />
         {frontmatter.overviewPanels?.map((panel, i) => (
           <TreatmentOverview
             key={i}
@@ -280,6 +287,8 @@ function TreatmentPage({
           title={frontmatter.title}
           isSurgical={isSurgical}
         />
+        <TreatmentVideoTestimonials data={frontmatter.videoTestimonials} />
+        <TeamBioCarousel data={frontmatter.teamBios} />
         <TreatmentExpert />
         <TreatmentPricing
           pricing={treatment.pricing}
@@ -335,6 +344,12 @@ function GenericPage({
         />
 
         <TreatmentContent content={content} />
+        <BeforeAfterGallery
+          gallery={frontmatter.gallery}
+          heading={frontmatter.galleryHeading}
+          description={frontmatter.galleryDescription}
+          title={frontmatter.title}
+        />
 
         {frontmatter.faq?.length ? (
           <HomeFaq

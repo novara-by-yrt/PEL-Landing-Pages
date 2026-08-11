@@ -13,6 +13,7 @@ export function TreatmentHero({
   heroImageAlt,
   heroBadge = "Before & After",
   heroBg,
+  heroBgOpacity,
 }: {
   breadcrumbItems: BreadcrumbItem[];
   siteUrl: string;
@@ -22,12 +23,22 @@ export function TreatmentHero({
   heroImageAlt: string;
   heroBadge?: string;
   heroBg?: string;
+  /** Overrides the subtle default (0.16) for a real content photo, rather than the generic abstract-texture background, which needs more visual weight to register. */
+  heroBgOpacity?: number;
 }) {
   return (
     <section className={styles.tpHero}>
 
       {heroBg && (
-        <Image src={heroBg} alt="" fill priority className={styles.tpHeroBg} aria-hidden="true" />
+        <Image
+          src={heroBg}
+          alt=""
+          fill
+          priority
+          className={styles.tpHeroBg}
+          aria-hidden="true"
+          style={heroBgOpacity !== undefined ? { opacity: heroBgOpacity } : undefined}
+        />
       )}
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowA}`} />
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowB}`} />

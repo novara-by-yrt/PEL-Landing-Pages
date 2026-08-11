@@ -158,6 +158,18 @@
       {
         "label": "Final Results",
         "value": "up to 10 years"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "Blood, MRSA, +/- ECG"
+      },
+      {
+        "label": "Addresses",
+        "value": "Redundant upper-lid skin resting on lashes, eyelid heaviness, or visual-field shadowing"
+      },
+      {
+        "label": "Down time",
+        "value": "1–2 Weeks"
       }
     ],
     "advantages": [
@@ -303,7 +315,20 @@
         "description": "In some cases, eye bag removal surgery can also improve vision by removing excess skin and tissue that may be obstructing the eyes."
       }
     ],
-    "pricing": [],
+    "pricing": [
+      {
+        "name": "Bilateral Scarless Lower Eye Bag Removal (Lower Lid Blepharoplasty)",
+        "price": "from £11,000",
+        "note": "inclusive of hospital & anaesthetist charge, general anaesthetic; additional £2,000 for 2 laser treatments; pre-assessment tests & overnight stay may apply"
+      },
+      {
+        "name": "Bilateral Outside-Approach Lower Eye Bag Removal (Lower Lid Blepharoplasty)",
+        "price": "from £12,000",
+        "note": "inclusive of hospital & anaesthetist charge, general anaesthetic; pre-assessment tests & overnight stay may apply"
+      }
+    ],
+    "pricingTitle": "Eye Bag Surgery",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total eye bag surgery cost during the consultation.",
     "similarTreatments": [
       {
         "title": "Festoons and malar bags",
@@ -371,6 +396,7 @@
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "“Scarless” Ptosis Surgery in London Say goodbye to droopy lids and hello to brighter, more expressive eyes",
     "subtitle": "A precise procedure to correct drooping eyelids caused by weakened levator muscle, restoring comfortable lid function and a natural appearance.",
+    "advantagesHeading": "Advantages of Ptosis Surgery",
     "glance": [
       {
         "label": "Duration",
@@ -408,12 +434,102 @@
       },
       {
         "title": "Reduced Forehead Wrinkles",
-        "description": "By restoring eyelid muscle function, Ptosis surgery can also reduce forehead wrinkles and creases,giving your face a more relaxed and rejuvenated appearance."
+        "description": "By restoring eyelid muscle function, Ptosis surgery can also reduce forehead wrinkles and creases, giving your face a more relaxed and rejuvenated appearance."
+      },
+      {
+        "title": "Improved Eye Symmetry",
+        "description": "It ensures even alignment and symmetry, restoring a natural and harmonious look to your eyes, and enhancing the overall balance of your facial features."
       }
     ],
     "pricing": [
       "Unilateral £4,500, inclusive of hospital charge, local anaesthetic.",
       "Bilateral £6,500, inclusive of hospital charge, local anaesthetic."
+    ],
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "ptosis-surgery-uk": {
+    "heroImage": "/uploads/2018/11/Ptosis-surgery-uk.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Ptosis Surgery (Droopy Eyelid Repair) – by Leading Oculoplastic Surgeon, Dr Sabrina Shah-Desai, in London",
+    "subtitle": "Correct a drooping eyelid and restore balance to the anatomy, whether the cause is hereditary, age-related, or affecting vision and confidence.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "30 - 90 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Local ± sedation (adults); general (children)"
+      },
+      {
+        "label": "Final results",
+        "value": "Complete recovery within 14 days"
+      }
+    ],
+    "advantages": [],
+    "pricing": [
+      "Unilateral Ptosis Surgery from £4,500",
+      "Bilateral Ptosis Surgery from £6,500"
     ],
     "similarTreatments": [
       {
@@ -506,6 +622,14 @@
       {
         "label": "Results Last",
         "value": "2-10 Years"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "Blood, MRSA, +/- ECG"
+      },
+      {
+        "label": "Down time",
+        "value": "Open Surgical: 2 Weeks · Suture: 1–2 Weeks"
       }
     ],
     "advantages": [
@@ -589,6 +713,61 @@
       {
         "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
         "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "festoons-and-malar-bags-treatment-uk": {
+    "heroImage": "/uploads/2026/02/Group-11-2.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Festoons, Malar Bags and Extended Blepharoplasty vs Endolift",
+    "subtitle": "Comparing surgical and non-surgical treatment options for festoons and malar bags — from Hyaluronidase and Endolift laser to extended lower lid blepharoplasty with midface lift.",
+    "glance": [],
+    "advantages": [],
+    "pricing": [
+      "Hyalase for festoons — from £400",
+      "Surgery (direct excision) — from £5,000",
+      "Extended lower lid blepharoplasty — from £8,000"
+    ],
+    "pricingTitle": "Malar Bags Treatment",
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I have been seeing Dr Sabrina for over a year now and have absolute confidence in everything she says and does. Having had numerous filler and anti-wrinkle injections treatments in the past I was left with festoons which just wouldn't shift along with facial laxity in my lower face. Dr Sabrina listened carefully to my concerns and has ensured I followed a treatment plan that would ensure the best results for me whilst ensuring value for money. The latest treatment I had around 8 weeks ago was Endolift and I can honestly say that the results are already fantastic even though the maximum benefit isn't seen until 3 months or longer. My jawline is already visibly tighter and my festoons have all but disappeared. I cannot recommend Dr Sabrina highly enough.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
       }
     ]
   },
@@ -1175,6 +1354,7 @@
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Experts in Tear Trough Fillers in London",
     "subtitle": "Reduce under-eye hollowness and restore comfort with Dr Sabrina’s clinically led approach to managing tear-trough concerns.",
+    "advantagesHeading": "Advantages of Tear Trough Fillers",
     "glance": [
       {
         "label": "Duration",
@@ -1284,11 +1464,127 @@
       }
     ]
   },
+  "plexr-plasma-pen": {
+    "heroImage": "/uploads/2026/02/Group-11-12.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Non-Surgical Eyelid Skin Tightening (Plexr/Plasma Pen) in London",
+    "subtitle": "Contract and tighten superficial eyelid skin with Dr Sabrina's precise, non-surgical plasma sublimation technique.",
+    "advantagesHeading": "Advantages of Plexr/Plasma Pen Treatment",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "60 Minutes"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Local anaesthetic"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Outpatient"
+      },
+      {
+        "label": "Excercise",
+        "value": "After 7–10 days"
+      },
+      {
+        "label": "Final results",
+        "value": "Up to 1-2 years"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Less Downtime",
+        "description": "Plexr may require as little as five days of recovery time, unlike surgery."
+      },
+      {
+        "title": "No General Anaesthesia",
+        "description": "Plexr only necessitates local anaesthesia, eliminating the need for general anaesthesia during treatment."
+      },
+      {
+        "title": "Non-Invasive",
+        "description": "Plexr is a non-invasive procedure that doesn't require cuts or stitches for skin treatment."
+      },
+      {
+        "title": "Minimal Side Effects",
+        "description": "Plexr has minimal side effects compared to surgery."
+      }
+    ],
+    "pricing": [
+      "Plexr/Plasma Pen Treatment Cost £1,000"
+    ],
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
   "polynucleotides": {
     "heroImage": "/uploads/2026/02/Group-11-8.svg",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Experts in Under Eye Polynucleotides in London",
     "subtitle": "Polynucleotide treatment is a medically indicated procedure aimed at supporting the skin’s natural regenerative processes in the under-eye region. It is used in cases where there is a medical need, such as post-traumatic changes, post-surgical irregularities, or tissue repair, rather than purely cosmetic enhancement.",
+    "advantagesHeading": "Advantages of Polynucleotide Treatment",
     "glance": [
       {
         "label": "Duration",
@@ -1539,6 +1835,14 @@
       {
         "label": "Final results",
         "value": "2 to 3 years"
+      },
+      {
+        "label": "Addresses",
+        "value": "Mild lid-cheek junction laxity, malar bags, and soft-tissue heaviness"
+      },
+      {
+        "label": "Down time",
+        "value": "Minimal"
       }
     ],
     "advantages": [
@@ -1674,8 +1978,9 @@
       }
     ],
     "pricing": [
-      "Anti-Aging Full Face &amp; Neck £3,000\n\\n"
+      "Anti-Ageing Full Face & Neck — £3,000"
     ],
+    "pricingTitle": "Sofwave™ Ultrasound",
     "similarTreatments": [
       {
         "title": "Festoons and malar bags",
@@ -1883,6 +2188,18 @@
       {
         "label": "Final Results",
         "value": "After 3 months"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "None"
+      },
+      {
+        "label": "Addresses",
+        "value": "Sagging brows, lower lid eye bags, double chin, fine lines, muscle laxity"
+      },
+      {
+        "label": "Down time",
+        "value": "None"
       }
     ],
     "advantages": [
@@ -1895,16 +2212,16 @@
         "description": "Each session takes just 20 minutes, and you can resume your daily activities immediately—no recovery time is needed."
       },
       {
-        "title": "Painless &amp; Comfortable",
+        "title": "Painless & Comfortable",
         "description": "The treatment feels like a warm facial massage with gentle muscle contractions—completely pain-free and relaxing."
       },
       {
-        "title": "Supports skin quality",
-        "description": "Stimulation of collagen and elastin may improve firmness and texture. \\nImproves Skin Tone &amp; Texture."
+        "title": "Supports Skin Quality",
+        "description": "Stimulation of collagen and elastin may improve firmness and texture, improving skin tone and texture."
       }
     ],
     "pricing": [
-      "Area (Undereye / Midface / Brow / Double Chin)                                                                                                             Course of 4 Treatments = £1,800",
+      "1 Area (Undereye / Midface / Brow / Double Chin) — Course of 4 Treatments = £1,800",
       "2 Areas (Any combination above) Course of 4 Treatments = £3,000"
     ],
     "similarTreatments": [
@@ -2449,6 +2766,1661 @@
       }
     ],
     "pricing": [],
+    "similarTreatments": [],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "This treatment really worked for me and I do recommend this to anyone looking for a smooth, clean, clear skin, not only that it helped reduce the dark circles too. I'm thankful to Sabrina for giving me the right advice, I've had an amazing experience with her and her team.",
+        "href": "https://www.realself.com/review/london-shah-desai-amazing-experience-amazing-treatment"
+      },
+      {
+        "quote": "I am delighted with my treatment and I am often told how youthful and fresh my skin looks and how amazing at the age of 51 I have no lines! I personally would not let another surgeon anywhere near my face as I completely trust Sabrina and her work.",
+        "href": "https://www.realself.com/review/london-shah-desai-tixel-fantastic-results-downtime"
+      },
+      {
+        "quote": "Sabrina has created a warm welcoming atmosphere absent at so many practices and the personal interest shown not only by Sabrina but also the wonderful ladies that work there (Lindsey, thank you for everything) makes you feel totally at ease.",
+        "href": "https://www.realself.com/review/london-silhouette-soft"
+      }
+    ]
+  },
+  "double-eyelids-asian-eyelid-surgery": {
+    "heroImage": "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
+    "heroBg": "/uploads/2018/11/Asian-eyelid-surgery-london.jpg",
+    "heroBgOpacity": 0.65,
+    "h1": "Monolids and Double Eyelid Surgery (Asian Blepharoplasty)",
+    "subtitle": "A natural upper eyelid crease tailored to Asian eye anatomy, creating a refreshed, wide-awake appearance while staying true to the patient's ethnicity.",
+    "glance": [
+      {
+        "label": "Anaesthesia",
+        "value": "Local"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Day Case"
+      },
+      {
+        "label": "Down time",
+        "value": "1–2 Weeks"
+      },
+      {
+        "label": "Final results",
+        "value": "2–10 Years"
+      },
+      {
+        "label": "Stitches Removed",
+        "value": "After 1 Week"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "No Scar",
+        "description": "The cut is hidden in the natural eyelid crease, or not required at all if using a running stitch."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "Results last from 2 to 10 years."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon."
+      }
+    ],
+    "pricing": [
+      "Non-Incisional Double Eyelid Surgery — £5,500",
+      "Double Eyelid Surgery — £5,500"
+    ],
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I am 25 and I had my Asian eyelid surgery with Doctor Shah-Desai 2 months ago. The result is so natural and exactly what I want. Really recommend if someone wants to have Asian eyelid surgery in the UK!",
+        "href": "https://www.realself.com/review/london-shah-desai-good-experience"
+      }
+    ]
+  },
+  "ellanse": {
+    "heroImage": "/uploads/2026/02/Group-11-20.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Ellansé Biostimulation by Leading Oculoplastic Surgeon",
+    "subtitle": "Ellansé filler is a biostimulatory treatment designed to support dermal structure and collagen renewal. At Perfect Eyes, it is used only where there is a clear clinical rationale, such as post-surgical contour imbalance, scarring, or age-related soft tissue changes affecting the periocular or mid-face region.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "30 Minutes"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Local"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "None"
+      },
+      {
+        "label": "Excercise",
+        "value": "After 1 Day"
+      },
+      {
+        "label": "Final results",
+        "value": "After 3 Months"
+      },
+      {
+        "label": "Pre admission tests",
+        "value": "None"
+      },
+      {
+        "label": "Addresses",
+        "value": "Sagging Jawline and Nasolabial Folds"
+      },
+      {
+        "label": "Down time",
+        "value": "1–2 Days"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Collagen Stimulation",
+        "description": "Ellansé promotes collagen production to restore volume, smooth wrinkles, and enhance skin's elasticity for a youthful appearance."
+      },
+      {
+        "title": "Long-Lasting Effects",
+        "description": "Ellansé filler lasts 18–24 months, offering enduring results as it gradually metabolises."
+      },
+      {
+        "title": "Quick Results",
+        "description": "Enjoy noticeable improvements and corrections immediately after your first Ellansé treatment."
+      },
+      {
+        "title": "Precision in Use",
+        "description": "Ellansé is administered only by trained oculoplastic surgeons using ultrasound mapping or anatomical guidance where required, ensuring safe placement and predictable outcomes."
+      }
+    ],
+    "pricing": [
+      "Each syringe is £780."
+    ],
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "endolift-revolutionary-minimally-invasive-jawline-lift": {
+    "heroImage": "/uploads/2021/07/endolift-1.jpg",
+    "heroBg": "/uploads/2021/07/endolift.jpg",
+    "heroBgOpacity": 0.6,
+    "heroBadge": "In Treatment",
+    "h1": "Saggy Jowls, Double Chin & Festoon Treatment with Endolift®",
+    "subtitle": "Endolift® is an innovative, minimally-invasive alternative to a surgical face lift, which uses laser energy to tighten the skin and contour facial fat, with minimal downtime.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "1–2 Hours"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Local"
+      },
+      {
+        "label": "Final results",
+        "value": "3–6 Months"
+      },
+      {
+        "label": "Results Last",
+        "value": "Up to 2 Years"
+      },
+      {
+        "label": "Review",
+        "value": "4–6 Weeks"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Less Downtime",
+        "description": "Compared to surgical alternatives."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "Results last for up to 2 years."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon."
+      }
+    ],
+    "pricing": [
+      "Festoons — £2,000",
+      "Lower Face & Neck Tightening — £4,000"
+    ],
+    "similarTreatments": [],
+    "type": "non-surgical"
+  },
+  "eye-bag-surgery-lower-eyelid-surgery-uk": {
+    "heroImage": "/uploads/2019/01/surgery-1.jpg",
+    "heroBg": "/uploads/2019/01/surgery-big-1.jpg",
+    "heroBgOpacity": 0.55,
+    "h1": "Eye-Bag Removal Surgery",
+    "subtitle": "Eye-Bag Surgery, otherwise referred to as \"Lower Lid Blepharoplasty\", is a surgical procedure designed to improve the appearance of the lower eyelids or eye bags, with results lasting upwards of 10 years.",
+    "glance": [
+      {
+        "label": "Anaesthesia",
+        "value": "General"
+      },
+      {
+        "label": "Hospital Stay",
+        "value": "Day Case"
+      },
+      {
+        "label": "Down time",
+        "value": "2 Weeks (Scarless) / 4–12 Weeks"
+      },
+      {
+        "label": "Results Last",
+        "value": "Up to 10 Years"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "No Scar",
+        "description": "The cut is hidden in the natural eyelid crease."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "Results last for up to 10 years."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon."
+      }
+    ],
+    "pricing": [
+      "Bilateral Lower Lid Blepharoplasty from £9,000."
+    ],
+    "similarTreatments": [
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "surgical"
+  },
+  "silhouette-soft-lift": {
+    "heroImage": "/uploads/2019/12/Before-and-after-Sil-1.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Revolutionary Non-Surgical Facelift with Silhouette Soft Thread Lift",
+    "subtitle": "By leading oculoplastic surgeon, Dr Sabrina Shah-Desai, in London.",
+    "glance": [],
+    "advantagesHeading": "Advantages of Silhouette Soft Thread Lift",
+    "advantages": [
+      {
+        "title": "Less Downtime",
+        "description": "Compared to surgical alternatives."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "For up to 2 years."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by leading oculoplastic surgeon."
+      }
+    ],
+    "pricing": [
+      "Brow Supporting Lift — from £1,500",
+      "Lower Face & Neck Lift — from £2,500"
+    ],
+    "pricingTitle": "Silhouette-Soft Lift",
+    "pricingLead": "Prices are a guide; your doctor will calculate total costs during consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "The procedure itself was not uncomfortable. It felt a little warm in some areas but other than that nothing. I had some swelling for about 3 days and had an intermittent stinging sensation. It is now 2 weeks on and I am very happy with the result. I would definitely recommend this treatment.",
+        "href": "https://www.realself.com/review/london-uk-eyelid-surgery-blepharoplasty-plexr"
+      },
+      {
+        "quote": "Excellent results from anti-wrinkle injections, fillers and Plexr. Would highly recommend Sabrina. I felt very safe in the hands of Sabrina. She is very friendly and explains everything in detail. Her clinic in Harley street is very calming and relaxing and her staff are also excellent. If you're thinking about having eyelid surgery as I was then try Plexr with Sabrina. Results are brilliant. Worth every penny!",
+        "href": "https://www.realself.com/review/london-eyes-excellent"
+      },
+      {
+        "quote": "Mrs Shah-Desai was utterly professional from our first consultation. I had Plexr for my upper eyelids and thereafter anti-wrinkle injections. I'm thrilled by what this gifted consultant has been able to restore to my face. I was terrified of losing my natural expression; Mrs Shah-Desai listened to my concerns and has ensured I look like a much better yet entirely natural version of myself.",
+        "href": "https://www.realself.com/review/london-goodness-i-sabrina-shah-desai"
+      }
+    ]
+  },
+  "revision-surgery": {
+    "heroImage": "/uploads/2024/08/Revision-Blepharoplasty-how.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Post Blepharoplasty Eyelid Retraction & Revision Surgery",
+    "subtitle": "By leading oculoplastic surgeon, Dr Sabrina Shah-Desai, in London.",
+    "glance": [],
+    "advantages": [],
+    "pricing": [
+      "Unilateral blepharoplasty — from £4,000",
+      "Bilateral blepharoplasty — from £5,000"
+    ],
+    "pricingTitle": "Revision Surgery",
+    "pricingLead": "Prices are a guide; your doctor will calculate total costs during consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "reconstructive-surgery": {
+    "heroImage": "/uploads/2025/01/eyelidReconstruction.png",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Eyelid Reconstruction Surgery in London",
+    "subtitle": "Restore your eyelids' appearance and functionality with our specialised reconstruction surgery in London. Our meticulous approach ensures a natural look while enhancing overall eye health.",
+    "glance": [
+      { "label": "Duration", "value": "45 minutes to 2.5 hours" },
+      { "label": "Driving", "value": "After 3–10 days" },
+      { "label": "Anaesthesia", "value": "Local" },
+      { "label": "Hospital stay", "value": "Outpatient" },
+      { "label": "Excercise", "value": "After 2–6 weeks" },
+      { "label": "Final Results", "value": "5–7 Years" },
+      { "label": "Down time", "value": "2 Weeks" }
+    ],
+    "advantagesHeading": "Advantages of Eyelid Reconstruction Surgery",
+    "advantages": [
+      {
+        "title": "Improved Vision",
+        "description": "Address sagging eyelids for improved peripheral vision and enhanced upper and outer visual fields."
+      },
+      {
+        "title": "Easier Recovery",
+        "description": "The recovery period is short after surgery; you can return to your work and regular activities."
+      },
+      {
+        "title": "Younger Appearance",
+        "description": "Eyelid reconstruction surgery helps you achieve a rejuvenated and awake look by using reshaping techniques."
+      },
+      {
+        "title": "Long-Lasting Effects",
+        "description": "Reconstruction surgery delivers enduring results by targeting and removing excess fat beneath and above the eyelids."
+      }
+    ],
+    "pricing": [
+      "Eyelid reconstruction — from £2,500"
+    ],
+    "pricingTitle": "Eyelid Reconstruction",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total eyelid reconstruction cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "non-surgical-radiofrequency-uk": {
+    "heroImage": "/uploads/2026/02/Group-11-9.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Radiofrequency Treatment in London",
+    "subtitle": "A non-surgical treatment used to support skin quality and mild periocular laxity. Radiofrequency treatment may be used in selected patients to address mild skin laxity or fine lines in the periocular area, supporting skin health and collagen structure.",
+    "glance": [
+      { "label": "Duration", "value": "30 Minutes" },
+      { "label": "Driving", "value": "After 24 Hours" },
+      { "label": "Anaesthesia", "value": "Not required" },
+      { "label": "Hospital stay", "value": "Outpatient" },
+      { "label": "Excercise", "value": "After 24 Hours" },
+      { "label": "Final results", "value": "Gradual improvement with each session" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Hooded and puffy eyes" },
+      { "label": "Down time", "value": "Minimal" }
+    ],
+    "advantagesHeading": "Advantages of Radiofrequency Treatment",
+    "advantages": [
+      {
+        "title": "Medically Supervised Procedure",
+        "description": "Performed under clinical supervision to ensure safety around the delicate eye area."
+      },
+      {
+        "title": "Minimal Downtime",
+        "description": "With little to no recovery time, patients can quickly resume their daily activities after treatment."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "The results of radiofrequency treatment can last for months, with gradual improvements over time."
+      },
+      {
+        "title": "Safe and Painless",
+        "description": "Radiofrequency treatment is generally safe and painless, with most patients experiencing only mild warmth."
+      }
+    ],
+    "pricing": [
+      "A single 30-minute Forma eye treatment — £160",
+      "A single 60-minute Forma eye and face treatment — £250",
+      "A six-treatment course of Forma — £850 for 30-minute eye treatments or £1,300 for 60-minute treatments"
+    ],
+    "pricingTitle": "Radiofrequency Treatment",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total radiofrequency treatment cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "bonta-wrinkle-treatment-uk": {
+    "heroImage": "/uploads/2026/02/Group-11-20-1.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Periorbital Wrinkle Management (Neuromodulators) in London",
+    "subtitle": "Consultation for the treatment of periorbital and facial muscle overactivity, by leading oculoplastic surgeon Dr Sabrina Shah-Desai and her team.",
+    "glance": [
+      { "label": "Procedure Time", "value": "15 minutes to an hour" },
+      { "label": "Driving", "value": "After 24 hours" },
+      { "label": "Anaesthesia", "value": "Topical" },
+      { "label": "Hospital stay", "value": "None" },
+      { "label": "Excercise", "value": "After 24 hours" },
+      { "label": "Final results", "value": "Up to a year or more after a course of 4–6 treatments" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Periocular textural change, post-inflammatory pigmentation, and fine surface irregularities" }
+    ],
+    "advantages": [
+      {
+        "title": "Specialist Doctor Treatment",
+        "description": "Targeted and clinically guided."
+      },
+      {
+        "title": "Comfortable",
+        "description": "Ultra-fine needles minimise sensation."
+      },
+      {
+        "title": "Effective",
+        "description": "Achieves balanced muscle relaxation."
+      },
+      {
+        "title": "Safe & Accurate",
+        "description": "Established medical use for over 20 years."
+      }
+    ],
+    "pricing": [
+      "1 Zone (Glabellar frown lines) — from £420",
+      "2 Zones (Glabellar frown & forehead lines) — from £480",
+      "3 Zones (Glabellar frown, forehead & smile lines) / Chemical Brow Lift — from £540",
+      "Masseter Hypertrophy — £500",
+      "Migraine / Blepharospasm — £600"
+    ],
+    "pricingTitle": "Treatment with Chemical Neuromodulator",
+    "pricingLead": "Prices are a guide; your doctor will calculate total costs during consultation. With Dr Shah-Desai.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "perfect360-skin-personalised-skincare": {
+    "heroImage": "/uploads/2024/01/skin-treatment-01.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Perfect360 Skin — Personalised Skincare",
+    "subtitle": "A genetics-led approach to skin health, combining DNA testing, AI skin analysis, and personalised treatment planning with Dr Sabrina and her team.",
+    "glance": [],
+    "advantages": [],
+    "pricing": [
+      "£1,500 — Skin DNA Test + Consultation with Dr + Online Consultation with our Health & Longevity coach + Visia Skin Scan + Treatments (UltraClear 3D MIRACL Facial or Lymph Drainage)",
+      "£750 — Skin DNA Test + Online Consultation with our Health & Longevity coach + Visia Skin Scan",
+      "£600 — Skin DNA Test + Consultation with Dr + Visia Skin Scan"
+    ],
+    "pricingTitle": "Perfect360 Skin",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total cost during consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical"
+  },
+  "non-surgical-non-surgical-blepharoplasty-uk": {
+    "heroImage": "/uploads/2026/02/Group-11-13.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Non-Surgical Blepharoplasty in London",
+    "subtitle": "Explore our non-surgical blepharoplasty in London to refresh your eyes and restore a brighter, more youthful appearance. Achieve your desired look without the downtime of surgery.",
+    "glance": [
+      { "label": "Procedure Time", "value": "60 minutes" },
+      { "label": "Return to Work", "value": "After 1 day" },
+      { "label": "Anaesthesia", "value": "Topical" },
+      { "label": "Hospital stay", "value": "None" },
+      { "label": "Excercise", "value": "After 1 week" },
+      { "label": "Final results", "value": "After a session of 2–4 treatments" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Under eye puffiness, hooding, fine lines" },
+      { "label": "Down time", "value": "1 Week" }
+    ],
+    "advantages": [
+      {
+        "title": "Non-Invasive Procedure",
+        "description": "This procedure does not involve cutting the skin or stitches, resulting in a quicker healing time compared to surgical alternatives."
+      },
+      {
+        "title": "Suitable for All Skin Types",
+        "description": "This treatment is safe for all skin types, providing an inclusive option for addressing specific concerns without limitations based on skin type."
+      },
+      {
+        "title": "Low Risk",
+        "description": "This treatment is safe and has a low risk of causing infection, blindness, excessive tearing, asymmetry or other problems."
+      },
+      {
+        "title": "Skin Tightening",
+        "description": "It firms the skin around the eyes, making it look and feel better while reducing the appearance of lines and wrinkles."
+      }
+    ],
+    "pricing": [
+      "Non-surgical blepharoplasty — from £1,000"
+    ],
+    "pricingTitle": "Non-Surgical Blepharoplasty",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total non-surgical blepharoplasty cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "medication-driven-weight-loss-face-restoration-the-perfect-360-approach": {
+    "heroImage": "/uploads/2026/05/weight-loss-herooo.png",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "The Perfect360™ Approach: Face Restoration for Medication Driven Weight Loss",
+    "subtitle": "Restores volume, structure, and skin quality lost after significant weight loss through a comprehensive, non-surgical programme designed to refresh hollow or tired features and bring back a natural, balanced appearance without looking overfilled.",
+    "glance": [
+      { "label": "Duration", "value": "Varies by tailored plan" },
+      { "label": "Driving", "value": "Immediately" },
+      { "label": "Anaesthesia", "value": "Local" },
+      { "label": "Hospital stay", "value": "None" },
+      { "label": "Exercise", "value": "After 1 day" },
+      { "label": "Final results", "value": "Build progressively over the staged programme" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Facial deflation, midface hollowing, temple volume loss, and skin laxity" },
+      { "label": "Downtime", "value": "Minimal to none" }
+    ],
+    "advantagesHeading": "Advantages of The Perfect360™ Facial Restoration Programme",
+    "advantages": [
+      {
+        "title": "Comprehensive Facial Restoration",
+        "description": "We assess the entire face rather than treating isolated areas, promoting a balanced and natural outcome."
+      },
+      {
+        "title": "Personalised Combination",
+        "description": "Each treatment plan is clinician-led and tailored, combining structural support, collagen stimulation, and skin hydration."
+      },
+      {
+        "title": "Surgeon Led Expertise",
+        "description": "Your care is directed by specialists with a deep understanding of post-weight-loss facial changes and anatomy."
+      },
+      {
+        "title": "Staged Delivery",
+        "description": "Treatments are delivered gradually, allowing the face to adapt naturally and avoiding an overfilled or artificial appearance."
+      }
+    ],
+    "pricing": [
+      "The Perfect360™ Approach is a highly bespoke programme tailored entirely to your individual anatomical needs and facial restoration journey — there is no set price."
+    ],
+    "pricingTitle": "The Perfect360™ Face Restoration Programme",
+    "pricingLead": "Your clinician will calculate the exact cost of your personalised treatment plan following your comprehensive medical assessment.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical"
+  },
+  "non-surgical-facial-contouring": {
+    "heroImage": "/uploads/2026/02/Group-11-14.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Non Surgical Facial Contouring",
+    "subtitle": "Non-surgical facial contouring uses clinically approved injectable procedures such as dermal fillers or energy-based devices to support facial balance and proportion, addressing facial asymmetry, soft tissue volume loss, or age-related contour changes.",
+    "glance": [],
+    "advantages": [
+      {
+        "title": "Minimal Downtime",
+        "description": "Non-surgical facial contouring allows you to return to your routine immediately. There's no lengthy recovery, making it an ideal option for those with busy schedules."
+      },
+      {
+        "title": "Naturally Rejuvenated Look",
+        "description": "This treatment enhances your natural features, delivering a subtle, refreshed appearance. It avoids the exaggerated effects of more invasive procedures, leaving you looking like a better version of yourself."
+      },
+      {
+        "title": "Minimally Invasive",
+        "description": "Unlike surgery, this approach involves minimal discomfort and no incisions. It's a safe option with reduced risks and is suitable for individuals seeking gentle yet effective results."
+      },
+      {
+        "title": "Quick and Clinically Performed",
+        "description": "Sessions last approximately 30–60 minutes and are conducted by qualified medical professionals under sterile conditions."
+      }
+    ],
+    "pricing": [
+      "Non-surgical facial contouring with dermal fillers — from £660 per syringe",
+      "Cheek / Marionette / Jawline filler — £660 per syringe"
+    ],
+    "pricingTitle": "Non Surgical Facial Contouring",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total non surgical facial contouring cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "midface-lift-extended-blepharoplasty": {
+    "heroImage": "/uploads/2026/02/Group-11-16.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Extended Blepharoplasty and Mid Facelift Treatment in London",
+    "subtitle": "A minimally invasive approach to smooth malar bags and festoons for a radiant, youthful appearance.",
+    "glance": [
+      { "label": "Duration", "value": "1 and 2 hours" },
+      { "label": "Driving", "value": "2 Weeks" },
+      { "label": "Anaesthesia", "value": "General or twilight" },
+      { "label": "Hospital stay", "value": "Outpatient" },
+      { "label": "Excercise", "value": "2 Weeks" },
+      { "label": "Final Results", "value": "7–10 Years" },
+      { "label": "Pre admission tests", "value": "Yes" },
+      { "label": "Addresses", "value": "Malar bags or festoons" },
+      { "label": "Down time", "value": "2 to 12 Weeks" }
+    ],
+    "advantages": [
+      {
+        "title": "Youthful Appearance",
+        "description": "A mid-facelift makes you look younger by restoring the midface vector, reducing wrinkles, and enhancing facial contours."
+      },
+      {
+        "title": "Long-Lasting Results",
+        "description": "The results of a mid-facelift can last for up to 10 years, keeping you looking youthful."
+      },
+      {
+        "title": "Low Risk",
+        "description": "A mid-facelift is a safe procedure with minimal risk of complications or side effects."
+      },
+      {
+        "title": "Combined Procedures",
+        "description": "A mid-facelift can be done alone or with other facial rejuvenation procedures for enhanced results."
+      }
+    ],
+    "pricing": [
+      "Extended lower lid blepharoplasty with midface lift — from £11,000"
+    ],
+    "pricingTitle": "Extended Lower Lid Blepharoplasty with Mid Face Lift",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total mid face lift treatment cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "microneedling": {
+    "heroImage": "/uploads/2026/02/Group-11-19.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Microneedling Treatment in London",
+    "subtitle": "Microneedling, also known as collagen induction therapy, is a minimally invasive procedure designed to support dermal health and improve skin structure around the delicate periocular area.",
+    "glance": [
+      { "label": "Duration", "value": "15 minutes to an hour" },
+      { "label": "Driving", "value": "After 24 hours" },
+      { "label": "Anaesthesia", "value": "Topical" },
+      { "label": "Hospital stay", "value": "None" },
+      { "label": "Excercise", "value": "After 24 hours" },
+      { "label": "Final Results", "value": "Up to a year or more after a course of 4–6 treatments" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Periocular textural change, post-inflammatory pigmentation, and fine surface irregularities" },
+      { "label": "Down time", "value": "Minimal" }
+    ],
+    "advantages": [
+      {
+        "title": "Improves Skin Tone",
+        "description": "It can reduce under-eye shadows and improve overall skin texture."
+      },
+      {
+        "title": "Minimally Invasive",
+        "description": "A minimally invasive procedure that stimulates skin repair without cuts or tissue removal, suitable for the delicate periocular area."
+      },
+      {
+        "title": "Improves Comfort and Skin Integrity",
+        "description": "It can help reduce irritation and improve barrier resilience in previously inflamed or fragile periocular skin."
+      },
+      {
+        "title": "Supports Skin Tightening",
+        "description": "May improve skin firmness and elasticity in medically indicated cases."
+      }
+    ],
+    "pricing": [
+      "Microneedling eyes — from £350",
+      "Microneedling full face — from £550",
+      "Exosome skin boosting (full face & eyes) — from £650"
+    ],
+    "pricingTitle": "Microneedling Treatment",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total microneedling treatment cost during the consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "non-surgical-microdroplet-injection-uk": {
+    "heroImage": "/uploads/2024/12/ellanse.png",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Microdroplet Injection in London by Leading Oculoplastic Surgeon",
+    "subtitle": "A precise, gentle chemical neuromodulator technique that softens fine lines and wrinkles while retaining natural expression — \"relax your lines, not your expression\".",
+    "glance": [],
+    "advantages": [
+      {
+        "title": "Specialist Doctor Treatment",
+        "description": "Precise and natural results, performed by a specialist doctor."
+      },
+      {
+        "title": "Painless",
+        "description": "Invisible needles used to deliver the treatment, with no anaesthetic required."
+      },
+      {
+        "title": "Effective",
+        "description": "Able to smooth fine lines and wrinkles while retaining natural expression."
+      },
+      {
+        "title": "Safe and Accurate",
+        "description": "Clinically tested for more than 20 years."
+      }
+    ],
+    "pricing": [
+      "1 area — from £350",
+      "2 areas — from £400",
+      "3 areas — from £450"
+    ],
+    "pricingTitle": "Treatment with Chemical Neuromodulator",
+    "pricingLead": "Prices are a guide; your doctor will calculate total costs during consultation. With Dr Shah-Desai.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "non-surgical-julaine-treatment-uk": {
+    "heroImage": "/uploads/2026/02/Header-1.svg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Collagen-Stimulating Treatment in London",
+    "subtitle": "Stimulates your skin's natural collagen production to improve firmness, texture, and radiance over time, helping restore youthful skin quality with subtle, natural-looking results.",
+    "glance": [
+      { "label": "Duration", "value": "20–30 minutes" },
+      { "label": "Driving", "value": "Same day" },
+      { "label": "Hospital stay", "value": "Not required" },
+      { "label": "Anaesthesia", "value": "Topical numbing cream if required" },
+      { "label": "Final results", "value": "Develop over several weeks to months" },
+      { "label": "Addresses", "value": "Loss of firmness, early skin laxity, fine lines, dull or uneven skin texture" },
+      { "label": "Course", "value": "2–3 sessions" },
+      { "label": "Downtime", "value": "Minimal" },
+      { "label": "Longevity", "value": "Up to 2 years (varies between individuals)" }
+    ],
+    "advantagesHeading": "Advantages of JULÄINE™ Treatment",
+    "advantages": [
+      {
+        "title": "Improves Overall Skin Quality",
+        "description": "JULÄINE™ enhances skin firmness, elasticity, and texture by stimulating your body's own collagen rather than adding artificial volume."
+      },
+      {
+        "title": "Natural-Looking Rejuvenation",
+        "description": "Results develop gradually, allowing the skin to improve without sudden or obvious changes, maintaining a natural appearance."
+      },
+      {
+        "title": "Longer-Lasting Results",
+        "description": "With a full treatment course and appropriate maintenance, results can last up to two years, depending on individual factors."
+      },
+      {
+        "title": "Subtle Volume Restoration",
+        "description": "Rather than creating fullness in one area, JULÄINE™ improves skin structure evenly, resulting in a soft, balanced look."
+      }
+    ],
+    "pricing": [
+      "Juläine of Sweden treatment — £1,200"
+    ],
+    "pricingTitle": "JULÄINE™ Treatment",
+    "pricingLead": "Prices are a guide. Your doctor will confirm the total cost during your medical consultation, based on your individual treatment plan and the number of sessions required.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical",
+    "reviews": [
+      {
+        "quote": "I had a very positive experience. She provided me with relevant pictures of what to expect post surgery which was very useful. Her post op information was clear and easy to follow. She came across as a very caring and confident practitioner. The outcome she described before surgery was realistic and she skilfully performed this.",
+        "href": "https://www.realself.com/review/london-shah-desai-delighted-upper-eyelid-surgery"
+      },
+      {
+        "quote": "I would like to express how happy I am with the results of my upper blepharoplasty. My eyes have healed really well and I am already getting compliments on how perfect they look! I would like to thank Mrs Sabrina Shah-Desai for her time, caring attitude and excellent results.",
+        "href": "https://www.realself.com/review/london-shah-desai-worth-experience"
+      },
+      {
+        "quote": "I've been wanting to have upper & lower lid surgery for some years. I have hereditary heavy eyelids, tea troughs & also bags under my eyes. I'm constantly told I'm looking tired! I researched a lot of surgeons & finally came across Sabrina Shah-Desai through a recommendation from an aesthetic nurse.",
+        "href": "https://www.realself.com/review/london-england-eyelid-surgery-43-year-heavy-eyelids"
+      },
+      {
+        "quote": "I feel that I've found my 'face doctor' and that is as valuable to me as the happiness I feel when I look in the mirror. Thanks too to Abi who was on hand during my recovery. She has a kind and caring nature and was on call the whole time during my recovery to give me the reassurance that I occasionally needed.",
+        "href": "https://www.realself.com/review/shah-desai-london-absolutely-delighted-after-eyelid-surgery"
+      },
+      {
+        "quote": "By far the best experience I have ever had with a doctor! Mrs Shah Desai is so professional, knowledgable and thorough with her approach and at the same time so kind, warm and friendly. I highly recommend her for any kind of surgery in the eye area.... I had a very fast and smooth recovery and I am so pleased with the results!",
+        "href": "https://www.realself.com/review/shah-desai-london-left-eye-ptosis-easy-amp-comfortable-experience-moon"
+      },
+      {
+        "quote": "I've had very heavy set eyes for the last 10 years that's aged me and decided that I now wanted to have treatment to help this problem. At consultation with Sabrina I felt confedent about suggested treatment for me. I had Blepharoplasty which was almost pain free and am so happy with my results.",
+        "href": "https://www.realself.com/review/harley-street-london-eyelid-surgery-47-years-lot-excess-skin-upper-lids"
+      }
+    ]
+  },
+  "injectable-skin-boosters-the-perfect-360-skin-programme": {
+    "heroImage": "/uploads/2026/05/injection-booster-hero.png",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Injectable Skin Boosters: The Perfect360™ Skin Programme",
+    "subtitle": "Restores hydration, structure, and elasticity through four advanced injectable skin boosters that work across multiple skin layers, helping rebuild firmness, reduce fine lines, and improve overall skin quality for a natural, balanced result.",
+    "glance": [
+      { "label": "Duration", "value": "20–30 minutes per session" },
+      { "label": "Driving", "value": "Immediately" },
+      { "label": "Anaesthesia", "value": "Topical numbing cream if required" },
+      { "label": "Hospital stay", "value": "None" },
+      { "label": "Exercise", "value": "After 24 hours" },
+      { "label": "Final results", "value": "Build progressively across a staged programme" },
+      { "label": "Pre admission tests", "value": "None" },
+      { "label": "Addresses", "value": "Fine lines, skin laxity, dehydration, and loss of elasticity" },
+      { "label": "Downtime", "value": "Minimal, with mild swelling possible" }
+    ],
+    "advantages": [
+      {
+        "title": "Holistic Skin Rejuvenation",
+        "description": "We treat the skin as a complete biological system rather than focusing on a single issue, supporting a balanced, natural improvement in hydration, structure, inflammation and laxity, all at once."
+      },
+      {
+        "title": "Regenerative, Not Temporary",
+        "description": "Using advanced injectable skin boosters, we stimulate the skin's own repair processes, creating longer-lasting results than treatments that only provide surface-level improvement."
+      },
+      {
+        "title": "Personalised Combination Protocols",
+        "description": "Rather than choosing one product, we layer treatments based on your skin assessment — for example Sunekos® with Polynucleotides for under-eye regeneration, or Redensity 1 with Profhilo® for global skin quality."
+      },
+      {
+        "title": "Periorbital Specialist Expertise",
+        "description": "Our particular expertise in periorbital anatomy means we can safely treat the most delicate areas of the face, including the lower eyelid, where most clinics will not go."
+      }
+    ],
+    "pricing": [
+      { "name": "Sunekos®", "price": "Confirmed at consultation" },
+      { "name": "Redensity 1", "price": "Confirmed at consultation" },
+      { "name": "Profhilo®", "price": "Confirmed at consultation" },
+      { "name": "Polynucleotides", "price": "Confirmed at consultation" }
+    ],
+    "pricingTitle": "Periorbital Treatment",
+    "pricingLead": "Prices are a guide; your doctor will calculate the total treatment cost during your consultation.",
+    "similarTreatments": [
+      {
+        "title": "Upper lid blepharoplasty",
+        "image": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Eye bag surgery",
+        "image": "/uploads/2018/10/Eye-Bag-Surgery-Lower-Lid-Blepharoplasty-london.jpg"
+      },
+      {
+        "title": "Festoons and malar bags",
+        "image": "/uploads/2018/10/eyeboost.jpg"
+      },
+      {
+        "title": "Ptosis surgery",
+        "image": "/uploads/2018/11/Ptosis-surgery-uk.jpg"
+      },
+      {
+        "title": "Double eyelid surgery",
+        "image": "/uploads/2018/10/Double-eyelid-surgery-london.jpg"
+      },
+      {
+        "title": "Eyelid lumps",
+        "image": "/uploads/2024/07/Eyelid-Lumps.jpg"
+      },
+      {
+        "title": "Endolift®",
+        "image": "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg"
+      },
+      {
+        "title": "Facial contouring with dermal fillers",
+        "image": "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg"
+      }
+    ],
+    "type": "non-surgical"
+  },
+  "eyelid-swelling-migrated-fillers-hyaluronidase-dissolving": {
+    "heroImage": "/uploads/2018/11/tixel-treatment-london.jpg",
+    "heroBg": "/uploads/2025/10/234-1.png",
+    "h1": "Eyelid Swelling / Migrated Fillers & Hyaluronidase Dissolving",
+    "subtitle": "Hyalase™ is an enzyme which breaks down hyaluronic acid, commonly used to dissolve dermal fillers that have migrated, caused swelling, or led to an unacceptable outcome.",
+    "glance": [
+      {
+        "label": "Duration",
+        "value": "15 Minutes"
+      },
+      {
+        "label": "Anaesthesia",
+        "value": "Numbing Cream"
+      },
+      {
+        "label": "Down time",
+        "value": "Minimal"
+      },
+      {
+        "label": "Final results",
+        "value": "24–48 Hours"
+      },
+      {
+        "label": "Course",
+        "value": "1–2 Injections"
+      }
+    ],
+    "advantages": [
+      {
+        "title": "Immediate Result",
+        "description": "Perfect for those seeking an instant improvement."
+      },
+      {
+        "title": "Minimal Downtime",
+        "description": "You can return to work straight away."
+      },
+      {
+        "title": "Unrivalled Expertise",
+        "description": "Performed by a leading oculoplastic surgeon and a team trained by her."
+      }
+    ],
+    "pricing": [
+      "1st Dissolve — £600",
+      "2nd Dissolve — £400"
+    ],
     "similarTreatments": [],
     "type": "non-surgical",
     "reviews": [

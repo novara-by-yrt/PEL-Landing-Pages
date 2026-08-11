@@ -41,11 +41,14 @@ export interface TreatmentMeta {
   heroImage: string;
   heroBg: string;
   heroBadge?: string;
+  heroBgOpacity?: number;
   h1: string;
   subtitle: string;
   type: string;
   glance: GlanceItem[];
   advantages: AdvantageItem[];
+  /** Overrides "Advantages of {title} Treatment" — for titles that already end in "Treatment". */
+  advantagesHeading?: string;
   pricing: PriceItem[];
   /** Overrides the treatment title in the "… Cost in London" heading. */
   pricingTitle?: string;

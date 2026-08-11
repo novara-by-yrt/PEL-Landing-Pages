@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TpIcon } from "./TpIcon";
+import { OverviewVideoFrame } from "./OverviewVideoFrame";
 import styles from "./TreatmentOverview.module.css";
 
 export function TreatmentOverview({
@@ -9,6 +10,7 @@ export function TreatmentOverview({
   image,
   imageBadge,
   imageSide = "right",
+  video,
 }: {
   eyebrow?: string;
   heading: string;
@@ -16,6 +18,7 @@ export function TreatmentOverview({
   image?: string;
   imageBadge?: string;
   imageSide?: "left" | "right";
+  video?: string;
 }) {
   if (paragraphs.length === 0) return null;
 
@@ -36,10 +39,14 @@ export function TreatmentOverview({
   );
 
   const imageBlock = hasImage && (
-    <div className={styles.tpOverviewFrame}>
-      {imageBadge && <span className={styles.tpOverviewBadge}>{imageBadge}</span>}
-      <Image src={image!} alt={heading} fill sizes="(max-width: 860px) 100vw, 45vw" loading="lazy" />
-    </div>
+    video ? (
+      <OverviewVideoFrame image={image!} video={video} heading={heading} imageBadge={imageBadge} />
+    ) : (
+      <div className={styles.tpOverviewFrame}>
+        {imageBadge && <span className={styles.tpOverviewBadge}>{imageBadge}</span>}
+        <Image src={image!} alt={heading} fill sizes="(max-width: 860px) 100vw, 45vw" loading="lazy" />
+      </div>
+    )
   );
 
   return (
