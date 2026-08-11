@@ -54,14 +54,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
 
-      // Legacy alias: the previous site serves this URL but points its
-      // rel="canonical" at the eyelid-surgery path, so mirror that.
-      {
-        source: "/surgical/droopy-eyelid/ptosis-surgery-uk",
-        destination: `/${TREATMENT_PATHS["ptosis-surgery"]}`,
-        permanent: true,
-      },
-
       // Publications the previous site served at the site root. Their content
       // lives in content/posts, which is served under /blog, so point the old
       // root URLs at the canonical blog URL.

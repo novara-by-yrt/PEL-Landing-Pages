@@ -1,4 +1,3 @@
-.tpOverviewGrid.imageLeft { grid-template-columns: 0.9fr 1.1fr; }
 .tpOverviewGlow {
   position: absolute;
   inset: 0;
@@ -135,6 +134,7 @@
 
 @media (min-width: 861px) {
   .tpOverviewGrid { grid-template-columns: 1.1fr 0.9fr; }
+  .tpOverviewGrid.imageLeft { grid-template-columns: 0.9fr 1.1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
