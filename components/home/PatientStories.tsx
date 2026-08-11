@@ -1,7 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import GoogleMark from "@/components/shared/GoogleMark";
+/* The shared set is the default, so a page can render <PatientStories /> and
+   is guaranteed the same reviews as every other page. reviews.ts only takes
+   the PatientStory *type* from here, and type imports are erased, so this
+   pairing costs nothing at runtime. */
+import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./PatientStories.module.css";
 
 export interface PatientStory {
@@ -15,9 +20,9 @@ export interface PatientStory {
   url?: string;
 }
 
-/** Quotes longer than this get a Read more / Read less toggle. All four of
- *  the current reviews are well past it; shorter ones added later will not
- *  show a control that does nothing. */
+/** Quotes longer than this get a Read more / Read less toggle. Most of the
+ *  current reviews are past it; shorter ones will not show a control that
+ *  does nothing. */
 const CLAMP_THRESHOLD = 260;
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -46,35 +51,75 @@ function Stars() {
   );
 }
 
-export default function PatientStories({ stories }: { stories: PatientStory[] }) {
+/** Default set, so every page shows the same reviews without re-importing. */
+export default function PatientStories({
+  stories = PATIENT_STORIES,
+}: {
+  stories?: PatientStory[];
+}) {
   const railRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  /* Keyed by author rather than index: the rail renders the list twice for
+     the loop, and a review and its clone are the same review — expanding one
+     should expand the other, so neither copy contradicts itself mid-scroll. */
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
-  // Arrows reflect where the rail actually is, so neither one sits live at a
-  // limit it cannot move past.
-  const syncEdges = useCallback(() => {
+  /* While a programmatic hop-and-scroll is in flight, normalising would undo
+     the hop the moment it happened — the same stand-down the treatments rail
+     uses for its arrow nudges. */
+  const settleUntil = useRef(0);
+
+  /* Endless rail. The track holds two passes of the list, so one full pass is
+     always queued off the right edge; once the scroll position runs past that
+     first pass it is rolled back by exactly one pass. The pixels there are
+     identical, so the roll-back is invisible and the rail has no end. */
+  const normalize = useCallback(() => {
     const el = railRef.current;
     if (!el) return;
-    setAtStart(el.scrollLeft <= 2);
-    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
+    const pass = el.scrollWidth / 2;
+    if (pass <= 0) return;
+    if (el.scrollLeft >= pass) el.scrollLeft -= pass;
   }, []);
 
-  useEffect(() => {
-    syncEdges();
-    window.addEventListener("resize", syncEdges);
-    return () => window.removeEventListener("resize", syncEdges);
-  }, [syncEdges]);
+  const onScroll = useCallback(() => {
+    if (performance.now() < settleUntil.current) return;
+    normalize();
+  }, [normalize]);
 
-  const slide = useCallback((direction: 1 | -1) => {
-    const el = railRef.current;
-    if (!el) return;
+  /** One card plus the track's real gap — read, not assumed, since the gap is
+      a clamp() that resolves differently on a phone than on a desktop. */
+  const strideOf = (el: HTMLDivElement) => {
     const card = el.querySelector<HTMLElement>(`.${styles.card}`);
-    const gap = 24;
-    const stride = card ? card.offsetWidth + gap : 400;
-    el.scrollBy({ left: direction * stride, behavior: "smooth" });
-  }, []);
+    if (!card) return 400;
+    const track = card.parentElement;
+    const gap = track ? parseFloat(getComputedStyle(track).columnGap) || 0 : 0;
+    return card.offsetWidth + gap;
+  };
+
+  const slide = useCallback(
+    (direction: 1 | -1) => {
+      const el = railRef.current;
+      if (!el) return;
+      const pass = el.scrollWidth / 2;
+      const stride = strideOf(el);
+
+      /* Going back from the very start would hit the hard edge at 0 and stop.
+         Hop forward one identical pass first, then scroll back from there —
+         same pixels on screen, but now there is room to move. The stand-down
+         keeps normalize() from cancelling the hop mid-flight. */
+      if (direction === -1 && el.scrollLeft < stride) {
+        settleUntil.current = performance.now() + 900;
+        el.scrollLeft += pass;
+      }
+
+      el.scrollBy({ left: direction * stride, behavior: "smooth" });
+
+      window.setTimeout(() => {
+        settleUntil.current = 0;
+        normalize();
+      }, 900);
+    },
+    [normalize],
+  );
 
   return (
     <section className={styles.section} aria-labelledby="stories-title">
@@ -99,7 +144,6 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
             type="button"
             className={styles.arrow}
             onClick={() => slide(-1)}
-            disabled={atStart}
             aria-label="Previous patient stories"
           >
             <Chevron back />
@@ -108,7 +152,6 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
             type="button"
             className={styles.arrow}
             onClick={() => slide(1)}
-            disabled={atEnd}
             aria-label="Next patient stories"
           >
             <Chevron />
@@ -118,19 +161,32 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
 
       <div
         ref={railRef}
-        onScroll={syncEdges}
+        onScroll={onScroll}
         className={styles.viewport}
         tabIndex={0}
         role="region"
         aria-label="Patient reviews"
       >
         <div className={styles.track}>
-          {stories.map((story, index) => {
+          {/* Two passes of the same list. The second exists only so the loop
+              has no seam, so it is hidden from screen readers and skipped by
+              Tab — otherwise every review would be announced twice. It stays
+              clickable, though: a clone is on screen whenever the rail sits
+              near the seam, and a dead Read more button there would just look
+              broken. */}
+          {[0, 1].flatMap((pass) =>
+            stories.map((story) => {
+            const clone = pass === 1;
+            const index = `${pass}-${story.author}`;
             const isLong = story.quote.length > CLAMP_THRESHOLD;
-            const isOpen = Boolean(expanded[index]);
+            const isOpen = Boolean(expanded[story.author]);
 
             return (
-              <figure key={story.author} className={styles.card}>
+              <figure
+                key={index}
+                className={styles.card}
+                aria-hidden={clone || undefined}
+              >
                 <div className={styles.cardTop}>
                   <span className={styles.rating}>
                     <GoogleMark className={styles.googleMark} />
@@ -159,8 +215,14 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
                     className={styles.toggle}
                     aria-expanded={isOpen}
                     aria-controls={`story-${index}`}
+                    /* Inside an aria-hidden clone, so keep it out of the tab
+                       order — a focusable control there would be a trap. */
+                    tabIndex={clone ? -1 : undefined}
                     onClick={() =>
-                      setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))
+                      setExpanded((prev) => ({
+                        ...prev,
+                        [story.author]: !prev[story.author],
+                      }))
                     }
                   >
                     {isOpen ? "Read less" : "Read more"}
@@ -187,7 +249,8 @@ export default function PatientStories({ stories }: { stories: PatientStory[] })
                 </figcaption>
               </figure>
             );
-          })}
+            }),
+          )}
         </div>
       </div>
     </section>
