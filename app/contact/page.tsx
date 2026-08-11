@@ -228,7 +228,7 @@ export default function ContactPage() {
                   disabled={status === "sending"}
                   className={`tp-btn tp-btn-primary ${styles.contactSubmit}`}
                 >
-                  {status === "sending" ? "Sending…" : "Send Message →"}
+                  {status === "sending" ? "Sending…" : "Send Message"}
                 </button>
 
                 <p style={{ fontSize: "0.75rem", color: "var(--tp-mist)", marginTop: "1rem", textAlign: "center" }}>

@@ -22,9 +22,6 @@ export default function NotFound() {
         <div className={styles.actions}>
           <Link href="/" className="tp-btn tp-btn-primary">
             Back to Home
-            <span className="tp-btn-arrow" aria-hidden="true">
-              <TpIcon name="arrow" size={16} />
-            </span>
           </Link>
           <Link href="/blog" className="tp-btn tp-btn-secondary">
             Browse Articles

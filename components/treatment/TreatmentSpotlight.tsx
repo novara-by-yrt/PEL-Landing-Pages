@@ -75,9 +75,6 @@ export function TreatmentSpotlight({
                   {t.href && (
                     <Link href={t.href} className="tp-btn tp-btn-primary">
                       View Treatment Details
-                      <span className="tp-btn-arrow" aria-hidden="true">
-                        <TpIcon name="arrow" size={16} />
-                      </span>
                     </Link>
                   )}
                 </div>

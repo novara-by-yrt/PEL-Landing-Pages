@@ -378,14 +378,6 @@ const PERFECT_360: JourneyStep[] = [
   },
 ];
 
-function Arrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function AsideBlock({ aside }: { aside: Aside }) {
   if (aside.kind === "note") {
     return (
@@ -456,9 +448,6 @@ function AsideBlock({ aside }: { aside: Aside }) {
             <li key={item.href}>
               <Link href={item.href} className={styles.linkCard}>
                 <span>{item.text}</span>
-                <span className={styles.linkArrow} aria-hidden="true">
-                  <Arrow />
-                </span>
               </Link>
             </li>
           ))}
@@ -515,9 +504,6 @@ export function DrSabrinaBio({
               <div className={styles.heroActions}>
                 <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
                   Book a Consultation
-                  <span className="tp-btn-arrow" aria-hidden="true">
-                    <Arrow />
-                  </span>
                 </Link>
                 <Link href="/before-after" className="tp-btn tp-btn-secondary">
                   See Before &amp; After

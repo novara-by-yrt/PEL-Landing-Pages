@@ -53,7 +53,6 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Endolift®", href: "/non-surgical/endolift-for-malar-bags-uk" },
   { label: "Sofwave™", href: "/non-surgical/sofwave-treatment-uk" },
   { label: "UltraClear Laser", href: "/non-surgical/ultraclear-laser-treatment-uk" },
-  { label: "Chemical Peel", href: "/non-surgical/chemical-peel-treatment-uk" },
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
 ];
 
@@ -236,6 +235,41 @@ export default function Header() {
     if (el) itemRefs.current.set(label, el);
     else itemRefs.current.delete(label);
   };
+
+  /* Keeps the two-pane panel inside the viewport.
+     The panel is anchored so its category column is centred on the trigger
+     and the second pane opens to the right (see .pel-dropdown-mega). For the
+     right-most menu that would run past the window edge, so nudge the whole
+     panel back by however much it overflows.
+     Crucially the nudge is computed from the trigger position and the panel's
+     *expanded* width, both constant while the menu is open — so it is the
+     same before and after a category is picked, and the category column
+     still never moves. Written straight to the DOM rather than through state
+     to avoid a re-render on every resize tick. */
+  useLayoutEffect(() => {
+    const panel = navRef.current?.querySelector<HTMLElement>(".pel-dropdown-mega");
+    const trigger = openItem ? itemRefs.current.get(openItem) : null;
+    if (!panel || !trigger) return;
+
+    const GUTTER = 16;
+    const apply = () => {
+      const css = getComputedStyle(document.documentElement);
+      const col = parseFloat(css.getPropertyValue("--pel-mega-col")) || 320;
+      const col2 = parseFloat(css.getPropertyValue("--pel-mega-col2")) || 380;
+      const rect = trigger.getBoundingClientRect();
+      const left = rect.left + rect.width / 2 - col / 2;
+      const right = left + col + col2;
+
+      let shift = 0;
+      if (right > window.innerWidth - GUTTER) shift = window.innerWidth - GUTTER - right;
+      if (left + shift < GUTTER) shift = GUTTER - left;
+      panel.style.setProperty("--pel-mega-shift", `${Math.round(shift)}px`);
+    };
+
+    apply();
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
+  }, [openItem]);
 
   useLayoutEffect(() => {
     if (!highlighted) return;
@@ -453,7 +487,7 @@ export default function Header() {
                 )}
 
                 {isOpen && item.variant === "mega" && (
-                  <div className="pel-dropdown" role="menu">
+                  <div className="pel-dropdown pel-dropdown-mega" role="menu">
                     {/* The second column only exists once a category is
                         picked, so the panel is never a narrow list beside a
                         blank rectangle. */}
@@ -524,7 +558,6 @@ export default function Header() {
           <Link href={BOOK_HREF} className="pel-cta">
             <span className="pel-cta-long">Book a Consultation</span>
             <span className="pel-cta-short">Book</span>
-            <TpIcon name="arrow" size={16} />
           </Link>
         </div>
 
@@ -672,7 +705,7 @@ export default function Header() {
 
         <div className="pel-drawer-foot">
           <Link href={BOOK_HREF} className="pel-cta pel-cta-full" onClick={() => setDrawerOpen(false)}>
-            Book a Consultation <TpIcon name="arrow" size={17} />
+            Book a Consultation
           </Link>
           <ClinicPhone className="pel-drawer-phone" icon />
         </div>

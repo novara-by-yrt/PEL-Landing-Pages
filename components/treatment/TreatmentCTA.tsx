@@ -29,9 +29,6 @@ export function TreatmentCTA() {
             <div className={styles.tpCtaActions}>
               <Link href="/contact" className="tp-btn tp-btn-inverse">
                 Book a Consultation
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <TpIcon name="arrow" size={16} />
-                </span>
               </Link>
               <ClinicPhone className="tp-btn tp-btn-outline-light" icon iconSize={16} />
             </div>

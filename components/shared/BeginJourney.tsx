@@ -21,11 +21,6 @@ export default function BeginJourney() {
             <div className={styles.beginActions}>
               <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
                 Book a Consultation
-                <span className="tp-btn-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M5 12h13M12.5 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
               </Link>
               <ClinicPhone className="tp-btn tp-btn-outline-light" icon />
             </div>

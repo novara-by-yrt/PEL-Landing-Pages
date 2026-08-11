@@ -6,6 +6,9 @@ interface CarouselItem {
   alt: string;
   width?: number;
   height?: number;
+  /** Artwork that carries its own solid background — rounded so it reads as
+      an intentional badge rather than a bare rectangle on a light strip. */
+  tile?: boolean;
 }
 
 interface AutoScrollCarouselProps {
@@ -59,7 +62,9 @@ export default function AutoScrollCarousel({
               alt={i >= items.length ? "" : item.alt}
               width={item.width || 120}
               height={item.height || 60}
-              className={`${styles.logo} ${size === "badge" ? styles.badge : ""}`}
+              className={`${styles.logo} ${size === "badge" ? styles.badge : ""} ${
+                item.tile ? styles.tile : ""
+              }`}
             />
           </div>
         ))}

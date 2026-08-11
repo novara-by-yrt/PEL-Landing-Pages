@@ -25,9 +25,6 @@ export function TreatmentReviews({ reviews }: { reviews?: ReviewItem[] }) {
               <p>&ldquo;{review.quote}&rdquo;</p>
               <a href={review.href} target="_blank" rel="noopener noreferrer nofollow">
                 Read more on RealSelf
-                <span className={styles.tpReviewArrow} aria-hidden="true">
-                  <TpIcon name="arrow" size={14} />
-                </span>
               </a>
             </div>
           ))}

@@ -154,7 +154,6 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
 
                 <Link href={`/blog/${pub.slug}`} id={`pub-link-${index}`} className={styles.pubReadLink}>
                   Read Publication
-                  <TpIcon name="arrow" size={15} />
                 </Link>
               </article>
             );
