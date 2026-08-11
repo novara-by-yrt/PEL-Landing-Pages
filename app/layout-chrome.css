@@ -13,7 +13,7 @@
    moved every pixel of the page up by the difference — mid-scroll, mid-
    transition, which is what juddered. Fixed + spacer means the shrink is
    purely visual and the content underneath never moves. */
-:root{--pel-top-h:clamp(84px,10.5vw,116px)}
+:root{--pel-top-h:clamp(84px,10.5vw,116px);--pel-mega-col:320px;--pel-mega-col2:380px}
 .pel-nav-spacer{height:var(--pel-top-h)}
 .pel-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0px 24px;transition:padding .45s var(--tp-ease);}
 .pel-nav.at-top{padding-left:0;padding-right:0}
@@ -55,6 +55,17 @@
 @media(prefers-reduced-motion:reduce){.pel-lamp{transition:opacity 200ms var(--tp-ease)}}
 .pel-navitem.has-panel .pel-link-has-menu svg{transform:rotate(-90deg)}
 .pel-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;z-index:10}
+/* Two-pane panel: centre the trigger on the FIRST column rather than on the
+   whole panel. Centring the whole panel meant revealing a category grew it
+   from 320px to 700px and slid the category list 190px to the left — the
+   list appeared to run away from the cursor. Anchoring to the first column
+   keeps that list still and lets the second pane open to its right.
+   Collapsed, the panel lands exactly where translateX(-50%) used to put it,
+   since the panel is then one column wide.
+   --pel-mega-shift is written by Header.tsx and nudges the panel back inside
+   the viewport for the right-most menu; it is constant while the menu is
+   open, so it never reintroduces movement. */
+.pel-dropdown-mega{margin-left:calc(var(--pel-mega-col) / -2 + var(--pel-mega-shift, 0px));transform:none}
 .pel-dropdown-inner{background:var(--tp-paper);border-radius:24px;box-shadow:0 30px 70px -28px rgba(24,20,64,.42),0 2px 10px rgba(24,20,64,.06);padding:0;overflow:hidden;animation:pel-panel-in 180ms var(--tp-ease) both}
 @keyframes pel-panel-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 
@@ -83,8 +94,13 @@
 .pel-panel-viewall:hover svg{transform:translateX(3px)}
 
 /* ── Two-pane mega panel ──────────────────────────────────────────────── */
-.pel-mega2{display:grid;grid-template-columns:minmax(260px,320px);gap:0;padding:0;width:max-content;max-width:min(94vw,720px)}
-.pel-mega2.is-expanded{grid-template-columns:minmax(260px,320px) minmax(260px,380px)}
+/* Both tracks are always laid out at a fixed size and only the panel's own
+   width animates, so the second pane is wiped into view (clipped by
+   .pel-dropdown-inner's overflow:hidden) instead of the grid re-flowing.
+   That keeps the first column's geometry identical in both states, which is
+   what stops it moving. */
+.pel-mega2{display:grid;grid-template-columns:var(--pel-mega-col) var(--pel-mega-col2);gap:0;padding:0;width:var(--pel-mega-col);transition:width 260ms var(--tp-ease)}
+.pel-mega2.is-expanded{width:calc(var(--pel-mega-col) + var(--pel-mega-col2))}
 .pel-mega2-left{display:flex;flex-direction:column;gap:2px;padding:20px 16px}
 .pel-mega2.is-expanded .pel-mega2-left{border-right:1px solid var(--tp-hairline)}
 .pel-mega2-cat svg{flex:0 0 auto;color:var(--tp-mist);transition:color 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
@@ -97,14 +113,16 @@
 .pel-mega2-link{display:block;min-height:44px;padding:12px 10px;font-family:var(--tp-body);font-size:.9375rem;line-height:1.35;color:var(--tp-slate);text-decoration:none;border-radius:10px;transition:background 160ms var(--tp-ease),color 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
 .pel-mega2-link:hover{background:var(--tp-lavender-050);color:var(--tp-indigo-700);transform:translateX(4px)}
 
-/* Narrow laptops: keep the widest panels inside the viewport. */
+/* Narrow laptops: a slimmer second pane keeps the expanded panel inside the
+   viewport. The first column is untouched, so the anchor above still holds. */
 @media (max-width:1279px){
-  .pel-mega2.is-expanded{grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:min(92vw,640px)}
+  :root{--pel-mega-col2:320px}
   .pel-panel-grid{max-width:min(92vw,460px)}
 }
 
 @media (prefers-reduced-motion:reduce){
   .pel-dropdown-inner,.pel-mega2-right{animation:none}
+  .pel-mega2{transition:none}
   .pel-panel-link,.pel-panel-link::before,.pel-mega2-cat,.pel-mega2-cat::before,.pel-mega2-cat svg,.pel-mega2-link,.pel-panel-viewall,.pel-panel-viewall svg{transition:none}
 }
 .pel-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
