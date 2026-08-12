@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
+import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import BeginJourney from "@/components/shared/BeginJourney";
@@ -109,22 +110,26 @@ const CONSULTATION_COVERS = [
   "A written letter afterwards, setting out the agreed plan",
 ];
 
-const NOTES = [
+const NOTES: HomeFaqItem[] = [
   {
-    q: "How long should I plan to be in London?",
-    a: "Long enough to reach the six-to-seven-day review after surgery, since that is when wounds are checked and sutures come out. The exact length depends on the procedure and is confirmed at your consultation — please do not book non-refundable travel before then.",
+    question: "How long should I plan to be in London?",
+    answer:
+      "Long enough to reach the six-to-seven-day review after surgery, since that is when wounds are checked and sutures come out. The exact length depends on the procedure and is confirmed at your consultation — please do not book non-refundable travel before then.",
   },
   {
-    q: "Can the whole thing be done in a single trip?",
-    a: "Often, but not always. The surgical route includes a separate planning-and-consent appointment before the operation itself, and whether that can sit in the same visit depends on the procedure and on your own circumstances. It is one of the first things the team will talk through with you.",
+    question: "Can the whole thing be done in a single trip?",
+    answer:
+      "Often, but not always. The surgical route includes a separate planning-and-consent appointment before the operation itself, and whether that can sit in the same visit depends on the procedure and on your own circumstances. It is one of the first things the team will talk through with you.",
   },
   {
-    q: "Are consultations free?",
-    a: "No. Dr Shah-Desai does not offer free consultations, and the fee is the same whether you have flown in or walked round the corner. The current rates are set out above.",
+    question: "Are consultations free?",
+    answer:
+      "No. Dr Shah-Desai does not offer free consultations, and the fee is the same whether you have flown in or walked round the corner. The current rates are set out above.",
   },
   {
-    q: "What happens once I have flown home?",
-    a: "The twelve-to-sixteen-week review remains part of the plan, and arrangements for it are agreed with the team rather than left to chance. If you are one of our private patients and need urgent advice out of hours, you will already have the emergency number from your correspondence.",
+    question: "What happens once I have flown home?",
+    answer:
+      "The twelve-to-sixteen-week review remains part of the plan, and arrangements for it are agreed with the team rather than left to chance. If you are one of our private patients and need urgent advice out of hours, you will already have the emergency number from your correspondence.",
   },
 ];
 
@@ -349,51 +354,24 @@ export default function InternationalPatientsPage() {
         />
       </Reveal>
 
-      {/* ── Planning notes ─────────────────────────────────────────────── */}
-      <section className={styles.section} aria-labelledby="notes-title">
-        <div className="container">
-          {/* Asymmetric rather than a centred header over a grid: four answers
-              this long read better as one column, and the space that frees on
-              the left gives the heading somewhere to sit and stay put. */}
-          <div className={styles.notesLayout}>
-            <Reveal className={styles.notesAside}>
-              <div className={styles.notesIntro}>
-                <span className={styles.sectionEyebrow}>Before you book</span>
-                <h2 id="notes-title" className={styles.h2}>
-                  Questions people ask from abroad
-                </h2>
-                <span className={styles.rule} aria-hidden="true" />
-                <p className={styles.notesLead}>
-                  The four that come up in almost every enquiry from overseas. Anything
-                  they do not answer, ask us directly — we would rather you asked before
-                  booking a flight than after.
-                </p>
-                <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
-                  Email the team
-                </a>
-              </div>
-            </Reveal>
-
-            <ol className={styles.notes}>
-              {NOTES.map((note, index) => (
-                <li key={note.q} className={styles.noteItem}>
-                  <Reveal delay={index * 60}>
-                    <div className={styles.note}>
-                      {/* Decoration: the list is already ordered, and hearing
-                          "01" before each question helps nobody. */}
-                      <span className={styles.noteNum} aria-hidden="true">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <h3 className={styles.noteQ}>{note.q}</h3>
-                      <p className={styles.cardText}>{note.a}</p>
-                    </div>
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+      {/* ── Planning notes ───────────────────────────────────────────────
+          The home page's own FAQ component, not a copy of its look. It
+          already takes the eyebrow, title, lead and a footer slot, so this
+          section is identical to the home page's by construction and stays
+          that way if that design ever changes. */}
+      <Reveal>
+        <HomeFaq
+          items={NOTES}
+          eyebrow="Before you book"
+          title="Questions people ask from abroad"
+          lead="The four that come up in almost every enquiry from overseas. Anything they do not answer, ask us directly — we would rather you asked before booking a flight than after."
+          footer={
+            <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
+              Email the team
+            </a>
+          }
+        />
+      </Reveal>
 
       <PatientStories />
       <BeginJourney />
