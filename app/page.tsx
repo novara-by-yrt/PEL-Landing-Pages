@@ -502,10 +502,8 @@ export default function HomePage() {
           <Reveal delay={80}>
             <figure className={styles.reachFigure}>
               {/* The map itself is the link. Its alt text describes the
-                  artwork, so the link carries its own label rather than being
-                  announced as "60+ countries…" — and the caption underneath
-                  gives sighted readers a visible target, since a picture that
-                  happens to be clickable is easy to miss. */}
+                  artwork rather than the destination, so the link carries its
+                  own aria-label instead of being announced as "60+ countries…" */}
               <Link
                 href="/international-patients"
                 className={styles.reachFrame}
@@ -522,12 +520,6 @@ export default function HomePage() {
                   <img {...reachNarrow} alt={REACH_ALT} className={styles.reachImg} />
                 </picture>
               </Link>
-
-              <figcaption className={styles.reachCaption}>
-                <Link href="/international-patients" className={styles.reachLink}>
-                  Planning a trip from abroad
-                </Link>
-              </figcaption>
             </figure>
           </Reveal>
         </div>

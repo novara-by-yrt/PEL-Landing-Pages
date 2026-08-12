@@ -174,10 +174,12 @@ export default function InternationalPatientsPage() {
           </dl>
 
           <div className={styles.heroActions}>
-            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+            {/* Inverse and outline-light, not the light-background pair — the
+                hero is a dark band, so the indigo primary would sink into it. */}
+            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
               Book a Consultation
             </Link>
-            <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
+            <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-outline-light">
               Email the team
             </a>
           </div>
@@ -258,67 +260,84 @@ export default function InternationalPatientsPage() {
       {/* ── Consultation contents + practicalities ─────────────────────── */}
       <section className={styles.section} aria-labelledby="covers-title">
         <div className="container">
-          <div className={styles.split}>
-            <Reveal className={styles.splitCol}>
-              <div>
-                <span className={styles.sectionEyebrow}>Your first appointment</span>
-                <h2 id="covers-title" className={styles.h2}>
-                  What the consultation covers
-                </h2>
-                <span className={styles.rule} aria-hidden="true" />
-                <ul className={styles.checkList}>
-                  {CONSULTATION_COVERS.map((item) => (
+          <Reveal>
+            <div className={styles.head}>
+              <span className={styles.sectionEyebrow}>Your first appointment</span>
+              <h2 id="covers-title" className={styles.h2}>
+                What the consultation covers
+              </h2>
+              <p className={styles.lead}>
+                One appointment, and you leave with a diagnosis, a plan and it all in
+                writing — not a brochure and a follow-up call.
+              </p>
+              <span className={styles.rule} aria-hidden="true" />
+            </div>
+          </Reveal>
+
+          {/* One panel holding both halves, rather than two cards floating on
+              the section background — it reads as a single piece of the page
+              and gives the sticky details card something to travel against. */}
+          <Reveal delay={70}>
+            <div className={styles.coversPanel}>
+              <div className={styles.coversGrid}>
+                <ol className={styles.checkList}>
+                  {CONSULTATION_COVERS.map((item, index) => (
                     <li key={item} className={styles.checkItem}>
                       <span className={styles.checkIcon} aria-hidden="true">
-                        <TpIcon name="check" size={14} />
+                        <TpIcon name="check" size={15} />
                       </span>
-                      {item}
+                      <span className={styles.checkBody}>
+                        {/* Ordinal is decoration — the list is already ordered
+                            and the tick already says "included". */}
+                        <span className={styles.checkNum} aria-hidden="true">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className={styles.checkText}>{item}</span>
+                      </span>
                     </li>
                   ))}
-                </ul>
-              </div>
-            </Reveal>
+                </ol>
 
-            <Reveal className={styles.splitCol} delay={90}>
-              <div className={styles.factCard}>
-                <p className={styles.factLabel}>Consultation fees</p>
-                <dl className={styles.feesList}>
-                  {CONSULTATION_FEES.map((fee) => (
-                    <div key={fee.label} className={styles.feesRow}>
-                      <dt>{fee.label}</dt>
-                      <dd>{fee.price}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <aside className={styles.factCard}>
+                  <p className={styles.factLabel}>Consultation fees</p>
+                  <dl className={styles.feesList}>
+                    {CONSULTATION_FEES.map((fee) => (
+                      <div key={fee.label} className={styles.feesRow}>
+                        <dt>{fee.label}</dt>
+                        <dd>{fee.price}</dd>
+                      </div>
+                    ))}
+                  </dl>
 
-                <p className={styles.factLabel}>Where to come</p>
-                <a
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.factRow}
-                >
-                  <TpIcon name="pin" size={16} />
-                  {CLINIC.address}
-                </a>
-                <a href={`tel:${CLINIC.phoneHref.replace("tel:", "")}`} className={styles.factRow}>
-                  <TpIcon name="phone" size={16} />
-                  {CLINIC.phoneDisplay}
-                </a>
-                <a href={`mailto:${CLINIC.email}`} className={styles.factRow}>
-                  <TpIcon name="mail" size={16} />
-                  {CLINIC.email}
-                </a>
-                <p className={styles.factRow}>
-                  <TpIcon name="clock" size={16} />
-                  {CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(" · ")}
-                </p>
-                <p className={styles.factNote}>
-                  All times are London time. Every enquiry is treated in confidence.
-                </p>
+                  <p className={styles.factLabel}>Where to come</p>
+                  <a
+                    href={MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.factRow}
+                  >
+                    <TpIcon name="pin" size={16} />
+                    {CLINIC.address}
+                  </a>
+                  <a href={CLINIC.phoneHref} className={styles.factRow}>
+                    <TpIcon name="phone" size={16} />
+                    {CLINIC.phoneDisplay}
+                  </a>
+                  <a href={`mailto:${CLINIC.email}`} className={styles.factRow}>
+                    <TpIcon name="mail" size={16} />
+                    {CLINIC.email}
+                  </a>
+                  <p className={styles.factRow}>
+                    <TpIcon name="clock" size={16} />
+                    {CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(" · ")}
+                  </p>
+                  <p className={styles.factNote}>
+                    All times are London time. Every enquiry is treated in confidence.
+                  </p>
+                </aside>
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -330,7 +349,7 @@ export default function InternationalPatientsPage() {
       </Reveal>
 
       {/* ── Planning notes ─────────────────────────────────────────────── */}
-      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="notes-title">
+      <section className={styles.section} aria-labelledby="notes-title">
         <div className="container">
           <Reveal>
             <div className={styles.head}>

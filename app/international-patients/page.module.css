@@ -11,21 +11,31 @@
   font-family: var(--tp-body);
 }
 
-/* ── Hero ───────────────────────────────────────────────────────────────── */
+/* ── Hero ─────────────────────────────────────────────────────────────────
+   The same dark band the team page opens with — PageHero's gradient over the
+   shared background photograph — rather than a second dark treatment invented
+   for this page. Reproduced here rather than swapping in <PageHero> because
+   that component takes no stats row and no call-to-action pair.            */
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding-block: clamp(48px, 8vw, 88px);
-  background: var(--tp-lavender-050);
+  color: #fff;
+  background:
+    linear-gradient(160deg, rgba(18, 16, 54, 0.92), rgba(69, 61, 155, 0.85)),
+    url("/uploads/2024/07/blog-bg.jpg") center / cover no-repeat;
 }
 .heroGlow {
   position: absolute;
-  inset: 0;
+  top: -180px;
+  right: -100px;
   z-index: -1;
-  background:
-    radial-gradient(42% 60% at 80% 20%, rgba(188, 160, 221, 0.34), transparent 70%),
-    radial-gradient(38% 52% at 10% 90%, rgba(138, 132, 186, 0.24), transparent 72%);
+  width: 520px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(188, 160, 221, 0.32), transparent 70%);
+  pointer-events: none;
 }
 
 .crumbs {
@@ -34,14 +44,15 @@
   align-items: center;
   gap: 8px;
   font-size: var(--fs-caption);
-  color: var(--tp-slate);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: clamp(24px, 4vw, 36px);
 }
 .crumbs a {
-  color: var(--tp-indigo-700);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
 }
 .crumbs a:hover {
+  color: #fff;
   text-decoration: underline;
 }
 
@@ -51,7 +62,7 @@
   font-weight: 600;
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--tp-indigo-700);
+  color: var(--tp-lavender-300);
   margin-bottom: 16px;
 }
 
@@ -61,7 +72,7 @@
   font-size: clamp(2.25rem, 7vw, 4rem);
   line-height: 1.06;
   letter-spacing: -0.022em;
-  color: var(--tp-ink);
+  color: #fff;
   margin: 0;
   text-wrap: balance;
 }
@@ -69,7 +80,7 @@
 .heroLead {
   font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
   line-height: var(--lh-relaxed);
-  color: var(--tp-slate);
+  color: rgba(255, 255, 255, 0.82);
   margin: 20px 0 0;
   max-width: 56ch;
 }
@@ -80,6 +91,8 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px 24px;
   margin: clamp(32px, 5vw, 48px) 0 0;
+  padding-top: clamp(28px, 4vw, 36px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 /* Column, not just a block: "International patients" wraps to two lines on a
    phone while "Countries" does not, and without this the figures in a row sit
@@ -99,7 +112,7 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tp-slate);
+  color: rgba(255, 255, 255, 0.62);
   margin-bottom: 7px;
 }
 .statValue {
@@ -108,7 +121,7 @@
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--tp-ink);
+  color: #fff;
 }
 .statRating {
   display: flex;
@@ -347,45 +360,76 @@
 }
 
 /* ── Consultation contents beside the practical details ─────────────────── */
-.split {
+/* One panel around both halves. The gradient runs from the brand tint into
+   paper so the checklist rows — which are paper themselves — lift off it at
+   the top and settle into it at the bottom. */
+.coversPanel {
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(158deg, var(--tp-lavender-050), var(--tp-paper) 62%);
+  box-shadow: var(--shadow-lg);
+  padding: clamp(20px, 4vw, 48px);
+}
+.coversGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(32px, 5vw, 56px);
+  gap: clamp(24px, 4vw, 44px);
   align-items: start;
-}
-.splitCol {
-  min-width: 0;
 }
 
 .checkList {
   list-style: none;
-  margin: 26px 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 .checkItem {
   display: grid;
-  grid-template-columns: 26px 1fr;
+  grid-template-columns: 34px 1fr;
   align-items: start;
-  gap: 12px;
-  font-size: var(--text-base);
-  line-height: var(--lh-relaxed);
-  color: var(--tp-slate);
+  gap: 14px;
+  padding: clamp(14px, 2vw, 18px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow-sm);
 }
 .checkIcon {
-  width: 26px;
-  height: 26px;
-  /* Optical centring against the first line of a relaxed line-height. */
-  margin-top: 2px;
+  width: 34px;
+  height: 34px;
+  /* Filled rather than tinted: on a panel that is itself tinted, the pale
+     circle used elsewhere on this page would disappear. */
+  color: #fff;
+  background: var(--tp-indigo-700);
+  /* Optical centring against the first line of the label above the text. */
+  margin-top: 1px;
+}
+.checkBody {
+  min-width: 0;
+}
+.checkNum {
+  display: block;
+  font-family: var(--tp-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--tp-lavender-600);
+  margin-bottom: 3px;
+}
+.checkText {
+  display: block;
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-ink);
 }
 
 .factCard {
   padding: clamp(24px, 3.5vw, 32px);
   border: 1px solid var(--tp-hairline);
   border-radius: var(--radius-lg);
-  background: var(--tp-lavender-050);
-  box-shadow: var(--shadow-sm);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow);
 }
 .factLabel {
   font-size: 0.6875rem;
@@ -456,9 +500,23 @@ a.factRow:hover {
 }
 
 @media (min-width: 1000px) {
-  .split {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
-    gap: clamp(40px, 5vw, 72px);
+  .coversGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+    gap: clamp(36px, 4vw, 56px);
+  }
+  /* The checklist is the taller column, so the details travel with the reader
+     rather than leaving a column of dead space beside it. Clears the fixed
+     site header. */
+  .factCard {
+    position: sticky;
+    top: calc(var(--pel-top-h, 116px) + 24px);
+  }
+}
+/* A sticky element cannot be scrolled past on a short viewport — if the card
+   is taller than the space it has, pin nothing. */
+@media (min-width: 1000px) and (max-height: 760px) {
+  .factCard {
+    position: static;
   }
 }
 
@@ -470,13 +528,16 @@ a.factRow:hover {
   max-width: 900px;
   margin-inline: auto;
 }
+/* Dark outline on white, rather than the hairline used elsewhere on the page:
+   this section carries no background tint of its own, so the border is the
+   only thing giving each answer an edge. Kept to the brand's darkest indigo
+   at low alpha — a full-strength rule at this length reads as a table. */
 .note {
   height: 100%;
   padding: clamp(22px, 3vw, 28px);
-  border: 1px solid var(--tp-hairline);
+  border: 1.5px solid rgba(18, 16, 54, 0.72);
   border-radius: var(--radius-lg);
   background: var(--tp-paper);
-  box-shadow: var(--shadow-sm);
 }
 .notes > * {
   height: 100%;
