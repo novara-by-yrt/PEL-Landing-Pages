@@ -35,7 +35,6 @@ import {
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
-  TreatmentReviews,
   RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
@@ -297,7 +296,11 @@ function TreatmentPage({
           pricingLead={treatment.pricingLead}
         />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
-        <TreatmentReviews reviews={treatment.reviews} />
+        {/* The shared reviews rail, same as every other page — replaces the
+            treatment-only "Patient Reviews" grid, which showed a different,
+            RealSelf-sourced set of quotes per treatment and so contradicted
+            the one set of reviews the rest of the site shows. */}
+        <PatientStories />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />
