@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
 import ContactSection from "@/components/home/ContactSection";
@@ -256,6 +256,45 @@ function Stars() {
   );
 }
 
+/* Global patient network artwork. The alt text carries the three figures the
+   graphic states, because they are the only content in it a screen reader
+   would otherwise miss entirely. */
+const REACH_ALT =
+  "World map of Perfect Eyes patients: 60+ countries, 10,000+ international patients, a global patient network.";
+
+const REACH_SIZES = "(min-width: 1280px) 1232px, 92vw";
+
+const {
+  props: { srcSet: reachWideSrcSet, sizes: reachWideSizes },
+} = getImageProps({
+  alt: REACH_ALT,
+  src: "/global-patient-network.png",
+  width: 1672,
+  height: 941,
+  sizes: REACH_SIZES,
+});
+const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
+
+/* The phone crop is the <img> fallback. Its width and height attributes are
+   dropped deliberately: the two crops have different aspect ratios, and those
+   attributes would pin the tall one's ratio to the wide <source> as well,
+   squashing it on desktop. The ratio is reserved in CSS instead, at the same
+   700px breakpoint, so there is still no layout shift. */
+const { props: reachNarrowProps } = getImageProps({
+  alt: REACH_ALT,
+  src: "/global-patient-network-mobile.png",
+  width: 864,
+  height: 1821,
+  sizes: REACH_SIZES,
+});
+const reachNarrow = {
+  src: reachNarrowProps.src,
+  srcSet: reachNarrowProps.srcSet,
+  sizes: reachNarrowProps.sizes,
+  loading: reachNarrowProps.loading,
+  decoding: reachNarrowProps.decoding,
+};
+
 export default function HomePage() {
   return (
     <div className={styles.home}>
@@ -441,6 +480,39 @@ export default function HomePage() {
             *Individual results vary. Testimonials reflect personal experiences following
             consultation and treatment.
           </p>
+        </div>
+      </section>
+
+      {/* ── 9. GLOBAL PATIENT NETWORK ─────────────────────────────────────── */}
+      <section
+        className={styles.section}
+        aria-labelledby="reach-title"
+      >
+        <div className="container">
+          <Reveal>
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>Travelling to us</span>
+              <h2 id="reach-title" className={styles.h2}>
+                Patients who fly in from around the world
+              </h2>
+              <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <figure className={styles.reachFrame}>
+              {/* Two crops of the same artwork — a wide map for tablet and
+                  desktop, a tall one for phones. Swapped with <picture> rather
+                  than two <Image>s toggled by CSS: display:none does not stop
+                  an <img> downloading, so the CSS route would cost every
+                  visitor both files. getImageProps still gives each source the
+                  optimiser's srcset. */}
+              <picture>
+                <source media="(min-width: 700px)" srcSet={reachWide.srcSet} sizes={reachWide.sizes} />
+                <img {...reachNarrow} alt={REACH_ALT} className={styles.reachImg} />
+              </picture>
+            </figure>
+          </Reveal>
         </div>
       </section>
 

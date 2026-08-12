@@ -476,6 +476,33 @@
   }
 }
 
+/* ── 9. Global patient network ────────────────────────────────────────────
+   One artwork, two crops: a wide map from 700px up, a tall one below it.
+   The swap is <picture>/media in the markup, so only the crop on screen is
+   ever downloaded. The ratio is reserved here rather than by width/height
+   attributes on the <img>, because a single pair of attributes cannot
+   describe two different crops — see the note in page.tsx.               */
+.reachFrame {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  /* Matches the artwork's own near-black ground, so the corners the radius
+     clips do not flash a light edge while the image loads. */
+  background: #0b0722;
+  box-shadow: var(--shadow-lg);
+}
+.reachImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 864 / 1821;
+}
+@media (min-width: 700px) {
+  .reachImg {
+    aspect-ratio: 1672 / 941;
+  }
+}
+
 /* ── 10. Clinic team ──────────────────────────────────────────────────────
    Section frame only; the slideshow lives in TeamCarousel.module.css.     */
 .team {
