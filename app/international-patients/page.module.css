@@ -521,39 +521,99 @@ a.factRow:hover {
 }
 
 /* ── Planning notes ─────────────────────────────────────────────────────── */
-.notes {
+.notesLayout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
-  max-width: 900px;
-  margin-inline: auto;
+  gap: clamp(32px, 5vw, 56px);
+  align-items: start;
 }
+.notesAside {
+  min-width: 0;
+}
+.notesIntro .rule {
+  margin-bottom: 22px;
+}
+.notesLead {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 0 0 24px;
+  max-width: 46ch;
+}
+
+.notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.noteItem {
+  min-width: 0;
+}
+
 /* Dark outline on white, rather than the hairline used elsewhere on the page:
    this section carries no background tint of its own, so the border is the
    only thing giving each answer an edge. Kept to the brand's darkest indigo
-   at low alpha — a full-strength rule at this length reads as a table. */
+   at low alpha — a full-strength rule at this size reads as a table. */
 .note {
+  position: relative;
   height: 100%;
-  padding: clamp(22px, 3vw, 28px);
+  padding: clamp(24px, 3.5vw, 34px);
+  /* Room for the numeral, which sits in the top-right corner. */
+  padding-right: clamp(56px, 8vw, 84px);
   border: 1.5px solid rgba(18, 16, 54, 0.72);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   background: var(--tp-paper);
+  transition:
+    transform var(--duration) var(--ease-out),
+    border-color var(--duration) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out);
 }
-.notes > * {
-  height: 100%;
+@media (hover: hover) and (pointer: fine) {
+  .note:hover {
+    transform: translateY(-3px);
+    border-color: rgb(18, 16, 54);
+    box-shadow: 0 18px 40px -24px rgb(18 16 54 / 55%);
+  }
+}
+.noteNum {
+  position: absolute;
+  top: clamp(20px, 3vw, 28px);
+  right: clamp(20px, 3vw, 28px);
+  font-family: var(--tp-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-200);
 }
 .noteQ {
   font-family: var(--tp-display);
-  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  font-size: clamp(1.125rem, 2.6vw, 1.3125rem);
   font-weight: 600;
   line-height: var(--lh-snug);
   color: var(--tp-ink);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+  text-wrap: balance;
 }
 
-@media (min-width: 800px) {
-  .notes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+@media (min-width: 1000px) {
+  .notesLayout {
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 80px);
+  }
+  /* The answers are much the taller column, so the heading travels with the
+     reader instead of leaving a long empty margin beside them. */
+  .notesIntro {
+    position: sticky;
+    top: calc(var(--pel-top-h, 116px) + 32px);
+  }
+}
+/* Same guard as the details card: a sticky block taller than the viewport
+   cannot be scrolled past. */
+@media (min-width: 1000px) and (max-height: 720px) {
+  .notesIntro {
+    position: static;
   }
 }

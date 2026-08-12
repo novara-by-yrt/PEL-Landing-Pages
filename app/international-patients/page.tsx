@@ -351,25 +351,45 @@ export default function InternationalPatientsPage() {
       {/* ── Planning notes ─────────────────────────────────────────────── */}
       <section className={styles.section} aria-labelledby="notes-title">
         <div className="container">
-          <Reveal>
-            <div className={styles.head}>
-              <span className={styles.sectionEyebrow}>Before you book</span>
-              <h2 id="notes-title" className={styles.h2}>
-                Questions people ask from abroad
-              </h2>
-              <span className={styles.rule} aria-hidden="true" />
-            </div>
-          </Reveal>
+          {/* Asymmetric rather than a centred header over a grid: four answers
+              this long read better as one column, and the space that frees on
+              the left gives the heading somewhere to sit and stay put. */}
+          <div className={styles.notesLayout}>
+            <Reveal className={styles.notesAside}>
+              <div className={styles.notesIntro}>
+                <span className={styles.sectionEyebrow}>Before you book</span>
+                <h2 id="notes-title" className={styles.h2}>
+                  Questions people ask from abroad
+                </h2>
+                <span className={styles.rule} aria-hidden="true" />
+                <p className={styles.notesLead}>
+                  The four that come up in almost every enquiry from overseas. Anything
+                  they do not answer, ask us directly — we would rather you asked before
+                  booking a flight than after.
+                </p>
+                <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
+                  Email the team
+                </a>
+              </div>
+            </Reveal>
 
-          <div className={styles.notes}>
-            {NOTES.map((note, index) => (
-              <Reveal key={note.q} delay={index * 60}>
-                <div className={styles.note}>
-                  <h3 className={styles.noteQ}>{note.q}</h3>
-                  <p className={styles.cardText}>{note.a}</p>
-                </div>
-              </Reveal>
-            ))}
+            <ol className={styles.notes}>
+              {NOTES.map((note, index) => (
+                <li key={note.q} className={styles.noteItem}>
+                  <Reveal delay={index * 60}>
+                    <div className={styles.note}>
+                      {/* Decoration: the list is already ordered, and hearing
+                          "01" before each question helps nobody. */}
+                      <span className={styles.noteNum} aria-hidden="true">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className={styles.noteQ}>{note.q}</h3>
+                      <p className={styles.cardText}>{note.a}</p>
+                    </div>
+                  </Reveal>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
