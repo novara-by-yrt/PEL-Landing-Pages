@@ -482,14 +482,41 @@
    ever downloaded. The ratio is reserved here rather than by width/height
    attributes on the <img>, because a single pair of attributes cannot
    describe two different crops — see the note in page.tsx.               */
-.reachFrame {
+.reachFigure {
   margin: 0;
+}
+.reachFrame {
+  display: block;
   overflow: hidden;
   border-radius: var(--radius-lg);
   /* Matches the artwork's own near-black ground, so the corners the radius
      clips do not flash a light edge while the image loads. */
   background: #0b0722;
   box-shadow: var(--shadow-lg);
+  transition:
+    transform var(--duration) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .reachFrame:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+.reachCaption {
+  margin-top: clamp(18px, 2.5vw, 24px);
+  text-align: center;
+}
+.reachLink {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--tp-indigo-700);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.reachLink:hover {
+  color: var(--tp-lavender-600);
 }
 .reachImg {
   display: block;

@@ -1,0 +1,498 @@
+/* International patients.
+
+   Mobile-first: one column everywhere, widening at 640px and 1000px. The
+   hero, section header and card treatments deliberately mirror the results
+   index and the home page rather than inventing a third look — every colour
+   comes from the semantic --tp-* tokens, so this page moves with them. */
+
+.page {
+  background: var(--tp-paper);
+  color: var(--tp-slate);
+  font-family: var(--tp-body);
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(48px, 8vw, 88px);
+  background: var(--tp-lavender-050);
+}
+.heroGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42% 60% at 80% 20%, rgba(188, 160, 221, 0.34), transparent 70%),
+    radial-gradient(38% 52% at 10% 90%, rgba(138, 132, 186, 0.24), transparent 72%);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-caption);
+  color: var(--tp-slate);
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
+.crumbs a {
+  color: var(--tp-indigo-700);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  text-decoration: underline;
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+  margin-bottom: 16px;
+}
+
+.heroTitle {
+  font-family: var(--tp-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 7vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  color: var(--tp-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.heroLead {
+  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 20px 0 0;
+  max-width: 56ch;
+}
+
+/* ── Credibility row ────────────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: clamp(32px, 5vw, 48px) 0 0;
+}
+/* Column, not just a block: "International patients" wraps to two lines on a
+   phone while "Countries" does not, and without this the figures in a row sit
+   at different heights. The label takes the slack so the numbers line up. */
+.stat {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.stat .statLabel {
+  flex: 1;
+}
+.statLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-slate);
+  margin-bottom: 7px;
+}
+.statValue {
+  margin: 0;
+  font-family: var(--tp-display);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--tp-ink);
+}
+.statRating {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.googleMark {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.googleMark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+@media (min-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ── Shared section frame ───────────────────────────────────────────────── */
+.section {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+.tint {
+  background: var(--tp-lavender-050);
+}
+
+.head {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.sectionEyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin-bottom: 14px;
+}
+.h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.lead {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 16px auto 0;
+  max-width: 58ch;
+}
+.rule {
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 18px 0 0;
+}
+.head .rule {
+  margin-inline: auto;
+}
+
+/* ── Reason cards ───────────────────────────────────────────────────────── */
+.cardGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.cardItem {
+  min-width: 0;
+}
+/* Reveal wraps each card in a div, so the card has to fill that wrapper for
+   the grid's equal-height rows to reach it. */
+.cardItem > *,
+.cardItem > * > .card {
+  height: 100%;
+}
+.card {
+  height: 100%;
+  padding: clamp(22px, 3vw, 30px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+.cardIcon,
+.timelineIcon,
+.checkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--tp-indigo-700);
+  background: var(--tp-lavender-100);
+}
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+}
+.cardTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.125rem, 2.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--tp-ink);
+  margin: 0 0 10px;
+}
+.cardText {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .cardGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ── Itinerary ──────────────────────────────────────────────────────────── */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  counter-reset: leg;
+}
+.timelineItem {
+  min-width: 0;
+}
+.timelineItem > *,
+.timelineItem > * > .timelineCard {
+  height: 100%;
+}
+.timelineCard {
+  position: relative;
+  height: 100%;
+  padding: clamp(22px, 3vw, 28px);
+  padding-top: clamp(26px, 3.5vw, 32px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow-sm);
+}
+/* The leg number is decoration — the list is already ordered, and reading
+   "1" twice helps nobody. */
+.timelineCard::before {
+  counter-increment: leg;
+  content: counter(leg);
+  position: absolute;
+  top: clamp(22px, 3vw, 28px);
+  right: clamp(22px, 3vw, 28px);
+  font-family: var(--tp-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-100);
+}
+.timelineIcon {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 14px;
+}
+.timelineStep {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 6px;
+}
+.timelineTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--tp-ink);
+  margin: 0 0 10px;
+  /* Clear of the counter sitting in the top-right corner. */
+  padding-right: 40px;
+}
+
+@media (min-width: 700px) {
+  .timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+@media (min-width: 1100px) {
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ── Consultation contents beside the practical details ─────────────────── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 56px);
+  align-items: start;
+}
+.splitCol {
+  min-width: 0;
+}
+
+.checkList {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.checkItem {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: start;
+  gap: 12px;
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+}
+.checkIcon {
+  width: 26px;
+  height: 26px;
+  /* Optical centring against the first line of a relaxed line-height. */
+  margin-top: 2px;
+}
+
+.factCard {
+  padding: clamp(24px, 3.5vw, 32px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-lavender-050);
+  box-shadow: var(--shadow-sm);
+}
+.factLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-slate);
+  margin: 0 0 14px;
+}
+.factLabel:not(:first-child) {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--tp-hairline);
+}
+.feesList {
+  margin: 0;
+}
+.feesRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding-block: 9px;
+}
+.feesRow + .feesRow {
+  border-top: 1px solid var(--tp-hairline);
+}
+.feesRow dt {
+  font-size: var(--text-base);
+  color: var(--tp-slate);
+}
+.feesRow dd {
+  /* Keeps the price hard right even when a long label pushes it onto its own
+     line — "Perfect Skin Studio consultation" does exactly that on a phone. */
+  margin: 0 0 0 auto;
+  font-family: var(--tp-display);
+  font-weight: 600;
+  color: var(--tp-ink);
+}
+
+.factRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 8px;
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--lh-snug);
+  color: var(--tp-slate);
+  text-decoration: none;
+  /* Long addresses and emails must wrap rather than push the card wide. */
+  overflow-wrap: anywhere;
+}
+a.factRow:hover {
+  color: var(--tp-indigo-700);
+  text-decoration: underline;
+}
+.factRow svg {
+  flex: none;
+  color: var(--tp-indigo-700);
+}
+.factNote {
+  margin: 18px 0 0;
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+  color: var(--tp-slate);
+}
+
+@media (min-width: 1000px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: clamp(40px, 5vw, 72px);
+  }
+}
+
+/* ── Planning notes ─────────────────────────────────────────────────────── */
+.notes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 900px;
+  margin-inline: auto;
+}
+.note {
+  height: 100%;
+  padding: clamp(22px, 3vw, 28px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow-sm);
+}
+.notes > * {
+  height: 100%;
+}
+.noteQ {
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--tp-ink);
+  margin: 0 0 10px;
+}
+
+@media (min-width: 800px) {
+  .notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}

@@ -500,17 +500,34 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={80}>
-            <figure className={styles.reachFrame}>
-              {/* Two crops of the same artwork — a wide map for tablet and
-                  desktop, a tall one for phones. Swapped with <picture> rather
-                  than two <Image>s toggled by CSS: display:none does not stop
-                  an <img> downloading, so the CSS route would cost every
-                  visitor both files. getImageProps still gives each source the
-                  optimiser's srcset. */}
-              <picture>
-                <source media="(min-width: 700px)" srcSet={reachWide.srcSet} sizes={reachWide.sizes} />
-                <img {...reachNarrow} alt={REACH_ALT} className={styles.reachImg} />
-              </picture>
+            <figure className={styles.reachFigure}>
+              {/* The map itself is the link. Its alt text describes the
+                  artwork, so the link carries its own label rather than being
+                  announced as "60+ countries…" — and the caption underneath
+                  gives sighted readers a visible target, since a picture that
+                  happens to be clickable is easy to miss. */}
+              <Link
+                href="/international-patients"
+                className={styles.reachFrame}
+                aria-label="International patients: travelling to London for treatment"
+              >
+                {/* Two crops of the same artwork — a wide map for tablet and
+                    desktop, a tall one for phones. Swapped with <picture>
+                    rather than two <Image>s toggled by CSS: display:none does
+                    not stop an <img> downloading, so the CSS route would cost
+                    every visitor both files. getImageProps still gives each
+                    source the optimiser's srcset. */}
+                <picture>
+                  <source media="(min-width: 700px)" srcSet={reachWide.srcSet} sizes={reachWide.sizes} />
+                  <img {...reachNarrow} alt={REACH_ALT} className={styles.reachImg} />
+                </picture>
+              </Link>
+
+              <figcaption className={styles.reachCaption}>
+                <Link href="/international-patients" className={styles.reachLink}>
+                  Planning a trip from abroad
+                </Link>
+              </figcaption>
             </figure>
           </Reveal>
         </div>
