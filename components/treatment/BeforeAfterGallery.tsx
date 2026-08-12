@@ -11,11 +11,21 @@ export function BeforeAfterGallery({
   heading,
   description,
   title,
+  showHead = true,
 }: {
   gallery?: GalleryItem[];
   heading?: string;
   description?: string;
   title: string;
+  /**
+   * The heading block above the thumbnails. On a treatment page it introduces
+   * one section among many and earns its place; on /before-after/[slug] the
+   * whole page is the gallery, so it only restates the hero directly above it
+   * ("Blepharoplasty Before and After" / "Blepharoplasty Before & After
+   * Gallery"). Pass false there — the section is labelled for screen readers
+   * either way.
+   */
+  showHead?: boolean;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -62,21 +72,28 @@ export function BeforeAfterGallery({
   const current = openIndex !== null ? gallery[openIndex] : null;
 
   return (
-    <section className="tp-section">
+    <section
+      className="tp-section"
+      /* Without the visible heading the section would have no accessible name,
+         so it takes one directly. */
+      aria-label={showHead ? undefined : `${title} before and after gallery`}
+    >
 
       <div className="container">
-        <div className={`tp-head ${styles.tpBagalHead}`}>
-          <span className="tp-eyebrow">
-            <TpIcon name="sparkle" size={13} />
-            Real Patient Results
-          </span>
-          <h2>{heading || `${title} Before & After Gallery`}</h2>
-          {description && <p>{description}</p>}
-          <span className={styles.tpBagalCount}>
-            <TpIcon name="eye" size={14} />
-            {count} {count === 1 ? "case" : "cases"}
-          </span>
-        </div>
+        {showHead && (
+          <div className={`tp-head ${styles.tpBagalHead}`}>
+            <span className="tp-eyebrow">
+              <TpIcon name="sparkle" size={13} />
+              Real Patient Results
+            </span>
+            <h2>{heading || `${title} Before & After Gallery`}</h2>
+            {description && <p>{description}</p>}
+            <span className={styles.tpBagalCount}>
+              <TpIcon name="eye" size={14} />
+              {count} {count === 1 ? "case" : "cases"}
+            </span>
+          </div>
+        )}
 
         <div className={styles.tpBagalGrid}>
           {gallery.map((item, i) => (

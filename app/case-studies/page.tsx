@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/mdx";
 import { TpIcon, TreatmentCTA } from "@/components/treatment";
 import { BlogCard } from "@/components/blog/BlogCard";
+import ContactSection from "@/components/home/ContactSection";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -49,6 +50,7 @@ export default function CaseStudiesPage() {
       </section>
 
       <TreatmentCTA />
+      <ContactSection />
     </div>
   );
 }

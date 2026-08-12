@@ -5,6 +5,7 @@ import PublicationsList from "@/components/PublicationsList";
 import { getAllPosts } from "@/lib/mdx";
 import { TpIcon } from "@/components/treatment";
 import { BlogCTA } from "@/components/blog/BlogCTA";
+import ContactSection from "@/components/home/ContactSection";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -180,6 +181,7 @@ export default function PublicationsPage() {
         </div>
 
         <BlogCTA />
+        <ContactSection />
       </div>
     </>
   );
