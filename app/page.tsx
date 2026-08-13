@@ -357,8 +357,8 @@ export default function HomePage() {
                   <Image
                     src="/tatler-logo.png"
                     alt="Tatler"
-                    width={2172}
-                    height={724}
+                    width={1467}
+                    height={551}
                     className={styles.pressLogo}
                   />
                 </dd>
