@@ -493,7 +493,7 @@ export default function HomePage() {
             <div className={styles.head}>
               <span className={styles.eyebrow}>Travelling to us</span>
               <h2 id="reach-title" className={styles.h2}>
-                Patients Who Travel To Us
+                Trusted by patients worldwide
               </h2>
               <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
             </div>
