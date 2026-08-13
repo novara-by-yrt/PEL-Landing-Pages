@@ -260,7 +260,7 @@ function Stars() {
    graphic states, because they are the only content in it a screen reader
    would otherwise miss entirely. */
 const REACH_ALT =
-  "World map of Perfect Eyes patients: 60+ countries, 10,000+ international patients, a global patient network.";
+  "World map of Perfect Eyes patients: 60+ countries, 1,000+ international patients, a global patient network.";
 
 const REACH_SIZES = "(min-width: 1280px) 1232px, 92vw";
 
@@ -283,8 +283,8 @@ const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
 const { props: reachNarrowProps } = getImageProps({
   alt: REACH_ALT,
   src: "/global-patient-network-mobile.png",
-  width: 864,
-  height: 1821,
+  width: 941,
+  height: 1672,
   sizes: REACH_SIZES,
 });
 const reachNarrow = {

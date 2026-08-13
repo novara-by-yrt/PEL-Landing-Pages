@@ -164,7 +164,7 @@ export default function InternationalPatientsPage() {
             </div>
             <div className={styles.stat}>
               <dt className={styles.statLabel}>International patients</dt>
-              <dd className={styles.statValue}>10,000+</dd>
+              <dd className={styles.statValue}>1,000+</dd>
             </div>
             <div className={styles.stat}>
               <dt className={styles.statLabel}>Surgical experience</dt>
