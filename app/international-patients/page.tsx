@@ -9,7 +9,7 @@ import GoogleMark from "@/components/shared/GoogleMark";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import Reveal from "@/components/shared/Reveal";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { CLINIC, CONSULTATION_FEES, MAPS_URL } from "@/lib/clinic";
+import { CLINIC } from "@/lib/clinic";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -280,68 +280,26 @@ export default function InternationalPatientsPage() {
             </div>
           </Reveal>
 
-          {/* One panel holding both halves, rather than two cards floating on
-              the section background — it reads as a single piece of the page
-              and gives the sticky details card something to travel against. */}
+          {/* The fees-and-contact card that used to sit beside this list is
+              gone: BeginJourney already prints the same fee table lower down,
+              and ContactSection the same address, phone, email and hours below
+              that. With the column freed, the five items run as a stepped
+              rail — one row across on a wide screen, one column with the rail
+              turned vertical below 1000px. */}
           <Reveal delay={70}>
             <div className={styles.coversPanel}>
-              <div className={styles.coversGrid}>
-                <ol className={styles.checkList}>
-                  {CONSULTATION_COVERS.map((item, index) => (
-                    <li key={item} className={styles.checkItem}>
-                      <span className={styles.checkIcon} aria-hidden="true">
-                        <TpIcon name="check" size={15} />
-                      </span>
-                      <span className={styles.checkBody}>
-                        {/* Ordinal is decoration — the list is already ordered
-                            and the tick already says "included". */}
-                        <span className={styles.checkNum} aria-hidden="true">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <span className={styles.checkText}>{item}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-
-                <aside className={styles.factCard}>
-                  <p className={styles.factLabel}>Consultation fees</p>
-                  <dl className={styles.feesList}>
-                    {CONSULTATION_FEES.map((fee) => (
-                      <div key={fee.label} className={styles.feesRow}>
-                        <dt>{fee.label}</dt>
-                        <dd>{fee.price}</dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  <p className={styles.factLabel}>Where to come</p>
-                  <a
-                    href={MAPS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.factRow}
-                  >
-                    <TpIcon name="pin" size={16} />
-                    {CLINIC.address}
-                  </a>
-                  <a href={CLINIC.phoneHref} className={styles.factRow}>
-                    <TpIcon name="phone" size={16} />
-                    {CLINIC.phoneDisplay}
-                  </a>
-                  <a href={`mailto:${CLINIC.email}`} className={styles.factRow}>
-                    <TpIcon name="mail" size={16} />
-                    {CLINIC.email}
-                  </a>
-                  <p className={styles.factRow}>
-                    <TpIcon name="clock" size={16} />
-                    {CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(" · ")}
-                  </p>
-                  <p className={styles.factNote}>
-                    All times are London time. Every enquiry is treated in confidence.
-                  </p>
-                </aside>
-              </div>
+              <ol className={styles.checkList}>
+                {CONSULTATION_COVERS.map((item, index) => (
+                  <li key={item} className={styles.checkItem}>
+                    {/* Decoration: the list is a real <ol>, so the number is
+                        already conveyed without being read out twice. */}
+                    <span className={styles.checkMarker} aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className={styles.checkText}>{item}</p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </Reveal>
         </div>

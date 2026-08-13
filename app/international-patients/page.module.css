@@ -240,8 +240,7 @@
   }
 }
 .cardIcon,
-.timelineIcon,
-.checkIcon {
+.timelineIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -359,22 +358,19 @@
   }
 }
 
-/* ── Consultation contents beside the practical details ─────────────────── */
-/* One panel around both halves. The gradient runs from the brand tint into
-   paper so the checklist rows — which are paper themselves — lift off it at
-   the top and settle into it at the bottom. */
+/* ── What the consultation covers ─────────────────────────────────────────
+   Five steps on a rail. Across one row from 1000px up, stacked into a single
+   column with the rail turned vertical below that — five columns of wrapped
+   text on a tablet would be four words wide.
+
+   The panel's gradient runs from the brand tint into paper, so the numbered
+   markers read against tint at the top and the text settles into paper.    */
 .coversPanel {
   border: 1px solid var(--tp-hairline);
   border-radius: var(--radius-xl);
   background: linear-gradient(158deg, var(--tp-lavender-050), var(--tp-paper) 62%);
   box-shadow: var(--shadow-lg);
-  padding: clamp(20px, 4vw, 48px);
-}
-.coversGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 4vw, 44px);
-  align-items: start;
+  padding: clamp(24px, 4vw, 56px);
 }
 
 .checkList {
@@ -382,140 +378,87 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 12px;
+  grid-template-columns: 1fr;
+  /* Held in a custom property because the rail below has to span exactly one
+     gap to reach the next marker. */
+  --gap: clamp(22px, 3vw, 30px);
+  gap: var(--gap);
 }
+
 .checkItem {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  align-items: start;
-  gap: 14px;
-  padding: clamp(14px, 2vw, 18px);
-  border: 1px solid var(--tp-hairline);
-  border-radius: var(--radius-lg);
-  background: var(--tp-paper);
-  box-shadow: var(--shadow-sm);
-}
-.checkIcon {
-  width: 34px;
-  height: 34px;
-  /* Filled rather than tinted: on a panel that is itself tinted, the pale
-     circle used elsewhere on this page would disappear. */
-  color: #fff;
-  background: var(--tp-indigo-700);
-  /* Optical centring against the first line of the label above the text. */
-  margin-top: 1px;
-}
-.checkBody {
+  position: relative;
   min-width: 0;
+  display: grid;
+  grid-template-columns: var(--marker) 1fr;
+  align-items: start;
+  /* Not just align-items: the grid stretches every item to the tallest, and
+     align-content defaults to stretch, which hands that spare height to the
+     auto rows. Without this the shortest item's text sits ~13px below its
+     neighbours' on the desktop row. */
+  align-content: start;
+  gap: 16px;
+  --marker: 46px;
 }
-.checkNum {
-  display: block;
+
+/* The rail. Drawn per item rather than as one line behind the list, so it
+   stops at the last marker instead of running past it. */
+.checkItem:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--marker) / 2 - 1px);
+  top: var(--marker);
+  bottom: calc(var(--gap) * -1);
+  width: 2px;
+  background: linear-gradient(180deg, var(--tp-lavender-200), rgba(216, 204, 238, 0));
+}
+
+.checkMarker {
+  display: grid;
+  place-items: center;
+  width: var(--marker);
+  height: var(--marker);
+  border-radius: var(--radius-full);
   font-family: var(--tp-display);
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--tp-lavender-600);
-  margin-bottom: 3px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: linear-gradient(150deg, var(--tp-indigo-700), var(--tp-lavender-400));
+  /* Lifts the marker off both halves of the panel gradient. */
+  box-shadow: 0 6px 16px -8px rgb(44 42 122 / 70%);
 }
+
 .checkText {
-  display: block;
+  margin: 0;
+  /* Optically centres the first line against the marker beside it. */
+  padding-top: 11px;
   font-size: var(--text-base);
   line-height: var(--lh-relaxed);
   color: var(--tp-ink);
-}
-
-.factCard {
-  padding: clamp(24px, 3.5vw, 32px);
-  border: 1px solid var(--tp-hairline);
-  border-radius: var(--radius-lg);
-  background: var(--tp-paper);
-  box-shadow: var(--shadow);
-}
-.factLabel {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--tp-slate);
-  margin: 0 0 14px;
-}
-.factLabel:not(:first-child) {
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid var(--tp-hairline);
-}
-.feesList {
-  margin: 0;
-}
-.feesRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px 16px;
-  padding-block: 9px;
-}
-.feesRow + .feesRow {
-  border-top: 1px solid var(--tp-hairline);
-}
-.feesRow dt {
-  font-size: var(--text-base);
-  color: var(--tp-slate);
-}
-.feesRow dd {
-  /* Keeps the price hard right even when a long label pushes it onto its own
-     line — "Perfect Skin Studio consultation" does exactly that on a phone. */
-  margin: 0 0 0 auto;
-  font-family: var(--tp-display);
-  font-weight: 600;
-  color: var(--tp-ink);
-}
-
-.factRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-block: 8px;
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--lh-snug);
-  color: var(--tp-slate);
-  text-decoration: none;
-  /* Long addresses and emails must wrap rather than push the card wide. */
-  overflow-wrap: anywhere;
-}
-a.factRow:hover {
-  color: var(--tp-indigo-700);
-  text-decoration: underline;
-}
-.factRow svg {
-  flex: none;
-  color: var(--tp-indigo-700);
-}
-.factNote {
-  margin: 18px 0 0;
-  font-size: var(--fs-caption);
-  line-height: 1.6;
-  color: var(--tp-slate);
+  text-wrap: pretty;
 }
 
 @media (min-width: 1000px) {
-  .coversGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
-    gap: clamp(36px, 4vw, 56px);
+  .checkList {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    --gap: clamp(20px, 2.5vw, 32px);
   }
-  /* The checklist is the taller column, so the details travel with the reader
-     rather than leaving a column of dead space beside it. Clears the fixed
-     site header. */
-  .factCard {
-    position: sticky;
-    top: calc(var(--pel-top-h, 116px) + 24px);
+  .checkItem {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
-}
-/* A sticky element cannot be scrolled past on a short viewport — if the card
-   is taller than the space it has, pin nothing. */
-@media (min-width: 1000px) and (max-height: 760px) {
-  .factCard {
-    position: static;
+  /* Rail goes horizontal, running from this marker to the next one. */
+  .checkItem:not(:last-child)::before {
+    left: var(--marker);
+    right: calc(var(--gap) * -1);
+    top: calc(var(--marker) / 2 - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--tp-lavender-200), rgba(216, 204, 238, 0.35));
+  }
+  .checkText {
+    padding-top: 0;
+    font-size: 0.9375rem;
   }
 }
