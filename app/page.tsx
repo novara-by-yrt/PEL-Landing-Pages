@@ -491,7 +491,6 @@ export default function HomePage() {
         <div className="container">
           <Reveal>
             <div className={styles.head}>
-              <span className={styles.eyebrow}>Travelling to us</span>
               <h2 id="reach-title" className={styles.h2}>
                 Trusted by patients worldwide
               </h2>
