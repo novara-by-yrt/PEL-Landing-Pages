@@ -456,7 +456,7 @@ export default function HomePage() {
             <Reveal delay={0}>
               <VideoCard
                 thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
-                title="A Happy Perfect Eyes Clinic's Patient"
+                title="A Perfect Eyes Clinic's Patient"
                 videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
               />
             </Reveal>

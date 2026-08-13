@@ -83,7 +83,7 @@ const PATHWAYS: Pathway[] = [
     steps: [
       {
         icon: "star",
-        title: "Complimentary eye, face & skin consultation",
+        title: "Eye, face & skin consultation",
         detail: [
           "With our team of doctors and advanced therapists",
           "Selected & mentored by Dr Sabrina Shah-Desai",
