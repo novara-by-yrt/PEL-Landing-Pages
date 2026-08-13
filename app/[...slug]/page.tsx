@@ -21,7 +21,7 @@ import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
@@ -113,9 +113,16 @@ export async function generateMetadata({
   const url = `${SITE_URL}/${canonicalPath}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
 
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    page.content,
+  );
+
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title,
+    description,
     robots: isNoIndex ? "noindex,nofollow" : "index,follow",
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
@@ -123,12 +130,8 @@ export async function generateMetadata({
         ? (frontmatter.seo?.og?.type as "website" | "article")
         : "website"),
       url,
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description:
-        frontmatter.seo?.og?.description ||
-        frontmatter.seo?.description ||
-        frontmatter.excerpt ||
-        "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],

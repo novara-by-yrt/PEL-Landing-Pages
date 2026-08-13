@@ -14,7 +14,7 @@ import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogContactForm } from "@/components/blog/BlogContactForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -40,9 +40,16 @@ export async function generateMetadata({
   const robots = frontmatter.seo?.robots;
   const isNoIndex = robots?.includes("noindex");
 
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    post.content,
+  );
+
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title,
+    description,
     keywords: frontmatter.seo?.focusKeyword
       ? [frontmatter.seo.focusKeyword]
       : undefined,
@@ -51,12 +58,8 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       url,
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description:
-        frontmatter.seo?.og?.description ||
-        frontmatter.seo?.description ||
-        frontmatter.excerpt ||
-        "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],

@@ -74,6 +74,20 @@ const nextConfig: NextConfig = {
         destination: "/blog/two-new-cases-of-metastatic-basal-cell-carcinoma-from-the-eyelids",
         permanent: true,
       },
+
+      // The WordPress export wrote this post's filename with two U+2010
+      // hyphens already percent-encoded, so the slug the sitemap advertised
+      // was "…ultrasound%e2%80%90imaging…". The request decodes that back to
+      // the real character, no file matches, and the URL 404'd — a sitemap
+      // entry pointing at a dead page. The file is renamed to plain hyphens;
+      // this keeps the old form resolving for anything already linking to it.
+      {
+        source:
+          "/blog/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasound%e2%80%90imaging%e2%80%90based-case-series",
+        destination:
+          "/blog/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasound-imaging-based-case-series",
+        permanent: true,
+      },
     ];
   },
 

@@ -15,7 +15,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
 import ContactSection from "@/components/home/ContactSection";
 import { PATIENT_STORIES } from "@/lib/reviews";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
   TreatmentOverview,
@@ -42,16 +42,22 @@ export async function generateMetadata({
   const { frontmatter } = post;
   const url = `${SITE_URL}/condition/${slug}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    post.content,
+  );
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title,
+    description,
     robots: isNoIndex ? "noindex,nofollow" : "index,follow",
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       url,
       type: "website",
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description: frontmatter.seo?.og?.description || frontmatter.seo?.description || frontmatter.excerpt || "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],

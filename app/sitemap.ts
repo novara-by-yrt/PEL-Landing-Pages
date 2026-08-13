@@ -1,8 +1,18 @@
-import { getAllPosts } from "@/lib/mdx";
+import { getAllPosts, type Post } from "@/lib/mdx";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+
+/**
+ * A sitemap is a list of pages you are asking to have indexed, so a page
+ * carrying noindex has no business in it — the two instructions contradict
+ * each other and Search Console reports it as an error. The page templates
+ * already read the same frontmatter flag to emit the robots tag; this keeps
+ * the sitemap in step with it automatically, rather than by a hand-kept
+ * exclusion list that would drift.
+ */
+const isIndexable = (post: Post) => !post.frontmatter.seo?.robots?.includes("noindex");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -19,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Blog posts
-  const posts = getAllPosts("posts").map((post) => ({
+  const posts = getAllPosts("posts").filter(isIndexable).map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.frontmatter.modified || post.frontmatter.date),
     changeFrequency: "monthly" as const,
@@ -27,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Pages — treatments are listed at their canonical nested path, not the flat slug.
-  const pages = getAllPosts("pages").map((page) => ({
+  const pages = getAllPosts("pages").filter(isIndexable).map((page) => ({
     url: `${SITE_URL}/${TREATMENT_PATHS[page.slug] ?? page.slug}`,
     lastModified: new Date(page.frontmatter.modified || page.frontmatter.date),
     changeFrequency: "monthly" as const,
@@ -35,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Before/After
-  const beforeAfter = getAllPosts("before-after").map((post) => ({
+  const beforeAfter = getAllPosts("before-after").filter(isIndexable).map((post) => ({
     url: `${SITE_URL}/before-after/${post.slug}`,
     lastModified: new Date(post.frontmatter.modified || post.frontmatter.date),
     changeFrequency: "monthly" as const,
@@ -43,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Eye Conditions
-  const conditions = getAllPosts("condition").map((post) => ({
+  const conditions = getAllPosts("condition").filter(isIndexable).map((post) => ({
     url: `${SITE_URL}/condition/${post.slug}`,
     lastModified: new Date(post.frontmatter.modified || post.frontmatter.date),
     changeFrequency: "monthly" as const,
