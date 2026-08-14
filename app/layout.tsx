@@ -6,6 +6,7 @@ import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
+import OnLoadPopupForm from "@/components/forms/OnLoadPopupForm";
 import { buildOrganizationSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -81,6 +82,9 @@ export default function RootLayout({
         <div id="footer-spacer" aria-hidden="true" />
         <Footer />
         <CookieConsent />
+        {/* On-load enquiry popup — opens once a week, after a delay,
+            so it never competes with first paint. */}
+        <OnLoadPopupForm />
       </body>
     </html>
   );

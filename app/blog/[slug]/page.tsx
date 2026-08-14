@@ -11,7 +11,7 @@ import {
 } from "@/lib/schema";
 import { RelatedBlogs, TpIcon } from "@/components/treatment";
 import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
-import { BlogContactForm } from "@/components/blog/BlogContactForm";
+import { BlogSidebarForm } from "@/components/forms/BlogSidebarForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -211,7 +211,7 @@ export default async function BlogPostPage({
           </article>
 
           <aside className={styles.blogSidebar}>
-            <BlogContactForm />
+            <BlogSidebarForm />
           </aside>
         </div>
 
