@@ -325,48 +325,52 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <dl className={styles.trust}>
-              <div className={`${styles.trustItem} ${styles.trustItemRating}`}>
-                <dt className="sr-only">Google rating</dt>
-                <dd className={styles.googleCard}>
-                  <GoogleMark className={styles.googleMark} />
-                  <span className={styles.googleScore}>4.9</span>
-                  <span className={styles.googleDetail}>
-                    <Stars />
-                    <span className={styles.googleCount}>
-                      <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ Google reviews
-                    </span>
-                  </span>
-                </dd>
-              </div>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>25+ years</dt>
-                <dd className={styles.trustValue}>Surgical experience</dd>
-              </div>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
-                <dd className={styles.trustValue}>Registered &amp; accredited</dd>
-              </div>
-            </dl>
+            {/* The Tatler lockup is the tallest thing here and cannot be made
+                shorter without its smallest line going illegible, so the three
+                text signals are set to stack to roughly its height and sit
+                beside it. Each is one line — strong value, quiet qualifier —
+                rather than the two-line label-over-value pairs they were,
+                which is what made this block so tall. */}
+            <div className={styles.credentials}>
+              <figure className={styles.press}>
+                <Image
+                  src="/as-seen-in-tatler.png"
+                  alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
+                  width={1536}
+                  height={1024}
+                  className={styles.pressLogo}
+                />
+              </figure>
 
-            {/* Outside the definition list, not a fourth item in it. The
-                artwork already reads "As seen in Tatler", so the label the
-                other trust items carry would say it twice — and a <dd> needs
-                a <dt>, so leaving the term off would have made the list
-                invalid. It also needs far more room than a trust cell: the
-                smallest line in the lockup is 8% of the image's height, so at
-                the 22px the old wordmark used it would be about two pixels
-                tall. Sized in CSS for that line, not for the tile. */}
-            <figure className={styles.press}>
-              <Image
-                src="/as-seen-in-tatler.png"
-                alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
-                width={1536}
-                height={1024}
-                className={styles.pressLogo}
-              />
-            </figure>
+              <dl className={styles.trust}>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Google rating</dt>
+                  <dd className={styles.trustValue}>
+                    <GoogleMark className={styles.googleMark} />
+                    <span className={styles.trustStrong}>4.9</span>
+                    <Stars />
+                    <span className={styles.trustMeta}>
+                      <span className="sr-only">Rated 4.9 out of 5 from </span>
+                      230+ reviews
+                    </span>
+                  </dd>
+                </div>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Surgical experience</dt>
+                  <dd className={styles.trustValue}>
+                    <span className={styles.trustStrong}>25+ years</span>
+                    <span className={styles.trustMeta}>surgical experience</span>
+                  </dd>
+                </div>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Registration</dt>
+                  <dd className={styles.trustValue}>
+                    <span className={styles.trustStrong}>GMC &middot; RCOphth</span>
+                    <span className={styles.trustMeta}>registered &amp; accredited</span>
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </div>
       </section>

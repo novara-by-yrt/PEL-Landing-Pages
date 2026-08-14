@@ -192,70 +192,36 @@
   flex: 1 1 100%;
 }
 
-/* ── Hero trust bar ─────────────────────────────────────────────────────── */
-.trust {
+/* ── Hero credentials ─────────────────────────────────────────────────────
+   One block, two parts: the Tatler lockup and the three text signals beside
+   it. The lockup sets the height — its smallest line is 8% of the image, so
+   it cannot shrink far without going illegible — and the text column is
+   built to land at roughly the same height rather than sprawling past it.
+
+   Each signal is a single line: a strong value followed by a quiet
+   qualifier. As two-line label-over-value pairs they cost twice the height
+   and left the block unbalanced against the badge.                        */
+.credentials {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
-  margin: clamp(40px, 9vw, 72px) 0 0;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 3vw, 26px);
+  align-items: center;
+  margin: clamp(32px, 6vw, 44px) 0 0;
+  padding-top: clamp(22px, 3.5vw, 30px);
+  border-top: 1px solid var(--tp-line);
+  max-width: 34rem;
 }
-.trustItem {
+
+.press {
   margin: 0;
   min-width: 0;
 }
-/* The rating reads as the headline signal, so it takes the full row on the
-   narrowest layouts rather than being squeezed into a half column. */
-.trustItem:first-child {
-  grid-column: 1 / -1;
-}
-.trustLabel {
-  display: block;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--tp-slate);
-  margin: 0 0 7px;
-}
-.trustValue {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 0;
-  font-family: var(--tp-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--tp-ink);
-}
-.stars {
-  flex: 0 0 auto;
-  width: 76px;
-  height: 13px;
-  fill: var(--tp-gold);
-}
-
-/* The rating carries its own card, so it never picks up the divider rule the
-   plain trust items use. */
-.trustItemRating {
-  padding-left: 0;
-  border-left: none;
-}
-
-/* ── Press credit ─────────────────────────────────────────────────────────
-   The Tatler lockup is three stacked lines, and the shortest of them —
-   "Beauty & Cosmetic Surgery Guide, 2019–2026" — is 82px in a 1024px-tall
-   image, so it renders at 8% of whatever height the block is given. The old
-   bare wordmark sat at 22px; at that height this line would be under two
-   pixels. The floor below keeps it above 8px on the narrowest phone and near
-   11px on a desktop, which is what "clearly visible on all devices" costs
-   for artwork with this much inside it.                                    */
-.press {
-  margin: clamp(28px, 4vw, 36px) 0 0;
-}
 .pressLogo {
   display: block;
-  height: clamp(104px, 13vw, 132px);
+  /* Floor set by the lockup's smallest line, which is 8% of the image height:
+     100px keeps it at 8px on a phone, where 92px had it at 7.4px and starting
+     to close up. */
+  height: clamp(100px, 11vw, 112px);
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -264,66 +230,62 @@
   border-radius: 8px;
 }
 
-/* ── Hero Google rating ───────────────────────────────────────────────────
-   A glass card rather than a bare line: the score reads at a glance, the
-   mark attributes it, and the stars and count sit together beside it.
-   Mobile-first — the card is full width on phones and hugs its content from
-   420px up. */
-.googleCard {
+.trust {
+  display: grid;
+  gap: clamp(9px, 1.4vw, 13px);
+  margin: 0;
+  min-width: 0;
+}
+.trustItem {
+  margin: 0;
+  min-width: 0;
+}
+.trustValue {
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: fit-content;
-  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 5px 9px;
   margin: 0;
-  padding: 11px 18px 11px 14px;
-  border: 1px solid var(--tp-hairline);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 12px 30px -22px rgba(24, 20, 64, 0.5);
-  transition: transform 200ms var(--tp-ease), box-shadow 200ms var(--tp-ease);
+  font-size: var(--fs-body-sm);
+  line-height: 1.3;
+  color: var(--tp-slate);
 }
-.googleCard:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 38px -22px rgba(24, 20, 64, 0.55);
+.trustStrong {
+  font-family: var(--tp-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--tp-ink);
 }
+.trustMeta {
+  color: var(--tp-slate);
+}
+
 .googleMark {
-  flex: 0 0 auto;
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
+  flex: none;
 }
 .googleMark svg {
   display: block;
   width: 100%;
   height: 100%;
 }
-.googleScore {
-  font-family: var(--tp-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: var(--ls-tight);
-  color: var(--tp-ink);
-}
-.googleDetail {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-.googleCount {
-  font-size: 0.75rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--tp-slate);
-  white-space: nowrap;
+.stars {
+  flex: 0 0 auto;
+  width: 68px;
+  height: 12px;
+  fill: var(--tp-gold);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .googleCard {
-    transition: none;
+/* Side by side as soon as there is room for the badge and a line of text
+   next to it. Below that the text would wrap to three lines per signal and
+   read worse than stacked. */
+@media (min-width: 600px) {
+  .credentials {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(22px, 3vw, 32px);
   }
 }
 
@@ -371,49 +333,10 @@
   .heroActions {
     margin-top: 46px;
   }
-  /* Two explicit columns rather than a wrapping flex row, so items land in a
-     predictable 2x2 and only the right-hand column carries a divider. Keying
-     the rule to the column (nth-child) rather than to adjacency means adding
-     or removing a trust item cannot leave a stray rule in column one. */
-  .trust {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    justify-content: start;
-    /* Column gap keeps the divider off the rating card's edge. */
-    gap: 22px 28px;
-  }
-  /* The rating drops out of its full-width mobile row so the four items form
-     a true 2x2 — without this it spans both columns and the parity below
-     puts a divider in column one. */
-  .trustItem:first-child {
-    grid-column: 1;
-  }
-  .trustItem:nth-child(even) {
-    padding-left: 28px;
-    border-left: 1px solid var(--tp-line);
-  }
-  .trustItem:nth-child(odd) {
-    padding-left: 0;
-    border-left: none;
-  }
-}
-
-/* ── Hero trust block — mobile polish ─────────────────────────────────────
-   Scoped below the 900px hero breakpoint so none of this touches the desktop
-   2x2 layout above. Two concrete fixes: the trust grid mixed a 20px row gap
-   with a 24px column gap — one value now, used both ways, reads as
-   deliberate rather than incidental. The Google card gets a little more
-   internal padding, and the CTA-to-trust-block gap floor is raised, so the
-   "take the test" pair and the trust signals beneath them read as two
-   distinct, evenly-spaced groups rather than the second one crowding the
-   first on the narrowest phones. */
-@media (max-width: 899px) {
-  .trust {
-    gap: 24px;
-    margin-top: clamp(48px, 9vw, 72px);
-  }
-  .googleCard {
-    padding: 14px 20px 14px 16px;
+  /* The copy column is 41rem here, so the credentials block can use the same
+     width rather than staying at its narrower mobile cap. */
+  .credentials {
+    max-width: 41rem;
   }
 }
 
