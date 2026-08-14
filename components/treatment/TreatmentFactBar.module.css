@@ -1,19 +1,22 @@
-/* At-a-glance facts.
+/* "<Treatment> at a Glance" — the shared spec panel on every treatment page.
 
-   Each fact is a card in the home page's language — paper surface, hairline
-   border, soft shadow, lift on hover — rather than a bare icon-and-label pair
-   floating on the band. Mobile-first: one column, two from 480px, and as many
-   as fit from 900px. */
+   Mobile-first: one column, two from 660px, three from 1080px. Three is not
+   arbitrary — across the treatment set the two commonest fact counts are nine
+   and six, so a third column tiles most pages into a complete rectangle
+   instead of leaving a ragged last row.
+
+   Every colour is a --tp-* brand token; there is no raw hex in this file. */
 
 .tpFactbar {
   border-top: 1px solid var(--tp-hairline);
   border-bottom: 1px solid var(--tp-hairline);
-  background: linear-gradient(180deg, var(--tp-paper), var(--tp-lavender-050));
-  padding: clamp(2rem, 4vw, 3rem) 0;
+  background: var(--tp-paper);
+  padding: clamp(2.25rem, 5vw, 3.5rem) 0;
 }
+
 .tpFactbarHead {
   text-align: center;
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 .tpFactbarHead h2 {
   font-family: var(--tp-display);
@@ -32,39 +35,52 @@
   margin: 16px auto 0;
 }
 
+/* The panel carries the surface, so the facts inside need no chrome of their
+   own. The gradient runs from the brand tint into paper so the icons read
+   against tint at the top and the text settles into paper below. */
+.tpFactbarPanel {
+  padding: clamp(1.25rem, 3.5vw, 2.5rem);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--tp-radius-xl);
+  background: linear-gradient(158deg, var(--tp-lavender-050), var(--tp-paper) 62%);
+  box-shadow: var(--tp-shadow-md);
+}
+
 .tpFactbarGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(10px, 1.4vw, 14px);
+  gap: clamp(1.125rem, 2.6vw, 1.75rem);
+  margin: 0;
 }
+
 .tpFact {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  padding: 14px 16px;
-  border: 1px solid var(--tp-line);
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-paper);
-  box-shadow: var(--tp-shadow-xs);
-  transition: transform 260ms var(--tp-ease), border-color 260ms var(--tp-ease),
-    box-shadow 260ms var(--tp-ease);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+  /* Spare height in a row goes below the shortest fact rather than being
+     shared out among its rows, so every label in a row starts on one line. */
+  align-content: start;
 }
-.tpFact:hover {
-  transform: translateY(-4px);
-  border-color: var(--tp-lavender-300);
-  box-shadow: var(--tp-shadow-md);
-}
+
+/* Filled, not tinted: the panel behind it is itself tinted, and the pale
+   circle this used to be washed out against it. */
 .tpFactIcon {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: var(--tp-lavender-100);
-  border: 1px solid var(--tp-lavender-200);
-  color: var(--tp-indigo-700);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--tp-paper);
+  background: linear-gradient(150deg, var(--tp-indigo-700), var(--tp-lavender-400));
+  box-shadow: 0 6px 14px -8px var(--tp-indigo-800);
+}
+
+.tpFactBody {
+  min-width: 0;
+  /* Optically centres the label against the icon beside it. */
+  padding-top: 2px;
 }
 .tpFactLabel {
   display: block;
@@ -74,24 +90,28 @@
   text-transform: uppercase;
   color: var(--tp-lavender-600);
 }
+/* Held at body size rather than a display heading: a handful of these values
+   are full sentences, not two words, and at heading size those turn the panel
+   into a wall. */
 .tpFactValue {
   display: block;
+  margin: 5px 0 0;
   font-family: var(--tp-display);
   font-size: 1.0625rem;
   font-weight: 600;
+  line-height: 1.35;
   color: var(--tp-ink);
-  line-height: 1.3;
-  margin-top: 3px;
+  text-wrap: pretty;
 }
 
-@media (min-width: 480px) {
-  .tpFactbarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 660px) {
+  .tpFactbarGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-@media (min-width: 900px) {
-  .tpFactbarGrid { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tpFact { transition: none; }
-  .tpFact:hover { transform: none; }
+@media (min-width: 1080px) {
+  .tpFactbarGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(1.75rem, 3vw, 2.75rem);
+  }
 }
