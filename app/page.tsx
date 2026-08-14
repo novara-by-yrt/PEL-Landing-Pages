@@ -348,22 +348,25 @@ export default function HomePage() {
                 <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
                 <dd className={styles.trustValue}>Registered &amp; accredited</dd>
               </div>
-              <div className={`${styles.trustItem} ${styles.trustItemPress}`}>
-                <dt className={styles.trustLabel}>As featured in</dt>
-                <dd className={styles.trustValue}>
-                  {/* The masthead is white-on-black, so against the light hero
-                      corner it reads as a solid tile — rounded in CSS so that
-                      lands as a deliberate badge. */}
-                  <Image
-                    src="/tatler-logo.png"
-                    alt="Tatler"
-                    width={1467}
-                    height={551}
-                    className={styles.pressLogo}
-                  />
-                </dd>
-              </div>
             </dl>
+
+            {/* Outside the definition list, not a fourth item in it. The
+                artwork already reads "As seen in Tatler", so the label the
+                other trust items carry would say it twice — and a <dd> needs
+                a <dt>, so leaving the term off would have made the list
+                invalid. It also needs far more room than a trust cell: the
+                smallest line in the lockup is 8% of the image's height, so at
+                the 22px the old wordmark used it would be about two pixels
+                tall. Sized in CSS for that line, not for the tile. */}
+            <figure className={styles.press}>
+              <Image
+                src="/as-seen-in-tatler.png"
+                alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
+                width={1536}
+                height={1024}
+                className={styles.pressLogo}
+              />
+            </figure>
           </div>
         </div>
       </section>

@@ -242,25 +242,26 @@
   border-left: none;
 }
 
-/* Press credit. The wordmark replaces the value text, so it is sized to sit
-   on the same baseline weight as the other trust values rather than
-   dominating them. */
-.trustItemPress .trustValue {
-  min-height: 22px;
+/* ── Press credit ─────────────────────────────────────────────────────────
+   The Tatler lockup is three stacked lines, and the shortest of them —
+   "Beauty & Cosmetic Surgery Guide, 2019–2026" — is 82px in a 1024px-tall
+   image, so it renders at 8% of whatever height the block is given. The old
+   bare wordmark sat at 22px; at that height this line would be under two
+   pixels. The floor below keeps it above 8px on the narrowest phone and near
+   11px on a desktop, which is what "clearly visible on all devices" costs
+   for artwork with this much inside it.                                    */
+.press {
+  margin: clamp(28px, 4vw, 36px) 0 0;
 }
 .pressLogo {
   display: block;
-  height: 20px;
+  height: clamp(104px, 13vw, 132px);
   width: auto;
+  max-width: 100%;
   object-fit: contain;
-  /* The masthead artwork carries its own solid black field; rounding it makes
-     the block read as a deliberate badge rather than a raw rectangle. */
-  border-radius: 4px;
-}
-@media (min-width: 900px) {
-  .pressLogo {
-    height: 22px;
-  }
+  /* The artwork carries its own solid black field; rounding it makes the
+     block read as a deliberate badge rather than a raw rectangle. */
+  border-radius: 8px;
 }
 
 /* ── Hero Google rating ───────────────────────────────────────────────────
