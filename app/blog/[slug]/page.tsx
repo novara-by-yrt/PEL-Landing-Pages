@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { splitContentForMidArticleCta } from "@/lib/blogContent";
@@ -15,6 +14,7 @@ import { BlogContactForm } from "@/components/blog/BlogContactForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
 import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
+import SafeImage from "@/components/shared/SafeImage";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -173,13 +173,11 @@ export default async function BlogPostPage({
           <article className={styles.blogMain}>
             {frontmatter.featuredImage && (
               <div className={styles.blogFeaturedImg}>
-                <Image
+                <SafeImage
                   src={frontmatter.featuredImage}
                   alt={frontmatter.title}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  priority
-                  sizes="(max-width: 960px) 100vw, 70ch"
+                  loading="eager"
+                  className={styles.blogFeaturedImgEl}
                 />
               </div>
             )}
