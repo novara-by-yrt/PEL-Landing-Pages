@@ -9,7 +9,11 @@ export function BlogCard({ post }: { post: Post }) {
     <Link href={`/blog/${post.slug}`} className={styles.tpBlogCard}>
       {post.frontmatter.featuredImage && (
         <div className={styles.tpBlogImg}>
-          <SafeImage src={post.frontmatter.featuredImage} alt={post.frontmatter.title} />
+          <SafeImage
+            src={post.frontmatter.featuredImage}
+            alt={post.frontmatter.title}
+            sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+          />
         </div>
       )}
       <div className={styles.tpBlogBody}>

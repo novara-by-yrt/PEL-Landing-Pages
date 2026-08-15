@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     // No external domains needed — all images are local
     remotePatterns: [],
+    // Next re-encodes an optimised image once its cache entry expires, and the
+    // default is 60 seconds. These are editorial photographs and clinical
+    // before/afters that change when someone replaces the file, not by the
+    // minute, so a long TTL turns a repeated encode into a cache hit. The
+    // filename changes when the image does, so nothing goes stale.
+    minimumCacheTTL: 60 * 60 * 24 * 31,
   },
 
   // Fall back to the external uploads origin for any /uploads/* path not

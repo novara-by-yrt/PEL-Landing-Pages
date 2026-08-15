@@ -25,7 +25,7 @@ export function BlogCtaBox({
   return (
     <div className={styles.blogCtaBox}>
       <div className={styles.blogCtaImg}>
-        <SafeImage src={image} alt="" />
+        <SafeImage src={image} alt="" sizes="(max-width: 700px) 40vw, 220px" />
       </div>
       <div>
         <h4>{title}</h4>

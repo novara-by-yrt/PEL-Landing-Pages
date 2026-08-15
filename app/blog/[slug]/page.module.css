@@ -37,7 +37,3 @@
 .tpFaqItem[open] .tpFaqChev { transform: rotate(90deg); }
 .tpFaqA { padding: 0 0 1.5rem; font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; }
 
-/* The featured image is a plain <img> rather than next/image, because its
-   source is proxied to an external origin and needs a client-side error
-   fallback. It fills the ratio the container already reserves. */
-.blogFeaturedImgEl { width: 100%; height: 100%; object-fit: cover; display: block; }

@@ -1,36 +1,38 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./SafeImage.module.css";
 
 /**
- * An <img> that degrades to a brand placeholder instead of a broken icon.
+ * An optimised image that degrades to a brand placeholder instead of a broken
+ * icon.
  *
- * Most editorial images on this site are `/uploads/*`, which next.config
- * rewrites to the WordPress origin rather than serving from the repository.
- * A handful of those files are not on that origin — the blog cards for posts
- * with 2026 upload paths are the visible case — and a plain <img> answers a
- * 404 with the browser's broken-image glyph and the alt text spilling across
- * the card.
+ * Two jobs, and the second is why this exists as a component at all.
  *
- * There is no way to know from the server which remote files exist, so this
- * handles the failure where it actually happens: the browser's own error
- * event. On failure the image is replaced by a tinted panel carrying the
- * clinic's eye mark, so the card keeps its shape and reads as deliberate.
+ * Optimisation: these sources are `/uploads/*` paths, which next.config
+ * rewrites to the WordPress origin. A plain <img> there downloads the
+ * original at full size in its original format — a card 380px wide pulling a
+ * multi-megabyte JPEG. Going through next/image routes the same URL through
+ * the optimiser, which resizes to the layout and re-encodes to AVIF; on the
+ * repository's own photographs that is a 569KB source delivered as 11KB.
  *
- * The container is expected to size the box (the callers all set an
- * aspect-ratio), so swapping in the placeholder shifts nothing.
+ * Resilience: some of those files are not on the origin. There is no way to
+ * know which at build time, so the failure is caught where it happens — the
+ * browser's error event — and swapped for a tinted panel carrying the
+ * clinic's eye mark. The caller reserves the box, so nothing moves.
  */
 export default function SafeImage({
   src,
   alt,
-  className,
-  loading = "lazy",
+  sizes,
+  priority = false,
 }: {
   src: string;
   alt: string;
-  className?: string;
-  loading?: "lazy" | "eager";
+  /** Layout width at each breakpoint, so the optimiser ships the right size. */
+  sizes: string;
+  priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
@@ -52,14 +54,13 @@ export default function SafeImage({
   }
 
   return (
-    /* These sources are proxied to an external origin at the edge, so the
-       optimiser cannot resolve them and a plain <img> is what works here. */
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={src}
       alt={alt}
-      loading={loading}
-      className={className}
+      fill
+      sizes={sizes}
+      priority={priority}
+      className={styles.img}
       onError={() => setFailed(true)}
     />
   );

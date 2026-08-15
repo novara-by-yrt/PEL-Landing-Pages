@@ -176,8 +176,8 @@ export default async function BlogPostPage({
                 <SafeImage
                   src={frontmatter.featuredImage}
                   alt={frontmatter.title}
-                  loading="eager"
-                  className={styles.blogFeaturedImgEl}
+                  sizes="(max-width: 960px) 100vw, 760px"
+                  priority
                 />
               </div>
             )}

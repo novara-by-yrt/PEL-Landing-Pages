@@ -13,3 +13,9 @@
   width: clamp(38px, 22%, 64px);
   height: auto;
 }
+
+/* fill positions the image absolutely; the caller's container reserves the
+   ratio, so this only has to say how the photo sits inside it. */
+.img {
+  object-fit: cover;
+}
