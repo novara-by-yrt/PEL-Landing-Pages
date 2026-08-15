@@ -6,6 +6,7 @@ import {
   buildProductSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildMedicalConditionSchema,
 } from "@/lib/schema";
 import Link from "next/link";
 import { resolveHeroImage, ACCREDITATION_LOGOS } from "@/lib/page-utils";
@@ -99,6 +100,9 @@ export default async function ConditionPage({
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
   const productSchema = frontmatter.schema?.productSchemaNeeded ? buildProductSchema(frontmatter, url) : null;
   const faqSchema = frontmatter.faq?.length ? buildFaqSchema(frontmatter.faq, url, frontmatter.title) : null;
+  /* Ties the condition to Google's knowledge graph, per the pre-launch
+     SEO plan. */
+  const conditionSchema = buildMedicalConditionSchema(frontmatter, url);
 
   return (
     <>
@@ -106,6 +110,7 @@ export default async function ConditionPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(conditionSchema) }} />
       <div className="tp">
         <PageHero
           breadcrumbItems={breadcrumbItems}

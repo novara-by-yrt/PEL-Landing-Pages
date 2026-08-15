@@ -7,6 +7,8 @@ import {
   buildProductSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildMedicalProcedureSchema,
+  buildPhysicianSchema,
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
@@ -179,12 +181,23 @@ export default async function CatchAllPageRoute({
     ? buildFaqSchema(frontmatter.faq, url, frontmatter.title)
     : null;
 
+  /* Medical entity markup, per the pre-launch SEO plan: a MedicalProcedure on
+     every treatment page (the highest-impact one for procedure searches), and
+     the Physician record on the surgeon's own page. */
+  const procedureSchema = treatment
+    ? buildMedicalProcedureSchema(frontmatter, url, treatment.glance)
+    : null;
+  const physicianSchema =
+    fileSlug === "dr-sabrina-shah-desai" ? buildPhysicianSchema() : null;
+
   const schemas = (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
+      {procedureSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }} />}
+      {physicianSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }} />}
     </>
   );
 

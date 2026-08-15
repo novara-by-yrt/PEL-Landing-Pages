@@ -6,7 +6,7 @@ import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
-import { buildOrganizationSchema } from "@/lib/schema";
+import { buildOrganizationSchema, buildMedicalBusinessSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 // ── Fonts ────────────────────────────────────────────────────────────────
@@ -59,6 +59,7 @@ export const metadata: Metadata = {
 
 // ── Organisation JSON-LD (global, every page) ──────────────────────────────
 const orgSchema = buildOrganizationSchema();
+const clinicSchema = buildMedicalBusinessSchema();
 
 export default function RootLayout({
   children,
@@ -73,6 +74,15 @@ export default function RootLayout({
           id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+        {/* The clinic as a medical entity — address, hours, speciality and
+            rating. Site-wide rather than home-only, so any page a search
+            engine lands on can resolve the @id the procedure and physician
+            records point at. */}
+        <script
+          id="schema-clinic"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
         />
       </head>
       <body>
