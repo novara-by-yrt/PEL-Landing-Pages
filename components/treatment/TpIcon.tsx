@@ -39,6 +39,10 @@ const GLANCE_ICON_KEYS: Record<string, string> = {
   "Down time": "calendar",
   Downtime: "calendar",
   Exercise: "pulse",
+  /* The WordPress export spelled this "Excercise" and the content was
+     corrected in place. The old key stays as a guard: content is
+     re-imported from that export, and a returning typo should pick the
+     right icon rather than fall through to the clock default. */
   Excercise: "pulse",
   Recovery: "pulse",
   "Final results": "sparkle",
