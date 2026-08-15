@@ -60,5 +60,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...posts, ...pages, ...beforeAfter, ...conditions];
+  /* Three URLs are reachable from two sources — /blog and
+     /dr-sabrina-shah-desai exist both as a hand-listed route and as a content
+     file, and two treatment slugs resolve to the same nested ultraclear path.
+     Listing a URL twice is the same kind of contradiction as listing a
+     noindex one, so the first entry wins and later duplicates drop out. */
+  const all = [...staticRoutes, ...posts, ...pages, ...beforeAfter, ...conditions];
+  const seen = new Set<string>();
+  return all.filter((entry) => !seen.has(entry.url) && seen.add(entry.url));
 }
