@@ -1,6 +1,5 @@
 export { TreatmentHero } from "./TreatmentHero";
 export { PageHero } from "./PageHero";
-export { TreatmentFactBar } from "./TreatmentFactBar";
 export { TreatmentAdvantages } from "./TreatmentAdvantages";
 export { TreatmentContent } from "./TreatmentContent";
 export { TreatmentOverview } from "./TreatmentOverview";

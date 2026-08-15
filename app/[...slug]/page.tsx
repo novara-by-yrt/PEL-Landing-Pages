@@ -25,7 +25,6 @@ import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
-  TreatmentFactBar,
   TreatmentAdvantages,
   TreatmentOverview,
   TreatmentContent,
@@ -256,6 +255,8 @@ function TreatmentPage({
           siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
+          glance={treatment.glance}
+          glanceTitle={frontmatter.title}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
@@ -263,7 +264,6 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
-        <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
