@@ -9,13 +9,6 @@ const TREATMENT_PATHS: Record<string, string> = treatmentPaths.paths;
 // and ranking history with it. See content/legacy-redirects.json.
 const LEGACY_REDIRECTS: Record<string, string> = legacyRedirects.redirects;
 
-// Origin that backs /uploads/* when a file isn't present in the local
-// public/ directory (e.g. in production, where the 2GB uploads folder is
-// gitignored and never deployed). Point this at Cloudflare R2 (or any other
-// host) later by changing this one value — no other code needs to change.
-const UPLOADS_ORIGIN =
-  process.env.UPLOADS_ORIGIN || "https://perfecteyesltd.com/wp-content/uploads";
-
 const nextConfig: NextConfig = {
   // Static export support — pre-render all pages at build time
   output: "standalone",
@@ -31,18 +24,6 @@ const nextConfig: NextConfig = {
     // minute, so a long TTL turns a repeated encode into a cache hit. The
     // filename changes when the image does, so nothing goes stale.
     minimumCacheTTL: 60 * 60 * 24 * 31,
-  },
-
-  // Fall back to the external uploads origin for any /uploads/* path not
-  // found locally. Next.js checks the filesystem (public/) before applying
-  // these, so local dev still serves from disk when the file exists there.
-  async rewrites() {
-    return [
-      {
-        source: "/uploads/:path*",
-        destination: `${UPLOADS_ORIGIN}/:path*`,
-      },
-    ];
   },
 
   // Permanent redirects from old WordPress URL structure
