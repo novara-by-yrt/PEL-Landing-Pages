@@ -3,12 +3,15 @@
 .blogConnectCard > p.blogConnectLead { font-size: 0.8375rem; color: var(--tp-slate); margin: 0 0 1.4rem; line-height: 1.5; }
 .blogConnectField { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
 .blogConnectField label { font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); }
-.blogConnectField input, .blogConnectField textarea {
+.blogConnectField input, .blogConnectField textarea, .blogConnectField select {
   font-family: var(--tp-body); font-size: 0.9375rem; color: var(--tp-ink);
   padding: 0.7rem 0.9rem; border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line);
   background: var(--tp-fog); outline: none; transition: border-color 160ms var(--tp-ease);
   width: 100%;
 }
-.blogConnectField input:focus, .blogConnectField textarea:focus { border-color: var(--tp-lavender-400); }
+.blogConnectField input:focus, .blogConnectField textarea:focus, .blogConnectField select:focus { border-color: var(--tp-lavender-400); }
+.blogConnectConsent { display: flex; gap: 8px; align-items: flex-start; font-size: 0.8125rem; color: var(--tp-slate); line-height: 1.45; margin-bottom: 1rem; }
+.blogConnectConsent input { margin-top: 2px; flex: none; }
+.blogConnectFieldError { color: var(--semantic-error, #B4483F); font-size: 0.75rem; }
 .blogConnectSuccess { text-align: center; color: var(--tp-indigo-700); font-weight: 600; padding: 1rem 0; }
 .blogConnectError { color: var(--semantic-error, #B4483F); font-size: 0.8125rem; margin-top: -0.5rem; margin-bottom: 1rem; }

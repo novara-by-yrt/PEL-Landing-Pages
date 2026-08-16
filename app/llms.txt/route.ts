@@ -1,107 +1,208 @@
-import { getAllPosts } from "@/lib/mdx";
-import { TREATMENT_PATHS } from "@/lib/treatment-urls";
-import { CLINIC, CONSULTATION_FEES } from "@/lib/clinic";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
-import type { TreatmentMeta } from "@/components/treatment/types";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
-const meta = treatmentMetaRaw as unknown as Record<string, TreatmentMeta>;
+import { CLINIC } from "@/lib/clinic";
+import { isIndexable } from "@/lib/indexable";
+import { getAllPosts, type PostFrontmatter } from "@/lib/mdx";
+import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 
 /**
- * /llms.txt — the index an AI assistant reads to find its way around the site.
+ * /llms.txt — a curated Markdown map of the site for LLM agents, following the
+ * llmstxt.org convention: an H1, a blockquote summary, then sections of
+ * `- [name](url): description` links.
  *
- * Generated from the same content the pages are built from rather than
- * hand-written, so it cannot fall out of date when a treatment is added,
- * renamed or retired. Indexable pages only: anything carrying noindex is
- * excluded here for the same reason it is excluded from the sitemap.
+ * It is generated from the same content collections as the sitemap and filtered
+ * through the same isIndexable() rule, so a page that is noindex or a canonical
+ * alias never appears here either. The blog archive sits under `## Optional`,
+ * which the convention defines as the section an agent may skip when its
+ * context budget is tight.
  */
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+
+type TreatmentMeta = { subtitle?: string; type?: string };
+const treatmentMeta = treatmentMetaRaw as Record<string, TreatmentMeta>;
+
+/** Frontmatter prose is HTML-ish and often long; links need one clean line. */
+function summarise(...candidates: (string | undefined)[]): string {
+  const raw = candidates.find((c) => c && c.trim());
+  if (!raw) return "";
+  const text = raw
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (text.length <= 165) return text;
+  const cut = text.slice(0, 165);
+  return `${cut.slice(0, cut.lastIndexOf(" ") > 80 ? cut.lastIndexOf(" ") : 165)}…`;
+}
+
+function link(name: string, path: string, description: string): string {
+  const url = `${SITE_URL}${path}`;
+  return description ? `- [${name}](${url}): ${description}` : `- [${name}](${url})`;
+}
+
+type Entry = { slug: string; frontmatter: PostFrontmatter; content: string };
+
+/**
+ * Most blog posts carry no seo.description or excerpt — fall back to the
+ * opening prose of the body so every link still says what it is.
+ *
+ * Migrated WordPress bodies are inconsistent: some open with <p>, many with a
+ * bare <span>, and the publication entries are a single outbound <a> with no
+ * prose at all. So this prefers a real paragraph, then falls back to the first
+ * readable text anywhere, and gives up rather than emitting a naked URL.
+ */
+function firstParagraph(content: string): string | undefined {
+  const paragraph = content.match(/<p[^>]*>([\s\S]*?)<\/p>/i)?.[1];
+  const candidate = paragraph ?? content.slice(0, 1200);
+  const text = candidate
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text || /^https?:\/\//i.test(text)) return undefined;
+  return text;
+}
+
+function indexableEntries(
+  dir: "posts" | "pages" | "before-after" | "condition",
+  toPath: (slug: string) => string,
+): { entry: Entry; path: string }[] {
+  return getAllPosts(dir)
+    .map((entry) => ({ entry, path: toPath(entry.slug) }))
+    .filter(({ entry, path }) => isIndexable(entry.frontmatter, path));
+}
+
+function section(title: string, lines: string[]): string {
+  return lines.length ? `## ${title}\n\n${lines.join("\n")}\n` : "";
+}
+
 export const dynamic = "force-static";
 
-const indexable = (p: { frontmatter: { seo?: { robots?: string[] } } }) =>
-  !p.frontmatter.seo?.robots?.includes("noindex");
+export function GET(): Response {
+  const pages = indexableEntries("pages", (s) => `/${TREATMENT_PATHS[s] ?? s}`);
 
-export function GET() {
-  const pages = getAllPosts("pages").filter(indexable);
-  const treatments = pages
-    .filter((p) => meta[p.slug])
-    .map((p) => ({
-      title: p.frontmatter.title,
-      url: `${SITE_URL}/${TREATMENT_PATHS[p.slug] ?? p.slug}`,
-      blurb: (meta[p.slug].subtitle || p.frontmatter.excerpt || "").trim(),
-      type: meta[p.slug].type,
-    }));
+  // Treatments carry a type ("surgical" / "non-surgical") in treatment-meta;
+  // anything without an entry there is a plain content page, not a treatment.
+  const treatmentLines = (kind: string) =>
+    pages
+      .filter(({ entry }) => treatmentMeta[entry.slug]?.type === kind)
+      .map(({ entry, path }) =>
+        link(
+          entry.frontmatter.title,
+          path,
+          summarise(treatmentMeta[entry.slug]?.subtitle, entry.frontmatter.seo?.description),
+        ),
+      )
+      .sort();
 
-  const conditions = getAllPosts("condition")
-    .filter(indexable)
-    .map((p) => ({
-      title: p.frontmatter.title,
-      url: `${SITE_URL}/condition/${p.slug}`,
-      blurb: (p.frontmatter.excerpt || "").trim(),
-    }));
+  // A handful of migrated WordPress category containers have an empty body and
+  // no structured data behind them. They are real URLs, but listing them here
+  // would just spend an agent's context on a page with nothing to read.
+  const hasSomethingToRead = ({ entry }: { entry: Entry }) =>
+    entry.content.trim().length > 60 ||
+    Boolean(entry.frontmatter.overviewPanels?.length) ||
+    Boolean(entry.frontmatter.faq?.length) ||
+    Boolean(entry.frontmatter.gallery?.length);
 
-  const results = getAllPosts("before-after")
-    .filter(indexable)
-    .map((p) => `- [${p.frontmatter.title}](${SITE_URL}/before-after/${p.slug})`);
+  const otherPageLines = pages
+    .filter(({ entry }) => !treatmentMeta[entry.slug]?.type)
+    .filter(hasSomethingToRead)
+    .map(({ entry, path }) =>
+      link(
+        entry.frontmatter.title,
+        path,
+        summarise(
+          entry.frontmatter.seo?.description,
+          entry.frontmatter.excerpt,
+          firstParagraph(entry.content),
+        ),
+      ),
+    )
+    .sort();
 
-  const line = (t: string, u: string, b: string) =>
-    `- [${t}](${u})${b ? `: ${b.replace(/\s+/g, " ").slice(0, 160)}` : ""}`;
+  const conditionLines = indexableEntries("condition", (s) => `/condition/${s}`)
+    .map(({ entry, path }) =>
+      link(
+        entry.frontmatter.title,
+        path,
+        summarise(entry.frontmatter.seo?.description, entry.frontmatter.excerpt),
+      ),
+    )
+    .sort();
 
-  const surgical = treatments.filter((t) => t.type === "surgical");
-  const nonSurgical = treatments.filter((t) => t.type !== "surgical");
+  const beforeAfterLines = indexableEntries("before-after", (s) => `/before-after/${s}`)
+    .map(({ entry, path }) =>
+      link(
+        entry.frontmatter.title,
+        path,
+        summarise(
+          entry.frontmatter.seo?.description,
+          entry.frontmatter.galleryDescription,
+          entry.frontmatter.intro,
+        ),
+      ),
+    )
+    .sort();
 
-  const body = `# Perfect Eyes Ltd — The Perfect Eyes Clinic
+  // Newest first — an agent skimming the archive wants current material.
+  const blogLines = indexableEntries("posts", (s) => `/blog/${s}`)
+    .sort(
+      (a, b) =>
+        new Date(b.entry.frontmatter.modified || b.entry.frontmatter.date || 0).getTime() -
+        new Date(a.entry.frontmatter.modified || a.entry.frontmatter.date || 0).getTime(),
+    )
+    .map(({ entry, path }) =>
+      link(
+        entry.frontmatter.title,
+        path,
+        summarise(
+          entry.frontmatter.seo?.description,
+          entry.frontmatter.excerpt,
+          firstParagraph(entry.content),
+        ),
+      ),
+    );
 
-> A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai,
-> MS, FRCS (Ed) Ophth — a consultant oculoplastic surgeon with over 25 years of
-> surgical and non-surgical experience. The clinic specialises in eyelid
-> surgery, periocular aesthetics and revision work following surgery or filler
-> performed elsewhere.
+  const keyPages = [
+    link("Home", "", "Overview of the clinic, its treatments and patient results."),
+    link("Meet the team", "/team", "The clinical practitioners and support staff at the clinic."),
+    link("Patient journey", "/journey-of-eye-care", "What to expect from first enquiry through to aftercare."),
+    link("Before & after results", "/before-after", "Real patient before-and-after photography by treatment."),
+    link("Case studies", "/case-studies", "Detailed write-ups of individual patient cases."),
+    link("Publications", "/publications", "Peer-reviewed papers and scientific work by Dr Sabrina Shah-Desai."),
+    link("Contact", "/contact", `Book a consultation. ${CLINIC.address}. Tel ${CLINIC.phoneDisplay}.`),
+  ];
 
-Location: ${CLINIC.address}
-Telephone: ${CLINIC.phoneDisplay}
-Email: ${CLINIC.email}
-Opening hours: ${CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(", ")}
-Consultation fees: ${CONSULTATION_FEES.map((f) => `${f.label} ${f.price}`).join(", ")}
-Note: Dr Shah-Desai does not offer free consultations.
+  // Header blocks are separated by blank lines, so they are joined separately
+  // from the sections — filtering empty sections must not strip those spacers.
+  const header = [
+    `# ${CLINIC.name}`,
+    "",
+    `> ${CLINIC.name} is a CQC-registered oculoplastic and aesthetic clinic at ${CLINIC.addressShort}, led by consultant oculoplastic surgeon Dr Sabrina Shah-Desai. The practice specialises in surgical and non-surgical treatment of the eyelids and the area around the eyes, alongside wider facial aesthetics.`,
+    "",
+    `Dr Shah-Desai has over two decades of surgical experience and has been listed in Tatler as a leading eye surgeon since 2019. Treatments are grouped below as surgical procedures, non-surgical procedures, and the eye conditions they address.`,
+    "",
+    `Contact: ${CLINIC.phoneDisplay} · ${CLINIC.email} · ${CLINIC.address}`,
+    "",
+    `Opening hours: ${CLINIC.hours.map((h) => `${h.day} ${h.time}`).join("; ")}`,
+  ].join("\n");
 
-## About
+  const sections = [
+    section("Surgical treatments", treatmentLines("surgical")),
+    section("Non-surgical treatments", treatmentLines("non-surgical")),
+    section("Eye conditions", conditionLines),
+    section("Before & after galleries", beforeAfterLines),
+    section("Key pages", keyPages),
+    section("Other pages", otherPageLines),
+    section("Optional", blogLines),
+  ].filter(Boolean);
 
-- [Dr Sabrina Shah-Desai](${SITE_URL}/dr-sabrina-shah-desai): The clinic's founder and lead surgeon — qualifications, registrations, awards and publications.
-- [The clinic team](${SITE_URL}/team): Practitioners and support staff.
-- [Publications](${SITE_URL}/publications): Peer-reviewed research authored by Dr Shah-Desai.
-- [Patient journey](${SITE_URL}/journey-of-eye-care): What happens from first enquiry through to follow-up.
-- [International patients](${SITE_URL}/international-patients): How patients travelling from abroad plan treatment.
+  const body = [header, ...sections].join("\n\n").replace(/\n{3,}/g, "\n\n").trimEnd();
 
-## Surgical treatments
-
-${surgical.map((t) => line(t.title, t.url, t.blurb)).join("\n")}
-
-## Non-surgical treatments
-
-${nonSurgical.map((t) => line(t.title, t.url, t.blurb)).join("\n")}
-
-## Eye conditions
-
-${conditions.map((c) => line(c.title, c.url, c.blurb)).join("\n")}
-
-## Results
-
-${results.join("\n")}
-
-## Contact
-
-- [Book a consultation](${SITE_URL}/contact-cosmetic-eye-surgeon): Enquiry form, fees and clinic details.
-- [Blog](${SITE_URL}/blog): Articles on eye health and aesthetic medicine, written and reviewed by Dr Shah-Desai.
-
-## Optional
-
-- [Full detail](${SITE_URL}/llms-full.txt): Longer structured summary of the surgeon, the clinic and each treatment.
-`;
-
-  return new Response(body, {
+  return new Response(`${body}\n`, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=86400",
+      "Cache-Control": "public, max-age=0, must-revalidate",
     },
   });
 }

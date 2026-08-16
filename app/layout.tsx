@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import OnLoadPopupForm from "@/components/forms/OnLoadPopupForm";
 import { buildOrganizationSchema, buildMedicalBusinessSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -109,6 +110,9 @@ export default function RootLayout({
         <div id="footer-spacer" aria-hidden="true" />
         <Footer />
         <CookieConsent />
+        {/* On-load enquiry popup — opens once a week, after a delay,
+            so it never competes with first paint. */}
+        <OnLoadPopupForm />
         {/* Reads the same consent store the banner writes to, and stays
             inert — no script, no connection — until that store says
             "accepted". */}

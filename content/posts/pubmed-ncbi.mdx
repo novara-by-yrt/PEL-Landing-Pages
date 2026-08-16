@@ -12,8 +12,13 @@ author:
 seo:
   title: "PubMed - NCBI"
   description: ""
+  # No content of its own: the body is a single link to the author's PubMed
+  # search, and the title ("PubMed - NCBI") says nothing to a reader who meets
+  # it in a result listing. The publication record it points at is already
+  # presented properly at /publications, so this stays reachable and keeps
+  # passing its link, but out of the index and out of the sitemap.
   robots:
     - "noindex"
-    - "nofollow"
+    - "follow"
 ---
 <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=shah-desai" target="_blank" rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pubmed/?term=shah-desai</a>

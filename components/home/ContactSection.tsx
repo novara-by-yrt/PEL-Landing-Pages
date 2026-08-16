@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import CallbackForm from "./CallbackForm";
+import RequestCallbackForm from "@/components/forms/RequestCallbackForm";
 import styles from "./ContactSection.module.css";
 
 import { CLINIC, MAPS_URL } from "@/lib/clinic";
@@ -88,7 +88,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <CallbackForm />
+          <RequestCallbackForm />
         </div>
       </div>
     </section>

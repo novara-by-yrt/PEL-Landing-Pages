@@ -1,0 +1,167 @@
+/* Shared styling for the forms that have no pre-existing design in the
+   Next.js site: the general contact form, the on-load popup and the
+   Blepharoplasty candidacy quiz. The three forms that replaced existing
+   components keep their original stylesheets instead. */
+
+/* ── Generic field furniture ─────────────────────────────────────────────── */
+
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+.label { font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); }
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  font-family: var(--tp-body);
+  font-size: 0.9375rem;
+  color: var(--tp-ink);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-md);
+  background: var(--tp-fog);
+  outline: none;
+  transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus { border-color: var(--tp-lavender-400); background: #fff; }
+
+.textarea { resize: vertical; }
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8125rem;
+  color: var(--tp-slate);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+}
+.consent input { margin-top: 3px; flex: none; }
+
+.submit { width: 100%; justify-content: center; font-size: 1rem; padding: 0.9rem; border: none; cursor: pointer; }
+.submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.fieldError { color: #B3261E; font-size: 0.75rem; }
+
+.status { border-radius: var(--tp-radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.875rem; }
+.statusOk { background: var(--tp-lavender-050); border: 1px solid var(--tp-lavender-400); color: var(--tp-indigo-700); }
+.statusError { background: #FDECEC; border: 1px solid #F3B9B9; color: #B3261E; }
+
+/* ── Standalone card (general contact form) ──────────────────────────────── */
+
+.card {
+  background: #fff;
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  box-shadow: var(--tp-shadow-sm);
+}
+.cardTitle { font-family: var(--tp-display); font-weight: 600; font-size: 1.4rem; color: var(--tp-ink); margin: 0 0 1.25rem; }
+
+/* ── On-load popup ───────────────────────────────────────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(20, 18, 33, 0.55);
+  animation: fadeIn 220ms var(--tp-ease) both;
+}
+
+.popup {
+  position: relative;
+  width: min(460px, 100%);
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: var(--tp-radius-lg);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  box-shadow: 0 24px 60px rgba(20, 18, 33, 0.28);
+  animation: popIn 260ms var(--tp-ease) both;
+}
+
+.popupClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tp-fog);
+  color: var(--tp-slate);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 160ms var(--tp-ease);
+}
+.popupClose:hover { background: var(--tp-lavender-100); color: var(--tp-indigo-700); }
+
+.popupTitle { font-family: var(--tp-display); font-weight: 600; font-size: 1.45rem; color: var(--tp-ink); margin: 0 0 0.4rem; padding-right: 2rem; }
+.popupLead { font-size: 0.875rem; color: var(--tp-slate); line-height: 1.55; margin: 0 0 1.4rem; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .popup { animation: none; }
+}
+
+/* ── Blepharoplasty candidacy quiz ───────────────────────────────────────── */
+
+.quiz {
+  max-width: 680px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-xl);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: var(--tp-shadow-sm);
+}
+
+.quizProgressTrack { height: 5px; border-radius: 999px; background: var(--tp-fog); overflow: hidden; margin-bottom: 0.5rem; }
+.quizProgressBar { height: 100%; background: var(--tp-indigo-700); border-radius: 999px; transition: width 280ms var(--tp-ease); }
+.quizProgressLabel { font-size: 0.75rem; color: var(--tp-mist); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem; }
+
+.quizIntroImage { width: 100%; height: auto; border-radius: var(--tp-radius-md); margin-bottom: 1.25rem; }
+.quizTitle { font-family: var(--tp-display); font-weight: 600; font-size: clamp(1.35rem, 3vw, 1.75rem); color: var(--tp-ink); margin: 0 0 0.75rem; }
+.quizIntroBody { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.65; margin: 0 0 1.5rem; }
+
+.quizQuestion { font-family: var(--tp-display); font-weight: 600; font-size: 1.2rem; color: var(--tp-ink); margin: 0 0 1.25rem; line-height: 1.4; }
+
+.quizOptions { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+.quizOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-md);
+  background: var(--tp-fog);
+  font-size: 0.9375rem;
+  color: var(--tp-ink);
+  line-height: 1.45;
+  cursor: pointer;
+  transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
+}
+.quizOption:hover { border-color: var(--tp-lavender-400); background: #fff; }
+.quizOption input { margin-top: 3px; flex: none; }
+
+.quizDisclaimer { font-size: 0.75rem; color: var(--tp-mist); margin: 0.5rem 0 0; }
+
+.quizNav { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; }
+.quizNav > * { flex: 1; justify-content: center; }
+
+.quizSuccess { text-align: center; padding: 2.5rem 1rem; }
+.quizSuccess h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 0.75rem; }
+.quizSuccess p { color: var(--tp-slate); }
