@@ -121,7 +121,6 @@ export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSli
 
                   <div className={styles.body}>
                     <h3 className={styles.name}>{slide.treatment}</h3>
-                    <p className={styles.role}>Before &amp; After</p>
                   </div>
                 </Link>
               </article>

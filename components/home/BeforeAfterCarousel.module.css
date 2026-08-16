@@ -74,23 +74,25 @@
   border-radius: var(--tp-radius-lg);
 }
 
-/* The photos are square before/after pairs, so a square frame crops nothing
-   of either half. */
+/* A square frame, since all but one of these pairs is 1:1, with `contain` so
+   nothing is ever cropped — a before/after pair loses its point the moment an
+   edge of either half is trimmed away. The one 1.08:1 image letterboxes by a
+   few pixels against the card's own colour, so the bars read as card rather
+   than as a gap. */
 .photo {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
+  background: var(--tp-cream);
 }
 .photoImg {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .body {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  gap: 10px;
-  padding: clamp(18px, 2.5vw, 24px);
+  padding: clamp(12px, 1.6vw, 16px) clamp(18px, 2.5vw, 24px);
 }
 .name {
   font-family: var(--tp-display);
@@ -101,16 +103,6 @@
   color: var(--tp-ink);
   margin: 0;
 }
-.role {
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--tp-lavender-600);
-  margin: 0;
-}
-
 /* ── Arrows ─────────────────────────────────────────────────────────────── */
 .arrows {
   display: flex;
