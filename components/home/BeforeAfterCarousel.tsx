@@ -36,6 +36,10 @@ function Chevron({ back = false }: { back?: boolean }) {
  * breakpoint is stated once, and is read back here as a custom property
  * rather than re-derived from measurements — the arrows and dots then page by
  * exactly the number of cards on screen at any width.
+ *
+ * Paging is continuous: Next on the last page returns to the first and Prev on
+ * the first goes to the last, so the rail never dead-ends. Neither arrow is
+ * ever disabled.
  */
 export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSlide[] }) {
   const railRef = useRef<HTMLDivElement>(null);
@@ -86,8 +90,10 @@ export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSli
       const el = railRef.current;
       if (!el) return;
       const { perView, stride } = metrics(el);
-      const clamped = Math.max(0, Math.min(pages - 1, target));
-      el.scrollTo({ left: clamped * perView * stride, behavior: "smooth" });
+      /* Wraps rather than clamps, so the rail keeps going in both directions
+         instead of dead-ending on the last card. */
+      const wrapped = ((target % pages) + pages) % pages;
+      el.scrollTo({ left: wrapped * perView * stride, behavior: "smooth" });
     },
     [pages]
   );
@@ -133,7 +139,6 @@ export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSli
             type="button"
             className={`${styles.arrow} ${styles.arrowPrev}`}
             onClick={() => goTo(page - 1)}
-            disabled={page === 0}
             aria-label="Previous results"
           >
             <Chevron back />
@@ -142,7 +147,6 @@ export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSli
             type="button"
             className={`${styles.arrow} ${styles.arrowNext}`}
             onClick={() => goTo(page + 1)}
-            disabled={page >= pages - 1}
             aria-label="Next results"
           >
             <Chevron />

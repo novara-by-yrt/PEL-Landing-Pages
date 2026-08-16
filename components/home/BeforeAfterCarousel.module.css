@@ -103,6 +103,7 @@
   color: var(--tp-ink);
   margin: 0;
 }
+
 /* ── Arrows ─────────────────────────────────────────────────────────────── */
 .arrows {
   display: flex;
@@ -124,13 +125,9 @@
   transition: background 200ms var(--tp-ease), border-color 200ms var(--tp-ease),
     transform 200ms var(--tp-ease), opacity 200ms var(--tp-ease);
 }
-.arrow:hover:not(:disabled) {
+.arrow:hover {
   background: var(--tp-lavender-050);
   border-color: var(--tp-lavender-300);
-}
-.arrow:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 .arrow:focus-visible {
   outline: 2px solid var(--tp-indigo-600);
@@ -219,7 +216,7 @@
   .arrowNext {
     right: 6px;
   }
-  .arrow:hover:not(:disabled) {
+  .arrow:hover {
     transform: translateY(-2px);
     box-shadow: var(--tp-shadow-lg);
   }
@@ -232,7 +229,7 @@
     transition: none;
   }
   .card:hover,
-  .arrow:hover:not(:disabled) {
+  .arrow:hover {
     transform: none;
   }
 }
