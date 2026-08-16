@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 import treatmentPaths from "./content/treatment-paths.json";
+import legacyRedirects from "./content/legacy-redirects.json";
 
 const TREATMENT_PATHS: Record<string, string> = treatmentPaths.paths;
+
+// Old WordPress URLs whose slug changed during the migration. Without these
+// every one of them 404s the day the new site goes live, taking its backlinks
+// and ranking history with it. See content/legacy-redirects.json.
+const LEGACY_REDIRECTS: Record<string, string> = legacyRedirects.redirects;
 
 // Origin that backs /uploads/* when a file isn't present in the local
 // public/ directory (e.g. in production, where the 2GB uploads folder is
@@ -57,6 +63,15 @@ const nextConfig: NextConfig = {
       ...Object.entries(TREATMENT_PATHS).map(([flatSlug, nestedPath]) => ({
         source: `/${flatSlug}`,
         destination: `/${nestedPath}`,
+        permanent: true,
+      })),
+
+      // Posts and pages the migration re-slugged. The old URL is what the
+      // live site publishes today and what every external link points at, so
+      // each one 301s to the page that now carries the content.
+      ...Object.entries(LEGACY_REDIRECTS).map(([from, to]) => ({
+        source: from,
+        destination: to,
         permanent: true,
       })),
 
@@ -116,12 +131,18 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      // googletagmanager.com serves gtag.js — the GA4 tag in
+      // components/analytics/GoogleAnalytics. It only ever loads once the
+      // visitor has accepted cookies, but the policy has to permit the origin
+      // for that load to be possible at all.
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://fast.wistia.com",
+      // GA still falls back to a tracking pixel on browsers that block
+      // fetch/beacon, hence the analytics origins in img-src as well.
+      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
       "frame-src https://www.youtube.com",
       "object-src 'none'",
       "base-uri 'self'",
@@ -144,6 +165,31 @@ const nextConfig: NextConfig = {
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+      {
+        /* Files served straight out of public/ — the logo, award badges,
+           before/after photographs, the icons. Next only manages caching for
+           what it generates (/_next/*), so these went out as
+           `Cache-Control: public, max-age=0`: a conditional request on every
+           asset, on every page, on every repeat visit. That is the single
+           largest avoidable cost for a returning mobile visitor.
+
+           The pattern deliberately excludes anything containing a slash, so
+           it matches /Award1.jpg but never /_next/static/media/*, whose
+           filenames are content-hashed and which Next already marks immutable.
+
+           A day of hard caching rather than `immutable`, because these
+           filenames are not content-hashed — if someone replaces an image in
+           place, the change is live within a day, and stale-while-revalidate
+           means the month after that is still served instantly while the
+           refresh happens in the background. */
+        source: "/:file([^/]+\\.(?:png|jpe?g|gif|svg|webp|avif|ico))",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=2592000",
           },
         ],
       },

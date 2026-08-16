@@ -15,16 +15,60 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 const isIndexable = (post: Post) => !post.frontmatter.seo?.robots?.includes("noindex");
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  /* Routes that exist as hand-written pages under app/ rather than as content
+     files, so nothing below discovers them. Seven of these were missing
+     entirely — /team, /publications and /journey-of-eye-care among them —
+     which left the clinic's strongest E-E-A-T pages (the surgeon's peer-
+     reviewed publication list, the clinical team, the care pathway)
+     advertised nowhere. Any new page added under app/ needs a line here. */
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
     { url: `${SITE_URL}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/before-after`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/case-studies`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/contact-cosmetic-eye-surgeon`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     {
       url: `${SITE_URL}/international-patients`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    { url: `${SITE_URL}/team`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/publications`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/journey-of-eye-care`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/dr-sabrina-club`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/dr-sabrina-shah-desai/philosophy`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/dr-sabrina-shah-desai/non-surgical-terms-conditions`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 
