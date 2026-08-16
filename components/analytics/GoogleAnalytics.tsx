@@ -73,6 +73,13 @@ function PageViews() {
  *
  * Renders nothing at all when NEXT_PUBLIC_GA_ID is unset, so local
  * development and preview deployments stay out of the production property.
+ *
+ * ⚠️ NEXT_PUBLIC_* variables are substituted into the bundle by `next build`,
+ * not read from the environment at runtime. NEXT_PUBLIC_GA_ID has to be
+ * present in the build environment — adding it afterwards, or as a
+ * runtime-only variable, compiles this component down to `null` and analytics
+ * stays silently empty with nothing in the console to say why. Changing the
+ * value requires a redeploy, not a restart.
  */
 export default function GoogleAnalytics() {
   const consent = useSyncExternalStore(
