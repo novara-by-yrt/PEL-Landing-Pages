@@ -10,7 +10,6 @@ export function TreatmentHero({
   h1,
   subtitle,
   glance = [],
-  glanceTitle,
   heroImage,
   heroImageAlt,
   heroBadge = "Before & After",
@@ -23,7 +22,6 @@ export function TreatmentHero({
   subtitle?: string;
   /** The at-a-glance facts, which now fill the hero's right column. */
   glance?: GlanceItem[];
-  glanceTitle?: string;
   heroImage?: string;
   heroImageAlt: string;
   heroBadge?: string;
@@ -88,7 +86,10 @@ export function TreatmentHero({
                   <TpIcon name="clock" size={13} />
                   Treatment overview
                 </span>
-                <h2 className={styles.tpGlanceTitle}>{glanceTitle ?? h1} at a Glance</h2>
+                {/* Just "At a Glance": the treatment name is already the h1
+                    directly to the left of this panel, so repeating it here said
+                    the same thing twice in one viewport. */}
+                <h2 className={styles.tpGlanceTitle}>At a Glance</h2>
               </div>
 
               {/* A definition list: every row is a term and its value, and the

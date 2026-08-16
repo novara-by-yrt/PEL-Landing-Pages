@@ -269,7 +269,6 @@ function TreatmentPage({
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
           glance={treatment.glance}
-          glanceTitle={frontmatter.title}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
