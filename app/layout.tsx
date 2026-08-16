@@ -6,8 +6,9 @@ import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import OnLoadPopupForm from "@/components/forms/OnLoadPopupForm";
-import { buildOrganizationSchema } from "@/lib/schema";
+import { buildOrganizationSchema, buildMedicalBusinessSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 // ── Fonts ────────────────────────────────────────────────────────────────
@@ -60,6 +61,7 @@ export const metadata: Metadata = {
 
 // ── Organisation JSON-LD (global, every page) ──────────────────────────────
 const orgSchema = buildOrganizationSchema();
+const clinicSchema = buildMedicalBusinessSchema();
 
 export default function RootLayout({
   children,
@@ -69,11 +71,37 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={`${workSans.variable} ${newsreader.variable}`}>
       <head>
+        {/* The hero's poster frame and video clip both come from Wistia, and
+            the request for them is only issued once React has hydrated and
+            HeroVideo's effect has run. By then the DNS lookup and TLS
+            handshake for two cross-origin hosts are pure added latency on the
+            critical path to the largest thing on the page. Warming both
+            connections in the document head moves that handshake into the
+            time the browser is already spending parsing HTML — on a 4G phone
+            it is the cheapest few hundred milliseconds of LCP available here.
+
+            preconnect rather than preload: the clip must not compete for
+            bandwidth with the fonts and CSS, it just must not wait for a
+            handshake when its turn comes. */}
+        <link rel="preconnect" href="https://fast.wistia.com" />
+        <link rel="preconnect" href="https://embed-ssl.wistia.com" />
+        <link rel="dns-prefetch" href="https://fast.wistia.com" />
+        <link rel="dns-prefetch" href="https://embed-ssl.wistia.com" />
+
         {/* Inline JSON-LD — no render-blocking, no async needed */}
         <script
           id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+        {/* The clinic as a medical entity — address, hours, speciality and
+            rating. Site-wide rather than home-only, so any page a search
+            engine lands on can resolve the @id the procedure and physician
+            records point at. */}
+        <script
+          id="schema-clinic"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
         />
       </head>
       <body>
@@ -85,6 +113,10 @@ export default function RootLayout({
         {/* On-load enquiry popup — opens once a week, after a delay,
             so it never competes with first paint. */}
         <OnLoadPopupForm />
+        {/* Reads the same consent store the banner writes to, and stays
+            inert — no script, no connection — until that store says
+            "accepted". */}
+        <GoogleAnalytics />
       </body>
     </html>
   );

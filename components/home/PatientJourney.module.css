@@ -366,7 +366,10 @@
 }
 .stepTitle {
   display: flex;
-  align-items: center;
+  /* Not centred: in a narrow column the title runs to three lines, and a
+     centred icon then floats against the middle of the block instead of
+     leading it. */
+  align-items: flex-start;
   gap: 9px;
   margin: 0;
   font-size: clamp(1rem, 2vw, 1.0625rem);
@@ -376,6 +379,8 @@
 }
 .stepTitle svg {
   flex: none;
+  /* Optically centres the 15px glyph on the first line of a 1.35 line-height. */
+  margin-top: 4px;
   color: var(--tp-lavender-300);
 }
 .stepDetail {
@@ -477,6 +482,54 @@
   .step:last-child:nth-child(odd) .stepDetail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: clamp(28px, 4vw, 56px);
+  }
+}
+
+/* Desktop only: the pathway runs left to right as one line instead of
+   wrapping into rows. Column flow rather than a fixed column count, because
+   the two pathways have different step counts — five and three — and both
+   should fill the panel.
+
+   Held back to 1100px on purpose. The surgical pathway's five steps need
+   roughly 200px each before the detail lists start breaking badly, so a
+   tablet keeps the two-column treatment above.                            */
+@media (min-width: 1100px) {
+  .steps {
+    --spine-gap: clamp(20px, 2.2vw, 32px);
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    column-gap: var(--spine-gap);
+  }
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding-block: 4px;
+    /* Spare height goes below the shortest column, not into its rows, so
+       every step's title starts on the same line. */
+    align-content: start;
+  }
+  /* Both are two-column fixes for the wrapped layout above; neither applies
+     once the steps are a single row. */
+  .step:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+  .step:last-child:nth-child(odd) .stepDetail {
+    grid-template-columns: none;
+  }
+  /* Spine turns horizontal: from just after this marker to just before the
+     next one, which sits exactly one column-gap away. */
+  .step:not(:last-child)::before {
+    display: block;
+    left: 44px;
+    right: calc(var(--spine-gap) * -1 + 8px);
+    top: 22px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+  .stepBody {
+    padding-top: 0;
   }
 }
 

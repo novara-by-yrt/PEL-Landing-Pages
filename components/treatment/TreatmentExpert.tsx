@@ -2,7 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./TreatmentExpert.module.css";
 
+/* The register listing leads, because it is the one an assessor can verify
+   rather than an award. Treatment pages carried the awards and the FRCS but
+   not this, while the condition pages did — the SEO plan asks for the
+   credentials to read the same on every page, so it is added here rather
+   than the list being trimmed anywhere else. */
 const AWARDS = [
+  "Royal College of Surgeons of England — register of Board-Certified Cosmetic Surgeons",
   "Best Aesthetic Doctor — Safety in Beauty 2023",
   "Consultant Surgeon of the Year",
   "Best Surgical Result — Aesthetic Awards 2021",

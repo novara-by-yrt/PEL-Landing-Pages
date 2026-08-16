@@ -31,10 +31,19 @@ const POPULAR_TREATMENTS = [
   { href: "/non-surgical/tear-trough-fillers-uk", label: "Tear Trough Fillers" },
 ];
 
+/* Both privacy links used to point at /privacy-notice-1 and -2, which are
+   superseded drafts of /privacy-notice and are excluded from the index — so
+   every page linked twice to pages search engines are told to ignore, and
+   neither was the live notice. One link, pointing at the real one.
+
+   The terms link was also wrong: /non-surgical-terms-conditions 404s. The
+   page lives under the surgeon's path. */
 const LEGAL_LINKS = [
-  { href: "/privacy-notice-1", label: "Privacy Notice 1" },
-  { href: "/privacy-notice-2", label: "Privacy Notice 2" },
-  { href: "/non-surgical-terms-conditions", label: "Non Surgical Terms Conditions" },
+  { href: "/privacy-notice", label: "Privacy Notice" },
+  {
+    href: "/dr-sabrina-shah-desai/non-surgical-terms-conditions",
+    label: "Non Surgical Terms Conditions",
+  },
 ];
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {

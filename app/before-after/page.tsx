@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ContactSection from "@/components/home/ContactSection";
 import PatientStories from "@/components/home/PatientStories";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import BeginJourney from "@/components/shared/BeginJourney";
@@ -177,6 +178,7 @@ export default function BeforeAfterIndexPage() {
 
       <PatientStories stories={PATIENT_STORIES} />
       <BeginJourney />
+      <ContactSection />
     </div>
   );
 }

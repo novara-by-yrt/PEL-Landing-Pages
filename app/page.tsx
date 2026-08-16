@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
+import BeforeAfterCarousel, { type BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
@@ -177,6 +178,47 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
 
 
 /**
+ * Ten cases pulled from the three eyelid-surgery galleries, weighted towards
+ * full-face frames rather than eye close-ups so a card still reads as a
+ * person at a third of the rail's width. Ordered so the first screenful on
+ * desktop shows one of each treatment, and each card links through to the
+ * gallery it came from.
+ */
+const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
+  [
+    ["upper", 1], ["lower", 8], ["ptosis", 8],
+    ["upper", 2], ["lower", 10], ["ptosis", 12],
+    ["upper", 8], ["lower", 2], ["ptosis", 17],
+    ["lower", 24],
+  ] as const
+).map(([set, index]) => {
+  const meta = {
+    upper: {
+      treatment: "Upper Blepharoplasty",
+      file: "upper-blepharoplasty-ba",
+      href: "/before-after/upper-blepharoplasty",
+    },
+    lower: {
+      treatment: "Lower Blepharoplasty",
+      file: "lower-blepharoplasty-ba",
+      href: "/before-after/lower-blepharoplasty-eyebag-removal",
+    },
+    ptosis: {
+      treatment: "Ptosis Surgery",
+      file: "ptosis-surgery-ba",
+      href: "/before-after/ptosis-surgery",
+    },
+  }[set];
+
+  return {
+    treatment: meta.treatment,
+    image: `/${meta.file}-${index}.png`,
+    alt: `${meta.treatment} before and after, case ${index}, by Dr Sabrina Shah-Desai`,
+    href: meta.href,
+  };
+});
+
+/**
  * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
  * in step with the treatment pages if either side changes.
  */
@@ -256,6 +298,45 @@ function Stars() {
   );
 }
 
+/* Global patient network artwork. The alt text carries the three figures the
+   graphic states, because they are the only content in it a screen reader
+   would otherwise miss entirely. */
+const REACH_ALT =
+  "World map of Perfect Eyes patients: 60+ countries, 1,000+ international patients, a global patient network.";
+
+const REACH_SIZES = "(min-width: 1280px) 1232px, 92vw";
+
+const {
+  props: { srcSet: reachWideSrcSet, sizes: reachWideSizes },
+} = getImageProps({
+  alt: REACH_ALT,
+  src: "/global-patient-network.png",
+  width: 1672,
+  height: 941,
+  sizes: REACH_SIZES,
+});
+const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
+
+/* The phone crop is the <img> fallback. Its width and height attributes are
+   dropped deliberately: the two crops have different aspect ratios, and those
+   attributes would pin the tall one's ratio to the wide <source> as well,
+   squashing it on desktop. The ratio is reserved in CSS instead, at the same
+   700px breakpoint, so there is still no layout shift. */
+const { props: reachNarrowProps } = getImageProps({
+  alt: REACH_ALT,
+  src: "/global-patient-network-mobile.png",
+  width: 941,
+  height: 1672,
+  sizes: REACH_SIZES,
+});
+const reachNarrow = {
+  src: reachNarrowProps.src,
+  srcSet: reachNarrowProps.srcSet,
+  sizes: reachNarrowProps.sizes,
+  loading: reachNarrowProps.loading,
+  decoding: reachNarrowProps.decoding,
+};
+
 export default function HomePage() {
   return (
     <div className={styles.home}>
@@ -286,45 +367,52 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <dl className={styles.trust}>
-              <div className={`${styles.trustItem} ${styles.trustItemRating}`}>
-                <dt className="sr-only">Google rating</dt>
-                <dd className={styles.googleCard}>
-                  <GoogleMark className={styles.googleMark} />
-                  <span className={styles.googleScore}>4.9</span>
-                  <span className={styles.googleDetail}>
+            {/* The Tatler lockup is the tallest thing here and cannot be made
+                shorter without its smallest line going illegible, so the three
+                text signals are set to stack to roughly its height and sit
+                beside it. Each is one line — strong value, quiet qualifier —
+                rather than the two-line label-over-value pairs they were,
+                which is what made this block so tall. */}
+            <div className={styles.credentials}>
+              <figure className={styles.press}>
+                <Image
+                  src="/as-seen-in-tatler.png"
+                  alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
+                  width={1536}
+                  height={1024}
+                  className={styles.pressLogo}
+                />
+              </figure>
+
+              <dl className={styles.trust}>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Google rating</dt>
+                  <dd className={styles.trustValue}>
+                    <GoogleMark className={styles.googleMark} />
+                    <span className={styles.trustStrong}>4.9</span>
                     <Stars />
-                    <span className={styles.googleCount}>
+                    <span className={styles.trustMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ Google reviews
+                      230+ reviews
                     </span>
-                  </span>
-                </dd>
-              </div>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>25+ years</dt>
-                <dd className={styles.trustValue}>Surgical experience</dd>
-              </div>
-              <div className={styles.trustItem}>
-                <dt className={styles.trustLabel}>GMC &middot; RCOphth</dt>
-                <dd className={styles.trustValue}>Registered &amp; accredited</dd>
-              </div>
-              <div className={`${styles.trustItem} ${styles.trustItemPress}`}>
-                <dt className={styles.trustLabel}>As featured in</dt>
-                <dd className={styles.trustValue}>
-                  {/* The masthead is white-on-black, so against the light hero
-                      corner it reads as a solid tile — rounded in CSS so that
-                      lands as a deliberate badge. */}
-                  <Image
-                    src="/tatler-logo.png"
-                    alt="Tatler"
-                    width={2172}
-                    height={724}
-                    className={styles.pressLogo}
-                  />
-                </dd>
-              </div>
-            </dl>
+                  </dd>
+                </div>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Surgical experience</dt>
+                  <dd className={styles.trustValue}>
+                    <span className={styles.trustStrong}>25+ years</span>
+                    <span className={styles.trustMeta}>surgical experience</span>
+                  </dd>
+                </div>
+                <div className={styles.trustItem}>
+                  <dt className="sr-only">Registration</dt>
+                  <dd className={styles.trustValue}>
+                    <span className={styles.trustStrong}>GMC &middot; RCOphth</span>
+                    <span className={styles.trustMeta}>registered &amp; accredited</span>
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </div>
       </section>
@@ -397,7 +485,7 @@ export default function HomePage() {
 
       {/* ── 8. VIDEO TESTIMONIALS ─────────────────────────────────────────── */}
       <section
-        className={`${styles.section} ${styles.paper}`}
+        className={`${styles.section} ${styles.tint}`}
         aria-labelledby="videos-title"
       >
         <div className="container">
@@ -417,7 +505,7 @@ export default function HomePage() {
             <Reveal delay={0}>
               <VideoCard
                 thumbnailSrc="/uploads/2025/03/Perfect-Eyes.png"
-                title="A Happy Perfect Eyes Clinic's Patient"
+                title="A Perfect Eyes Clinic's Patient"
                 videoUrl="https://www.youtube.com/watch?v=gBKI4fAK7wk"
               />
             </Reveal>
@@ -444,7 +532,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
+      {/* ── 9. BEFORE AND AFTER GALLERY ───────────────────────────────────── */}
+      <section className={styles.section} aria-labelledby="results-title">
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>Real results</span>
+              <h2 id="results-title" className={styles.h2}>
+                Before and After Gallery
+              </h2>
+              <p className={styles.lead}>
+                A selection of eyelid surgery results by Dr Sabrina Shah-Desai. Individual
+                results vary; every case shown is a patient who consented to their photographs
+                being published.
+              </p>
+            </div>
+
+            <BeforeAfterCarousel slides={BEFORE_AFTER_SLIDES} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── 10. GLOBAL PATIENT NETWORK ────────────────────────────────────── */}
+      <section
+        className={styles.section}
+        aria-labelledby="reach-title"
+      >
+        <div className="container">
+          <Reveal>
+            <div className={styles.head}>
+              <h2 id="reach-title" className={styles.h2}>
+                Trusted by patients worldwide
+              </h2>
+              <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <figure className={styles.reachFigure}>
+              {/* The map itself is the link. Its alt text describes the
+                  artwork rather than the destination, so the link carries its
+                  own aria-label instead of being announced as "60+ countries…" */}
+              <Link
+                href="/international-patients"
+                className={styles.reachFrame}
+                aria-label="International patients: travelling to London for treatment"
+              >
+                {/* Two crops of the same artwork — a wide map for tablet and
+                    desktop, a tall one for phones. Swapped with <picture>
+                    rather than two <Image>s toggled by CSS: display:none does
+                    not stop an <img> downloading, so the CSS route would cost
+                    every visitor both files. getImageProps still gives each
+                    source the optimiser's srcset. */}
+                <picture>
+                  <source media="(min-width: 700px)" srcSet={reachWide.srcSet} sizes={reachWide.sizes} />
+                  <img {...reachNarrow} alt={REACH_ALT} className={styles.reachImg} />
+                </picture>
+              </Link>
+            </figure>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── 11. CLINIC TEAM ───────────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.team}`}
         aria-labelledby="team-title"
@@ -479,22 +629,22 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
+      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
       <Reveal>
         <BeginJourney />
       </Reveal>
 
-      {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
+      {/* ── 13. FAQ ───────────────────────────────────────────────────────── */}
       <Reveal>
         <HomeFaq items={HOME_FAQ} />
       </Reveal>
 
-      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
+      {/* ── 14. CONTACT ───────────────────────────────────────────────────── */}
       <Reveal>
         <ContactSection />
       </Reveal>
 
-      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      {/* ── 15. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>

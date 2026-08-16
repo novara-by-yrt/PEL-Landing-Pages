@@ -6,6 +6,7 @@ import {
   buildProductSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildMedicalConditionSchema,
 } from "@/lib/schema";
 import Link from "next/link";
 import { resolveHeroImage, ACCREDITATION_LOGOS } from "@/lib/page-utils";
@@ -15,7 +16,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
 import ContactSection from "@/components/home/ContactSection";
 import { PATIENT_STORIES } from "@/lib/reviews";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
   TreatmentOverview,
@@ -42,16 +43,22 @@ export async function generateMetadata({
   const { frontmatter } = post;
   const url = `${SITE_URL}/condition/${slug}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    post.content,
+  );
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title: metadataTitle(title),
+    description,
     robots: isNoIndex ? "noindex,nofollow" : "index,follow",
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       url,
       type: "website",
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description: frontmatter.seo?.og?.description || frontmatter.seo?.description || frontmatter.excerpt || "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],
@@ -93,6 +100,9 @@ export default async function ConditionPage({
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
   const productSchema = frontmatter.schema?.productSchemaNeeded ? buildProductSchema(frontmatter, url) : null;
   const faqSchema = frontmatter.faq?.length ? buildFaqSchema(frontmatter.faq, url, frontmatter.title) : null;
+  /* Ties the condition to Google's knowledge graph, per the pre-launch
+     SEO plan. */
+  const conditionSchema = buildMedicalConditionSchema(frontmatter, url);
 
   return (
     <>
@@ -100,6 +110,7 @@ export default async function ConditionPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(conditionSchema) }} />
       <div className="tp">
         <PageHero
           breadcrumbItems={breadcrumbItems}

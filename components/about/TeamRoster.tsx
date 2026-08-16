@@ -1,3 +1,4 @@
+import ContactSection from "@/components/home/ContactSection";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { TreatmentCTA } from "@/components/treatment/TreatmentCTA";
@@ -210,6 +211,7 @@ export function TeamRoster({
       </section>
 
       <TreatmentCTA />
+      <ContactSection />
     </div>
   );
 }

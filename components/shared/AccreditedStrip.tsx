@@ -5,11 +5,11 @@ type Logo = { src: string; alt: string; width?: number; height?: number; tile?: 
 
 const AWARD_LOGOS: Logo[] = [
   /* The supplied masthead is white-on-black, so on this light strip it reads
-     as a solid black tile rather than a bare wordmark — `.tatlerTile` rounds
-     its corners so that lands as a deliberate badge. Its true 2172x724
+     as a solid black tile rather than a bare wordmark — `.tile` rounds its
+     corners so that lands as a deliberate badge. Its true 1467x551
      dimensions let the marquee scale it on height without distorting the
      letterforms. */
-  { src: "/tatler-logo.png", alt: "Tatler", width: 2172, height: 724, tile: true },
+  { src: "/tatler-logo.png", alt: "Tatler", width: 1467, height: 551, tile: true },
   { src: "/uploads/2024/09/11.png", alt: "Award logo 1" },
   { src: "/uploads/2024/09/22.png", alt: "Award logo 2" },
   { src: "/uploads/2024/09/31.png", alt: "Award logo 3" },

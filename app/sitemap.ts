@@ -1,6 +1,7 @@
 import { getAllPosts, type PostFrontmatter } from "@/lib/mdx";
 import { isIndexable } from "@/lib/indexable";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
+import { getTotalPages } from "@/components/blog/BlogArchive";
 import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -45,6 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/publications`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/contact-cosmetic-eye-surgeon`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/international-patients`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/blepharoplasty-quiz`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/dr-sabrina-shah-desai/philosophy`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/dr-sabrina-shah-desai/non-surgical-terms-conditions`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
@@ -59,7 +61,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const beforeAfter = collection("before-after", (s) => `/before-after/${s}`, 0.6, "monthly");
   const conditions = collection("condition", (s) => `/condition/${s}`, 0.8, "monthly");
 
-  const all = [...staticRoutes, ...posts, ...pages, ...beforeAfter, ...conditions];
+  /* Paginated archive pages, /blog/page/2 onwards. Each is its own canonical
+     URL listing its own twelve posts, and together they are the only crawl
+     path from the site to every post past the first page. */
+  const blogPages: MetadataRoute.Sitemap = Array.from(
+    { length: Math.max(0, getTotalPages() - 1) },
+    (_, i) => ({
+      url: `${SITE_URL}/blog/page/${i + 2}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    }),
+  );
+
+  const all = [...staticRoutes, ...blogPages, ...posts, ...pages, ...beforeAfter, ...conditions];
 
   // Guard against a slug and a static route resolving to the same URL.
   const seen = new Set<string>();

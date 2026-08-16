@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/mdx";
 import { TpIcon, TreatmentCTA } from "@/components/treatment";
 import { BlogCard } from "@/components/blog/BlogCard";
+import ContactSection from "@/components/home/ContactSection";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -9,7 +10,7 @@ import styles from "./page.module.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "Case Studies - Thyroid Eye Disease, Blepharoplasty, Ptosis Repair, Skin Cancer & More | Perfect Eyes Ltd",
+  title: "Case Studies: Thyroid Eye Disease, Blepharoplasty & Ptosis Repair",
   description:
     "Case Studies - Thyroid Eye Disease, Blepharoplasty, Scarless droopy eyelid (ptosis) repair, Male Eyelid Lifts, Skin Cancer, Liquid Facelifts, Eyebag Surgery UK.",
   alternates: { canonical: `${SITE_URL}/case-studies` },
@@ -49,6 +50,7 @@ export default function CaseStudiesPage() {
       </section>
 
       <TreatmentCTA />
+      <ContactSection />
     </div>
   );
 }

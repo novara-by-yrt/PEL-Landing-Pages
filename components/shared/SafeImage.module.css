@@ -1,0 +1,21 @@
+/* Placeholder shown when an editorial image fails to load. Fills whatever box
+   the caller has already reserved, so nothing on the page moves. */
+.fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(150deg, var(--tp-lavender-100), var(--tp-lavender-050));
+  color: var(--tp-lavender-300);
+}
+
+.mark {
+  width: clamp(38px, 22%, 64px);
+  height: auto;
+}
+
+/* fill positions the image absolutely; the caller's container reserves the
+   ratio, so this only has to say how the photo sits inside it. */
+.img {
+  object-fit: cover;
+}

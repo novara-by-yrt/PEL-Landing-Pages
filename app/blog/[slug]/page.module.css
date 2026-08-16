@@ -36,3 +36,4 @@
 .tpFaqChev { flex-shrink: 0; color: var(--tp-indigo-700); transition: transform 220ms var(--tp-ease); }
 .tpFaqItem[open] .tpFaqChev { transform: rotate(90deg); }
 .tpFaqA { padding: 0 0 1.5rem; font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; }
+

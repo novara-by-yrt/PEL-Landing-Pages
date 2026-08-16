@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ContactSection from "@/components/home/ContactSection";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
   BeforeAfterGallery,
@@ -34,7 +35,10 @@ export async function generateMetadata({
   const url = `${SITE_URL}/before-after/${slug}`;
   const heading = pageTitle(frontmatter.title);
   return {
-    title: frontmatter.seo?.title || heading,
+    // Through the shared helpers, so a frontmatter title that already
+    // signs off with the brand (or the "- PEL" abbreviation) does not get a
+    // second one appended by the layout's title template.
+    title: metadataTitle(resolveTitle(frontmatter.seo?.title, heading)),
     description:
       frontmatter.seo?.description ||
       frontmatter.galleryDescription ||
@@ -90,11 +94,16 @@ export default async function BeforeAfterCasePage({
           lead={frontmatter.intro?.replace(/<[^>]+>/g, "")}
         />
 
+        {/* No heading block: on this page the hero directly above already says
+            "<Treatment> Before and After" and "See the <Treatment> before and
+            after results below", which the gallery head then restated almost
+            word for word. The frontmatter still carries galleryHeading and
+            galleryDescription — generateMetadata uses the description as the
+            page description — so nothing is deleted, just not shown twice. */}
         <BeforeAfterGallery
           gallery={frontmatter.gallery}
-          heading={frontmatter.galleryHeading}
-          description={frontmatter.galleryDescription}
           title={frontmatter.title}
+          showHead={false}
         />
 
         <TreatmentExpert />
@@ -102,6 +111,7 @@ export default async function BeforeAfterCasePage({
         <BeforeAfterNav items={navItems} currentSlug={slug} />
 
         <TreatmentCTA />
+        <ContactSection />
       </div>
     </>
   );

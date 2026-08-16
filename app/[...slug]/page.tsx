@@ -7,6 +7,8 @@ import {
   buildProductSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildMedicalProcedureSchema,
+  buildPhysicianSchema,
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
@@ -21,11 +23,10 @@ import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
-  TreatmentFactBar,
   TreatmentAdvantages,
   TreatmentOverview,
   TreatmentContent,
@@ -35,7 +36,6 @@ import {
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
-  TreatmentReviews,
   RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
@@ -114,9 +114,16 @@ export async function generateMetadata({
   const url = `${SITE_URL}/${canonicalPath}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
 
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    page.content,
+  );
+
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title: metadataTitle(title),
+    description,
     robots: isNoIndex ? "noindex,nofollow" : "index,follow",
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
@@ -124,12 +131,8 @@ export async function generateMetadata({
         ? (frontmatter.seo?.og?.type as "website" | "article")
         : "website"),
       url,
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description:
-        frontmatter.seo?.og?.description ||
-        frontmatter.seo?.description ||
-        frontmatter.excerpt ||
-        "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],
@@ -178,12 +181,23 @@ export default async function CatchAllPageRoute({
     ? buildFaqSchema(frontmatter.faq, url, frontmatter.title)
     : null;
 
+  /* Medical entity markup, per the pre-launch SEO plan: a MedicalProcedure on
+     every treatment page (the highest-impact one for procedure searches), and
+     the Physician record on the surgeon's own page. */
+  const procedureSchema = treatment
+    ? buildMedicalProcedureSchema(frontmatter, url, treatment.glance)
+    : null;
+  const physicianSchema =
+    fileSlug === "dr-sabrina-shah-desai" ? buildPhysicianSchema() : null;
+
   const schemas = (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
+      {procedureSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }} />}
+      {physicianSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }} />}
     </>
   );
 
@@ -254,6 +268,7 @@ function TreatmentPage({
           siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
+          glance={treatment.glance}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
@@ -261,7 +276,6 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
-        <TreatmentFactBar glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
@@ -297,7 +311,11 @@ function TreatmentPage({
           pricingLead={treatment.pricingLead}
         />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
-        <TreatmentReviews reviews={treatment.reviews} />
+        {/* The shared reviews rail, same as every other page — replaces the
+            treatment-only "Patient Reviews" grid, which showed a different,
+            RealSelf-sourced set of quotes per treatment and so contradicted
+            the one set of reviews the rest of the site shows. */}
+        <PatientStories />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />

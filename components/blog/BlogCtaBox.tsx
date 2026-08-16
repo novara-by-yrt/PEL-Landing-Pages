@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./BlogCtaBox.module.css";
+import SafeImage from "@/components/shared/SafeImage";
 
 interface BlogCtaBoxProps {
   image?: string;
@@ -24,7 +25,7 @@ export function BlogCtaBox({
   return (
     <div className={styles.blogCtaBox}>
       <div className={styles.blogCtaImg}>
-        <img src={image} alt="" />
+        <SafeImage src={image} alt="" sizes="(max-width: 700px) 40vw, 220px" />
       </div>
       <div>
         <h4>{title}</h4>
