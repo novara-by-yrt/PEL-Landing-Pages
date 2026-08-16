@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
+import BeforeAfterCarousel, { type BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
 import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
@@ -175,6 +176,47 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
 ];
 
 
+
+/**
+ * Ten cases pulled from the three eyelid-surgery galleries, weighted towards
+ * full-face frames rather than eye close-ups so a card still reads as a
+ * person at a third of the rail's width. Ordered so the first screenful on
+ * desktop shows one of each treatment, and each card links through to the
+ * gallery it came from.
+ */
+const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
+  [
+    ["upper", 1], ["lower", 8], ["ptosis", 8],
+    ["upper", 2], ["lower", 10], ["ptosis", 12],
+    ["upper", 8], ["lower", 2], ["ptosis", 17],
+    ["lower", 24],
+  ] as const
+).map(([set, index]) => {
+  const meta = {
+    upper: {
+      treatment: "Upper Blepharoplasty",
+      file: "upper-blepharoplasty-ba",
+      href: "/before-after/upper-blepharoplasty",
+    },
+    lower: {
+      treatment: "Lower Blepharoplasty",
+      file: "lower-blepharoplasty-ba",
+      href: "/before-after/lower-blepharoplasty-eyebag-removal",
+    },
+    ptosis: {
+      treatment: "Ptosis Surgery",
+      file: "ptosis-surgery-ba",
+      href: "/before-after/ptosis-surgery",
+    },
+  }[set];
+
+  return {
+    treatment: meta.treatment,
+    image: `/${meta.file}-${index}.png`,
+    alt: `${meta.treatment} before and after, case ${index}, by Dr Sabrina Shah-Desai`,
+    href: meta.href,
+  };
+});
 
 /**
  * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
@@ -490,7 +532,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 9. GLOBAL PATIENT NETWORK ─────────────────────────────────────── */}
+      {/* ── 9. BEFORE AND AFTER GALLERY ───────────────────────────────────── */}
+      <section className={styles.section} aria-labelledby="results-title">
+        <Reveal>
+          <div className="container">
+            <div className={styles.head}>
+              <span className={styles.eyebrow}>Real results</span>
+              <h2 id="results-title" className={styles.h2}>
+                Before and After Gallery
+              </h2>
+              <p className={styles.lead}>
+                A selection of eyelid surgery results by Dr Sabrina Shah-Desai. Individual
+                results vary; every case shown is a patient who consented to their photographs
+                being published.
+              </p>
+            </div>
+
+            <BeforeAfterCarousel slides={BEFORE_AFTER_SLIDES} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── 10. GLOBAL PATIENT NETWORK ────────────────────────────────────── */}
       <section
         className={styles.section}
         aria-labelledby="reach-title"
@@ -531,7 +594,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 10. CLINIC TEAM ───────────────────────────────────────────────── */}
+      {/* ── 11. CLINIC TEAM ───────────────────────────────────────────────── */}
       <section
         className={`${styles.section} ${styles.team}`}
         aria-labelledby="team-title"
@@ -566,22 +629,22 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── 11. CLOSING CTA ───────────────────────────────────────────────── */}
+      {/* ── 12. CLOSING CTA ───────────────────────────────────────────────── */}
       <Reveal>
         <BeginJourney />
       </Reveal>
 
-      {/* ── 12. FAQ ───────────────────────────────────────────────────────── */}
+      {/* ── 13. FAQ ───────────────────────────────────────────────────────── */}
       <Reveal>
         <HomeFaq items={HOME_FAQ} />
       </Reveal>
 
-      {/* ── 13. CONTACT ───────────────────────────────────────────────────── */}
+      {/* ── 14. CONTACT ───────────────────────────────────────────────────── */}
       <Reveal>
         <ContactSection />
       </Reveal>
 
-      {/* ── 14. VAT DISCLAIMER ────────────────────────────────────────────── */}
+      {/* ── 15. VAT DISCLAIMER ────────────────────────────────────────────── */}
       <div className={styles.vat}>
         <div className="container">
           <p className={styles.vatText}>
