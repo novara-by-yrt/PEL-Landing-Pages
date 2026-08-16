@@ -10,7 +10,15 @@ author:
 seo:
   title: "Wellness & Skin Optimisation"
   description: ""
+  # Migration leftover: an empty WordPress grouping page. With no body of its
+  # own the treatment template renders only its generic furniture, so these
+  # four hub URLs come out 99.6-99.9% identical to each other — the heading is
+  # the only thing that differs. Four near-duplicate pages compete with each
+  # other and with the real treatment pages they were meant to introduce, so
+  # they stay reachable and keep passing link equity, but out of the index and
+  # (via the sitemap's isIndexable filter) out of the sitemap.
   robots:
-    - "index"
+    - "noindex"
+    - "follow"
 ---
 

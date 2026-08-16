@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { splitContentForMidArticleCta } from "@/lib/blogContent";
@@ -14,7 +13,8 @@ import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogSidebarForm } from "@/components/forms/BlogSidebarForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
+import SafeImage from "@/components/shared/SafeImage";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -40,9 +40,16 @@ export async function generateMetadata({
   const robots = frontmatter.seo?.robots;
   const isNoIndex = robots?.includes("noindex");
 
+  const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
+  const description = resolveDescription(
+    frontmatter.seo?.description,
+    frontmatter.excerpt,
+    post.content,
+  );
+
   return {
-    title: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || frontmatter.excerpt || "",
+    title: metadataTitle(title),
+    description,
     keywords: frontmatter.seo?.focusKeyword
       ? [frontmatter.seo.focusKeyword]
       : undefined,
@@ -51,12 +58,8 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       url,
-      title: frontmatter.seo?.og?.title || frontmatter.seo?.title || frontmatter.title,
-      description:
-        frontmatter.seo?.og?.description ||
-        frontmatter.seo?.description ||
-        frontmatter.excerpt ||
-        "",
+      title: resolveTitle(frontmatter.seo?.og?.title, title),
+      description: frontmatter.seo?.og?.description || description,
       images: frontmatter.featuredImage
         ? [{ url: `${SITE_URL}${frontmatter.featuredImage}` }]
         : [DEFAULT_OG_IMAGE],
@@ -170,13 +173,11 @@ export default async function BlogPostPage({
           <article className={styles.blogMain}>
             {frontmatter.featuredImage && (
               <div className={styles.blogFeaturedImg}>
-                <Image
+                <SafeImage
                   src={frontmatter.featuredImage}
                   alt={frontmatter.title}
-                  fill
-                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 960px) 100vw, 760px"
                   priority
-                  sizes="(max-width: 960px) 100vw, 70ch"
                 />
               </div>
             )}

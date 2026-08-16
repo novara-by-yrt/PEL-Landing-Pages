@@ -40,7 +40,10 @@ export default function CookieConsent() {
         <p className={styles.text}>
           We use cookies to run this site and, with your consent, to understand how it&rsquo;s
           used. See our{" "}
-          <Link href="/privacy-notice-1" className={styles.link}>
+          {/* The live notice, not the superseded /privacy-notice-1 draft this
+              pointed at — this is the one link a consent banner has to get
+              right. */}
+          <Link href="/privacy-notice" className={styles.link}>
             privacy notice
           </Link>{" "}
           for details.

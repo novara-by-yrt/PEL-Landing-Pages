@@ -1,5 +1,5 @@
-"use client";
-
+import type { Metadata } from "next";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC } from "@/lib/clinic";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -8,6 +8,29 @@ import BookAppointmentForm from "@/components/forms/BookAppointmentForm";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+
+/**
+ * The contact page carried `"use client"` while needing no client API of its
+ * own — the interactive part is BookAppointmentForm, which declares its own
+ * boundary. A client component cannot export `metadata`, so the clinic's main
+ * enquiry page had no title, description or canonical and inherited the
+ * site-wide defaults instead. Dropping the directive costs nothing at runtime
+ * and lets the page describe itself.
+ */
+export const metadata: Metadata = {
+  title: "Contact the Clinic",
+  description:
+    "Contact Perfect Eyes Ltd on Harley Street, London. Book a consultation for eyelid surgery, tear trough fillers or periocular treatment.",
+  alternates: { canonical: `${SITE_URL}/contact` },
+  openGraph: {
+    url: `${SITE_URL}/contact`,
+    type: "website",
+    title: "Contact Perfect Eyes Ltd | Harley Street, London",
+    description:
+      "Book a consultation for eyelid surgery, tear trough fillers or periocular treatment with our oculoplastic team on Harley Street.",
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
 
 const WHY_CHOOSE_US = [
   { icon: "shield", title: "CQC Regulated", body: "All treatments are performed in a fully CQC-regulated environment for your safety." },

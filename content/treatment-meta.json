@@ -22,7 +22,7 @@
         "value": "Day Case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "2-3 Weeks"
       },
       {
@@ -152,7 +152,7 @@
         "value": "Day Case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 3-4 weeks"
       },
       {
@@ -289,7 +289,7 @@
         "value": "Day case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 3-4 weeks"
       },
       {
@@ -415,7 +415,7 @@
         "value": "Day case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 4 weeks"
       },
       {
@@ -616,7 +616,7 @@
         "value": "Day case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 4 weeks"
       },
       {
@@ -901,7 +901,7 @@
         "value": "Outpatient"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 1 day"
       },
       {
@@ -1028,7 +1028,7 @@
         "value": "30 Mins"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 2 days"
       },
       {
@@ -1143,7 +1143,7 @@
         "value": "Outpatient"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "after 2 weeks"
       },
       {
@@ -1257,7 +1257,7 @@
         "value": "Day Case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 4 Weeks"
       },
       {
@@ -1374,7 +1374,7 @@
         "value": "None"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 1-2 days"
       },
       {
@@ -1489,7 +1489,7 @@
         "value": "Outpatient"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 7–10 days"
       },
       {
@@ -1604,7 +1604,7 @@
         "value": "Day Case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "24 Hours"
       },
       {
@@ -1718,7 +1718,7 @@
         "value": "Day case"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "24–72 hours"
       },
       {
@@ -1835,7 +1835,7 @@
         "value": "Outpatient"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "Immediately"
       },
       {
@@ -1957,7 +1957,7 @@
         "value": "Outpatient"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "Immediately"
       },
       {
@@ -2189,7 +2189,7 @@
         "value": "None"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 1 day"
       },
       {
@@ -2901,7 +2901,7 @@
         "value": "None"
       },
       {
-        "label": "Excercise",
+        "label": "Exercise",
         "value": "After 1 Day"
       },
       {
@@ -3296,7 +3296,7 @@
       { "label": "Driving", "value": "After 3–10 days" },
       { "label": "Anaesthesia", "value": "Local" },
       { "label": "Hospital stay", "value": "Outpatient" },
-      { "label": "Excercise", "value": "After 2–6 weeks" },
+      { "label": "Exercise", "value": "After 2–6 weeks" },
       { "label": "Final Results", "value": "5–7 Years" },
       { "label": "Down time", "value": "2 Weeks" }
     ],
@@ -3396,7 +3396,7 @@
       { "label": "Driving", "value": "After 24 Hours" },
       { "label": "Anaesthesia", "value": "Not required" },
       { "label": "Hospital stay", "value": "Outpatient" },
-      { "label": "Excercise", "value": "After 24 Hours" },
+      { "label": "Exercise", "value": "After 24 Hours" },
       { "label": "Final results", "value": "Gradual improvement with each session" },
       { "label": "Pre admission tests", "value": "None" },
       { "label": "Addresses", "value": "Hooded and puffy eyes" },
@@ -3500,7 +3500,7 @@
       { "label": "Driving", "value": "After 24 hours" },
       { "label": "Anaesthesia", "value": "Topical" },
       { "label": "Hospital stay", "value": "None" },
-      { "label": "Excercise", "value": "After 24 hours" },
+      { "label": "Exercise", "value": "After 24 hours" },
       { "label": "Final results", "value": "Up to a year or more after a course of 4–6 treatments" },
       { "label": "Pre admission tests", "value": "None" },
       { "label": "Addresses", "value": "Periocular textural change, post-inflammatory pigmentation, and fine surface irregularities" }
@@ -3654,7 +3654,7 @@
       { "label": "Return to Work", "value": "After 1 day" },
       { "label": "Anaesthesia", "value": "Topical" },
       { "label": "Hospital stay", "value": "None" },
-      { "label": "Excercise", "value": "After 1 week" },
+      { "label": "Exercise", "value": "After 1 week" },
       { "label": "Final results", "value": "After a session of 2–4 treatments" },
       { "label": "Pre admission tests", "value": "None" },
       { "label": "Addresses", "value": "Under eye puffiness, hooding, fine lines" },
@@ -3919,7 +3919,7 @@
       { "label": "Driving", "value": "2 Weeks" },
       { "label": "Anaesthesia", "value": "General or twilight" },
       { "label": "Hospital stay", "value": "Outpatient" },
-      { "label": "Excercise", "value": "2 Weeks" },
+      { "label": "Exercise", "value": "2 Weeks" },
       { "label": "Final Results", "value": "7–10 Years" },
       { "label": "Pre admission tests", "value": "Yes" },
       { "label": "Addresses", "value": "Malar bags or festoons" },
@@ -4020,7 +4020,7 @@
       { "label": "Driving", "value": "After 24 hours" },
       { "label": "Anaesthesia", "value": "Topical" },
       { "label": "Hospital stay", "value": "None" },
-      { "label": "Excercise", "value": "After 24 hours" },
+      { "label": "Exercise", "value": "After 24 hours" },
       { "label": "Final Results", "value": "Up to a year or more after a course of 4–6 treatments" },
       { "label": "Pre admission tests", "value": "None" },
       { "label": "Addresses", "value": "Periocular textural change, post-inflammatory pigmentation, and fine surface irregularities" },

@@ -1,0 +1,503 @@
+/* International patients.
+
+   Mobile-first: one column everywhere, widening at 640px and 1000px. The
+   hero, section header and card treatments deliberately mirror the results
+   index and the home page rather than inventing a third look — every colour
+   comes from the semantic --tp-* tokens, so this page moves with them. */
+
+.page {
+  background: var(--tp-paper);
+  color: var(--tp-slate);
+  font-family: var(--tp-body);
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────
+   The same dark band the team page opens with — PageHero's gradient over the
+   shared background photograph — rather than a second dark treatment invented
+   for this page. Reproduced here rather than swapping in <PageHero> because
+   that component takes no stats row and no call-to-action pair.            */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(48px, 8vw, 88px);
+  color: #fff;
+  background:
+    linear-gradient(160deg, rgba(18, 16, 54, 0.92), rgba(69, 61, 155, 0.85)),
+    url("/uploads/2024/07/blog-bg.jpg") center / cover no-repeat;
+}
+.heroGlow {
+  position: absolute;
+  top: -180px;
+  right: -100px;
+  z-index: -1;
+  width: 520px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(188, 160, 221, 0.32), transparent 70%);
+  pointer-events: none;
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-caption);
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
+.crumbs a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-300);
+  margin-bottom: 16px;
+}
+
+.heroTitle {
+  font-family: var(--tp-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 7vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.heroLead {
+  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  line-height: var(--lh-relaxed);
+  color: rgba(255, 255, 255, 0.82);
+  margin: 20px 0 0;
+  max-width: 56ch;
+}
+
+/* ── Credibility row ────────────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: clamp(32px, 5vw, 48px) 0 0;
+  padding-top: clamp(28px, 4vw, 36px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+/* Column, not just a block: "International patients" wraps to two lines on a
+   phone while "Countries" does not, and without this the figures in a row sit
+   at different heights. The label takes the slack so the numbers line up. */
+.stat {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.stat .statLabel {
+  flex: 1;
+}
+.statLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  margin-bottom: 7px;
+}
+.statValue {
+  margin: 0;
+  font-family: var(--tp-display);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+}
+.statRating {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.googleMark {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.googleMark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+@media (min-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ── Shared section frame ───────────────────────────────────────────────── */
+.section {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+.tint {
+  background: var(--tp-lavender-050);
+}
+
+.head {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.sectionEyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin-bottom: 14px;
+}
+.h2 {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.lead {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 16px auto 0;
+  max-width: 58ch;
+}
+.rule {
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+  margin: 18px 0 0;
+}
+.head .rule {
+  margin-inline: auto;
+}
+
+/* ── Reason cards ───────────────────────────────────────────────────────── */
+.cardGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.cardItem {
+  min-width: 0;
+}
+/* Reveal wraps each card in a div, so the card has to fill that wrapper for
+   the grid's equal-height rows to reach it. */
+.cardItem > *,
+.cardItem > * > .card {
+  height: 100%;
+}
+/* Deep-indigo cards on the page's white section — the same dark band the hero
+   and the FAQ edge boxes use, so this reads as the page's third appearance of
+   one treatment rather than a new one. The lit corner and the top hairline are
+   what stop a flat block of navy looking like a placeholder. */
+.card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100%;
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 105% at 0% 0%, rgba(188, 160, 221, 0.13), transparent 58%),
+    linear-gradient(155deg, var(--tp-indigo-900), var(--tp-indigo-800) 64%, #262372);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 16px 38px -22px rgba(18, 16, 54, 0.75);
+  transition:
+    transform var(--duration) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out),
+    border-color var(--duration) var(--ease-out);
+}
+/* A lit top edge, brightest where the corner glow is. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(188, 160, 221, 0.6),
+    rgba(188, 160, 221, 0.18) 55%,
+    transparent
+  );
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(188, 160, 221, 0.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 26px 52px -24px rgba(18, 16, 54, 0.85);
+  }
+}
+.cardIcon,
+.timelineIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--tp-indigo-700);
+  background: var(--tp-lavender-100);
+}
+/* Overrides the shared light-surface icon treatment above for the dark card. */
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  color: var(--tp-lavender-300);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.cardTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.125rem, 2.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: #fff;
+  margin: 0 0 10px;
+}
+/* Scoped to the card: .cardText is shared with the itinerary section, which
+   stays on its light surface. The corner glow is kept weak enough that
+   lavender-200 clears 4.5:1 against the lightest point of the card, not just
+   against the darkest. */
+.card .cardText {
+  color: var(--tp-lavender-200);
+}
+.cardText {
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-slate);
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .cardGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ── Itinerary ──────────────────────────────────────────────────────────── */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  counter-reset: leg;
+}
+.timelineItem {
+  min-width: 0;
+}
+.timelineItem > *,
+.timelineItem > * > .timelineCard {
+  height: 100%;
+}
+.timelineCard {
+  position: relative;
+  height: 100%;
+  padding: clamp(22px, 3vw, 28px);
+  padding-top: clamp(26px, 3.5vw, 32px);
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--shadow-sm);
+}
+/* The leg number is decoration — the list is already ordered, and reading
+   "1" twice helps nobody. */
+.timelineCard::before {
+  counter-increment: leg;
+  content: counter(leg);
+  position: absolute;
+  top: clamp(22px, 3vw, 28px);
+  right: clamp(22px, 3vw, 28px);
+  font-family: var(--tp-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-lavender-100);
+}
+.timelineIcon {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 14px;
+}
+.timelineStep {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 6px;
+}
+.timelineTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 2.4vw, 1.1875rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--tp-ink);
+  margin: 0 0 10px;
+  /* Clear of the counter sitting in the top-right corner. */
+  padding-right: 40px;
+}
+
+@media (min-width: 700px) {
+  .timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+@media (min-width: 1100px) {
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ── What the consultation covers ─────────────────────────────────────────
+   Five steps on a rail. Across one row from 1000px up, stacked into a single
+   column with the rail turned vertical below that — five columns of wrapped
+   text on a tablet would be four words wide.
+
+   The panel's gradient runs from the brand tint into paper, so the numbered
+   markers read against tint at the top and the text settles into paper.    */
+.coversPanel {
+  border: 1px solid var(--tp-hairline);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(158deg, var(--tp-lavender-050), var(--tp-paper) 62%);
+  box-shadow: var(--shadow-lg);
+  padding: clamp(24px, 4vw, 56px);
+}
+
+.checkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Held in a custom property because the rail below has to span exactly one
+     gap to reach the next marker. */
+  --gap: clamp(22px, 3vw, 30px);
+  gap: var(--gap);
+}
+
+.checkItem {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: var(--marker) 1fr;
+  align-items: start;
+  /* Not just align-items: the grid stretches every item to the tallest, and
+     align-content defaults to stretch, which hands that spare height to the
+     auto rows. Without this the shortest item's text sits ~13px below its
+     neighbours' on the desktop row. */
+  align-content: start;
+  gap: 16px;
+  --marker: 46px;
+}
+
+/* The rail. Drawn per item rather than as one line behind the list, so it
+   stops at the last marker instead of running past it. */
+.checkItem:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--marker) / 2 - 1px);
+  top: var(--marker);
+  bottom: calc(var(--gap) * -1);
+  width: 2px;
+  background: linear-gradient(180deg, var(--tp-lavender-200), rgba(216, 204, 238, 0));
+}
+
+.checkMarker {
+  display: grid;
+  place-items: center;
+  width: var(--marker);
+  height: var(--marker);
+  border-radius: var(--radius-full);
+  font-family: var(--tp-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: linear-gradient(150deg, var(--tp-indigo-700), var(--tp-lavender-400));
+  /* Lifts the marker off both halves of the panel gradient. */
+  box-shadow: 0 6px 16px -8px rgb(44 42 122 / 70%);
+}
+
+.checkText {
+  margin: 0;
+  /* Optically centres the first line against the marker beside it. */
+  padding-top: 11px;
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  color: var(--tp-ink);
+  text-wrap: pretty;
+}
+
+@media (min-width: 1000px) {
+  .checkList {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    --gap: clamp(20px, 2.5vw, 32px);
+  }
+  .checkItem {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  /* Rail goes horizontal, running from this marker to the next one. */
+  .checkItem:not(:last-child)::before {
+    left: var(--marker);
+    right: calc(var(--gap) * -1);
+    top: calc(var(--marker) / 2 - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--tp-lavender-200), rgba(216, 204, 238, 0.35));
+  }
+  .checkText {
+    padding-top: 0;
+    font-size: 0.9375rem;
+  }
+}

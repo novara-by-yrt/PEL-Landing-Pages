@@ -1,13 +1,11 @@
 export { TreatmentHero } from "./TreatmentHero";
 export { PageHero } from "./PageHero";
-export { TreatmentFactBar } from "./TreatmentFactBar";
 export { TreatmentAdvantages } from "./TreatmentAdvantages";
 export { TreatmentContent } from "./TreatmentContent";
 export { TreatmentOverview } from "./TreatmentOverview";
 export { TreatmentExpert } from "./TreatmentExpert";
 export { TreatmentPricing } from "./TreatmentPricing";
 export { TreatmentFAQ } from "./TreatmentFAQ";
-export { TreatmentReviews } from "./TreatmentReviews";
 export { RealSelfWidget } from "./RealSelfWidget";
 export { TreatmentSimilar } from "./TreatmentSimilar";
 export { TreatmentSpotlight } from "./TreatmentSpotlight";

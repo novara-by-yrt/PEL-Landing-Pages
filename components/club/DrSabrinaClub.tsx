@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ContactSection from "@/components/home/ContactSection";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./DrSabrinaClub.module.css";
 
@@ -243,6 +244,8 @@ export function DrSabrinaClub() {
           </div>
         </div>
       </section>
+
+      <ContactSection />
 
       {joinOpen && (
         <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Join Dr Sabrina Club">

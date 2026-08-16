@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Post } from "@/lib/mdx";
 import { excerptFrom } from "@/lib/blogContent";
+import SafeImage from "@/components/shared/SafeImage";
 import styles from "./BlogCard.module.css";
 
 export function BlogCard({ post }: { post: Post }) {
@@ -8,7 +9,11 @@ export function BlogCard({ post }: { post: Post }) {
     <Link href={`/blog/${post.slug}`} className={styles.tpBlogCard}>
       {post.frontmatter.featuredImage && (
         <div className={styles.tpBlogImg}>
-          <img src={post.frontmatter.featuredImage} alt={post.frontmatter.title} loading="lazy" />
+          <SafeImage
+            src={post.frontmatter.featuredImage}
+            alt={post.frontmatter.title}
+            sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+          />
         </div>
       )}
       <div className={styles.tpBlogBody}>

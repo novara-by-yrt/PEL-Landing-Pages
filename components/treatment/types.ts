@@ -16,6 +16,13 @@ export interface SimilarTreatmentItem {
   href?: string;
 }
 
+/**
+ * No longer rendered. The treatment template used to show these RealSelf
+ * quotes in a "Patient Reviews" grid; it now shows the site-wide reviews rail
+ * instead, so every page quotes the same patients. The shape and the data in
+ * content/treatment-meta.json are kept so nothing is lost and the JSON still
+ * typechecks — delete both together if the quotes are not wanted back.
+ */
 export interface ReviewItem {
   quote: string;
   href: string;

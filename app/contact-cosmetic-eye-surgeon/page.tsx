@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Ltd.",
+  title: "Contact Us for Any Queries",
   description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us Today!",
   alternates: { canonical: `${SITE_URL}/contact-cosmetic-eye-surgeon` },
   openGraph: {

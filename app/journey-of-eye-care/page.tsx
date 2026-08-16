@@ -11,7 +11,7 @@ const DESCRIPTION =
   "A lifelong, four-step approach to eye care: skincare, non-surgical treatments, surgery and long-term maintenance, guided by Dr Sabrina Shah-Desai.";
 
 export const metadata: Metadata = {
-  title: "The Journey of Eye Care | Perfect Eyes Ltd",
+  title: "The Journey of Eye Care",
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
