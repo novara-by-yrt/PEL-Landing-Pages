@@ -9,7 +9,7 @@ const DESCRIPTION =
   "Terms and conditions covering appointments, payment, refunds and complaints at Perfect Eyes Ltd and Perfect Skin Studio.";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Perfect Eyes Ltd",
+  title: "Terms & Conditions",
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {

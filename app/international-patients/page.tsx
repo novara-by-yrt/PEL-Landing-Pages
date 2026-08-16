@@ -18,7 +18,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 export const metadata: Metadata = {
   title: "International Patients — Travelling to London for Treatment",
   description:
-    "Patients fly in from more than 60 countries for eyelid and periocular surgery with Dr Sabrina Shah-Desai on Harley Street. How to plan the trip, what each visit covers and how long to stay.",
+    "Patients fly in from over 60 countries for eyelid and periocular surgery with Dr Sabrina Shah-Desai on Harley Street. How to plan the trip and stay.",
   alternates: { canonical: `${SITE_URL}/international-patients` },
   openGraph: {
     url: `${SITE_URL}/international-patients`,

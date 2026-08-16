@@ -1,5 +1,6 @@
 import { getAllPosts, type Post } from "@/lib/mdx";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
+import { getTotalPages } from "@/components/blog/BlogArchive";
 import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -52,12 +53,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    {
-      url: `${SITE_URL}/dr-sabrina-club`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    /* Deliberately absent: /dr-sabrina-club, which sets robots
+       "noindex,nofollow" in its own metadata. Listing a page in the sitemap
+       asks for it to be indexed, which is the contradiction the isIndexable
+       filter below exists to prevent for content-driven pages — hand-listed
+       routes have to honour the same rule by hand. */
     {
       url: `${SITE_URL}/dr-sabrina-shah-desai/philosophy`,
       lastModified: new Date(),
@@ -71,6 +71,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  /* Paginated archive pages. Each is its own canonical URL listing its own
+     twelve posts, so each is worth advertising — and they are the crawl path
+     to every post beyond the first page. */
+  const blogPages: MetadataRoute.Sitemap = Array.from(
+    { length: Math.max(0, getTotalPages() - 1) },
+    (_, i) => ({
+      url: `${SITE_URL}/blog/page/${i + 2}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    }),
+  );
 
   // Blog posts
   const posts = getAllPosts("posts").filter(isIndexable).map((post) => ({
@@ -109,7 +122,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      file, and two treatment slugs resolve to the same nested ultraclear path.
      Listing a URL twice is the same kind of contradiction as listing a
      noindex one, so the first entry wins and later duplicates drop out. */
-  const all = [...staticRoutes, ...posts, ...pages, ...beforeAfter, ...conditions];
+  const all = [...staticRoutes, ...blogPages, ...posts, ...pages, ...beforeAfter, ...conditions];
   const seen = new Set<string>();
   return all.filter((entry) => !seen.has(entry.url) && seen.add(entry.url));
 }

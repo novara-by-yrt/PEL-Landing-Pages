@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ContactSection from "@/components/home/ContactSection";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
   BeforeAfterGallery,
@@ -35,7 +35,10 @@ export async function generateMetadata({
   const url = `${SITE_URL}/before-after/${slug}`;
   const heading = pageTitle(frontmatter.title);
   return {
-    title: frontmatter.seo?.title || heading,
+    // Through the shared helpers, so a frontmatter title that already
+    // signs off with the brand (or the "- PEL" abbreviation) does not get a
+    // second one appended by the layout's title template.
+    title: metadataTitle(resolveTitle(frontmatter.seo?.title, heading)),
     description:
       frontmatter.seo?.description ||
       frontmatter.galleryDescription ||

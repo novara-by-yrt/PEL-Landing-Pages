@@ -13,7 +13,7 @@ import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogContactForm } from "@/components/blog/BlogContactForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
-import { DEFAULT_OG_IMAGE, resolveDescription, resolveTitle } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import SafeImage from "@/components/shared/SafeImage";
 import styles from "./page.module.css";
 
@@ -48,7 +48,7 @@ export async function generateMetadata({
   );
 
   return {
-    title,
+    title: metadataTitle(title),
     description,
     keywords: frontmatter.seo?.focusKeyword
       ? [frontmatter.seo.focusKeyword]

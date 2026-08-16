@@ -66,6 +66,22 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
 
+      /* The journal archive paginated on ?page=N before it paginated on a
+         path. Anything still holding a query-string URL lands on the page it
+         asked for rather than back at post one, and the two forms cannot
+         both accumulate ranking signal for the same twelve posts. */
+      {
+        source: "/blog",
+        has: [{ type: "query", key: "page", value: "(?<page>\\d+)" }],
+        destination: "/blog/page/:page",
+        permanent: true,
+      },
+
+      /* Page one is /blog, so /blog/page/1 is a second address for it. It is
+         a plausible enough thing to type — and to link — that answering with
+         a 404 helps nobody; it resolves to the one canonical form instead. */
+      { source: "/blog/page/1", destination: "/blog", permanent: true },
+
       // Posts and pages the migration re-slugged. The old URL is what the
       // live site publishes today and what every external link points at, so
       // each one 301s to the page that now carries the content.
