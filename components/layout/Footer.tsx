@@ -1,12 +1,28 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC, SOCIALS } from "@/lib/clinic";
 import styles from "./Footer.module.css";
+
+/** The clinic's own entry on the CQC register — the same location the home
+ *  page's "good rating in all 5 key areas" line points at. */
+const CQC_REGISTER_URL = "https://www.cqc.org.uk/location/1-5591490767";
+
+/**
+ * The CQC badge the treatment pages already use.
+ *
+ * ⚠️ It is served from /uploads, which rewrites to the WordPress origin — the
+ * origin this migration exists to switch off. Once the artwork is copied into
+ * public/ (or UPLOADS_ORIGIN is repointed at R2), change this to the local
+ * path. Until then the footer degrades to text alone rather than showing a
+ * broken image on every page of the site, which is what the onError below is
+ * for.
+ */
+const CQC_BADGE_SRC = "/uploads/2024/09/Frame-252.png";
 
 const QUICK_LINKS = [
   { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
@@ -64,6 +80,10 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const footerRef = useRef<HTMLElement>(null);
+  /* The badge lives on an origin that is on its way out; if it does not load,
+     the registration statement stands on its own rather than sitting beside a
+     broken image on every page. */
+  const [badgeFailed, setBadgeFailed] = useState(false);
 
   /* Publishes the footer's own rendered height as a CSS custom property, so
      #footer-spacer (layout-chrome.css) can reserve exactly that much scroll
@@ -197,6 +217,37 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
+          {/* Regulatory registration, next to the company number and the
+              legal links rather than up with the marketing — it is the same
+              kind of statement. Links out to the clinic's own entry on the
+              CQC register, so the claim can be checked rather than just read.
+
+              The badge sits on a white plate: it is the artwork the treatment
+              pages use, drawn for those pages' pale background, and the
+              footer is dark. The plate keeps it legible whatever its ink,
+              the same way the Google mark is handled on the dark review
+              cards. */}
+          <a
+            href={CQC_REGISTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.cqc}
+          >
+            {badgeFailed ? null : (
+              <span className={styles.cqcPlate}>
+                <Image
+                  src={CQC_BADGE_SRC}
+                  alt=""
+                  width={190}
+                  height={31}
+                  className={styles.cqcMark}
+                  onError={() => setBadgeFailed(true)}
+                />
+              </span>
+            )}
+            <span className={styles.cqcText}>CQC registered</span>
+          </a>
+
           <nav className={styles.legal} aria-label="Legal">
             {LEGAL_LINKS.map((item) => (
               <Link key={item.href} href={item.href} className={styles.legalLink}>
