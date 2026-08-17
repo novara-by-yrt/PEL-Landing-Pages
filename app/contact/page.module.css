@@ -17,11 +17,27 @@
 @media (max-width: 640px) { .contactFormRow { grid-template-columns: 1fr; } }
 .contactLabel { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); margin-bottom: 0.4rem; }
 .contactInput {
-  width: 100%; padding: 0.75rem 1rem; font-family: var(--tp-body); font-size: 0.9375rem;
+  width: 100%; padding: 0.75rem 1rem; font-family: var(--tp-body); font-size: 0.9375rem; line-height: 1.5;
   border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); background: var(--tp-fog);
   color: var(--tp-ink); outline: none; transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
+  box-sizing: border-box;
 }
 .contactInput:focus { border-color: var(--tp-lavender-400); background: #fff; }
+
+/* Native <select> chrome carries its own intrinsic height that padding alone
+   doesn't fully override, so it renders taller than the <input>s beside it
+   even though both share this exact class. appearance: none hands sizing
+   back to this stylesheet like any other control; the native arrow it
+   removes is redrawn as a background-image chevron (#56555E = --tp-slate). */
+select.contactInput {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356555E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 14px;
+}
 .contactSubmit { width: 100%; justify-content: center; font-size: 1rem; padding: 1rem; border: none; cursor: pointer; }
 .contactSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
 .contactError { background: #FDECEC; border: 1px solid #F3B9B9; color: #B3261E; border-radius: var(--tp-radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.875rem; }
