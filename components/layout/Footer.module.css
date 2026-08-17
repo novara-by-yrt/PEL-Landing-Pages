@@ -201,23 +201,45 @@ a.contactRow:hover {
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-/* ── CQC registration ───────────────────────────────────────────────────── */
-.cqc {
+/* Badge and legal links on one line. Mobile-first they stack and centre; the
+   desktop rule below pushes them to opposite edges. */
+.bottomRow {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 0 auto clamp(16px, 2vw, 22px);
+  gap: clamp(16px, 2.5vw, 22px);
+  margin-bottom: clamp(18px, 2.5vw, 24px);
+}
+
+/* ── CQC registration ───────────────────────────────────────────────────── */
+/* A bordered plaque rather than a loose badge-and-caption: the badge, the
+   statement and the rating now read as one object with an edge, which is
+   what stops it floating unanchored in the middle of the bar. */
+.cqc {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
   text-decoration: none;
-  width: fit-content;
+  transition:
+    background 180ms var(--tp-ease),
+    border-color 180ms var(--tp-ease);
+}
+.cqc:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 /* White plate so the badge keeps its contrast on the dark footer, whatever
    colour its artwork is drawn in. */
 .cqcPlate {
   display: inline-flex;
   align-items: center;
+  flex: none;
   padding: 7px 11px;
-  border-radius: 8px;
+  border-radius: 9px;
   background: #fff;
   box-shadow: var(--tp-shadow-xs);
 }
@@ -226,53 +248,171 @@ a.contactRow:hover {
   width: auto;
   height: 21px;
 }
+.cqcCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  text-align: left;
+}
 .cqcText {
   font-size: var(--fs-body-sm);
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: var(--tp-lavender-100);
+  line-height: 1.3;
+  color: #fff;
+}
+.cqcMeta {
+  font-size: var(--fs-caption);
+  line-height: 1.35;
+  color: var(--tp-lavender-200);
 }
 .cqc:hover .cqcText {
-  color: #fff;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .cqc:focus-visible {
   outline: 2px solid var(--tp-lavender-300);
-  outline-offset: 4px;
-  border-radius: 10px;
+  outline-offset: 3px;
+}
+/* Pulls the plate back toward the plaque's edge so the badge sits tight to
+   it, while the plaque keeps even padding for the text-only fallback it
+   falls back to when the badge fails to load. */
+.cqcPlate {
+  margin-left: -5px;
 }
 
+/* Inline pair with a dot between them, so two links read as one legal line
+   rather than as a stray two-row grid with an empty third column. */
 .legal {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 6px;
-  text-align: center;
-  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 20px;
 }
 .legalLink {
+  position: relative;
   display: inline-block;
-  padding: 11px 0;
-  font-size: var(--fs-body-md);
+  padding: 9px 0;
+  font-size: var(--fs-body-sm);
   color: var(--tp-lavender-100);
   text-decoration: none;
+}
+.legalLink + .legalLink::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32);
+  transform: translateY(-50%);
 }
 .legalLink:hover {
   color: #fff;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.legalLink:focus-visible {
+  outline: 2px solid var(--tp-lavender-300);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 .fine {
   display: grid;
   grid-template-columns: 1fr;
   gap: 6px;
+  padding-top: clamp(14px, 2vw, 18px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   font-size: var(--fs-caption);
+  line-height: 1.55;
   color: var(--tp-lavender-400);
 }
 .fine p {
   margin: 0;
+}
+
+/* ── Mobile sectioning ──────────────────────────────────────────────────────
+   Below 900px the three columns stack, and stacked flush they read as one
+   long undifferentiated list of links — the desktop layout's column edges
+   are the only thing telling the eye where one section ends and the next
+   begins, and stacking throws those away. Each column gets a panel of its
+   own instead: a faint surface, a hairline edge, and a rule under its
+   heading, so the sections stay legible as sections. Reset to nothing at
+   900px, where the columns speak for themselves again. */
+@media (max-width: 899px) {
+  .grid {
+    gap: 14px;
+  }
+  .colStart,
+  .colEnd,
+  .brand {
+    padding: clamp(20px, 5vw, 26px) clamp(16px, 4.5vw, 22px);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  }
+  /* The brand panel leads, so it carries a touch more presence than the two
+     link panels beneath it. */
+  .brand {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+  /* The logo already sits on its own white plate; a second inset rule under
+     it inside the panel is one line too many. */
+  .markRule {
+    display: none;
+  }
+  .colHead {
+    margin-bottom: 4px;
+  }
+  /* Short accent rule under each section heading — the same cue the section
+     heads use elsewhere on the site. */
+  .colHead::after {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 2px;
+    margin: 11px auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--tp-lavender-300), rgba(255, 255, 255, 0.12));
+  }
+
+  /* The bottom bar becomes a panel too, so the regulatory and legal block is
+     as clearly a section as the three above it. */
+  .bottom {
+    margin-top: 14px;
+    padding: clamp(20px, 5vw, 26px) clamp(16px, 4.5vw, 22px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .cqc {
+    /* Full width inside the panel, so it sits square with the panel's edges
+       rather than as a narrow pill floating in the middle of it. */
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Narrow phones cannot fit both legal links on one line, and a wrapped pair
+   leaves the separator dot dangling at the start of the second line. Stack
+   them and drop the dot. */
+@media (max-width: 480px) {
+  .legal {
+    flex-direction: column;
+    gap: 0;
+  }
+  .legalLink + .legalLink::before {
+    display: none;
+  }
 }
 
 @media (min-width: 900px) {
@@ -291,22 +431,39 @@ a.contactRow:hover {
   .colEnd {
     text-align: right;
   }
+  /* The heading rules follow their column outward, like the lists do. */
+  .colHead {
+    margin-bottom: 4px;
+  }
+  .colHead::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 2px;
+    margin-top: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--tp-lavender-300), rgba(255, 255, 255, 0.12));
+  }
+  .colEnd .colHead::after {
+    margin-left: auto;
+    background: linear-gradient(270deg, var(--tp-lavender-300), rgba(255, 255, 255, 0.12));
+  }
 
-  .legal {
-    grid-template-columns: repeat(3, 1fr);
+  /* Badge to one edge, legal links to the other. */
+  .bottomRow {
+    flex-direction: row;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 24px;
   }
-  .legal > :first-child {
-    text-align: left;
-  }
-  .legal > :last-child {
-    text-align: right;
+  .legal {
+    justify-content: flex-end;
   }
 
   .fine {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 8px 24px;
   }
   .fine > :first-child {
     text-align: left;

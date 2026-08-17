@@ -92,7 +92,7 @@ export function TreatmentBeforeAfter({
                   <div className={styles.photo}>
                     <Image
                       src={item.image}
-                      alt={item.alt || `${title} before and after — case ${i + 1}`}
+                      alt={item.alt || `${title} before and after - case ${i + 1}`}
                       fill
                       sizes="(min-width: 640px) 340px, 78vw"
                       className={styles.photoImg}

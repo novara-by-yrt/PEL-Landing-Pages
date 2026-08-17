@@ -11,7 +11,6 @@ import type { TeamMember } from "@/components/home/TeamCarousel";
 import type { Treatment } from "@/components/home/TreatmentsCarousel";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
-import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
@@ -60,20 +59,20 @@ export const metadata: Metadata = {
 const AWARD_BADGES = [
   {
     src: "/Award4.jpg", width: 132, height: 132,
-    alt: "Aesthetics Awards Winner 2021 — Consultant Surgeon of the Year",
+    alt: "Aesthetics Awards Winner 2021: Consultant Surgeon of the Year",
   },
-  { src: "/Award3.png", width: 112, height: 132, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
+  { src: "/Award3.png", width: 112, height: 132, alt: "Safety in Beauty Diamond Awards 2023: Winner" },
   {
     src: "/Award2.png", width: 112, height: 132,
-    alt: "Safety in Beauty Diamond Awards 2016 — Highly Commended for Dedication & Excellence",
+    alt: "Safety in Beauty Diamond Awards 2016: Highly Commended for Dedication & Excellence",
   },
-  { src: "/Award5.jpg", width: 132, height: 132, alt: "My Face My Body Awards 2019 — Highly Commended" },
+  { src: "/Award5.jpg", width: 132, height: 132, alt: "My Face My Body Awards 2019: Highly Commended" },
   {
     src: "/Award1.jpg", width: 132, height: 132,
-    alt: "Aesthetics Awards 2019 — Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
+    alt: "Aesthetics Awards 2019: Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
   },
   { src: "/Award7.jpg", width: 132, height: 132, alt: "My Face My Body Ultimate 100, 2019" },
-  { src: "/Award6.jpg", width: 132, height: 132, alt: "Aesthetics Awards — Highly Commended 2022" },
+  { src: "/Award6.jpg", width: 132, height: 132, alt: "Aesthetics Awards: Highly Commended 2022" },
 ];
 
 const SURGICAL_TREATMENTS: Treatment[] = [
@@ -200,7 +199,7 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * gallery it came from.
  */
 /* The two upper-blepharoplasty composites that open the rail — the first card
-   and the fourth — are the only ones whose artwork does not already have
+   and the fourth - are the only ones whose artwork does not already have
    "Before" and "After" printed across the top. They are labelled in markup
    instead so every card in the rail reads the same way. Keyed by file so
    reordering the rail cannot detach a label from its photograph. */
@@ -286,17 +285,17 @@ const CLINIC_TEAM: TeamMember[] = [
   },
   {
     name: "Dr Janine",
-    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-janine.png",
   },
   {
     name: "Dr Hemmali",
-    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-hemmali.png",
   },
   {
     name: "Irvana",
-    role: "Qualified therapist — Perfect Skin Studio",
+    role: "Qualified therapist, Perfect Skin Studio",
     credentials: ["Level 4 Laser"],
     image: "/irvana.png",
   },
@@ -309,9 +308,9 @@ const CLINIC_TEAM: TeamMember[] = [
  */
 /** Five-star row for the hero rating. Drawn, not an image, so it stays sharp
     and costs no request. */
-function Stars() {
+function Stars({ className }: { className: string }) {
   return (
-    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+    <svg className={className} viewBox="0 0 90 16" aria-hidden="true">
       {[0, 18, 36, 54, 72].map((x) => (
         <path
           key={x}
@@ -392,39 +391,82 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* The Tatler lockup is the tallest thing here and cannot be made
-                shorter without its smallest line going illegible, so the three
-                text signals are set to stack to roughly its height and sit
-                beside it. Each is one line — strong value, quiet qualifier —
-                rather than the two-line label-over-value pairs they were,
-                which is what made this block so tall. */}
+            {/* Two badges of matching size on one row, with the remaining two
+                signals as text lines underneath. Previously the Tatler lockup
+                sat beside a stack of three mixed signals - a graphic, a
+                rating with its own mark and stars, and two plain text lines -
+                all competing on one row, which is what made the block read as
+                cluttered. The two things that are *marks* now sit together and
+                match; the two that are *statements* sit together and read as a
+                pair of lines. */}
             <div className={styles.credentials}>
-              <figure className={styles.press}>
-                <Image
-                  src="/as-seen-in-tatler.png"
-                  alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
-                  /* Displayed size (app/page.module.css .pressLogo caps height at
-                     112px, width auto) — not the 1536x1024 source, which next/image
-                     was otherwise shipping in full. */
-                  width={168}
-                  height={112}
-                  className={styles.pressLogo}
-                />
-              </figure>
+              <div className={styles.badges}>
+                <figure className={styles.press}>
+                  <Image
+                    src="/as-seen-in-tatler.png"
+                    alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+                    /* width/height carry the source's aspect ratio, and sizes
+                       tells the browser how wide the box actually is, so
+                       next/image ships a badge-sized file rather than the
+                       1536px original. Stating the box in sizes rather than
+                       hard-coding a displayed pixel size into width/height
+                       means the two cannot fall out of step when the badge is
+                       resized: the widths below are the .badges grid track at
+                       each breakpoint. */
+                    width={1536}
+                    height={1024}
+                    sizes="(min-width: 768px) 184px, (min-width: 360px) 153px, 122px"
+                    className={styles.pressLogo}
+                  />
+                </figure>
 
-              <dl className={styles.trust}>
-                <div className={styles.trustItem}>
+                {/* Same box as the lockup beside it, drawn rather than
+                    supplied as artwork. It is a definition list of one so the
+                    rating keeps the label it had before the redesign.
+
+                    Reads top-down the way the eye wants it: whose rating,
+                    then the score, then how many reviews stand behind it. */}
+                <dl className={styles.gBadge}>
                   <dt className="sr-only">Google rating</dt>
-                  <dd className={styles.trustValue}>
-                    <GoogleMark className={styles.googleMark} />
-                    <span className={styles.trustStrong}>4.9</span>
-                    <Stars />
-                    <span className={styles.trustMeta}>
+                  <dd className={styles.gBody}>
+                    {/* Google's own wordmark, supplied as artwork, in place of
+                        the mark that used to sit beside the score. Through
+                        next/image rather than a bare <img>: the source is a
+                        530KB PNG rendered about 110px wide, so the optimiser
+                        resizing and re-encoding it is the difference between
+                        half a megabyte and a couple of kilobytes.
+
+                        Decorative - the score and the caption below already
+                        say whose rating this is, and the list's own <dt>
+                        names it - so the alt is empty rather than repeating
+                        "Google" to a screen reader for a third time. */}
+                    <Image
+                      src="/Google logo.png"
+                      alt=""
+                      width={2124}
+                      height={665}
+                      sizes="(min-width: 900px) 110px, 90px"
+                      className={styles.gLogo}
+                    />
+                    <span className={styles.gRow}>
+                      <span className={styles.gScore}>4.9</span>
+                      <Stars className={styles.gStars} />
+                    </span>
+                    <span className={styles.gMeta}>
+                      {/* Just "reviews": the wordmark directly above already
+                          says Google, and at 320px the longer line ran to
+                          within a few pixels of the card's edges. The full
+                          sentence is still announced - the list's <dt> says
+                          "Google rating" and the hidden text carries the
+                          rest. */}
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
                       230+ reviews
                     </span>
                   </dd>
-                </div>
+                </dl>
+              </div>
+
+              <dl className={styles.trust}>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Surgical experience</dt>
                   <dd className={styles.trustValue}>
@@ -435,7 +477,7 @@ export default function HomePage() {
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Registration</dt>
                   <dd className={styles.trustValue}>
-                    <span className={styles.trustStrong}>GMC &middot; RCOphth</span>
+                    <span className={styles.trustStrong}>GMC &middot; RCOphth &middot; CQC</span>
                     <span className={styles.trustMeta}>registered &amp; accredited</span>
                   </dd>
                 </div>
@@ -491,7 +533,7 @@ export default function HomePage() {
 
         {/* Full-bleed rail: the cards run past the container edges so the
             carousel reads as continuous rather than as a boxed row. Left out
-            of the reveal above — it drives its own drift as soon as it
+            of the reveal above - it drives its own drift as soon as it
             mounts, and fading a moving rail in double-animates it. */}
         <TreatmentsCarousel
           groups={[
@@ -528,7 +570,7 @@ export default function HomePage() {
           </Reveal>
 
           <div className={styles.videoGrid}>
-            {/* A small stagger, not one each — three cards seen once per
+            {/* A small stagger, not one each - three cards seen once per
                 visit, not a list scrolled past all day. */}
             <Reveal delay={0}>
               <VideoCard
@@ -606,7 +648,7 @@ export default function HomePage() {
                 className={styles.reachFrame}
                 aria-label="International patients: travelling to London for treatment"
               >
-                {/* Two crops of the same artwork — a wide map for tablet and
+                {/* Two crops of the same artwork - a wide map for tablet and
                     desktop, a tall one for phones. Swapped with <picture>
                     rather than two <Image>s toggled by CSS: display:none does
                     not stop an <img> downloading, so the CSS route would cost

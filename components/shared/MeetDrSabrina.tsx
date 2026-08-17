@@ -17,7 +17,7 @@ import styles from "./MeetDrSabrina.module.css";
 
 const EXPERT_CREDENTIALS = [
   "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
-  "Recognised as a top practitioner for eyes for eight consecutive years, 2019–2026",
+  "Recognised as a top practitioner for eyes for eight consecutive years, 2019-2026",
   "Over 25 years of surgical and non-surgical experience",
 ];
 
@@ -71,7 +71,7 @@ export default function MeetDrSabrina({
               <span>
                 <span className={styles.expertBadgeTitle}>Top Practitioner for Eyes</span>
                 <span className={styles.expertBadgeMeta}>
-                  Eight consecutive years, 2019&ndash;2026
+                  Eight consecutive years, 2019-2026
                 </span>
               </span>
             </div>

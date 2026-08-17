@@ -93,7 +93,7 @@ export default function TreatmentsIndexPage() {
           siteUrl={SITE_URL}
           eyebrow="Treatments"
           h1="Every treatment we offer"
-          lead={`${surgical.length + nonSurgical.length} surgical and non-surgical treatments for the eyelids, the area around the eyes and the wider face — each one explained in full on its own page.`}
+          lead={`${surgical.length + nonSurgical.length} surgical and non-surgical treatments for the eyelids, the area around the eyes and the wider face - each one explained in full on its own page.`}
         >
           <nav className={styles.jump} aria-label="Jump to a group of treatments">
             {groups.map((group) => (

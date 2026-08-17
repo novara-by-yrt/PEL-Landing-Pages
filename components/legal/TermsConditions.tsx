@@ -82,7 +82,7 @@ const SECTIONS: Section[] = [
       },
       {
         kind: "p",
-        text: "Routine review appointments are offered after treatment with Toxin as a courtesy. No additional treatment or 'top up' is provided free of charge for fillers. Free top up for toxin is only offered within a review period of 2–3 weeks post treatment.",
+        text: "Routine review appointments are offered after treatment with Toxin as a courtesy. No additional treatment or 'top up' is provided free of charge for fillers. Free top up for toxin is only offered within a review period of 2-3 weeks post treatment.",
       },
       {
         kind: "p",
@@ -154,7 +154,7 @@ const SECTIONS: Section[] = [
       },
       {
         kind: "p",
-        text: "Whilst we undertake to provide excellent service — factual, honest and ethical advice, safe, expert treatment in experienced hands and only the best products — we cannot guarantee your results and cannot offer refunds if the results achieved fail to meet your expectations, or you change your mind after commencing treatment of a “package price” treatment.",
+        text: "Whilst we undertake to provide excellent service - factual, honest and ethical advice, safe, expert treatment in experienced hands and only the best products - we cannot guarantee your results and cannot offer refunds if the results achieved fail to meet your expectations, or you change your mind after commencing treatment of a “package price” treatment.",
       },
       { kind: "p", text: "Skin care products are non-returnable / non-refundable." },
     ],

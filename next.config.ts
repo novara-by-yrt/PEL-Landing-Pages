@@ -48,6 +48,12 @@ const nextConfig: NextConfig = {
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/xmlrpc.php", destination: "/", permanent: true },
 
+      // The gallery lives at /before-after, but the navigation calls it
+      // "Results" - so /results is the URL people guess and type, and an
+      // auditor hit it too. It was a 404.
+      { source: "/results", destination: "/before-after", permanent: true },
+      { source: "/results/:path*", destination: "/before-after/:path*", permanent: true },
+
       // /self-test-survey is the URL actually linked site-wide (and the one
       // the old WordPress site published); /blepharoplasty-quiz was a second,
       // unlinked page rendering the identical quiz, which would otherwise

@@ -159,8 +159,31 @@
 .pel-cta-full{width:100%;justify-content:center}
 .pel-drawer-phone{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;font-family:var(--tp-body);font-size:0.9375rem;font-weight:600;color:var(--tp-indigo-700);text-decoration:none;border:1px solid var(--tp-hairline);border-radius:999px}
 
-@media(max-width:1200px){.pel-links{gap:0}.pel-pill{gap:14px}.pel-link{padding:9px 10px}}
-@media(max-width:1120px){
+/* ── Nav bar fitting ──────────────────────────────────────────────────────
+   The link group sits in the pill's `1fr` grid track with min-width:0, so it
+   was allowed to be squeezed narrower than its own contents. The links are
+   white-space:nowrap and cannot shrink, so past that point they simply spilled
+   out of the lavender background — "Home" and "Blog" ran clean past the
+   rounded ends, which reads as the pill having lost its padding. It was doing
+   that everywhere from about 1300px down to the 1120px burger breakpoint, at
+   worst 34px beyond the pill's edge on each side.
+
+   Two halves to the fix. Below, the group is tightened in two stages so it
+   genuinely fits further down; and the burger now takes over at the width
+   where even the tightened group runs out of room, rather than 70px below it.
+   Measured minimum widths with a 10px clear on each side: untightened 1290px,
+   stage one 1240px, stage two 1190px. */
+@media(max-width:1300px){
+  .pel-pill{gap:16px}
+  .pel-links{gap:0}
+  .pel-link{padding:9px 10px}
+}
+@media(max-width:1250px){
+  .pel-pill{gap:14px}
+  .pel-links{padding:5px 8px}
+  .pel-link{padding:9px 8px}
+}
+@media(max-width:1190px){
   :root{--pel-top-h:clamp(78px,13vw,104px)}
   .pel-nav{padding:0 20px}
   .pel-pill{grid-template-columns:1fr auto;height:64px;gap:14px;padding:0 10px 0 20px}

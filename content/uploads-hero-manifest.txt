@@ -1,0 +1,73 @@
+# Treatment hero images still served from the WordPress origin
+#
+# Every path below is fetched from UPLOADS_ORIGIN (next.config.ts) rather than
+# from public/. When the old site is switched off these become 404s, and each
+# one breaks BOTH the /treatments card and the hero of the treatment page
+# itself -- TreatmentHero renders a bare next/image with no fallback.
+#
+# Before go-live: copy these 26 files into public/uploads/ (preserving the
+# date folders), or repoint UPLOADS_ORIGIN at wherever they end up.
+#
+# 26 distinct files, used by 32 treatments.
+# Regenerate: node scripts/check-hero-images.js --manifest
+
+2018/10/Double-eyelid-surgery-london.jpg
+2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg
+2018/10/eyeboost.jpg
+2018/11/Artificial-Eyes-and-Orbital-Implants-london-uk.jpg
+2018/11/Non-surgical-facelift-fillers-london.jpg
+2018/11/Ptosis-surgery-uk.jpg
+2018/11/chalazion-lumps-bumps.jpg
+2018/11/tixel-treatment-london.jpg
+2019/01/surgery-1.jpg
+2019/01/surgery-big-1.jpg
+2019/12/Before-and-after-Sil-1.jpg
+2020/01/Morpheus8.jpg
+2021/07/endolift-1.jpg
+2024/01/hair-rejuvenation-01.jpg
+2024/01/skin-treatment-01.jpg
+2024/07/Eyelid-Lumps.jpg
+2024/08/PolynucleotideEyeTreatment1-2.jpg
+2024/08/Revision-Blepharoplasty-how.jpg
+2024/08/blepharoplasty.png
+2024/08/brow-lift-1.png
+2024/12/ellanse.png
+2025/01/eyelidReconstruction.png
+2026/01/Teosyal-Redensity-1.png
+2026/05/injection-booster-hero.png
+2026/05/periorbital-treatment-hero.png
+2026/05/weight-loss-herooo.png
+
+# --- which treatment uses which ---
+# 2018/10/Double-eyelid-surgery-london.jpg  <- double-eyelids-asian-eyelid-surgery
+# 2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg  <- upper-eyelid-lift-surgery-blepharoplasty
+# 2018/10/eyeboost.jpg  <- dry-eye-treatments
+# 2018/11/Artificial-Eyes-and-Orbital-Implants-london-uk.jpg  <- artificial-eye-implants
+# 2018/11/Non-surgical-facelift-fillers-london.jpg  <- non-surgical-facial-contouring
+# 2018/11/Ptosis-surgery-uk.jpg  <- ptosis-surgery-uk
+# 2018/11/chalazion-lumps-bumps.jpg  <- surgical-eyelid-surgery-chalazion-removal-uk
+# 2018/11/tixel-treatment-london.jpg  <- eyelid-swelling-migrated-fillers-hyaluronidase-dissolving
+# 2018/11/tixel-treatment-london.jpg  <- ultraclear-laser
+# 2019/01/surgery-1.jpg  <- eye-bag-surgery-lower-eyelid-surgery-uk
+# 2019/01/surgery-big-1.jpg  <- surgical-festoons-malar-bags-treatment-uk
+# 2019/12/Before-and-after-Sil-1.jpg  <- silhouette-soft-lift
+# 2020/01/Morpheus8.jpg  <- morpheus-8-radio-frequency-skin-tightening-treatment
+# 2020/01/Morpheus8.jpg  <- non-surgical-radiofrequency-uk
+# 2021/07/endolift-1.jpg  <- endolift-revolutionary-minimally-invasive-jawline-lift
+# 2024/01/hair-rejuvenation-01.jpg  <- autologous-exosomes
+# 2024/01/hair-rejuvenation-01.jpg  <- autologous-exosomes-skin-hair-rejuvenation
+# 2024/01/skin-treatment-01.jpg  <- microneedling
+# 2024/01/skin-treatment-01.jpg  <- perfect360-skin-personalised-skincare
+# 2024/07/Eyelid-Lumps.jpg  <- eyelid-lump-bump-removal
+# 2024/08/PolynucleotideEyeTreatment1-2.jpg  <- dark-circles-and-polynucleotides-or-mesotherapy
+# 2024/08/PolynucleotideEyeTreatment1-2.jpg  <- polynucleotides
+# 2024/08/PolynucleotideEyeTreatment1-2.jpg  <- polynucleotides-for-under-eye-rejuvenation
+# 2024/08/Revision-Blepharoplasty-how.jpg  <- revision-surgery
+# 2024/08/blepharoplasty.png  <- blepharoplasty-treatment-in-london
+# 2024/08/brow-lift-1.png  <- surgical-brow-lift-uk
+# 2024/12/ellanse.png  <- non-surgical-microdroplet-injection-uk
+# 2025/01/eyelidReconstruction.png  <- reconstructive-surgery
+# 2026/01/Teosyal-Redensity-1.png  <- non-surgical-baby-glow-skin-treatment-uk
+# 2026/05/injection-booster-hero.png  <- injectable-skin-boosters-the-perfect-360-skin-programme
+# 2026/05/periorbital-treatment-hero.png  <- the-perfect-360-eye-programme-periorbital-treatment
+# 2026/05/weight-loss-herooo.png  <- medication-driven-weight-loss-face-restoration-the-perfect-360-approach

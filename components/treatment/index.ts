@@ -6,7 +6,7 @@ export { TreatmentOverview } from "./TreatmentOverview";
 export { TreatmentExpert } from "./TreatmentExpert";
 export { TreatmentPricing } from "./TreatmentPricing";
 export { TreatmentFAQ } from "./TreatmentFAQ";
-export { RealSelfWidget } from "./RealSelfWidget";
+export { TreatmentGlance } from "./TreatmentGlance";
 export { TreatmentSimilar } from "./TreatmentSimilar";
 export { TreatmentSpotlight } from "./TreatmentSpotlight";
 export { RelatedBlogs } from "./RelatedBlogs";

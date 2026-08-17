@@ -32,9 +32,9 @@ function Chevron({ back = false }: { back?: boolean }) {
   );
 }
 
-function Stars() {
+function Stars({ className = styles.stars }: { className?: string }) {
   return (
-    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+    <svg className={className} viewBox="0 0 90 16" aria-hidden="true">
       {[0, 18, 36, 54, 72].map((x) => (
         <path
           key={x}
@@ -55,7 +55,7 @@ export default function PatientStories({
   const railRef = useRef<HTMLDivElement>(null);
 
   /* While a programmatic hop-and-scroll is in flight, normalising would undo
-     the hop the moment it happened — the same stand-down the treatments rail
+     the hop the moment it happened - the same stand-down the treatments rail
      uses for its arrow nudges. */
   const settleUntil = useRef(0);
 
@@ -94,7 +94,7 @@ export default function PatientStories({
       const stride = strideOf(el);
 
       /* Going back from the very start would hit the hard edge at 0 and stop.
-         Hop forward one identical pass first, then scroll back from there —
+         Hop forward one identical pass first, then scroll back from there -
          same pixels on screen, but now there is room to move. The stand-down
          keeps normalize() from cancelling the hop mid-flight. */
       if (direction === -1 && el.scrollLeft < stride) {
@@ -127,7 +127,21 @@ export default function PatientStories({
           <h2 id="stories-title" className={styles.title}>
             Rated five stars by patients across the globe
           </h2>
-          <p className={styles.lead}>Rated 4.9 from 230+ Google reviews.</p>
+          {/* The same attribution unit the review cards below use - Google
+              mark on its white disc, then the five stars - rather than a
+              sentence saying the same thing in a different visual language.
+              The score reads once, out of the markup, so a screen reader is
+              not told the rating twice. */}
+          <p className={styles.lead}>
+            <span className={styles.leadRating}>
+              <GoogleMark className={styles.leadMark} />
+              <Stars className={styles.leadStars} />
+            </span>
+            <span className={styles.leadText}>
+              <strong className={styles.leadScore}>4.9</strong>
+              <span className="sr-only">out of 5</span> from 230+ Google reviews
+            </span>
+          </p>
         </div>
 
         <div className={styles.arrows}>
@@ -161,7 +175,7 @@ export default function PatientStories({
         <div className={styles.track}>
           {/* Two passes of the same list. The second exists only so the loop
               has no seam, so it is hidden from screen readers and skipped by
-              Tab — otherwise every review would be announced twice. */}
+              Tab - otherwise every review would be announced twice. */}
           {[0, 1].flatMap((pass) =>
             stories.map((story) => {
             const clone = pass === 1;
@@ -199,18 +213,16 @@ export default function PatientStories({
                     control is pressed.
 
                     tabIndex makes the box reachable by keyboard, which is what
-                    lets a keyboard user scroll it at all — but not inside a
+                    lets a keyboard user scroll it at all - but not inside a
                     clone, where a focus stop would land someone in a copy that
                     is hidden from assistive tech. */}
-                <div className={styles.quoteWrap}>
-                  <blockquote
-                    id={`story-${index}`}
-                    className={styles.quote}
-                    tabIndex={clone ? -1 : 0}
-                  >
-                    &ldquo;{story.quote}&rdquo;
-                  </blockquote>
-                </div>
+                <blockquote
+                  id={`story-${index}`}
+                  className={styles.quote}
+                  tabIndex={clone ? -1 : 0}
+                >
+                  &ldquo;{story.quote}&rdquo;
+                </blockquote>
 
                 {hasFoot ? (
                   <div className={styles.foot}>

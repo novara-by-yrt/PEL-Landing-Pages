@@ -41,12 +41,12 @@ export default function HeroVideo() {
      an earlier version swapped a poster <div> for a <video> once this
      check ran, which tore down an already-painted element ~450ms into
      every page load and left the bare stage colour showing while the new
-     element re-decoded its poster — a visible flash on each refresh,
+     element re-decoded its poster - a visible flash on each refresh,
      worst on iOS.
 
      With `preload="none"` the clip is still never fetched unless play()
      is called, so reduced-motion visitors pay nothing for the element
-     being present — they just keep the poster frame, same as before. */
+     being present - they just keep the poster frame, same as before. */
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;

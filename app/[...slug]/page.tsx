@@ -37,7 +37,7 @@ import {
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
-  RealSelfWidget,
+  TreatmentGlance,
   TreatmentSimilar,
   RelatedBlogs,
   TreatmentCTA,
@@ -318,7 +318,6 @@ function TreatmentPage({
           siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
-          glance={treatment.glance}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
@@ -326,6 +325,7 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
+        <TreatmentGlance glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
@@ -361,15 +361,14 @@ function TreatmentPage({
           pricingLead={treatment.pricingLead}
         />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
-        {/* The shared reviews rail, same as every other page — replaces the
+        {/* The shared reviews rail, same as every other page - replaces the
             treatment-only "Patient Reviews" grid, which showed a different,
             RealSelf-sourced set of quotes per treatment and so contradicted
             the one set of reviews the rest of the site shows. */}
         <PatientStories />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
-        <RelatedBlogs />
-        <RealSelfWidget />
+        <RelatedBlogs topic={frontmatter.title} />
         <ContactSection />
       </div>
     </>

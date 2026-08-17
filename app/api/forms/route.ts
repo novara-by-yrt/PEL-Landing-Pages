@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     );
     if (!check.ok) {
       // Logged rather than shown: telling a bot why it failed helps it retry.
-      console.warn(`[forms] ${formKey} blocked as spam — ${check.reason}`);
+      console.warn(`[forms] ${formKey} blocked as spam - ${check.reason}`);
       return NextResponse.json(
         { status: "spam", message: MESSAGES.failed },
         { status: 200 }
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     // No database sits behind this, so a delivery failure would otherwise lose
     // the enquiry outright. Dump it to the server log as a last resort.
     console.error(
-      `[forms] ${formKey} DELIVERY FAILED — ${result.reason}\n${email.subject}\n${email.text}`
+      `[forms] ${formKey} DELIVERY FAILED - ${result.reason}\n${email.subject}\n${email.text}`
     );
     return NextResponse.json({ status: "error", message: MESSAGES.failed }, { status: 502 });
   }

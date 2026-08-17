@@ -110,7 +110,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      {/* JSON-LD schemas — inlined, no render-blocking */}
+      {/* JSON-LD schemas - inlined, no render-blocking */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}

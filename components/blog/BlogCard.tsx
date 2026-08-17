@@ -8,7 +8,7 @@ export function BlogCard({
   post,
   /* The first row of the archive is on screen before anyone scrolls, so those
      thumbnails are fetched with the page rather than waiting for an
-     intersection — which is what left them blank, then briefly broken, on
+     intersection - which is what left them blank, then briefly broken, on
      first interaction. Everything below the fold stays lazy. */
   priority = false,
 }: {

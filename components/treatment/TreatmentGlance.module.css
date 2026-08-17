@@ -1,0 +1,134 @@
+/* At a Glance — the treatment's key facts.
+
+   One panel: the treatment's name, the heading, then the facts as label and
+   value pairs, exactly as the reference layout sets them, in the site's
+   indigo and lavender rather than its browns.
+
+   Everything is left-aligned to a single edge — eyebrow, heading, every label
+   and every value share one line down the left of the panel — and every
+   measurement below is one of four tokens, so the spacing is uniform rather
+   than nine cards each negotiating their own.
+
+   Contrast: white on this panel clears AAA. Labels use lavender-200, not the
+   -400 that reads as "quieter": -400 measures 3.1:1 on this background and
+   -200 clears 4.5:1, the same finding that set the footer's heading colour. */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(48px, 6.5vw, 88px);
+  background: var(--tp-paper);
+}
+
+/* A soft brand bloom behind the panel, so it sits on the page rather than
+   being pasted onto a flat field. */
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38% 46% at 16% 22%, rgba(188, 160, 221, 0.3), transparent 70%),
+    radial-gradient(34% 44% at 86% 78%, rgba(138, 132, 186, 0.22), transparent 72%);
+  filter: blur(30px);
+}
+
+/* ── The panel ──────────────────────────────────────────────────────────── */
+.panel {
+  --glance-pad: clamp(26px, 4vw, 52px);
+  --glance-row: clamp(22px, 2.6vw, 30px);
+  --glance-col: clamp(26px, 4vw, 60px);
+
+  padding: var(--glance-pad);
+  border-radius: var(--tp-radius-xl);
+  background:
+    radial-gradient(120% 100% at 50% 0%, #241d4d 0%, transparent 62%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 58%, var(--tp-indigo-950) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 30px 70px -40px rgba(24, 20, 64, 0.7);
+}
+
+/* ── Heading ────────────────────────────────────────────────────────────── */
+.head {
+  margin-bottom: var(--glance-pad);
+  padding-bottom: var(--glance-row);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.eyebrow {
+  display: block;
+  font-size: clamp(1.0625rem, 2.6vw, 1.375rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--tp-lavender-300);
+  text-wrap: balance;
+}
+.title {
+  margin: 10px 0 0;
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4.2vw, 2rem);
+  line-height: 1.18;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+}
+
+/* ── Facts ──────────────────────────────────────────────────────────────────
+   One column on a phone, as the reference sets it. Two from 620px and three
+   from 1040px, on fixed breakpoints rather than auto-fit: the column count
+   has to stay predictable so the row rhythm reads as a grid down the panel
+   rather than reflowing mid-list. */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--glance-row);
+  column-gap: var(--glance-col);
+  margin: 0;
+  /* Rows size to their own content; a long value lengthens its own row
+     without padding out the ones beside it. */
+  align-items: start;
+}
+
+.item {
+  min-width: 0;
+}
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  /* 4.5:1 on this panel — see the note at the top of the file. */
+  color: var(--tp-lavender-200);
+}
+.value {
+  margin: 8px 0 0;
+  font-size: clamp(1rem, 1.5vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: #fff;
+  text-wrap: pretty;
+}
+
+@media (min-width: 620px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1040px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Only meaningful once there are three columns; at one or two the long value
+   already has the width it needs. */
+@media (min-width: 1040px) {
+  .itemWide {
+    grid-column: span 2;
+  }
+}

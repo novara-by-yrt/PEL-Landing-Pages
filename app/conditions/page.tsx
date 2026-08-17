@@ -17,7 +17,7 @@ const URL = `${SITE_URL}/conditions`;
 export const metadata: Metadata = {
   title: "Eye Conditions We Treat",
   description:
-    "Every eye and eyelid condition treated at Perfect Eyes Ltd — from hooded eyelids, ptosis and eye bags to chalazion, xanthelasma and thyroid eye disease.",
+    "Every eye and eyelid condition treated at Perfect Eyes Ltd - from hooded eyelids, ptosis and eye bags to chalazion, xanthelasma and thyroid eye disease.",
   alternates: { canonical: URL },
   openGraph: {
     url: URL,
@@ -69,7 +69,7 @@ export default function ConditionsIndexPage() {
           siteUrl={SITE_URL}
           eyebrow="Eye Conditions"
           h1="Conditions we treat"
-          lead={`${conditions.length} conditions of the eyelids and the area around the eyes, each explained on its own page — what causes it, how it is assessed, and the treatments that address it.`}
+          lead={`${conditions.length} conditions of the eyelids and the area around the eyes, each explained on its own page - what causes it, how it is assessed, and the treatments that address it.`}
         >
           {/* A way to act without scrolling. The condition and treatment
               templates both put their CTAs inside the first viewport; these
@@ -102,7 +102,7 @@ export default function ConditionsIndexPage() {
                 Every condition we treat
               </h2>
               <p className={styles.blurb}>
-                If what you are experiencing is not listed, it is still worth asking — these
+                If what you are experiencing is not listed, it is still worth asking - these
                 are the conditions seen most often, not the only ones.
               </p>
               <span className={styles.rule} aria-hidden="true" />

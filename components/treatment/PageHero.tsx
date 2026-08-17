@@ -74,7 +74,7 @@ export function PageHero({
         {hasImage && (
           <div className={styles.tpPageHeroFrame}>
             {heroBadge && <span className={styles.tpPageHeroBadge}>{heroBadge}</span>}
-            {/* Above the fold — this is the LCP element on condition pages. */}
+            {/* Above the fold - this is the LCP element on condition pages. */}
             <Image
               src={heroImage!}
               alt={heroImageAlt || h1}

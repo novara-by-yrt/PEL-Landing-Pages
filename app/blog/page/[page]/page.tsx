@@ -35,13 +35,13 @@ export async function generateMetadata({
 
   const url = `${SITE_URL}/blog/page/${n}`;
   return {
-    title: `Expert Eye & Aesthetic Insights — Page ${n}`,
+    title: `Expert Eye & Aesthetic Insights - Page ${n}`,
     /* Named per page rather than repeating page one's line fifteen times.
        Fifteen URLs sharing a description tells a crawler they are the same
        page, which is the opposite of what path-based pagination is for. */
     description: `Page ${n} of expert articles on cosmetic eye surgery, non-surgical treatments and aesthetic medicine from the Perfect Eyes team.`,
     /* Self-referencing, not pointing back at /blog. A paginated page is not a
-       duplicate of page one — it lists different posts — and canonicalising it
+       duplicate of page one - it lists different posts - and canonicalising it
        away is what previously hid everything past post twelve from the
        crawler. */
     alternates: { canonical: url },

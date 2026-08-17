@@ -16,7 +16,7 @@ import styles from "./page.module.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "Results — Before & After Gallery",
+  title: "Results - Before & After Gallery",
   description:
     "View real patient before and after results for blepharoplasty, tear trough fillers, polynucleotides, Morpheus8, and more cosmetic eye treatments.",
   alternates: { canonical: `${SITE_URL}/before-after` },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 /* Reassurance beside the photographs. A results gallery is where someone
    decides whether to enquire, and until now the page answered none of the
-   questions that decision turns on — what actually happens, how long it
+   questions that decision turns on - what actually happens, how long it
    takes, whether these results are representative. */
 const RESULTS_FAQ = [
   {
@@ -36,7 +36,7 @@ const RESULTS_FAQ = [
   {
     question: "How long before I look like the after photograph?",
     answer:
-      "Most surgical photographs here are taken at three to six months, once swelling has settled and scars have matured. The early weeks look different from the final result, and that is expected. Non-surgical results appear sooner — usually within two to six weeks depending on the treatment.",
+      "Most surgical photographs here are taken at three to six months, once swelling has settled and scars have matured. The early weeks look different from the final result, and that is expected. Non-surgical results appear sooner - usually within two to six weeks depending on the treatment.",
   },
   {
     question: "How soon can I go back to work?",
@@ -46,9 +46,20 @@ const RESULTS_FAQ = [
   {
     question: "What happens at the first appointment?",
     answer:
-      "A consultation is an examination and a conversation, not a sales appointment. Your concern is assessed, the options are explained — including the option of doing nothing — and you are given written information and a quotation to consider in your own time.",
+      "A consultation is an examination and a conversation, not a sales appointment. Your concern is assessed, the options are explained - including the option of doing nothing - and you are given written information and a quotation to consider in your own time.",
   },
 ];
+
+/* The stylesheet has always styled an arrow inside the card's link, including
+   its hover nudge, but no arrow was ever rendered - so the rule sat dead and
+   the link read as plain text. */
+function Arrow() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 const JOURNEY_STEPS = [
   {
@@ -101,6 +112,10 @@ export default function BeforeAfterIndexPage() {
 
   const total = cases.length;
 
+  /* The hero's showcase panel. Taken from the content rather than named here,
+     so it can never point at a case that has been renamed or withdrawn. */
+  const featured = groups[0]?.items[0];
+
   return (
     <div className={styles.page}>
       <script
@@ -122,32 +137,76 @@ export default function BeforeAfterIndexPage() {
             <span aria-current="page">Results</span>
           </nav>
 
-          <span className={styles.eyebrow}>Real patient results</span>
-          <h1 id="results-title" className={styles.heroTitle}>
-            Before &amp; after, case by case
-          </h1>
-          <p className={styles.heroLead}>
-            Genuine patient results across the full range of surgical and non-surgical eye
-            treatments, each photographed and reviewed by Dr Sabrina Shah-Desai.
-          </p>
+          {/* Two columns from 1000px, one below it. The copy column used to
+              run alone across a 1440px page, which left the right-hand half
+              of the opening screen empty; on a gallery, the thing that
+              belongs in that space is the work itself. */}
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy}>
+              <span className={styles.eyebrow}>Real patient results</span>
+              <h1 id="results-title" className={styles.heroTitle}>
+                Before &amp; after, case by case
+              </h1>
+              <p className={styles.heroLead}>
+                Genuine patient results across the full range of surgical and non-surgical eye
+                treatments, each photographed and reviewed by Dr Sabrina Shah-Desai.
+              </p>
 
-          <dl className={styles.stats}>
-            <div className={styles.stat}>
-              <dt className={styles.statLabel}>Case studies</dt>
-              <dd className={styles.statValue}>{total}</dd>
+              {/* Somewhere to act without scrolling. Measured, the first CTA
+                  on this page sat 4,968px down on a laptop - and a gallery is
+                  a high-intent page, so it is the wrong one to make people
+                  scroll before they can book. */}
+              <div className={styles.heroCtas}>
+                <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+                  Book a Consultation
+                </Link>
+                <Link href="/self-test-survey" className="tp-btn tp-btn-secondary">
+                  Take the Free Self-Test
+                </Link>
+              </div>
+
+              <dl className={styles.stats}>
+                <div className={styles.stat}>
+                  <dt className={styles.statLabel}>Case studies</dt>
+                  <dd className={styles.statValue}>{total}</dd>
+                </div>
+                <div className={styles.stat}>
+                  <dt className={styles.statLabel}>Experience</dt>
+                  <dd className={styles.statValue}>25+ years</dd>
+                </div>
+                <div className={styles.stat}>
+                  <dt className={styles.statLabel}>Patient rating</dt>
+                  <dd className={`${styles.statValue} ${styles.statRating}`}>
+                    <GoogleMark className={styles.googleMark} />
+                    4.9
+                  </dd>
+                </div>
+              </dl>
             </div>
-            <div className={styles.stat}>
-              <dt className={styles.statLabel}>Surgical experience</dt>
-              <dd className={styles.statValue}>25+ years</dd>
-            </div>
-            <div className={styles.stat}>
-              <dt className={styles.statLabel}>Patient rating</dt>
-              <dd className={`${styles.statValue} ${styles.statRating}`}>
-                <GoogleMark className={styles.googleMark} />
-                4.9
-              </dd>
-            </div>
-          </dl>
+
+            {featured?.frontmatter.featuredImage ? (
+              <Link href={`/before-after/${featured.slug}`} className={styles.showcase}>
+                <span className={styles.showcaseMedia}>
+                  <Image
+                    src={featured.frontmatter.featuredImage}
+                    alt={`Before and after ${featured.frontmatter.title}, a patient of Dr Sabrina Shah-Desai`}
+                    fill
+                    sizes="(min-width: 1000px) 46vw, (min-width: 620px) 92vw, 100vw"
+                    className={styles.showcaseImg}
+                    priority
+                  />
+                </span>
+                <span className={styles.showcaseFoot}>
+                  <span className={styles.showcaseLabel}>Featured case</span>
+                  <span className={styles.showcaseTitle}>{featured.frontmatter.title}</span>
+                  <span className={styles.showcaseCta} aria-hidden="true">
+                    View case
+                    <Arrow />
+                  </span>
+                </span>
+              </Link>
+            ) : null}
+          </div>
 
           {/* Deep links into each category, matching the Results nav panel. */}
           <nav className={styles.jump} aria-label="Jump to a category">
@@ -173,11 +232,14 @@ export default function BeforeAfterIndexPage() {
         >
           <div className="container">
             <div className={styles.groupHead}>
+              <span className={styles.rule} aria-hidden="true" />
               <h2 id={`${group.id}-heading`} className={styles.groupTitle}>
                 {group.label}
+                <span className={styles.groupCount}>
+                  {group.items.length} {group.items.length === 1 ? "case" : "cases"}
+                </span>
               </h2>
               <p className={styles.groupBlurb}>{group.blurb}</p>
-              <span className={styles.rule} aria-hidden="true" />
             </div>
 
             <ul className={styles.grid}>
@@ -211,6 +273,7 @@ export default function BeforeAfterIndexPage() {
                         {summary ? <p className={styles.cardText}>{summary}</p> : null}
                         <span className={styles.cardCta}>
                           View case
+                          <Arrow />
                         </span>
                       </div>
                     </Link>
@@ -226,13 +289,13 @@ export default function BeforeAfterIndexPage() {
       <section className={styles.group} aria-labelledby="journey-heading">
         <div className="container">
           <div className={styles.groupHead}>
+            <span className={styles.rule} aria-hidden="true" />
             <h2 id="journey-heading" className={styles.groupTitle}>
               What to expect
             </h2>
             <p className={styles.groupBlurb}>
               The path from first appointment to settled result, in four steps.
             </p>
-            <span className={styles.rule} aria-hidden="true" />
           </div>
 
           <ol className={styles.journey}>

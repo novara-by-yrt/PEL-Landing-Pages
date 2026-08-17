@@ -28,7 +28,7 @@ export const CLINIC = {
   address: "Perfect Eyes Ltd, 121 Harley Street, London, W1G 6AX",
   companyNumber: "10036376",
   hours: [
-    { day: "Mon – Fri", time: "9:30am – 6:00pm" },
+    { day: "Mon to Fri", time: "9:30am to 6:00pm" },
     { day: "Sat & Sun", time: "Closed" },
   ],
 } as const;

@@ -98,8 +98,8 @@ export default async function BeforeAfterCasePage({
             "<Treatment> Before and After" and "See the <Treatment> before and
             after results below", which the gallery head then restated almost
             word for word. The frontmatter still carries galleryHeading and
-            galleryDescription — generateMetadata uses the description as the
-            page description — so nothing is deleted, just not shown twice. */}
+            galleryDescription - generateMetadata uses the description as the
+            page description - so nothing is deleted, just not shown twice. */}
         <BeforeAfterGallery
           gallery={frontmatter.gallery}
           title={frontmatter.title}

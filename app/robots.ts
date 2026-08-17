@@ -45,13 +45,13 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Applebot-Extended", allow: "/", disallow },
 
       /* Google-Extended governs Gemini and AI Overviews grounding. It is not
-         a crawler of its own — Googlebot does the fetching — so leaving it
+         a crawler of its own - Googlebot does the fetching - so leaving it
          allowed costs no crawl budget and is what keeps the clinic eligible
          to be cited in AI Overviews. */
       { userAgent: "Google-Extended", allow: "/", disallow },
 
       /* Bulk training-corpus scrapers. They return no traffic and no citation,
-         so they are declined — separately from the search crawlers above, and
+         so they are declined - separately from the search crawlers above, and
          reversible on the client's say-so. */
       { userAgent: "CCBot", disallow: "/" },
       { userAgent: "anthropic-ai", disallow: "/" },

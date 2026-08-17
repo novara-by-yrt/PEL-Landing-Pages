@@ -48,7 +48,7 @@ const POPULAR_TREATMENTS = [
 ];
 
 /* Both privacy links used to point at /privacy-notice-1 and -2, which are
-   superseded drafts of /privacy-notice and are excluded from the index — so
+   superseded drafts of /privacy-notice and are excluded from the index - so
    every page linked twice to pages search engines are told to ignore, and
    neither was the live notice. One link, pointing at the real one.
 
@@ -95,8 +95,8 @@ export default function Footer() {
      The reveal only works while the footer fits on screen: it is
      `position: fixed`, so any part of it taller than the viewport sits above
      the top edge and can never be scrolled to. Stacked into one column on a
-     phone the footer runs ~1450px against a ~640–850px viewport, which left
-     the top third — the whole Quick links column — permanently unreachable.
+     phone the footer runs ~1450px against a ~640-850px viewport, which left
+     the top third - the whole Quick links column - permanently unreachable.
      So measure against the viewport and, when it cannot fit, hand the footer
      back to normal flow (`data-reveal="off"`) and zero the spacer. */
   useEffect(() => {
@@ -105,9 +105,9 @@ export default function Footer() {
 
     const sync = () => {
       /* The header is fixed over the top of the viewport, so the room the
-         footer actually has is the viewport minus the header — not the whole
+         footer actually has is the viewport minus the header - not the whole
          viewport. Measuring against the whole viewport left a band of window
-         heights (on this site, 776px to 848px — which is where a 1440x900
+         heights (on this site, 776px to 848px - which is where a 1440x900
          laptop lands once browser chrome is taken off) where the footer was
          judged to fit, stayed fixed, and then had its top 18-58px covered by
          the header: the Quick links heading and the first rows of the
@@ -160,7 +160,7 @@ export default function Footer() {
             {/* The transparent PNG, not the JPEG: the JPEG carries a baked
                 white background, which would show as a hard white block if
                 the card behind it ever changes. */}
-            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic — home">
+            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic, home">
               <Image
                 src="/PEL_logo_without_background.png"
                 alt="The Perfect Eyes Clinic"
@@ -230,44 +230,54 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          {/* Regulatory registration, next to the company number and the
-              legal links rather than up with the marketing — it is the same
-              kind of statement. Links out to the clinic's own entry on the
-              CQC register, so the claim can be checked rather than just read.
+          {/* The regulatory badge and the legal links share one row: they are
+              the same kind of statement, and giving each its own centred line
+              left the bar reading as three unrelated things stacked up with
+              nothing lining up against anything. Side by side they bracket
+              the row - badge to one edge, links to the other - and the fine
+              print sits under both. */}
+          <div className={styles.bottomRow}>
+            {/* Regulatory registration. Links out to the clinic's own entry
+                on the CQC register, so the claim can be checked rather than
+                just read.
 
-              The badge sits on a white plate: it is the artwork the treatment
-              pages use, drawn for those pages' pale background, and the
-              footer is dark. The plate keeps it legible whatever its ink,
-              the same way the Google mark is handled on the dark review
-              cards. */}
-          <a
-            href={CQC_REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cqc}
-          >
-            {badgeFailed ? null : (
-              <span className={styles.cqcPlate}>
-                <Image
-                  src={CQC_BADGE_SRC}
-                  alt=""
-                  width={190}
-                  height={31}
-                  className={styles.cqcMark}
-                  onError={() => setBadgeFailed(true)}
-                />
+                The badge sits on a white plate: it is the artwork the
+                treatment pages use, drawn for those pages' pale background,
+                and the footer is dark. The plate keeps it legible whatever
+                its ink, the same way the Google mark is handled on the dark
+                review cards. */}
+            <a
+              href={CQC_REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cqc}
+            >
+              {badgeFailed ? null : (
+                <span className={styles.cqcPlate}>
+                  <Image
+                    src={CQC_BADGE_SRC}
+                    alt=""
+                    width={190}
+                    height={31}
+                    className={styles.cqcMark}
+                    onError={() => setBadgeFailed(true)}
+                  />
+                </span>
+              )}
+              <span className={styles.cqcCopy}>
+                <span className={styles.cqcText}>CQC registered</span>
+                <span className={styles.cqcMeta}>Rated good in all five key areas</span>
               </span>
-            )}
-            <span className={styles.cqcText}>CQC registered</span>
-          </a>
+            </a>
 
-          <nav className={styles.legal} aria-label="Legal">
-            {LEGAL_LINKS.map((item) => (
-              <Link key={item.href} href={item.href} className={styles.legalLink}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            <nav className={styles.legal} aria-label="Legal">
+              {LEGAL_LINKS.map((item) => (
+                <Link key={item.href} href={item.href} className={styles.legalLink}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
           <div className={styles.fine}>
             <p>

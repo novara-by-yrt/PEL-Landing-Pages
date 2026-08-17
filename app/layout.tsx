@@ -77,7 +77,7 @@ export default function RootLayout({
             handshake for two cross-origin hosts are pure added latency on the
             critical path to the largest thing on the page. Warming both
             connections in the document head moves that handshake into the
-            time the browser is already spending parsing HTML — on a 4G phone
+            time the browser is already spending parsing HTML - on a 4G phone
             it is the cheapest few hundred milliseconds of LCP available here.
 
             preconnect rather than preload: the clip must not compete for
@@ -88,13 +88,13 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fast.wistia.com" />
         <link rel="dns-prefetch" href="https://embed-ssl.wistia.com" />
 
-        {/* Inline JSON-LD — no render-blocking, no async needed */}
+        {/* Inline JSON-LD - no render-blocking, no async needed */}
         <script
           id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        {/* The clinic as a medical entity — address, hours, speciality and
+        {/* The clinic as a medical entity - address, hours, speciality and
             rating. Site-wide rather than home-only, so any page a search
             engine lands on can resolve the @id the procedure and physician
             records point at. */}
@@ -110,11 +110,11 @@ export default function RootLayout({
         <div id="footer-spacer" aria-hidden="true" />
         <Footer />
         <CookieConsent />
-        {/* On-load enquiry popup — opens once a week, after a delay,
+        {/* On-load enquiry popup - opens once a week, after a delay,
             so it never competes with first paint. */}
         <OnLoadPopupForm />
         {/* Reads the same consent store the banner writes to, and stays
-            inert — no script, no connection — until that store says
+            inert - no script, no connection - until that store says
             "accepted". */}
         <GoogleAnalytics />
       </body>

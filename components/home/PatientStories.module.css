@@ -56,11 +56,58 @@
   margin: 0;
   text-wrap: balance;
 }
+/* The section's rating line. Built from the same two pieces as the cards'
+   attribution — Google mark on a white disc, then the five gold stars — so
+   the header and the cards state the rating in one visual language instead
+   of two. Wraps to two lines on a phone, hence the flex column rather than a
+   single inline row. */
 .lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   font-size: var(--fs-body-md);
   line-height: 1.6;
   color: var(--tp-slate);
-  margin: 16px 0 0;
+  margin: 18px 0 0;
+}
+.leadRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+/* Same white disc as the cards use, which is what keeps the four-colour mark
+   legible whatever it sits on. */
+.leadMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--tp-shadow-xs);
+}
+.leadMark svg {
+  width: 17px;
+  height: 17px;
+}
+.leadStars {
+  width: 108px;
+  height: 18px;
+  fill: var(--tp-gold);
+}
+.leadText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.leadScore {
+  font-family: var(--tp-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-ink);
 }
 
 .arrows {
@@ -200,30 +247,6 @@
   color: var(--tp-indigo-700);
 }
 
-/* Holds the fade that tells the reader the quote continues below.
-
-   It has to be a separate overlay rather than a mask on the scroller itself:
-   macOS and iOS draw overlay scrollbars that vanish when nothing is moving,
-   so on the devices most of this traffic arrives on there is otherwise no
-   sign at all that the text goes on — the review simply appears to stop
-   mid-sentence, which is a worse cue than the "Read more" this replaced.
-   Inset from the right so it never sits over the scrollbar, and click-through
-   so it cannot swallow a drag. */
-.quoteWrap {
-  position: relative;
-  min-height: 0;
-}
-.quoteWrap::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0 14px;
-  bottom: 0;
-  height: 34px;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(23, 21, 70, 0) 0%, rgba(21, 19, 64, 0.92) 100%);
-  border-radius: 0 0 4px 4px;
-}
-
 /* The whole review is present; the box scrolls rather than the text being
    cut short. A fixed height, not a max — every card then holds the same
    depth of text whatever the quote's length, which is what keeps the rail
@@ -231,7 +254,12 @@
 
    overscroll-behavior stops a flick that reaches the end of a quote from
    carrying on into the page behind it, which on a phone would otherwise
-   read as the section jumping away mid-sentence. */
+   read as the section jumping away mid-sentence.
+
+   There is deliberately no fade over the bottom edge: it dimmed the last
+   line of every review and cost more in readability than it bought in
+   affordance. The always-visible scrollbar thumb below carries that job on
+   its own. */
 .quote {
   font-family: var(--tp-display);
   font-size: clamp(1.0625rem, 3.6vw, 1.1875rem);
@@ -245,21 +273,21 @@
   /* Firefox. The thumb is deliberately visible rather than hover-revealed:
      it is the only thing telling the reader there is more review below. */
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.34) rgba(255, 255, 255, 0.1);
+  scrollbar-color: rgba(255, 255, 255, 0.48) rgba(255, 255, 255, 0.12);
 }
 .quote::-webkit-scrollbar {
   width: 6px;
 }
 .quote::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 999px;
 }
 .quote::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.48);
   border-radius: 999px;
 }
 .quote::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
 }
 .quote:focus-visible {
   outline: 2px solid var(--tp-lavender-300);

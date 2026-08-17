@@ -5,7 +5,7 @@ type Logo = { src: string; alt: string; width?: number; height?: number; tile?: 
 
 const AWARD_LOGOS: Logo[] = [
   /* The supplied masthead is white-on-black, so on this light strip it reads
-     as a solid black tile rather than a bare wordmark — `.tile` rounds its
+     as a solid black tile rather than a bare wordmark - `.tile` rounds its
      corners so that lands as a deliberate badge. Its true 1467x551
      dimensions let the marquee scale it on height without distorting the
      letterforms. */

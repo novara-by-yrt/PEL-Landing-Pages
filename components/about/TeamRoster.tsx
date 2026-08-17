@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -18,7 +19,7 @@ const PRACTITIONERS: Member[] = [
     tags: [
       "MS, FRCS (Ed) Ophth",
       "Board-Certified Cosmetic Surgeon, RCS England",
-      "Top practitioner for eyes, 2019–2026",
+      "Top practitioner for eyes, 2019-2026",
       "Upper & lower lid blepharoplasty",
       "Revision eyelid surgery",
       "Ptosis & thyroid eye surgery",
@@ -27,7 +28,7 @@ const PRACTITIONERS: Member[] = [
     fact: null,
     bookable: true,
     quote:
-      "My philosophy has always been the same — listen first, plan carefully, treat with precision, and never do more than is needed. The best result is the one that looks entirely like you.",
+      "My philosophy has always been the same - listen first, plan carefully, treat with precision, and never do more than is needed. The best result is the one that looks entirely like you.",
   },
   {
     id: "janine",
@@ -129,7 +130,14 @@ export function TeamRoster({
         eyebrow="Perfect Eyes Ltd & Perfect Skin Studio"
         h1="Meet the Team"
         lead="Our exceptional practitioners and dedicated support staff work together to deliver outstanding aesthetic outcomes and an unparalleled patient experience."
-      />
+      >
+        {/* The first way to book was 1,303px down, just past the fold. */}
+        <div className={styles.heroCtas}>
+          <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
+            Book a Consultation
+          </Link>
+        </div>
+      </PageHero>
 
       <section className={`${styles.section} ${styles.paper}`}>
         <div className="container">
@@ -156,7 +164,7 @@ export function TeamRoster({
             </h2>
             <p className={styles.bandText}>
               Behind every exceptional patient experience is a team that goes beyond clinical
-              expertise — coordinating, educating and supporting every step of your journey at
+              expertise - coordinating, educating and supporting every step of your journey at
               Perfect Eyes Ltd.
             </p>
           </div>
