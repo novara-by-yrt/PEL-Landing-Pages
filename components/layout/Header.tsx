@@ -453,7 +453,7 @@ export default function Header() {
                   }}
                 >
                   {item.label}
-                  <TpIcon name="chevron" size={13} style={{ transform: "rotate(90deg)" }} />
+                  <TpIcon name="chevron" size={13} direction="down" />
                 </button>
 
                 {isOpen && item.variant !== "mega" && (

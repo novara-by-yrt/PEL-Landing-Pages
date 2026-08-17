@@ -56,7 +56,7 @@ export function TeamBioCarousel({ data }: { data?: TeamBiosData }) {
                   onClick={prev}
                   aria-label="Previous team member"
                 >
-                  <TpIcon name="chevron" size={16} style={{ transform: "rotate(180deg)" }} />
+                  <TpIcon name="chevron" size={16} direction="left" />
                 </button>
                 <div className={styles.tpDots}>
                   {members.map((m, i) => (
