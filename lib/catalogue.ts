@@ -21,6 +21,18 @@ const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMet
  */
 const SUPERSEDED_BY_SIBLING = new Set(["ptosis-surgery-uk"]);
 
+/**
+ * Cards that deliberately do not take their page's own image.
+ *
+ * Blind Eye Removal was set to a close-up of an eye by explicit request; its
+ * page still carries the old surgical diagram. Matching the page here would
+ * undo that, so the card keeps the photograph and the page is the one that
+ * should be brought into line.
+ */
+const CARD_IMAGE_OVERRIDES: Record<string, string> = {
+  "eyeball-removal": "/blepharoplasty-quiz-intro.jpg",
+};
+
 export interface CatalogueCard {
   slug: string;
   /** Card heading. */
@@ -31,6 +43,22 @@ export interface CatalogueCard {
   href: string;
   /** Card artwork. Every one of these lives under /uploads. */
   image: string;
+}
+
+/**
+ * The image a treatment page actually shows for itself.
+ *
+ * Not the hero: on all but a handful of treatments the hero slot renders the
+ * "At a glance" panel instead of a picture, and the only image in the hero
+ * band is a decorative backdrop shared by every treatment on the site. The
+ * page's own photograph is the one in its first overview panel — the "What is
+ * X?" section — so that is what a card for that page should carry.
+ *
+ * Read from the page rather than copied into a list beside it: a card cannot
+ * then drift from the page it points at when the content changes.
+ */
+function pageImage(frontmatter: { overviewPanels?: { image?: string }[] }): string {
+  return frontmatter.overviewPanels?.find((panel) => panel.image)?.image || "";
 }
 
 /** Frontmatter prose is HTML-ish and often long; a card needs one clean line. */
@@ -83,7 +111,9 @@ export function getTreatmentCatalogue(): {
         title: (page.frontmatter.title || meta.h1 || "").trim(),
         blurb: summarise(meta.subtitle || page.frontmatter.excerpt),
         href,
-        image: meta.heroImage || "",
+        /* Show what the page shows. Twelve treatments have no image of their
+           own, and those keep the hero assigned in treatment-meta. */
+        image: CARD_IMAGE_OVERRIDES[page.slug] ?? (pageImage(page.frontmatter) || meta.heroImage || ""),
         type: meta.type,
       }),
     )
