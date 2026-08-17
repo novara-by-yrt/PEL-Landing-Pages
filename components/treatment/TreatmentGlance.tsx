@@ -4,15 +4,21 @@ import styles from "./TreatmentGlance.module.css";
 /**
  * The treatment's key facts, as a section of their own.
  *
- * This used to live in the hero's right column, which cost the hero its
- * photograph — the two could not both occupy that space, so the picture only
- * appeared on the handful of treatments carrying no facts. Pulled out and
- * placed under the accreditation strip, both get to exist.
+ * Built to the "Trust & Authority" pattern the design system recommends for a
+ * medical landing page: credentials and hard numbers presented plainly, high
+ * contrast, no ornament competing with the facts. The recommended palette for
+ * that pattern is a medical teal, which is deliberately not used — this
+ * section has to belong to the page it sits on, so it takes the site's own
+ * indigo and lavender tokens instead.
  *
- * No icons. A row of decorative glyphs beside single words like "Duration"
- * and "Day Case" added colour but no meaning, and with nine of them stacked
- * the panel read as busy rather than considered. The facts are a table; they
- * are set as one.
+ * The surface is the dark indigo glass band the journey roadmap and the
+ * review cards already use. It is the richest surface on the site, and it
+ * also does structural work here: the section sits between the accreditation
+ * strip and the advantages grid, both pale, so a dark band gives the page a
+ * rhythm instead of three light sections in a row.
+ *
+ * No icons. A glyph beside single words like "Duration" and "Day Case" added
+ * colour but no meaning, and nine of them stacked read as busy.
  */
 export function TreatmentGlance({
   glance = [],
@@ -26,6 +32,8 @@ export function TreatmentGlance({
 
   return (
     <section className={styles.section} aria-labelledby="glance-heading">
+      <span className={styles.glow} aria-hidden="true" />
+
       <div className="container">
         <div className={styles.head}>
           <span className={styles.eyebrow}>Treatment overview</span>
@@ -37,12 +45,18 @@ export function TreatmentGlance({
         </div>
 
         {/* A definition list, so each fact is a term paired with its value
-            rather than loose text. The 1px grid gap over a tinted panel draws
-            the rules between cells: they stay hairline-crisp at any column
-            count, and no cell is ever left as a gap in the table. */}
-        <dl className={styles.panel}>
+            rather than loose text.
+
+            The entrance is CSS-only (see the module's animation-timeline
+            block) rather than the shared Reveal component. Reveal starts its
+            wrapper at opacity 0 and needs JavaScript to clear it — fine for a
+            decorative band, but it would leave a visitor without JS staring
+            at an empty panel where the treatment's clinical facts should be.
+            A scroll-driven CSS animation degrades the right way: browsers
+            that do not support it simply show the cards. */}
+        <dl className={styles.grid}>
           {glance.map((item) => (
-            <div key={item.label} className={styles.item}>
+            <div key={item.label} className={styles.card}>
               <dt className={styles.label}>{item.label}</dt>
               <dd className={styles.value}>{item.value}</dd>
             </div>
