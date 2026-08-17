@@ -48,6 +48,12 @@ const nextConfig: NextConfig = {
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/xmlrpc.php", destination: "/", permanent: true },
 
+      // /self-test-survey is the URL actually linked site-wide (and the one
+      // the old WordPress site published); /blepharoplasty-quiz was a second,
+      // unlinked page rendering the identical quiz, which would otherwise
+      // split ranking signal and read as duplicate content.
+      { source: "/blepharoplasty-quiz", destination: "/self-test-survey", permanent: true },
+
       // Treatment pages are canonical at the nested paths the previous site
       // published. The flat slugs the migration produced 301 to them so each
       // treatment has exactly one indexable URL.
