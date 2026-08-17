@@ -31,6 +31,19 @@ const SUPERSEDED_BY_SIBLING = new Set(["ptosis-surgery-uk"]);
  */
 const CARD_IMAGE_OVERRIDES: Record<string, string> = {
   "eyeball-removal": "/blepharoplasty-quiz-intro.jpg",
+
+  /* Two pairs where both pages want the same picture and neither offers a
+     second one, so the de-duplication pass below has nothing to fall back to.
+     Each override is a real image already used elsewhere in the content and
+     chosen to suit the page it lands on:
+
+       - the exosomes pair splits skin from hair, so the plain "Autologous
+         Exosomes" page takes the skin photograph and the "Skin & Hair
+         Rejuvenation" page keeps the hair one;
+       - the polynucleotide pair splits by subject, so the dark-circles page
+         takes a dark-circles photograph. */
+  "autologous-exosomes": "/uploads/2024/01/skin-treatment-01.jpg",
+  "dark-circles-and-polynucleotides-or-mesotherapy": "/uploads/2025/05/Dark-Circle-1.png",
 };
 
 export interface CatalogueCard {
@@ -57,8 +70,16 @@ export interface CatalogueCard {
  * Read from the page rather than copied into a list beside it: a card cannot
  * then drift from the page it points at when the content changes.
  */
-function pageImage(frontmatter: { overviewPanels?: { image?: string }[] }): string {
-  return frontmatter.overviewPanels?.find((panel) => panel.image)?.image || "";
+function pageImages(frontmatter: { overviewPanels?: { image?: string }[] }): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const panel of frontmatter.overviewPanels || []) {
+    if (panel.image && !seen.has(panel.image)) {
+      seen.add(panel.image);
+      out.push(panel.image);
+    }
+  }
+  return out;
 }
 
 /** Frontmatter prose is HTML-ish and often long; a card needs one clean line. */
@@ -106,18 +127,39 @@ export function getTreatmentCatalogue(): {
     })
     .filter(({ page, href }) => isIndexable(page.frontmatter, href))
     .map(
-      ({ page, meta, href }): CatalogueCard & { type: string } => ({
+      ({ page, meta, href }): CatalogueCard & { type: string; candidates: string[] } => ({
         slug: page.slug,
         title: (page.frontmatter.title || meta.h1 || "").trim(),
         blurb: summarise(meta.subtitle || page.frontmatter.excerpt),
         href,
-        /* Show what the page shows. Twelve treatments have no image of their
-           own, and those keep the hero assigned in treatment-meta. */
-        image: CARD_IMAGE_OVERRIDES[page.slug] ?? (pageImage(page.frontmatter) || meta.heroImage || ""),
+        /* Filled in by the de-duplication pass below. */
+        image: "",
+        /* Every image this treatment can legitimately claim, best first: the
+           pictures on its own page, then the hero assigned in treatment-meta
+           as a backstop for the twelve treatments whose page has none. */
+        candidates: CARD_IMAGE_OVERRIDES[page.slug]
+          ? [CARD_IMAGE_OVERRIDES[page.slug]]
+          : [...pageImages(page.frontmatter), meta.heroImage].filter(Boolean),
         type: meta.type,
       }),
     )
     .sort((a, b) => a.title.localeCompare(b.title, "en-GB"));
+
+  /* No two cards may show the same photograph.
+     Several treatments are covered by a pair of pages — two festoons pages,
+     two revision pages, two Morpheus8 pages — and a pair naturally reaches for
+     the same picture, which left the grid looking like a mistake.
+
+     Walked in display order, so the first card to want an image keeps it and
+     the later one moves to the next picture on its own page. The walk is over
+     the sorted list and the candidate lists come from the content, so the
+     assignment is deterministic: the same content always produces the same
+     grid. */
+  const claimed = new Set<string>();
+  for (const card of cards) {
+    card.image = card.candidates.find((src) => !claimed.has(src)) || card.candidates[0] || "";
+    if (card.image) claimed.add(card.image);
+  }
 
   return {
     surgical: cards.filter((c) => c.type === "surgical"),

@@ -13,7 +13,7 @@ import TreatmentsCarousel, { type Treatment } from "@/components/home/Treatments
 import VideoCard from "@/components/home/VideoCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
-import GoogleWordmark from "@/components/shared/GoogleWordmark";
+import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
@@ -406,14 +406,18 @@ export default function HomePage() {
                 <dl className={styles.gBadge}>
                   <dt className="sr-only">Google rating</dt>
                   <dd className={styles.gBody}>
-                    <GoogleWordmark className={styles.gLogo} />
+                    {/* The G mark beside the score rather than a wordmark
+                        above it: one row less to stack, so the three elements
+                        fill the box instead of floating in it, and the word
+                        "Google" still gets said — in the line underneath. */}
                     <span className={styles.gRow}>
+                      <GoogleMark className={styles.gMark} />
                       <span className={styles.gScore}>4.9</span>
-                      <Stars className={styles.gStars} />
                     </span>
+                    <Stars className={styles.gStars} />
                     <span className={styles.gMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ reviews
+                      230+ Google reviews
                     </span>
                   </dd>
                 </dl>

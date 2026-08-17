@@ -274,46 +274,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4.4cqw;
+  gap: 5cqw;
   margin: 0;
-  padding: 7cqw;
+  padding: 6.5cqw;
 }
-/* Sized against the box, so the lockup holds the same optical weight whether
-   the badge is drawn at 139px on a phone or 208px on a desktop. */
-.gLogo {
-  display: block;
-  width: 50cqw;
-}
-.gLogo svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+/* Everything below is sized against the badge's own width, so the lockup
+   holds the same optical weight whether the badge is drawn at 139px on a
+   phone or 208px on a desktop.
+
+   The mark sits on the row with the score rather than above it. Stacked as a
+   third row it left the box looking half-empty; paired with the number it
+   makes one strong line and the three rows fill the card. */
 .gRow {
   display: flex;
   align-items: center;
-  gap: 3.6cqw;
+  gap: 4cqw;
+}
+.gMark {
+  display: block;
+  flex: 0 0 auto;
+  width: 19cqw;
+  height: 19cqw;
+}
+.gMark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .gScore {
   font-family: var(--tp-display);
-  font-size: 15cqw;
+  font-size: 22cqw;
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--tp-ink);
 }
 .gStars {
   display: block;
-  width: 40cqw;
-  height: 7.1cqw;
+  width: 52cqw;
+  height: 9.3cqw;
   fill: var(--tp-gold);
 }
 .gMeta {
-  font-size: 7.2cqw;
-  line-height: 1.2;
+  font-size: 7.4cqw;
+  line-height: 1.25;
   letter-spacing: 0.01em;
   color: var(--tp-slate);
   text-align: center;
+  text-wrap: balance;
 }
 
 /* The two statement lines, under the badge pair. */
