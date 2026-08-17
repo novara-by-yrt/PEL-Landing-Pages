@@ -51,7 +51,13 @@ const ENQUIRY_TYPES = [
   "Perfect360 Skin",
 ];
 
-export default function BookAppointmentForm() {
+export default function BookAppointmentForm({
+  /** The dialog supplies its own title, so the form's would be a second
+   *  heading stacked directly under the first. */
+  showHeading = true,
+}: {
+  showHeading?: boolean;
+} = {}) {
   const { status, fieldErrors, handleSubmit, reset, pending } = useFormSubmit("appointment");
 
   if (status.kind === "success") {
@@ -69,7 +75,7 @@ export default function BookAppointmentForm() {
 
   return (
     <form onSubmit={handleSubmit} id="contact-form">
-      <h2>Book an Appointment</h2>
+      {showHeading ? <h2>Book an Appointment</h2> : null}
 
       <div className={styles.contactFormRow}>
         <div>

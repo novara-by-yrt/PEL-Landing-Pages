@@ -34,7 +34,6 @@
   background: #fff; border-radius: var(--tp-radius-lg); box-shadow: var(--tp-shadow-md);
   padding: clamp(1.5rem, 4vw, 3rem); max-width: 700px; margin: 0 auto;
 }
-.formIframe { width: 100%; min-height: 1001px; border: none; border-radius: var(--tp-radius-md); margin-top: 1.5rem; }
 
 .notices { max-width: 760px; }
 .notices p { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; margin: 0 0 1rem; }
