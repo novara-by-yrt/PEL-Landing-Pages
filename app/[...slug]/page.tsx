@@ -156,21 +156,43 @@ export default async function CatchAllPageRoute({
   const url = `${SITE_URL}/${canonicalPath}`;
   const treatment = TREATMENT_SLUGS.has(fileSlug) ? treatmentMeta[fileSlug] : null;
 
+  /* Breadcrumbs.
+   *
+   * The trail used to be built from the URL's own segments, which on a
+   * treatment produced "Home / Surgical / Eyelid Surgery / Upper Eyelid
+   * Blepharoplasty UK" — and /surgical and /surgical/eyelid-surgery are not
+   * pages, so those two crumbs were dead text. A crumb that cannot be
+   * followed is worse than no crumb: it looks like a link, and it tells a
+   * crawler about a level of the site that does not exist.
+   *
+   * A treatment now sits under the treatments index, which is a real page and
+   * the level it genuinely belongs to. Anything else keeps the segment trail
+   * but drops the segments with nothing behind them, so every crumb that
+   * remains can be clicked.
+   */
   const canonicalSegments = canonicalPath.split("/");
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    ...canonicalSegments.map((seg, i) => {
-      const segPath = canonicalSegments.slice(0, i + 1);
-      const isLast = i === canonicalSegments.length - 1;
-      // Only link intermediate crumbs that lead to a real page — the previous
-      // site's category pages (/surgical, /non-surgical) aren't migrated yet.
-      const linkable = isLast || pageExistsExact("pages", segPath);
-      return {
-        name: humaniseSegment(seg),
-        url: linkable ? `${SITE_URL}/${segPath.join("/")}` : "",
-      };
-    }),
-  ];
+  const breadcrumbItems = treatment
+    ? [
+        { name: "Home", url: SITE_URL },
+        { name: "Treatments", url: `${SITE_URL}/treatments` },
+        { name: treatment.h1 || frontmatter.title, url },
+      ]
+    : [
+        { name: "Home", url: SITE_URL },
+        ...canonicalSegments
+          .map((seg, i) => {
+            const segPath = canonicalSegments.slice(0, i + 1);
+            const isLast = i === canonicalSegments.length - 1;
+            return {
+              name: isLast ? frontmatter.title : humaniseSegment(seg),
+              url:
+                isLast || pageExistsExact("pages", segPath)
+                  ? `${SITE_URL}/${segPath.join("/")}`
+                  : "",
+            };
+          })
+          .filter((crumb) => crumb.url),
+      ];
 
   const pageSchema = buildWebPageSchema(frontmatter, url);
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);

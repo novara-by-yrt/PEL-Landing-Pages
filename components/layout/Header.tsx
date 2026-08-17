@@ -162,9 +162,12 @@ const NAV: NavItem[] = [
     ],
   },
   {
+    /* Points at the index rather than at one arbitrary condition, so the
+       top-level link and the panel's "view all" lead to the same place. */
     label: "Eye Conditions",
-    href: "/condition/hooded-eyelids",
+    href: "/conditions",
     variant: "mega",
+    viewAll: { label: "View All Conditions", href: "/conditions" },
     groups: [
       { label: "Eyes", sub: EYE_CONDITIONS },
       { label: "Face", sub: FACE_CONDITIONS },
@@ -173,9 +176,9 @@ const NAV: NavItem[] = [
   },
   {
     label: "Treatments",
-    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
+    href: "/treatments",
     variant: "mega",
-    viewAll: { label: "View All Treatments", href: "/#treatments" },
+    viewAll: { label: "View All Treatments", href: "/treatments" },
     groups: [
       { label: "Surgical Treatments", sub: SURGICAL_TREATMENTS },
       { label: "Non-Surgical Treatments", sub: NON_SURGICAL_TREATMENTS },

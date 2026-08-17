@@ -1,0 +1,126 @@
+/* Page shell shared by /treatments and /conditions, so the two indexes are
+   the same page with different contents rather than two designs that drift.
+   Section rhythm and colour banding follow the results index, which follows
+   the home page. */
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(24px, 3.5vw, 34px);
+}
+.jumpChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  /* 44px is the smallest comfortable tap target; these are the first things
+     a thumb reaches on a phone. */
+  min-height: 44px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition:
+    background 200ms var(--tp-ease),
+    border-color 200ms var(--tp-ease),
+    transform 200ms var(--tp-ease);
+}
+.jumpChip:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+.jumpChip:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.jumpCount {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding-inline: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.section {
+  padding-block: clamp(48px, 7vw, 88px);
+  background: var(--tp-paper);
+  /* Clears the fixed header when a jump link lands here. */
+  scroll-margin-top: 96px;
+}
+.sectionAlt {
+  background: var(--tp-fog);
+}
+
+.head {
+  max-width: 46rem;
+  margin: 0 auto clamp(28px, 4vw, 42px);
+  text-align: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-lavender-600, var(--tp-indigo-700));
+  margin: 0 0 14px;
+}
+.title {
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 5vw, 2.35rem);
+  line-height: 1.16;
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.blurb {
+  font-size: var(--fs-body-md);
+  line-height: 1.65;
+  color: var(--tp-slate);
+  margin: 14px 0 0;
+}
+.rule {
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin: 18px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+}
+
+/* Closing note — the same regulatory register as the results index. */
+.note {
+  padding-block: clamp(32px, 4vw, 48px);
+  background: var(--tp-paper);
+  border-top: 1px solid var(--tp-line);
+}
+.noteText {
+  max-width: 54rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: var(--fs-body-sm);
+  line-height: 1.7;
+  color: var(--tp-slate);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jumpChip {
+    transition: none;
+  }
+  .jumpChip:hover {
+    transform: none;
+  }
+}

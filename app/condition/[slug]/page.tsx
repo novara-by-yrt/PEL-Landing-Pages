@@ -90,9 +90,12 @@ export default async function ConditionPage({
   const { frontmatter, content } = post;
   const url = `${SITE_URL}/condition/${slug}`;
 
+  /* "Eye Conditions" pointed at one arbitrary condition — hooded eyelids —
+     which made the crumb a lie: it read as the level above, and led sideways
+     to a sibling. It now points at the conditions index, which is that level. */
   const breadcrumbItems = [
     { name: "Home", url: SITE_URL },
-    { name: "Eye Conditions", url: `${SITE_URL}/condition/hooded-eyelids` },
+    { name: "Eye Conditions", url: `${SITE_URL}/conditions` },
     { name: frontmatter.title, url },
   ];
 
