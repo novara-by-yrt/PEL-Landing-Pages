@@ -13,7 +13,6 @@ import TreatmentsCarousel, { type Treatment } from "@/components/home/Treatments
 import VideoCard from "@/components/home/VideoCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
-import GoogleMark from "@/components/shared/GoogleMark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
@@ -406,18 +405,38 @@ export default function HomePage() {
                 <dl className={styles.gBadge}>
                   <dt className="sr-only">Google rating</dt>
                   <dd className={styles.gBody}>
-                    {/* The G mark beside the score rather than a wordmark
-                        above it: one row less to stack, so the three elements
-                        fill the box instead of floating in it, and the word
-                        "Google" still gets said — in the line underneath. */}
+                    {/* Google's own wordmark, supplied as artwork, in place of
+                        the mark that used to sit beside the score. Through
+                        next/image rather than a bare <img>: the source is a
+                        530KB PNG rendered about 110px wide, so the optimiser
+                        resizing and re-encoding it is the difference between
+                        half a megabyte and a couple of kilobytes.
+
+                        Decorative — the score and the caption below already
+                        say whose rating this is, and the list's own <dt>
+                        names it — so the alt is empty rather than repeating
+                        "Google" to a screen reader for a third time. */}
+                    <Image
+                      src="/Google logo.png"
+                      alt=""
+                      width={2124}
+                      height={665}
+                      sizes="(min-width: 900px) 110px, 90px"
+                      className={styles.gLogo}
+                    />
                     <span className={styles.gRow}>
-                      <GoogleMark className={styles.gMark} />
                       <span className={styles.gScore}>4.9</span>
+                      <Stars className={styles.gStars} />
                     </span>
-                    <Stars className={styles.gStars} />
                     <span className={styles.gMeta}>
+                      {/* Just "reviews": the wordmark directly above already
+                          says Google, and at 320px the longer line ran to
+                          within a few pixels of the card's edges. The full
+                          sentence is still announced — the list's <dt> says
+                          "Google rating" and the hidden text carries the
+                          rest. */}
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ Google reviews
+                      230+ reviews
                     </span>
                   </dd>
                 </dl>
