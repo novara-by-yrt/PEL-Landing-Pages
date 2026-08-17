@@ -81,7 +81,7 @@ export default function ContactCosmeticEyeSurgeonPage() {
               sit here. That widget was an iframe plus a script from
               link.perfecteyesltd.com, and the site's Content-Security-Policy
               allows frames only from YouTube and scripts only from self and
-              Google Tag Manager — so the browser refused both and the panel
+              Google Tag Manager - so the browser refused both and the panel
               rendered as an empty box. Rather than open the policy to a
               third-party origin, this uses BookAppointmentForm, which is what
               /contact already posts through. */}

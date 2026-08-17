@@ -29,7 +29,7 @@ function paragraphs(bio: string): string[] {
   if (parts.length > 1) return parts;
 
   /* Single-block bios are the norm in the roster, so break on sentence
-     boundaries near the middle — that gives the two columns roughly even
+     boundaries near the middle - that gives the two columns roughly even
      depth instead of one long block beside a short one. */
   const sentences = bio.match(/[^.!?]+[.!?]+(\s|$)/g);
   if (!sentences || sentences.length < 2) return [bio];
@@ -51,7 +51,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
 
   /* The dialog is portalled to <body>. Without it the overlay is trapped in
      the stacking context <main> creates (position: relative; z-index: 1), so
-     the fixed site header — z-index 200, outside main — paints over it no
+     the fixed site header - z-index 200, outside main - paints over it no
      matter how high the overlay's own z-index goes.
      Read once during render rather than in an effect: the portal only ever
      renders after a click, so the server's null and the client's body element
@@ -92,7 +92,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
           <article key={member.id} className={styles.card}>
             {/* SafeImage, not a bare next/image: every portrait is an
                 /uploads path served from the WordPress origin, and two of them
-                (Mary and Sally) are already 404ing there — a plain <img> then
+                (Mary and Sally) are already 404ing there - a plain <img> then
                 paints the alt text and the browser's broken-image glyph in the
                 middle of the card, which is what the audit caught. This
                 degrades to the brand placeholder instead. */}
@@ -106,7 +106,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
             <div className={styles.body}>
               <h3 className={styles.name}>{member.name}</h3>
               <p className={styles.role}>{member.role}</p>
-              {/* Full bio stays in the document for search/accessibility — the
+              {/* Full bio stays in the document for search/accessibility - the
                   modal is a progressive-disclosure UI, not the only copy. */}
               <p className="sr-only">{member.bio}</p>
               <div className={styles.actions}>
@@ -136,7 +136,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
           className={styles.overlay}
           role="dialog"
           aria-modal="true"
-          aria-label={`${active.name} — ${active.role}`}
+          aria-label={`${active.name} - ${active.role}`}
           onClick={close}
         >
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -151,7 +151,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
             </button>
 
             {/* Header band: portrait beside the identity block, on the brand
-                tint — the visual anchor before the prose starts. */}
+                tint - the visual anchor before the prose starts. */}
             <div className={styles.modalHeader}>
               <div className={styles.modalPhoto}>
                 <SafeImage
@@ -202,7 +202,7 @@ export function TeamGrid({ members }: { members: Member[] }) {
                 <div className={styles.modalFoot}>
                   {active.fact && (
                     <p className={styles.fact}>
-                      <b>Fun fact — </b>
+                      <b>Fun fact - </b>
                       {active.fact}
                     </p>
                   )}

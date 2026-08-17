@@ -48,7 +48,7 @@ const POPULAR_TREATMENTS = [
 ];
 
 /* Both privacy links used to point at /privacy-notice-1 and -2, which are
-   superseded drafts of /privacy-notice and are excluded from the index — so
+   superseded drafts of /privacy-notice and are excluded from the index - so
    every page linked twice to pages search engines are told to ignore, and
    neither was the live notice. One link, pointing at the real one.
 
@@ -95,8 +95,8 @@ export default function Footer() {
      The reveal only works while the footer fits on screen: it is
      `position: fixed`, so any part of it taller than the viewport sits above
      the top edge and can never be scrolled to. Stacked into one column on a
-     phone the footer runs ~1450px against a ~640–850px viewport, which left
-     the top third — the whole Quick links column — permanently unreachable.
+     phone the footer runs ~1450px against a ~640-850px viewport, which left
+     the top third - the whole Quick links column - permanently unreachable.
      So measure against the viewport and, when it cannot fit, hand the footer
      back to normal flow (`data-reveal="off"`) and zero the spacer. */
   useEffect(() => {
@@ -105,9 +105,9 @@ export default function Footer() {
 
     const sync = () => {
       /* The header is fixed over the top of the viewport, so the room the
-         footer actually has is the viewport minus the header — not the whole
+         footer actually has is the viewport minus the header - not the whole
          viewport. Measuring against the whole viewport left a band of window
-         heights (on this site, 776px to 848px — which is where a 1440x900
+         heights (on this site, 776px to 848px - which is where a 1440x900
          laptop lands once browser chrome is taken off) where the footer was
          judged to fit, stayed fixed, and then had its top 18-58px covered by
          the header: the Quick links heading and the first rows of the
@@ -234,7 +234,7 @@ export default function Footer() {
               the same kind of statement, and giving each its own centred line
               left the bar reading as three unrelated things stacked up with
               nothing lining up against anything. Side by side they bracket
-              the row — badge to one edge, links to the other — and the fine
+              the row - badge to one edge, links to the other - and the fine
               print sits under both. */}
           <div className={styles.bottomRow}>
             {/* Regulatory registration. Links out to the clinic's own entry

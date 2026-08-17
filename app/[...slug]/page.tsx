@@ -333,7 +333,7 @@ function TreatmentPage({
           pricingLead={treatment.pricingLead}
         />
         <TreatmentFAQ faq={frontmatter.faq} title={frontmatter.title} />
-        {/* The shared reviews rail, same as every other page — replaces the
+        {/* The shared reviews rail, same as every other page - replaces the
             treatment-only "Patient Reviews" grid, which showed a different,
             RealSelf-sourced set of quotes per treatment and so contradicted
             the one set of reviews the rest of the site shows. */}

@@ -99,7 +99,7 @@ export function TreatmentHero({
               <TpIcon name="sparkle" size={19} />
             </span>
             <div>
-              <h5>Dr. Sabrina Shah—Desai</h5>
+              <h5>Dr. Sabrina Shah-Desai</h5>
               <small>MS, FRCS (Ed) Ophth.</small>
               <p>Recognised as a top practitioner for eyes for eight consecutive years, 2018-2026</p>
             </div>

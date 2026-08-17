@@ -9,7 +9,7 @@ const RELATED_COUNT = 6;
 export function RelatedBlogs({
   excludeSlug,
   /* The page's subject. With one, the rail shows only posts that share a
-     meaningful word with it and renders nothing when none do — previously it
+     meaningful word with it and renders nothing when none do - previously it
      took the six newest posts regardless, so every treatment page carried an
      identical, unrelated list. Without one (the blog's own pages) it keeps
      the old newest-first behaviour, which is the right thing there. */

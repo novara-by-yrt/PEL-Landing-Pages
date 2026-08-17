@@ -112,7 +112,7 @@ export function BeforeAfterGallery({
               </span>
               <Image
                 src={item.image}
-                alt={item.alt || `${title} before and after — case ${i + 1}`}
+                alt={item.alt || `${title} before and after - case ${i + 1}`}
                 width={item.width ?? 1280}
                 height={item.height ?? 1280}
                 sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
@@ -165,14 +165,14 @@ export function BeforeAfterGallery({
           <figure className={styles.tpLbFigure} onClick={(e) => e.stopPropagation()}>
             <Image
               src={current.image}
-              alt={current.alt || `${title} before and after — case ${openIndex + 1}`}
+              alt={current.alt || `${title} before and after - case ${openIndex + 1}`}
               width={current.width ?? 1280}
               height={current.height ?? 1280}
               sizes="100vw"
               priority
             />
             <figcaption className={styles.tpLbCap}>
-              {title} — case {openIndex + 1} of {count}
+              {title} - case {openIndex + 1} of {count}
             </figcaption>
           </figure>
         </div>

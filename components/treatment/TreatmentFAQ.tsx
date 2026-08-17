@@ -33,7 +33,7 @@ export function TreatmentFAQ({ faq, title }: { faq?: FaqItem[]; title: string })
           {/* The heading column was otherwise empty beside a tall accordion. */}
           <p className={styles.tpFaqLead}>
             The questions patients ask most often, answered by the clinic. If yours
-            isn&rsquo;t here, ask us directly &mdash; we would be delighted to help.
+            isn&rsquo;t here, ask us directly - we would be delighted to help.
           </p>
         </div>
         <div>

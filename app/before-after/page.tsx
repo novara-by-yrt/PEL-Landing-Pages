@@ -16,7 +16,7 @@ import styles from "./page.module.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "Results — Before & After Gallery",
+  title: "Results - Before & After Gallery",
   description:
     "View real patient before and after results for blepharoplasty, tear trough fillers, polynucleotides, Morpheus8, and more cosmetic eye treatments.",
   alternates: { canonical: `${SITE_URL}/before-after` },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 /* Reassurance beside the photographs. A results gallery is where someone
    decides whether to enquire, and until now the page answered none of the
-   questions that decision turns on — what actually happens, how long it
+   questions that decision turns on - what actually happens, how long it
    takes, whether these results are representative. */
 const RESULTS_FAQ = [
   {
@@ -36,7 +36,7 @@ const RESULTS_FAQ = [
   {
     question: "How long before I look like the after photograph?",
     answer:
-      "Most surgical photographs here are taken at three to six months, once swelling has settled and scars have matured. The early weeks look different from the final result, and that is expected. Non-surgical results appear sooner — usually within two to six weeks depending on the treatment.",
+      "Most surgical photographs here are taken at three to six months, once swelling has settled and scars have matured. The early weeks look different from the final result, and that is expected. Non-surgical results appear sooner - usually within two to six weeks depending on the treatment.",
   },
   {
     question: "How soon can I go back to work?",
@@ -46,7 +46,7 @@ const RESULTS_FAQ = [
   {
     question: "What happens at the first appointment?",
     answer:
-      "A consultation is an examination and a conversation, not a sales appointment. Your concern is assessed, the options are explained — including the option of doing nothing — and you are given written information and a quotation to consider in your own time.",
+      "A consultation is an examination and a conversation, not a sales appointment. Your concern is assessed, the options are explained - including the option of doing nothing - and you are given written information and a quotation to consider in your own time.",
   },
 ];
 
@@ -150,7 +150,7 @@ export default function BeforeAfterIndexPage() {
           </dl>
 
           {/* Somewhere to act without scrolling. Measured, the first CTA on
-              this page sat 4,968px down on a laptop — and a gallery is a
+              this page sat 4,968px down on a laptop - and a gallery is a
               high-intent page, so it is the wrong one to make people scroll
               before they can book. */}
           <div className={styles.heroCtas}>

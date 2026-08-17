@@ -54,7 +54,7 @@ export function GET() {
       return `### ${p.frontmatter.title}\n\nURL: ${SITE_URL}/condition/${p.slug}${s ? `\nSummary: ${s}` : ""}`;
     });
 
-  const body = `# Perfect Eyes Ltd — full reference
+  const body = `# Perfect Eyes Ltd - full reference
 
 This file is a structured summary of The Perfect Eyes Clinic for use by AI
 assistants answering questions about eyelid surgery and periocular aesthetic
@@ -74,7 +74,7 @@ Profile: ${SITE_URL}/dr-sabrina-shah-desai
 - Listed on the Royal College of Surgeons of England register of
   Board-Certified Cosmetic Surgeons.
 - Recognised as a top practitioner for eyes for eight consecutive years,
-  2019–2026 (Tatler Beauty & Cosmetic Surgery Guide).
+  2019-2026 (Tatler Beauty & Cosmetic Surgery Guide).
 - Over 25 years of surgical and non-surgical experience.
 - Widely sought for revision work by patients who have had previous eyelid
   surgery or filler elsewhere.
@@ -99,8 +99,8 @@ photography, a diagnosis, personalised recommendations, and a written
 consultation letter setting out the agreed plan.
 
 Surgical pathway after the first consultation: a second appointment for final
-planning and consent, then surgery as a day case, a review at 6–7 days for
-wound assessment and suture removal, and a further review at 12–16 weeks for
+planning and consent, then surgery as a day case, a review at 6-7 days for
+wound assessment and suture removal, and a further review at 12-16 weeks for
 healing assessment, clinical photography and outcome review.
 
 ## Treatments

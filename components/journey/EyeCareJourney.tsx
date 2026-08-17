@@ -8,8 +8,8 @@ import styles from "./EyeCareJourney.module.css";
 type Tone = "paper" | "cream" | "fog";
 
 /* Structured blocks that sit under a panel's prose. The page used to run long
-   product paragraphs and bare bullet lists; the facts inside them — tips,
-   habits, trial results, product names — are lists, so they are modelled as
+   product paragraphs and bare bullet lists; the facts inside them - tips,
+   habits, trial results, product names - are lists, so they are modelled as
    data and rendered as scannable cards. */
 type Aside =
   | { kind: "steps"; label: string; items: string[] }
@@ -38,7 +38,7 @@ type Section =
       imageAlt: string;
       /* Where the desktop crop anchors. Desktop sizes the figure from the text
          column beside it, so the photo has to be cropped to fill; portraits
-         want "center top", wider shots want "center". Phones ignore this —
+         want "center top", wider shots want "center". Phones ignore this -
          they letterbox the whole frame instead. */
       imagePosition?: string;
       caption: { title: string; meta: string };
@@ -585,7 +585,7 @@ function StepSection({ section }: { section: Extract<Section, { kind: "step" }> 
       aria-labelledby={`${section.id}-heading`}
     >
       {/* Oversized ghost numeral, the way the home page's journey cards carry
-          their step number. Decorative — the real label is in .stepBadge. */}
+          their step number. Decorative - the real label is in .stepBadge. */}
       <span className={styles.stepGhost} aria-hidden="true">
         {String(section.step).padStart(2, "0")}
       </span>
@@ -667,13 +667,13 @@ export function EyeCareJourney({
         siteUrl={siteUrl}
         eyebrow="The Perfect360™ Experience"
         /* The old heading — "The Journey of Eye Care: A Lifelong Commitment
-           to Your Vision" — was a colon, an abstract noun and a promise the
+           to Your Vision" - was a colon, an abstract noun and a promise the
            reader had not asked for, and it ran to four lines on a phone. This
            says the same thing in the way a surgeon would say it aloud. */
         h1="Caring for your eyes, at every stage of life"
         lead="A guided pathway for eye, face and skin health, from everyday skincare through to surgery and the long-term care that keeps your results looking their best."
       >
-        {/* This page is a long read — measured, the first way to act on it sat
+        {/* This page is a long read - measured, the first way to act on it sat
             10,892px down on a laptop and 16,696px down on a phone. The
             treatment and condition templates both put a CTA in the opening
             viewport; this one is the same kind of landing page and had none. */}
@@ -803,7 +803,7 @@ export function EyeCareJourney({
         </div>
       </section>
 
-      {/* ── The one photographic dark band — the closing statement ──────── */}
+      {/* ── The one photographic dark band - the closing statement ──────── */}
       <section className={styles.manifesto} aria-labelledby="manifesto-heading">
         <div className={styles.manifestoBg}>
           <Image src="/uploads/2025/06/Frame-217.jpg" alt="" fill sizes="100vw" loading="lazy" />

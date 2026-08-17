@@ -146,8 +146,8 @@ export function getTreatmentCatalogue(): {
     .sort((a, b) => a.title.localeCompare(b.title, "en-GB"));
 
   /* No two cards may show the same photograph.
-     Several treatments are covered by a pair of pages — two festoons pages,
-     two revision pages, two Morpheus8 pages — and a pair naturally reaches for
+     Several treatments are covered by a pair of pages - two festoons pages,
+     two revision pages, two Morpheus8 pages - and a pair naturally reaches for
      the same picture, which left the grid looking like a mistake.
 
      Walked in display order, so the first card to want an image keeps it and

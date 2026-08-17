@@ -14,7 +14,7 @@ import styles from "./DrSabrinaBio.module.css";
 
 /* Structured blocks that sit under a panel's prose.
    The bio used to be five columns of unbroken paragraphs; the facts inside
-   them — awards, conditions, procedures, advisory roles — are lists, so they
+   them - awards, conditions, procedures, advisory roles - are lists, so they
    are modelled as data and rendered as scannable cards rather than sentences. */
 type Aside =
   | { kind: "awards"; label: string; items: { year: string; text: string }[] }
@@ -60,7 +60,7 @@ const PANELS: Panel[] = [
           <strong>
             Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons
           </strong>{" "}
-          &mdash; recognition of her expertise and of the trust she has earned from peers and
+          - recognition of her expertise and of the trust she has earned from peers and
           patients alike.
         </p>
       </>
@@ -73,24 +73,24 @@ const PANELS: Panel[] = [
            citations share a row, so the list scans in a single glance. */
         items: [
           {
-            year: "2019–2026",
-            text: "Tatler Top Doctors Guide — leading expert in eye treatments",
+            year: "2019-2026",
+            text: "Tatler Top Doctors Guide - leading expert in eye treatments",
           },
           {
             year: "2023",
-            text: "“Best Aesthetic Doctor” — Safety in Beauty Diamond Award",
+            text: "“Best Aesthetic Doctor” - Safety in Beauty Diamond Award",
           },
           {
             year: "2022",
-            text: "“Consultant Surgeon of the Year: Highly Commended” — Aesthetic Awards",
+            text: "“Consultant Surgeon of the Year: Highly Commended” - Aesthetic Awards",
           },
           {
             year: "2021",
-            text: "“Consultant Surgeon of the Year” and “Best Surgical Result” — Aesthetic Awards",
+            text: "“Consultant Surgeon of the Year” and “Best Surgical Result” - Aesthetic Awards",
           },
           {
             year: "2019",
-            text: "“Medical Aesthetic Practitioner: Highly Commended” and Global 100 most influential aesthetic practitioners — MyFaceMyBody",
+            text: "“Medical Aesthetic Practitioner: Highly Commended” and Global 100 most influential aesthetic practitioners - MyFaceMyBody",
           },
         ],
       },
@@ -110,7 +110,7 @@ const PANELS: Panel[] = [
           As an Ophthalmologist and Oculoplastic surgeon, Dr Sabrina offers restorative and
           rejuvenating eyelid surgery for common eyelid mal-positions, applying her extensive facial
           anatomy knowledge and meticulous approach to advanced surgical and non-surgical treatment
-          alike &mdash; the latter using injectables and energy-based devices.
+          alike - the latter using injectables and energy-based devices.
         </p>
         <p>
           She is highly sought after for revisional procedures by those who have undergone previous
@@ -200,14 +200,14 @@ const PANELS: Panel[] = [
           { value: "2016", text: "Founded the Oculo-Facial Aesthetic Academy (OFAA)" },
           {
             value: "2019",
-            text: "Highly Commended, Best Independent Aesthetic Training Provider — Sinclair Pharma Aesthetic Award",
+            text: "Highly Commended, Best Independent Aesthetic Training Provider - Sinclair Pharma Aesthetic Award",
           },
           {
             value: "2019",
             text: "Best Independent Training Provider, Safety in Beauty Diamond Awards, for her virtual reality anatomy app",
           },
           {
-            value: "2019–22",
+            value: "2019-22",
             text: "Teaching Professor of Anatomy (facial aesthetics), University of Camerino, Italy",
           },
         ],
@@ -240,15 +240,15 @@ const PANELS: Panel[] = [
         kind: "ticks",
         label: "Advisory roles",
         items: [
-          "CMAC specialist advisory board — UK expert in managing dermal filler complications",
-          "IMCAS Academy complication management group — appointed expert",
+          "CMAC specialist advisory board - UK expert in managing dermal filler complications",
+          "IMCAS Academy complication management group - appointed expert",
         ],
       },
       {
         kind: "note",
         text: (
           <>
-            <strong>Best Oral Presentation, BOPSS 2010</strong> — for a scientific paper
+            <strong>Best Oral Presentation, BOPSS 2010</strong> - for a scientific paper
             describing her innovative technique of restorative eyelid lowering surgery for thyroid
             eye disease.
           </>
@@ -312,17 +312,17 @@ const TRAINING: { meta: string; title: string; text: string }[] = [
     text: "Undertook her training at the prestigious Sir JJ Group of Hospitals at Bombay University, graduating in 1994, before travelling to the UK to complete four sub-speciality fellowships.",
   },
   {
-    meta: "1996–1998",
+    meta: "1996-1998",
     title: "Queen Victoria Hospital, East Grinstead",
     text: "Fellowship in Cornea & Oculoplastics, developing extensive expertise in managing periocular trauma, chemical burns and ocular surface disease, followed by a joint oculoplastic fellowship at Salisbury & Southampton Eye Units (1998).",
   },
   {
-    meta: "2000–2009",
+    meta: "2000-2009",
     title: "Moorfields Eye Hospital & Chelsea and Westminster",
-    text: "Adnexal fellowship at the prestigious Moorfields Eye Hospital (2000–2001), and a secondment fellowship at the multidisciplinary craniofacial unit at Chelsea & Westminster Hospital (2009), specialising in plastic surgery techniques relating to the eye and the face.",
+    text: "Adnexal fellowship at the prestigious Moorfields Eye Hospital (2000-2001), and a secondment fellowship at the multidisciplinary craniofacial unit at Chelsea & Westminster Hospital (2009), specialising in plastic surgery techniques relating to the eye and the face.",
   },
   {
-    meta: "2003–2015",
+    meta: "2003-2015",
     title: "Moorfields Eye Hospital & BHRUT Hospitals",
     text: "Worked as an Associate Specialist in the Adnexal unit at Moorfields Eye Hospital for a period of 7 years, then as a Consultant at BHRUT hospitals from 2010 to 2015.",
   },
@@ -344,15 +344,15 @@ const MEMBERSHIPS: string[] = [
   "British Oculoplastic Surgery Society (BOPSS)",
   "The Royal College of Surgeons (Ed)",
   "The Royal College of Ophthalmologists",
-  "British Association of Plastic Reconstructive and Aesthetic Surgeons (BAPRAS) — inter-specialty member",
-  "Association of Plastic and Reconstructive Surgeons of Southern Africa (APRASSA) — honorary member",
-  "South African Society of Dermatological Surgery (SASDS) — honorary member",
+  "British Association of Plastic Reconstructive and Aesthetic Surgeons (BAPRAS) - inter-specialty member",
+  "Association of Plastic and Reconstructive Surgeons of Southern Africa (APRASSA) - honorary member",
+  "South African Society of Dermatological Surgery (SASDS) - honorary member",
 ];
 
 /* Credibility figures, all drawn from the copy in PANELS and TRAINING above. */
 const STATS = [
   { value: "25+", label: "Years of surgical and non-surgical experience" },
-  { value: "6×", label: "Tatler Top Doctors Guide, 2019–2026" },
+  { value: "6×", label: "Tatler Top Doctors Guide, 2019-2026" },
   { value: "4", label: "Sub-speciality fellowships completed in the UK" },
   { value: "RCS", label: "England register of Board-Certified Cosmetic Surgeons" },
 ];
@@ -374,7 +374,7 @@ const PERFECT_360: JourneyStep[] = [
   },
   {
     title: "Deliver natural results",
-    text: "Results that are both natural and remarkable — “be your own kind of beautiful”.",
+    text: "Results that are both natural and remarkable - “be your own kind of beautiful”.",
   },
 ];
 
@@ -514,7 +514,7 @@ export function DrSabrinaBio({
             <figure className={styles.heroFigure}>
               {/* Intrinsic rather than `fill`: on phones the figure takes its
                   height from the photograph, so the frame is exactly the image
-                  at full container width — nothing cropped and no letterbox.
+                  at full container width - nothing cropped and no letterbox.
                   width/height only reserve space before it loads; `height:
                   auto` hands the final ratio back to the file itself. */}
               <Image
@@ -606,7 +606,7 @@ export function DrSabrinaBio({
             </h2>
             <p className={styles.journeyLead}>
               A curated experience built on the belief that treatment should restore and
-              respect unique facial features &mdash; a holistic, 360-degree approach drawing on
+              respect unique facial features - a holistic, 360-degree approach drawing on
               anatomy, expectations and her intuitive &ldquo;third eye&rdquo;.
             </p>
           </div>

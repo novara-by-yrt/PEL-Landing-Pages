@@ -58,8 +58,8 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
 ];
 
 /* Conditions, split across the three panel columns.
-   ⚠️ Every condition page under content/condition/ is periorbital — there are
-   no face-only or skin-only condition pages — so this grouping is by the
+   ⚠️ Every condition page under content/condition/ is periorbital - there are
+   no face-only or skin-only condition pages - so this grouping is by the
    nature of the complaint, not by separate content sets. Worth a clinical
    eye before it ships. */
 const EYE_CONDITIONS: SimpleLink[] = [
@@ -217,7 +217,7 @@ export default function Header() {
 
   /* Tubelight nav highlight: a single glowing bar that glides to whichever
      top-level item is hovered or focused, rather than each item drawing its
-     own (previously invisible — see layout-chrome.css) hover background.
+     own (previously invisible - see layout-chrome.css) hover background.
      `highlighted` names the item; `lampRect` is its last measured box, kept
      around after `highlighted` clears so the lamp fades out in place instead
      of jumping to a corner. */
@@ -347,7 +347,7 @@ export default function Header() {
   return (
     <>
       {/* Holds the bar's full-size height in the flow. The bar itself is
-          fixed, so shrinking it cannot move the page underneath — which is
+          fixed, so shrinking it cannot move the page underneath - which is
           what made the transition judder while scrolling. */}
       <div className="pel-nav-spacer" aria-hidden="true" />
 
@@ -360,7 +360,7 @@ export default function Header() {
             Height is what animates, so the 719:347 proportions hold and the
             reserved width/height keep it shift-free while it loads. */}
         <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic, home">
-          {/* Above the fold, so eager rather than lazy — but not preloaded,
+          {/* Above the fold, so eager rather than lazy - but not preloaded,
               which would put it ahead of the fonts and the hero headline. */}
           <Image
             src="/PEL_logo_without_background.png"

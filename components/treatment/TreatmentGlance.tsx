@@ -49,7 +49,7 @@ export function TreatmentGlance({
 
             The entrance is CSS-only (see the module's animation-timeline
             block) rather than the shared Reveal component. Reveal starts its
-            wrapper at opacity 0 and needs JavaScript to clear it — fine for a
+            wrapper at opacity 0 and needs JavaScript to clear it - fine for a
             decorative band, but it would leave a visitor without JS staring
             at an empty panel where the treatment's clinical facts should be.
             A scroll-driven CSS animation degrades the right way: browsers

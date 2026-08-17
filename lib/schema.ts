@@ -141,7 +141,7 @@ export function buildOrganizationSchema() {
    as YMYL and leans on structured data to establish who is treating whom and
    with what, so these carry the qualifications and registrations that the
    About page already states in prose. Every value here is drawn from what the
-   site already publishes — nothing is asserted that a visitor cannot read. */
+   site already publishes - nothing is asserted that a visitor cannot read. */
 
 const CLINIC_ADDRESS = {
   "@type": "PostalAddress",

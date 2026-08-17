@@ -19,7 +19,7 @@ const PRACTITIONERS: Member[] = [
     tags: [
       "MS, FRCS (Ed) Ophth",
       "Board-Certified Cosmetic Surgeon, RCS England",
-      "Top practitioner for eyes, 2019–2026",
+      "Top practitioner for eyes, 2019-2026",
       "Upper & lower lid blepharoplasty",
       "Revision eyelid surgery",
       "Ptosis & thyroid eye surgery",
@@ -28,7 +28,7 @@ const PRACTITIONERS: Member[] = [
     fact: null,
     bookable: true,
     quote:
-      "My philosophy has always been the same — listen first, plan carefully, treat with precision, and never do more than is needed. The best result is the one that looks entirely like you.",
+      "My philosophy has always been the same - listen first, plan carefully, treat with precision, and never do more than is needed. The best result is the one that looks entirely like you.",
   },
   {
     id: "janine",
@@ -164,7 +164,7 @@ export function TeamRoster({
             </h2>
             <p className={styles.bandText}>
               Behind every exceptional patient experience is a team that goes beyond clinical
-              expertise — coordinating, educating and supporting every step of your journey at
+              expertise - coordinating, educating and supporting every step of your journey at
               Perfect Eyes Ltd.
             </p>
           </div>

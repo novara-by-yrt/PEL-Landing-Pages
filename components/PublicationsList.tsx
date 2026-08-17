@@ -32,7 +32,7 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
 
   /* Filtered inline rather than in a useMemo: the React Compiler is enabled
      on this project and memoizes this for us, and the hand-written useMemo
-     that used to wrap it was one the compiler couldn't preserve — which made
+     that used to wrap it was one the compiler couldn't preserve - which made
      it bail out of optimizing the entire component. */
   const filteredPublications = initialPublications.filter((pub) => {
     const matchesSearch =

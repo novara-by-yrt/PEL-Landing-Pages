@@ -16,14 +16,14 @@ import styles from "./page.module.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "International Patients — Travelling to London for Treatment",
+  title: "International Patients - Travelling to London for Treatment",
   description:
     "Patients fly in from over 60 countries for eyelid and periocular surgery with Dr Sabrina Shah-Desai on Harley Street. How to plan the trip and stay.",
   alternates: { canonical: `${SITE_URL}/international-patients` },
   openGraph: {
     url: `${SITE_URL}/international-patients`,
     type: "website",
-    title: "International Patients — Travelling to London for Treatment",
+    title: "International Patients - Travelling to London for Treatment",
     description:
       "How patients travelling from abroad plan treatment with Dr Sabrina Shah-Desai at 121 Harley Street, London.",
     images: [DEFAULT_OG_IMAGE],
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
 };
 
 /* Every claim below is drawn from something the site already states elsewhere
-   — the surgeon profile, the Perfect360 patient journey sheet, the contact
-   page and the clinic record in lib/clinic.ts — and rewritten rather than
+   - the surgeon profile, the Perfect360 patient journey sheet, the contact
+   page and the clinic record in lib/clinic.ts - and rewritten rather than
    copied. Nothing here promises a service the site does not document: no
    visa letters, no transfers, no accommodation, no remote consulting. */
 
@@ -40,12 +40,12 @@ const REASONS = [
   {
     icon: "eye",
     title: "A narrow specialism, not a general one",
-    body: "Dr Shah-Desai is an oculoplastic reconstructive surgeon — her work is confined to the eyelids and the area around the eyes, rather than spread across the whole body. Patients travel precisely because that focus is hard to find close to home.",
+    body: "Dr Shah-Desai is an oculoplastic reconstructive surgeon - her work is confined to the eyelids and the area around the eyes, rather than spread across the whole body. Patients travel precisely because that focus is hard to find close to home.",
   },
   {
     icon: "shield",
     title: "Credentials that travel well",
-    body: "MS, FRCS (Ed) Ophth, and listed on the Royal College of Surgeons of England register of board-certified cosmetic surgeons — a public record anyone can check from anywhere before booking a flight.",
+    body: "MS, FRCS (Ed) Ophth, and listed on the Royal College of Surgeons of England register of board-certified cosmetic surgeons - a public record anyone can check from anywhere before booking a flight.",
   },
   {
     icon: "star",
@@ -55,7 +55,7 @@ const REASONS = [
   {
     icon: "clipboard",
     title: "A second opinion worth the flight",
-    body: "A large share of the overseas caseload is revision work — correcting earlier eyelid surgery, or dissolving and repairing migrated filler placed elsewhere. Second opinions are seen at a separate consultation rate.",
+    body: "A large share of the overseas caseload is revision work - correcting earlier eyelid surgery, or dissolving and repairing migrated filler placed elsewhere. Second opinions are seen at a separate consultation rate.",
   },
 ];
 
@@ -90,7 +90,7 @@ const ITINERARY = [
     icon: "clock",
     step: "Six to seven days later",
     title: "The review that sets your return date",
-    body: "Your wounds are checked and any sutures removed roughly a week after surgery. This appointment is the one to plan your stay around — book your flight home for after it, not before.",
+    body: "Your wounds are checked and any sutures removed roughly a week after surgery. This appointment is the one to plan your stay around - book your flight home for after it, not before.",
   },
   {
     icon: "compass",
@@ -105,7 +105,7 @@ const ITINERARY = [
 const CONSULTATION_COVERS = [
   "A full assessment of the face and the area around the eyes",
   "Your medical history, and clinical photography for the record",
-  "A diagnosis — named, and explained in plain terms",
+  "A diagnosis - named, and explained in plain terms",
   "Recommendations shaped around what you have come for",
   "A written letter afterwards, setting out the agreed plan",
 ];
@@ -114,7 +114,7 @@ const NOTES: HomeFaqItem[] = [
   {
     question: "How long should I plan to be in London?",
     answer:
-      "Long enough to reach the six-to-seven-day review after surgery, since that is when wounds are checked and sutures come out. The exact length depends on the procedure and is confirmed at your consultation — please do not book non-refundable travel before then.",
+      "Long enough to reach the six-to-seven-day review after surgery, since that is when wounds are checked and sutures come out. The exact length depends on the procedure and is confirmed at your consultation - please do not book non-refundable travel before then.",
   },
   {
     question: "Can the whole thing be done in a single trip?",
@@ -153,7 +153,7 @@ export default function InternationalPatientsPage() {
           </h1>
           <p className={styles.heroLead}>
             People come to Harley Street from every continent for eyelid and periocular
-            surgery — some for a first procedure, many more to have earlier work put right.
+            surgery - some for a first procedure, many more to have earlier work put right.
             This page explains how a trip is put together and what to plan around.
           </p>
 
@@ -180,7 +180,7 @@ export default function InternationalPatientsPage() {
           </dl>
 
           <div className={styles.heroActions}>
-            {/* Inverse and outline-light, not the light-background pair — the
+            {/* Inverse and outline-light, not the light-background pair - the
                 hero is a dark band, so the indigo primary would sink into it. */}
             <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
               Book a Consultation
@@ -274,7 +274,7 @@ export default function InternationalPatientsPage() {
               </h2>
               <p className={styles.lead}>
                 One appointment, and you leave with a diagnosis, a plan and it all in
-                writing — not a brochure and a follow-up call.
+                writing - not a brochure and a follow-up call.
               </p>
               <span className={styles.rule} aria-hidden="true" />
             </div>
@@ -284,7 +284,7 @@ export default function InternationalPatientsPage() {
               gone: BeginJourney already prints the same fee table lower down,
               and ContactSection the same address, phone, email and hours below
               that. With the column freed, the five items run as a stepped
-              rail — one row across on a wide screen, one column with the rail
+              rail - one row across on a wide screen, one column with the rail
               turned vertical below 1000px. */}
           <Reveal delay={70}>
             <div className={styles.coversPanel}>
@@ -322,7 +322,7 @@ export default function InternationalPatientsPage() {
           items={NOTES}
           eyebrow="Before you book"
           title="Questions people ask from abroad"
-          lead="The four that come up in almost every enquiry from overseas. Anything they do not answer, ask us directly — we would rather you asked before booking a flight than after."
+          lead="The four that come up in almost every enquiry from overseas. Anything they do not answer, ask us directly - we would rather you asked before booking a flight than after."
           footer={
             <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
               Email the team

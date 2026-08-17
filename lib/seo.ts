@@ -41,9 +41,9 @@ export function stripBrandSuffix(title: string): string {
   for (;;) {
     const next = out
       // " | Perfect Eyes Ltd", " - Perfect Eyes Ltd.", " — Perfect Eyes Ltd"
-      .replace(/\s*[|\-–—]\s*Perfect\s+Eyes\s+Ltd\.?\s*$/i, "")
+      .replace(/\s*[|\---]\s*Perfect\s+Eyes\s+Ltd\.?\s*$/i, "")
       // The in-house abbreviation, which only ever appears as a sign-off.
-      .replace(/\s*[|\-–—]\s*PEL\.?\s*$/i, "")
+      .replace(/\s*[|\---]\s*PEL\.?\s*$/i, "")
       .trim();
     if (next === out || !next) break;
     out = next;
@@ -114,7 +114,7 @@ export function resolveDescription(
      description. Thirty-one of the publication posts have a body consisting
      of nothing but a link to the author's PubMed listing, so the text derived
      from them was the literal string "https://pubmed.ncbi.nlm.nih.gov/?term=
-     shah-desai" — published as the meta description of thirty-one pages, all
+     shah-desai" - published as the meta description of thirty-one pages, all
      identical. Google discards a description like that and writes its own,
      and on the chance it is shown it tells the reader nothing. What is left
      after stripping has to be a real sentence's worth of prose, or this

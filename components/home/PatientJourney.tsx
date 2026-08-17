@@ -135,7 +135,7 @@ export default function PatientJourney() {
   return (
     <section className={styles.journey} aria-labelledby="journey-title">
       {/* Two soft brand blobs. They are what the glass panels' backdrop-filter
-          has to refract — on a flat field the glass reads as a plain panel. */}
+          has to refract - on a flat field the glass reads as a plain panel. */}
       <span className={styles.glow} aria-hidden="true" />
 
       <div className="container">
@@ -149,7 +149,7 @@ export default function PatientJourney() {
           </p>
         </div>
 
-        {/* Shared first step — both pathways begin here. */}
+        {/* Shared first step - both pathways begin here. */}
         <div className={styles.consult}>
           <div className={styles.consultHead}>
             <span className={styles.consultIcon} aria-hidden="true">

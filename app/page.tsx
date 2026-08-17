@@ -184,7 +184,7 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * gallery it came from.
  */
 /* The two upper-blepharoplasty composites that open the rail — the first card
-   and the fourth — are the only ones whose artwork does not already have
+   and the fourth - are the only ones whose artwork does not already have
    "Before" and "After" printed across the top. They are labelled in markup
    instead so every card in the rail reads the same way. Keyed by file so
    reordering the rail cannot detach a label from its photograph. */
@@ -378,8 +378,8 @@ export default function HomePage() {
 
             {/* Two badges of matching size on one row, with the remaining two
                 signals as text lines underneath. Previously the Tatler lockup
-                sat beside a stack of three mixed signals — a graphic, a
-                rating with its own mark and stars, and two plain text lines —
+                sat beside a stack of three mixed signals - a graphic, a
+                rating with its own mark and stars, and two plain text lines -
                 all competing on one row, which is what made the block read as
                 cluttered. The two things that are *marks* now sit together and
                 match; the two that are *statements* sit together and read as a
@@ -412,9 +412,9 @@ export default function HomePage() {
                         resizing and re-encoding it is the difference between
                         half a megabyte and a couple of kilobytes.
 
-                        Decorative — the score and the caption below already
+                        Decorative - the score and the caption below already
                         say whose rating this is, and the list's own <dt>
-                        names it — so the alt is empty rather than repeating
+                        names it - so the alt is empty rather than repeating
                         "Google" to a screen reader for a third time. */}
                     <Image
                       src="/Google logo.png"
@@ -432,7 +432,7 @@ export default function HomePage() {
                       {/* Just "reviews": the wordmark directly above already
                           says Google, and at 320px the longer line ran to
                           within a few pixels of the card's edges. The full
-                          sentence is still announced — the list's <dt> says
+                          sentence is still announced - the list's <dt> says
                           "Google rating" and the hidden text carries the
                           rest. */}
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
@@ -509,7 +509,7 @@ export default function HomePage() {
 
         {/* Full-bleed rail: the cards run past the container edges so the
             carousel reads as continuous rather than as a boxed row. Left out
-            of the reveal above — it drives its own drift as soon as it
+            of the reveal above - it drives its own drift as soon as it
             mounts, and fading a moving rail in double-animates it. */}
         <TreatmentsCarousel
           groups={[
@@ -546,7 +546,7 @@ export default function HomePage() {
           </Reveal>
 
           <div className={styles.videoGrid}>
-            {/* A small stagger, not one each — three cards seen once per
+            {/* A small stagger, not one each - three cards seen once per
                 visit, not a list scrolled past all day. */}
             <Reveal delay={0}>
               <VideoCard
@@ -624,7 +624,7 @@ export default function HomePage() {
                 className={styles.reachFrame}
                 aria-label="International patients: travelling to London for treatment"
               >
-                {/* Two crops of the same artwork — a wide map for tablet and
+                {/* Two crops of the same artwork - a wide map for tablet and
                     desktop, a tall one for phones. Swapped with <picture>
                     rather than two <Image>s toggled by CSS: display:none does
                     not stop an <img> downloading, so the CSS route would cost
