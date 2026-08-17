@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { TpIcon, glanceIconKey } from "./TpIcon";
-import type { BreadcrumbItem, GlanceItem } from "./types";
+import SafeImage from "@/components/shared/SafeImage";
+import { TpIcon } from "./TpIcon";
+import type { BreadcrumbItem } from "./types";
 import styles from "./TreatmentHero.module.css";
 
 export function TreatmentHero({
@@ -9,7 +10,6 @@ export function TreatmentHero({
   siteUrl,
   h1,
   subtitle,
-  glance = [],
   heroImage,
   heroImageAlt,
   heroBadge = "Before & After",
@@ -20,8 +20,6 @@ export function TreatmentHero({
   siteUrl: string;
   h1: string;
   subtitle?: string;
-  /** The at-a-glance facts, which now fill the hero's right column. */
-  glance?: GlanceItem[];
   heroImage?: string;
   heroImageAlt: string;
   heroBadge?: string;
@@ -29,10 +27,11 @@ export function TreatmentHero({
   /** Overrides the subtle default (0.16) for a real content photo, rather than the generic abstract-texture background, which needs more visual weight to register. */
   heroBgOpacity?: number;
 }) {
-  /* Six treatments carry no glance data at all. Rather than leave half the
-     hero empty on those, they keep the illustration and surgeon card the
-     column used to hold — every one of them has a hero image. */
-  const hasGlance = glance.length > 0;
+  /* The hero's right column is the treatment's photograph and the surgeon
+     card, on every treatment. It used to be given over to the At a Glance
+     panel wherever a treatment had facts, which meant the picture appeared on
+     only a handful of pages; the facts now have a section of their own below
+     the accreditation strip, so the two no longer compete for the space. */
   return (
     <section className={styles.tpHero}>
 
@@ -79,67 +78,32 @@ export function TreatmentHero({
         </div>
 
         <div className={styles.tpHeroRight}>
-          {hasGlance ? (
-            <div className={styles.tpGlance}>
-              <div className={styles.tpGlanceHead}>
-                <span className={styles.tpGlanceEyebrow}>
-                  <TpIcon name="clock" size={13} />
-                  Treatment overview
-                </span>
-                {/* Just "At a Glance": the treatment name is already the h1
-                    directly to the left of this panel, so repeating it here said
-                    the same thing twice in one viewport. */}
-                <h2 className={styles.tpGlanceTitle}>At a Glance</h2>
-              </div>
-
-              {/* A definition list: every row is a term and its value, and the
-                  pairing is then something a screen reader can follow. */}
-              <dl className={styles.tpGlanceGrid}>
-                {glance.map((item) => (
-                  <div
-                    key={item.label}
-                    /* A value long enough to wrap several times takes the
-                       whole row rather than half of it. Left in a column it
-                       stretched its one-line neighbour to match — a card with
-                       four lines beside a card with one and a large void
-                       under it, which also knocked the divider rules in the
-                       two columns out of step. Measured against the rendered
-                       grid: values past ~46 characters are the ones that wrap
-                       beyond two lines in a half-width column. */
-                    className={`${styles.tpGlanceItem}${
-                      item.value.length > 46 ? ` ${styles.tpGlanceWide}` : ""
-                    }`}
-                  >
-                    <span className={styles.tpGlanceIcon} aria-hidden="true">
-                      <TpIcon name={glanceIconKey(item.label)} size={17} />
-                    </span>
-                    <div className={styles.tpGlanceBody}>
-                      <dt className={styles.tpGlanceLabel}>{item.label}</dt>
-                      <dd className={styles.tpGlanceValue}>{item.value}</dd>
-                    </div>
-                  </div>
-                ))}
-              </dl>
+          <div className={styles.tpHeroFrame}>
+            {heroBadge && <span className={styles.tpHeroBadge}>{heroBadge}</span>}
+            {heroImage && (
+              /* Above the fold — LCP element on these pages. SafeImage rather
+                 than a bare next/image because most of these are /uploads
+                 paths on the WordPress origin; a miss should show the brand
+                 placeholder, not alt text and a broken glyph at the top of
+                 the page. */
+              <SafeImage
+                src={heroImage}
+                alt={heroImageAlt}
+                sizes="(max-width: 980px) 100vw, 42vw"
+                priority
+              />
+            )}
+          </div>
+          <div className={styles.tpDoctorCard}>
+            <span className={styles.tpDot}>
+              <TpIcon name="sparkle" size={19} />
+            </span>
+            <div>
+              <h5>Dr. Sabrina Shah—Desai</h5>
+              <small>MS, FRCS (Ed) Ophth.</small>
+              <p>Recognised as a top practitioner for eyes for eight consecutive years, 2018-2026</p>
             </div>
-          ) : (
-            <>
-              <div className={styles.tpHeroFrame}>
-                {heroBadge && <span className={styles.tpHeroBadge}>{heroBadge}</span>}
-                {heroImage && (
-                  /* Above the fold — LCP element on these pages. */
-                  <Image src={heroImage} alt={heroImageAlt} fill sizes="(max-width: 980px) 100vw, 42vw" priority />
-                )}
-              </div>
-              <div className={styles.tpDoctorCard}>
-                <span className={styles.tpDot}><TpIcon name="sparkle" size={19} /></span>
-                <div>
-                  <h5>Dr. Sabrina Shah—Desai</h5>
-                  <small>MS, FRCS (Ed) Ophth.</small>
-                  <p>Recognised as a top practitioner for eyes for eight consecutive years, 2018–2026</p>
-                </div>
-              </div>
-            </>
-          )}
+          </div>
         </div>
       </div>
     </section>

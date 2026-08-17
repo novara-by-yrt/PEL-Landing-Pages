@@ -36,6 +36,7 @@ import {
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
+  TreatmentGlance,
   TreatmentSimilar,
   RelatedBlogs,
   TreatmentCTA,
@@ -289,7 +290,6 @@ function TreatmentPage({
           siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
-          glance={treatment.glance}
           heroImage={treatment.heroImage}
           heroImageAlt={`${frontmatter.title} illustration`}
           heroBadge={treatment.heroBadge}
@@ -297,6 +297,7 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
+        <TreatmentGlance glance={treatment.glance} title={frontmatter.title} />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
