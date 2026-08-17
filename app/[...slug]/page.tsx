@@ -36,7 +36,6 @@ import {
   TreatmentExpert,
   TreatmentPricing,
   TreatmentFAQ,
-  RealSelfWidget,
   TreatmentSimilar,
   RelatedBlogs,
   TreatmentCTA,
@@ -341,7 +340,6 @@ function TreatmentPage({
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
         <RelatedBlogs />
-        <RealSelfWidget />
         <ContactSection />
       </div>
     </>
