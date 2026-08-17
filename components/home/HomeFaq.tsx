@@ -28,6 +28,11 @@ export default function HomeFaq({
      panel. */
   contentIsHtml = false,
   footer,
+  /* Home and treatment pages put the intro copy in its own sticky column
+     beside the panels. Blog posts already have a title, intro paragraph and
+     CTA sidebar of their own, so a second intro column there is redundant —
+     this keeps the panels but drops them to one full-width column instead. */
+  fullWidth = false,
 }: {
   items: HomeFaqItem[];
   eyebrow?: string;
@@ -35,6 +40,7 @@ export default function HomeFaq({
   lead?: string;
   contentIsHtml?: boolean;
   footer?: React.ReactNode;
+  fullWidth?: boolean;
 }) {
   const [openIndex, setOpenIndex] = useState(0);
   const baseId = useId();
@@ -44,7 +50,7 @@ export default function HomeFaq({
   return (
     <section className={styles.faq} aria-labelledby={`${baseId}-title`}>
       <div className="container">
-        <div className={styles.grid}>
+        <div className={`${styles.grid} ${fullWidth ? styles.gridFullWidth : ""}`}>
           <div className={styles.intro}>
             <span className={styles.eyebrow}>
               <TpIcon name="shield" size={13} />
