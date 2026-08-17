@@ -104,7 +104,20 @@ export default function Footer() {
     if (!el) return;
 
     const sync = () => {
-      const fits = el.offsetHeight <= window.innerHeight;
+      /* The header is fixed over the top of the viewport, so the room the
+         footer actually has is the viewport minus the header — not the whole
+         viewport. Measuring against the whole viewport left a band of window
+         heights (on this site, 776px to 848px — which is where a 1440x900
+         laptop lands once browser chrome is taken off) where the footer was
+         judged to fit, stayed fixed, and then had its top 18-58px covered by
+         the header: the Quick links heading and the first rows of the
+         columns sat behind the bar with no way to scroll them out. Below
+         that band the footer correctly fell back to normal flow; above it
+         there was room to spare. Only the middle was broken, which is why it
+         reads as intermittent. */
+      const header = document.querySelector<HTMLElement>(".pel-nav");
+      const available = window.innerHeight - (header?.offsetHeight ?? 0);
+      const fits = el.offsetHeight <= available;
       el.dataset.reveal = fits ? "on" : "off";
       document.documentElement.style.setProperty(
         "--footer-h",

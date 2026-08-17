@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import BeginJourney from "@/components/shared/BeginJourney";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ContactSection from "@/components/home/ContactSection";
@@ -69,7 +70,24 @@ export default function ConditionsIndexPage() {
           eyebrow="Eye Conditions"
           h1="Conditions we treat"
           lead={`${conditions.length} conditions of the eyelids and the area around the eyes, each explained on its own page — what causes it, how it is assessed, and the treatments that address it.`}
-        />
+        >
+          {/* A way to act without scrolling. The condition and treatment
+              templates both put their CTAs inside the first viewport; these
+              index pages are the same kind of landing page and were the only
+              two without one. */}
+          <div className={styles.heroCtas}>
+            <Link href="/contact" className="tp-btn tp-btn-inverse">
+              Book a Consultation
+            </Link>
+            <Link
+              href="/self-test-survey"
+              className="tp-btn"
+              style={{ color: "#fff", border: "1px solid rgba(255,255,255,0.3)" }}
+            >
+              Take the Eyelid Surgery Test
+            </Link>
+          </div>
+        </PageHero>
 
         <AccreditedStrip />
 

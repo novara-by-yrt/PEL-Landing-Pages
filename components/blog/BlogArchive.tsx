@@ -60,8 +60,8 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
         <section className="tp-section">
           <div className="container">
             <div className={styles.blogArchiveGrid}>
-              {posts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+              {posts.map((post, index) => (
+                <BlogCard key={post.slug} post={post} priority={index < 3} />
               ))}
             </div>
 

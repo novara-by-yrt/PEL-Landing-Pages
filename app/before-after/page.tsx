@@ -9,6 +9,8 @@ import GoogleMark from "@/components/shared/GoogleMark";
 import { getAllPosts, type Post } from "@/lib/mdx";
 import { RESULT_CATEGORIES, type ResultCategory } from "@/lib/results";
 import { PATIENT_STORIES } from "@/lib/reviews";
+import { TreatmentFAQ } from "@/components/treatment";
+import { buildFaqSchema } from "@/lib/schema";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -19,6 +21,53 @@ export const metadata: Metadata = {
     "View real patient before and after results for blepharoplasty, tear trough fillers, polynucleotides, Morpheus8, and more cosmetic eye treatments.",
   alternates: { canonical: `${SITE_URL}/before-after` },
 };
+
+
+/* Reassurance beside the photographs. A results gallery is where someone
+   decides whether to enquire, and until now the page answered none of the
+   questions that decision turns on — what actually happens, how long it
+   takes, whether these results are representative. */
+const RESULTS_FAQ = [
+  {
+    question: "Are these results typical?",
+    answer:
+      "Every photograph on this page is a patient of the clinic, published with their consent and not retouched. They are real outcomes rather than a best-case selection, but they are not a promise: anatomy, age, skin quality and healing all differ, and what is achievable for you is assessed in person at consultation.",
+  },
+  {
+    question: "How long before I look like the after photograph?",
+    answer:
+      "Most surgical photographs here are taken at three to six months, once swelling has settled and scars have matured. The early weeks look different from the final result, and that is expected. Non-surgical results appear sooner — usually within two to six weeks depending on the treatment.",
+  },
+  {
+    question: "How soon can I go back to work?",
+    answer:
+      "For eyelid surgery, most patients take seven to ten days before returning to work and are comfortable in public at around two weeks. Non-surgical treatments generally need little or no time away. Dr Shah-Desai will give you a realistic timeline for your own procedure at consultation.",
+  },
+  {
+    question: "What happens at the first appointment?",
+    answer:
+      "A consultation is an examination and a conversation, not a sales appointment. Your concern is assessed, the options are explained — including the option of doing nothing — and you are given written information and a quotation to consider in your own time.",
+  },
+];
+
+const JOURNEY_STEPS = [
+  {
+    title: "Consultation",
+    body: "An examination with Dr Shah-Desai, a discussion of what is realistic for your anatomy, and written information to take away.",
+  },
+  {
+    title: "Planning",
+    body: "A treatment plan and quotation, with time to consider it. Surgery is scheduled once you are ready, not on the day.",
+  },
+  {
+    title: "Treatment",
+    body: "Carried out in a CQC-regulated setting. Most eyelid surgery is performed under local anaesthetic with sedation.",
+  },
+  {
+    title: "Aftercare",
+    body: "Scheduled follow-up, direct access to the team while you heal, and review photographs once the result has settled.",
+  },
+];
 
 export default function BeforeAfterIndexPage() {
   const cases = getAllPosts("before-after");
@@ -54,6 +103,14 @@ export default function BeforeAfterIndexPage() {
 
   return (
     <div className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            buildFaqSchema(RESULTS_FAQ, `${SITE_URL}/before-after`, "Before and after results"),
+          ),
+        }}
+      />
       {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section className={styles.hero} aria-labelledby="results-title">
         <span className={styles.heroGlow} aria-hidden="true" />
@@ -164,6 +221,35 @@ export default function BeforeAfterIndexPage() {
           </div>
         </section>
       ))}
+
+      {/* ── What to expect ─────────────────────────────────────────────── */}
+      <section className={styles.group} aria-labelledby="journey-heading">
+        <div className="container">
+          <div className={styles.groupHead}>
+            <h2 id="journey-heading" className={styles.groupTitle}>
+              What to expect
+            </h2>
+            <p className={styles.groupBlurb}>
+              The path from first appointment to settled result, in four steps.
+            </p>
+            <span className={styles.rule} aria-hidden="true" />
+          </div>
+
+          <ol className={styles.journey}>
+            {JOURNEY_STEPS.map((step, index) => (
+              <li key={step.title} className={styles.journeyStep}>
+                <span className={styles.journeyNum} aria-hidden="true">
+                  {index + 1}
+                </span>
+                <h3 className={styles.journeyTitle}>{step.title}</h3>
+                <p className={styles.journeyBody}>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <TreatmentFAQ faq={RESULTS_FAQ} title="Results" />
 
       {/* ── Note on results ────────────────────────────────────────────── */}
       <section className={styles.note} aria-label="About these results">

@@ -368,3 +368,50 @@
     transform: none;
   }
 }
+
+/* ── What to expect ───────────────────────────────────────────────────────
+   Four steps beside the galleries: this is the page where someone decides
+   whether to enquire, and it previously answered none of the questions that
+   decision turns on. */
+.journey {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: journey;
+}
+.journeyStep {
+  position: relative;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: var(--tp-paper);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  box-shadow: var(--tp-shadow-xs);
+}
+.journeyNum {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: var(--tp-lavender-050);
+  color: var(--tp-indigo-700);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.journeyTitle {
+  font-family: var(--tp-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--tp-ink);
+  margin: 0 0 8px;
+}
+.journeyBody {
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+  color: var(--tp-slate);
+  margin: 0;
+}

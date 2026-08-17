@@ -124,3 +124,13 @@
     transform: none;
   }
 }
+
+/* Hero call-to-action row, mirroring the treatment and condition templates so
+   an index page is not the one landing page with nothing to act on until you
+   scroll. */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(20px, 3vw, 28px);
+}
