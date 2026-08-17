@@ -42,23 +42,27 @@ export const metadata: Metadata = {
  * it actually depicts. All seven correspond to awards already listed in
  * Dr Sabrina's profile copy.
  */
+/* width/height below are the badges' displayed size (AutoScrollCarousel.module.css
+   .badge caps height at 132px, width auto), not the source images' raw pixel
+   dimensions — next/image sizes its generated srcset off these, so passing the
+   1080x1080 source size here was making it ship the full-size original. */
 const AWARD_BADGES = [
   {
-    src: "/Award4.jpg", width: 1080, height: 1080,
+    src: "/Award4.jpg", width: 132, height: 132,
     alt: "Aesthetics Awards Winner 2021 — Consultant Surgeon of the Year",
   },
-  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
+  { src: "/Award3.png", width: 112, height: 132, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
   {
-    src: "/Award2.png", width: 500, height: 591,
+    src: "/Award2.png", width: 112, height: 132,
     alt: "Safety in Beauty Diamond Awards 2016 — Highly Commended for Dedication & Excellence",
   },
-  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019 — Highly Commended" },
+  { src: "/Award5.jpg", width: 132, height: 132, alt: "My Face My Body Awards 2019 — Highly Commended" },
   {
-    src: "/Award1.jpg", width: 1080, height: 1080,
+    src: "/Award1.jpg", width: 132, height: 132,
     alt: "Aesthetics Awards 2019 — Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
   },
-  { src: "/Award7.jpg", width: 1080, height: 1080, alt: "My Face My Body Ultimate 100, 2019" },
-  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards — Highly Commended 2022" },
+  { src: "/Award7.jpg", width: 132, height: 132, alt: "My Face My Body Ultimate 100, 2019" },
+  { src: "/Award6.jpg", width: 132, height: 132, alt: "Aesthetics Awards — Highly Commended 2022" },
 ];
 
 const SURGICAL_TREATMENTS: Treatment[] = [
@@ -378,8 +382,11 @@ export default function HomePage() {
                 <Image
                   src="/as-seen-in-tatler.png"
                   alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
-                  width={1536}
-                  height={1024}
+                  /* Displayed size (app/page.module.css .pressLogo caps height at
+                     112px, width auto) — not the 1536x1024 source, which next/image
+                     was otherwise shipping in full. */
+                  width={168}
+                  height={112}
                   className={styles.pressLogo}
                 />
               </figure>

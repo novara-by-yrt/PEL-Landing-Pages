@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
   // Static export support — pre-render all pages at build time
   output: "standalone",
 
+  // Every route was shipping 4+ render-blocking <link rel="stylesheet"> tags
+  // (PageSpeed: ~170ms). Inlining puts the CSS straight in the HTML <head>
+  // instead, cutting the request waterfall before first paint. Trade-off:
+  // returning visitors lose cross-page stylesheet caching, since inlined CSS
+  // re-downloads with every page — acceptable here since total CSS is small
+  // (~40KB) and most traffic is new visitors arriving from search.
+  experimental: {
+    inlineCss: true,
+  },
+
   // Optimise images from the migrated uploads directory
   images: {
     formats: ["image/avif", "image/webp"],
