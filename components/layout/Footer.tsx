@@ -230,44 +230,54 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          {/* Regulatory registration, next to the company number and the
-              legal links rather than up with the marketing — it is the same
-              kind of statement. Links out to the clinic's own entry on the
-              CQC register, so the claim can be checked rather than just read.
+          {/* The regulatory badge and the legal links share one row: they are
+              the same kind of statement, and giving each its own centred line
+              left the bar reading as three unrelated things stacked up with
+              nothing lining up against anything. Side by side they bracket
+              the row — badge to one edge, links to the other — and the fine
+              print sits under both. */}
+          <div className={styles.bottomRow}>
+            {/* Regulatory registration. Links out to the clinic's own entry
+                on the CQC register, so the claim can be checked rather than
+                just read.
 
-              The badge sits on a white plate: it is the artwork the treatment
-              pages use, drawn for those pages' pale background, and the
-              footer is dark. The plate keeps it legible whatever its ink,
-              the same way the Google mark is handled on the dark review
-              cards. */}
-          <a
-            href={CQC_REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cqc}
-          >
-            {badgeFailed ? null : (
-              <span className={styles.cqcPlate}>
-                <Image
-                  src={CQC_BADGE_SRC}
-                  alt=""
-                  width={190}
-                  height={31}
-                  className={styles.cqcMark}
-                  onError={() => setBadgeFailed(true)}
-                />
+                The badge sits on a white plate: it is the artwork the
+                treatment pages use, drawn for those pages' pale background,
+                and the footer is dark. The plate keeps it legible whatever
+                its ink, the same way the Google mark is handled on the dark
+                review cards. */}
+            <a
+              href={CQC_REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cqc}
+            >
+              {badgeFailed ? null : (
+                <span className={styles.cqcPlate}>
+                  <Image
+                    src={CQC_BADGE_SRC}
+                    alt=""
+                    width={190}
+                    height={31}
+                    className={styles.cqcMark}
+                    onError={() => setBadgeFailed(true)}
+                  />
+                </span>
+              )}
+              <span className={styles.cqcCopy}>
+                <span className={styles.cqcText}>CQC registered</span>
+                <span className={styles.cqcMeta}>Rated good in all five key areas</span>
               </span>
-            )}
-            <span className={styles.cqcText}>CQC registered</span>
-          </a>
+            </a>
 
-          <nav className={styles.legal} aria-label="Legal">
-            {LEGAL_LINKS.map((item) => (
-              <Link key={item.href} href={item.href} className={styles.legalLink}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            <nav className={styles.legal} aria-label="Legal">
+              {LEGAL_LINKS.map((item) => (
+                <Link key={item.href} href={item.href} className={styles.legalLink}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
           <div className={styles.fine}>
             <p>

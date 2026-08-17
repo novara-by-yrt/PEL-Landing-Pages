@@ -202,15 +202,13 @@ export default function PatientStories({
                     lets a keyboard user scroll it at all — but not inside a
                     clone, where a focus stop would land someone in a copy that
                     is hidden from assistive tech. */}
-                <div className={styles.quoteWrap}>
-                  <blockquote
-                    id={`story-${index}`}
-                    className={styles.quote}
-                    tabIndex={clone ? -1 : 0}
-                  >
-                    &ldquo;{story.quote}&rdquo;
-                  </blockquote>
-                </div>
+                <blockquote
+                  id={`story-${index}`}
+                  className={styles.quote}
+                  tabIndex={clone ? -1 : 0}
+                >
+                  &ldquo;{story.quote}&rdquo;
+                </blockquote>
 
                 {hasFoot ? (
                   <div className={styles.foot}>

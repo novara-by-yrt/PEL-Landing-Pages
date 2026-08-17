@@ -417,7 +417,7 @@ export default function HomePage() {
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Registration</dt>
                   <dd className={styles.trustValue}>
-                    <span className={styles.trustStrong}>GMC &middot; RCOphth</span>
+                    <span className={styles.trustStrong}>GMC &middot; RCOphth &middot; CQC</span>
                     <span className={styles.trustMeta}>registered &amp; accredited</span>
                   </dd>
                 </div>
