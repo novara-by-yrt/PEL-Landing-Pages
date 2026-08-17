@@ -32,9 +32,9 @@ function Chevron({ back = false }: { back?: boolean }) {
   );
 }
 
-function Stars() {
+function Stars({ className = styles.stars }: { className?: string }) {
   return (
-    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+    <svg className={className} viewBox="0 0 90 16" aria-hidden="true">
       {[0, 18, 36, 54, 72].map((x) => (
         <path
           key={x}
@@ -127,7 +127,21 @@ export default function PatientStories({
           <h2 id="stories-title" className={styles.title}>
             Rated five stars by patients across the globe
           </h2>
-          <p className={styles.lead}>Rated 4.9 from 230+ Google reviews.</p>
+          {/* The same attribution unit the review cards below use — Google
+              mark on its white disc, then the five stars — rather than a
+              sentence saying the same thing in a different visual language.
+              The score reads once, out of the markup, so a screen reader is
+              not told the rating twice. */}
+          <p className={styles.lead}>
+            <span className={styles.leadRating}>
+              <GoogleMark className={styles.leadMark} />
+              <Stars className={styles.leadStars} />
+            </span>
+            <span className={styles.leadText}>
+              <strong className={styles.leadScore}>4.9</strong>
+              <span className="sr-only">out of 5</span> from 230+ Google reviews
+            </span>
+          </p>
         </div>
 
         <div className={styles.arrows}>

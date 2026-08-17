@@ -56,11 +56,58 @@
   margin: 0;
   text-wrap: balance;
 }
+/* The section's rating line. Built from the same two pieces as the cards'
+   attribution — Google mark on a white disc, then the five gold stars — so
+   the header and the cards state the rating in one visual language instead
+   of two. Wraps to two lines on a phone, hence the flex column rather than a
+   single inline row. */
 .lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   font-size: var(--fs-body-md);
   line-height: 1.6;
   color: var(--tp-slate);
-  margin: 16px 0 0;
+  margin: 18px 0 0;
+}
+.leadRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+/* Same white disc as the cards use, which is what keeps the four-colour mark
+   legible whatever it sits on. */
+.leadMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--tp-shadow-xs);
+}
+.leadMark svg {
+  width: 17px;
+  height: 17px;
+}
+.leadStars {
+  width: 108px;
+  height: 18px;
+  fill: var(--tp-gold);
+}
+.leadText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.leadScore {
+  font-family: var(--tp-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-ink);
 }
 
 .arrows {
