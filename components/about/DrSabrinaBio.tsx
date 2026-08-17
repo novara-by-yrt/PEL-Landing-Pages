@@ -532,7 +532,7 @@ export function DrSabrinaBio({
                 </span>
                 <span>
                   <span className={styles.heroBadgeTitle}>Top practitioner for eyes</span>
-                  <span className={styles.heroBadgeMeta}>Eight consecutive years, 2019&ndash;2026</span>
+                  <span className={styles.heroBadgeMeta}>Eight consecutive years, 2019-2026</span>
                 </span>
               </figcaption>
             </figure>

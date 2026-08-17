@@ -45,20 +45,20 @@ export const metadata: Metadata = {
 const AWARD_BADGES = [
   {
     src: "/Award4.jpg", width: 1080, height: 1080,
-    alt: "Aesthetics Awards Winner 2021 — Consultant Surgeon of the Year",
+    alt: "Aesthetics Awards Winner 2021: Consultant Surgeon of the Year",
   },
-  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023 — Winner" },
+  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023: Winner" },
   {
     src: "/Award2.png", width: 500, height: 591,
-    alt: "Safety in Beauty Diamond Awards 2016 — Highly Commended for Dedication & Excellence",
+    alt: "Safety in Beauty Diamond Awards 2016: Highly Commended for Dedication & Excellence",
   },
-  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019 — Highly Commended" },
+  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019: Highly Commended" },
   {
     src: "/Award1.jpg", width: 1080, height: 1080,
-    alt: "Aesthetics Awards 2019 — Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
+    alt: "Aesthetics Awards 2019: Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
   },
   { src: "/Award7.jpg", width: 1080, height: 1080, alt: "My Face My Body Ultimate 100, 2019" },
-  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards — Highly Commended 2022" },
+  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards: Highly Commended 2022" },
 ];
 
 const SURGICAL_TREATMENTS: Treatment[] = [
@@ -271,17 +271,17 @@ const CLINIC_TEAM: TeamMember[] = [
   },
   {
     name: "Dr Janine",
-    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-janine.png",
   },
   {
     name: "Dr Hemmali",
-    role: "Dentist & Aesthetic Practitioner — Perfect Skin Studio",
+    role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-hemmali.png",
   },
   {
     name: "Irvana",
-    role: "Qualified therapist — Perfect Skin Studio",
+    role: "Qualified therapist, Perfect Skin Studio",
     credentials: ["Level 4 Laser"],
     image: "/irvana.png",
   },
@@ -390,7 +390,7 @@ export default function HomePage() {
                 <figure className={styles.press}>
                   <Image
                     src="/as-seen-in-tatler.png"
-                    alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
+                    alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
                     width={1536}
                     height={1024}
                     className={styles.pressLogo}

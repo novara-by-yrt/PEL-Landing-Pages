@@ -359,7 +359,7 @@ export default function Header() {
             is at the top of the page, shrinking into the bar as they scroll.
             Height is what animates, so the 719:347 proportions hold and the
             reserved width/height keep it shift-free while it loads. */}
-        <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic — home">
+        <Link href="/" className="pel-brand" aria-label="The Perfect Eyes Clinic, home">
           {/* Above the fold, so eager rather than lazy — but not preloaded,
               which would put it ahead of the fonts and the hero headline. */}
           <Image

@@ -55,12 +55,12 @@ const PATHWAYS: Pathway[] = [
       { icon: "pulse", title: "Surgery" },
       {
         icon: "calendar",
-        title: "6–7 day follow-up",
+        title: "6-7 day follow-up",
         detail: ["Wound assessment", "Suture removal"],
       },
       {
         icon: "calendar",
-        title: "12–16 week follow-up",
+        title: "12-16 week follow-up",
         detail: ["Healing assessment", "Clinical photography", "Outcome review"],
       },
       {

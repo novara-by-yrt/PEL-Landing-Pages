@@ -160,7 +160,7 @@ export default function Footer() {
             {/* The transparent PNG, not the JPEG: the JPEG carries a baked
                 white background, which would show as a hard white block if
                 the card behind it ever changes. */}
-            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic — home">
+            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic, home">
               <Image
                 src="/PEL_logo_without_background.png"
                 alt="The Perfect Eyes Clinic"
