@@ -15,8 +15,11 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: clamp(48px, 8vw, 88px);
+  padding-block: clamp(40px, 6vw, 72px) clamp(48px, 7vw, 84px);
   background: var(--tp-lavender-050);
+  /* Closes the join with the accreditation strip below, which is white; the
+     hero previously ended on a hard colour change with no edge. */
+  border-bottom: 1px solid var(--tp-line);
 }
 .heroGlow {
   position: absolute;
@@ -24,7 +27,22 @@
   z-index: -1;
   background:
     radial-gradient(42% 60% at 80% 20%, rgba(188, 160, 221, 0.34), transparent 70%),
-    radial-gradient(38% 52% at 10% 90%, rgba(138, 132, 186, 0.24), transparent 72%);
+    radial-gradient(38% 52% at 10% 90%, rgba(138, 132, 186, 0.24), transparent 72%),
+    /* A light falling from the top, so the band reads as lit rather than as a
+       flat fill of lavender. */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 58%);
+}
+
+/* Copy on the left, the work on the right. One column until 1000px, where
+   there is finally room for both without squeezing either. */
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 56px);
+  align-items: center;
+}
+.heroCopy {
+  min-width: 0;
 }
 
 .crumbs {
@@ -73,28 +91,54 @@
   max-width: 52ch;
 }
 
-/* ── Credibility row ────────────────────────────────────────────────────── */
+/* ── Credibility row ──────────────────────────────────────────────────────
+   Three facts in one glass panel rather than three loose label-and-number
+   pairs. Loose, they read as stray text under the lead; panelled, they read
+   as a single credential block, and the panel is the same translucent
+   treatment the hero badges on the home page use.
+
+   Three columns at every width, never two: at two, the third fact dropped to
+   a row of its own and sat alone under the other two. The dividers are gaps
+   over a tinted panel rather than borders, so there is no trailing rule
+   after the last column to suppress. */
 .stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
-  margin: clamp(32px, 5vw, 48px) 0 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: clamp(28px, 4vw, 40px) 0 0;
+  overflow: hidden;
+  border-radius: var(--tp-radius-md);
+  border: 1px solid var(--tp-hairline);
+  background: var(--tp-hairline);
+  box-shadow: var(--tp-shadow-xs);
 }
 .stat {
   margin: 0;
   min-width: 0;
+  padding: clamp(14px, 2vw, 18px) clamp(12px, 1.8vw, 20px);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* The three labels are not the same length, and on a phone "Patient
+     rating" wraps where the other two do not. Pushing the value to the foot
+     of the cell lines the three numbers up with each other regardless of how
+     many lines the label above them took. */
+  display: flex;
+  flex-direction: column;
 }
 .statLabel {
   display: block;
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  /* Tighter than the site's usual 0.16em: at three columns on a 390px screen
+     the wider tracking pushed "Case studies" onto a third line. */
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--tp-slate);
   margin-bottom: 7px;
 }
 .statValue {
-  margin: 0;
+  margin: auto 0 0;
   font-family: var(--tp-display);
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 600;
@@ -115,6 +159,99 @@
   display: block;
   width: 100%;
   height: 100%;
+}
+
+/* ── Hero showcase ────────────────────────────────────────────────────────
+   One real case beside the copy. On a gallery the most persuasive thing
+   available is the work, and the opening screen was previously giving half
+   its width to nothing.
+
+   The whole panel is the link, so the target is the picture and its caption
+   together rather than a small line of text under it. */
+.showcase {
+  display: block;
+  min-width: 0;
+  border-radius: var(--tp-radius-xl);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    var(--tp-shadow-lg);
+  text-decoration: none;
+  transition:
+    transform 300ms var(--tp-ease),
+    box-shadow 300ms var(--tp-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .showcase:hover {
+    transform: translateY(-4px);
+  }
+}
+.showcase:focus-visible {
+  outline: 3px solid var(--tp-indigo-700);
+  outline-offset: 3px;
+}
+.showcaseMedia {
+  position: relative;
+  display: block;
+  /* The case photographs are wide before-and-after pairs; 4:3 crops the pair
+     rather than letterboxing it, and matches the cards further down. */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--tp-lavender-100);
+}
+.showcaseImg {
+  object-fit: cover;
+  transition: transform 600ms var(--tp-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .showcase:hover .showcaseImg {
+    transform: scale(1.03);
+  }
+}
+.showcaseFoot {
+  display: grid;
+  gap: 4px;
+  padding: clamp(16px, 2.2vw, 22px) clamp(18px, 2.4vw, 26px);
+}
+.showcaseLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+}
+.showcaseTitle {
+  font-family: var(--tp-display);
+  font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--tp-ink);
+}
+.showcaseCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--tp-indigo-700);
+}
+.showcaseCta svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 220ms var(--tp-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .showcase:hover .showcaseCta svg {
+    transform: translateX(4px);
+  }
 }
 
 /* ── Category jump links ────────────────────────────────────────────────── */
@@ -180,7 +317,22 @@
   max-width: 44rem;
   margin-bottom: clamp(28px, 4vw, 44px);
 }
+/* The rule now opens the heading rather than trailing it. Underneath the
+   blurb it read as a divider closing the block off from its own cards; above
+   the title it reads as a mark introducing the section. */
+.rule {
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
+}
 .groupTitle {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 14px;
   font-family: var(--tp-display);
   font-weight: 600;
   font-size: clamp(1.625rem, 4.4vw, 2.25rem);
@@ -189,19 +341,28 @@
   color: var(--tp-ink);
   margin: 0;
 }
+/* How much there is to look at, said once at the top of the section instead
+   of leaving the reader to count the cards. */
+.groupCount {
+  font-family: var(--tp-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-indigo-700);
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--tp-lavender-050);
+  border: 1px solid var(--tp-hairline);
+  /* Holds the pill on the title's own line rather than letting the baseline
+     alignment drag it down with the descenders. */
+  transform: translateY(-0.18em);
+}
 .groupBlurb {
   font-size: var(--text-base);
   line-height: var(--lh-relaxed);
   color: var(--tp-slate);
   margin: 12px 0 0;
-}
-.rule {
-  display: block;
-  width: 64px;
-  height: 3px;
-  margin-top: 20px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
 }
 
 /* ── Case cards ─────────────────────────────────────────────────────────── */
@@ -224,6 +385,7 @@
   border: 1px solid var(--tp-line);
   border-radius: var(--tp-radius-lg);
   background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-xs);
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -259,6 +421,12 @@
   inset: 0;
   background: linear-gradient(140deg, var(--tp-lavender-050), var(--tp-lavender-200));
 }
+/* The tag sits on pale clinical photographs and was landing white-on-white.
+   It carries its own edge and shadow rather than a gradient wash over the
+   top of the picture: these are before-and-after medical photographs, and
+   tinting them to make a label legible changes what the reader is being
+   shown. The border and drop shadow separate the tag from any background
+   without touching the image. */
 .cardTag {
   position: absolute;
   top: 14px;
@@ -268,6 +436,8 @@
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 10px -4px rgba(24, 20, 64, 0.5);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -342,9 +512,16 @@
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .stats {
-    grid-template-columns: repeat(3, max-content);
-    gap: 0 clamp(28px, 5vw, 56px);
+}
+
+/* The hero splits here. Below 1000px the two columns would each be under
+   470px, which is too narrow for a 4rem headline and too small for the
+   photograph to be worth showing at all. The copy column takes the larger
+   share: it carries the h1, the lead and both CTAs. */
+@media (min-width: 1000px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    gap: clamp(40px, 4.5vw, 72px);
   }
 }
 
@@ -359,12 +536,18 @@
   .cardLink,
   .cardImg,
   .cardCta svg,
-  .jumpChip {
+  .jumpChip,
+  .showcase,
+  .showcaseImg,
+  .showcaseCta svg {
     transition: none;
   }
   .cardLink:hover,
   .cardLink:hover .cardImg,
-  .jumpChip:hover {
+  .jumpChip:hover,
+  .showcase:hover,
+  .showcase:hover .showcaseImg,
+  .showcase:hover .showcaseCta svg {
     transform: none;
   }
 }
@@ -389,18 +572,31 @@
   border: 1px solid var(--tp-line);
   border-radius: var(--tp-radius-lg);
   box-shadow: var(--tp-shadow-xs);
+  /* The steps are a sequence, so each one carries a little more ink than the
+     last at its top edge - a quiet way to show direction without drawing a
+     connector that would have to be hidden every time the row wraps. */
+  overflow: hidden;
+}
+.journeyStep::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300));
 }
 .journeyNum {
   display: inline-grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   margin-bottom: 14px;
   border-radius: 999px;
   background: var(--tp-lavender-050);
+  border: 1px solid var(--tp-hairline);
   color: var(--tp-indigo-700);
-  font-size: 0.9375rem;
-  font-weight: 700;
+  font-family: var(--tp-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
 }
 .journeyTitle {
   font-family: var(--tp-display);
@@ -418,19 +614,17 @@
 
 /* Hero call-to-action row. The treatment and condition templates put a way to
    act inside the opening viewport; these pages did not, so the first CTA was
-   thousands of pixels down. Inverse button on the dark hero, outlined ghost
-   beside it. */
+   thousands of pixels down.
+
+   Both buttons are plain design-system variants. They were previously an
+   inverse button and a locally-defined ghost written for a dark hero - but
+   this hero is lavender-050, so the ghost was white text on a near-white
+   field and "Take the Free Self-Test" could not be read at all. Using the
+   shared variants is also what stops the pair drifting from every other CTA
+   on the site. */
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: clamp(20px, 3vw, 28px);
-}
-.heroCtaGhost {
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-}
-.heroCtaGhost:hover {
-  border-color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
+  margin-top: clamp(24px, 3.5vw, 32px);
 }
