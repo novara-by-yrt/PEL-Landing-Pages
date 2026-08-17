@@ -27,9 +27,14 @@ export default function GoogleWordmark({ className }: { className?: string }) {
           and so the g's descender is inside the box rather than clipped by
           its bottom edge, which is what made the g read as an o. */}
       <svg viewBox="-4 9 264 88" fill="none" strokeWidth="11">
-        {/* G — ring open from 0° to 48°, the crossbar filling the gap. */}
-        <path d="M42.5 42A18.5 18.5 0 1 0 36.38 55.75" stroke="#4285F4" />
-        <path d="M22 46H48" stroke="#4285F4" />
+        {/* G — capital. The ring runs unbroken down the right side and stops
+            AT the crossbar; the notch is only below it (33° to 70°). Opening
+            the ring at 3 o'clock instead, which is what this did before, cuts
+            the right side away at the very point that distinguishes a capital
+            G, and the letter reads as a lowercase e. The bar starts just left
+            of centre and runs out to the ring's outer edge. */}
+        <path d="M39.52 52.08A18.5 18.5 0 1 0 30.33 59.38" stroke="#4285F4" />
+        <path d="M22 47H48" stroke="#4285F4" />
 
         <circle cx="76" cy="47" r="13.5" stroke="#EA4335" />
         <circle cx="123" cy="47" r="13.5" stroke="#FBBC05" />
