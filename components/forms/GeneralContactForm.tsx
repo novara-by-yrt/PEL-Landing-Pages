@@ -22,26 +22,26 @@ export default function GeneralContactForm({ title = "Send us a message" }: { ti
 
       <form onSubmit={handleSubmit}>
         <div className={styles.field}>
+          <input id="gc-name" name="your-name" type="text" required autoComplete="name" placeholder=" " className={styles.input} />
           <label className={styles.label} htmlFor="gc-name">Your name</label>
-          <input id="gc-name" name="your-name" type="text" required autoComplete="name" className={styles.input} />
           {fieldErrors["your-name"] && <span className={styles.fieldError}>{fieldErrors["your-name"]}</span>}
         </div>
 
         <div className={styles.field}>
+          <input id="gc-email" name="your-email" type="email" required autoComplete="email" placeholder=" " className={styles.input} />
           <label className={styles.label} htmlFor="gc-email">Your email</label>
-          <input id="gc-email" name="your-email" type="email" required autoComplete="email" className={styles.input} />
           {fieldErrors["your-email"] && <span className={styles.fieldError}>{fieldErrors["your-email"]}</span>}
         </div>
 
         <div className={styles.field}>
+          <input id="gc-subject" name="your-subject" type="text" required placeholder=" " className={styles.input} />
           <label className={styles.label} htmlFor="gc-subject">Subject</label>
-          <input id="gc-subject" name="your-subject" type="text" required className={styles.input} />
           {fieldErrors["your-subject"] && <span className={styles.fieldError}>{fieldErrors["your-subject"]}</span>}
         </div>
 
         <div className={styles.field}>
+          <textarea id="gc-message" name="your-message" rows={5} placeholder=" " className={styles.textarea} />
           <label className={styles.label} htmlFor="gc-message">Your message (optional)</label>
-          <textarea id="gc-message" name="your-message" rows={5} className={styles.textarea} />
         </div>
 
         {(status.kind === "success" || status.kind === "error") && (

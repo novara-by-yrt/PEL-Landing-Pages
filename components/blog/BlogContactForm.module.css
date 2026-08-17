@@ -1,15 +1,65 @@
 .blogConnectCard { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-xl); padding: clamp(1.5rem, 3vw, 1.85rem); box-shadow: var(--tp-shadow-sm); }
 .blogConnectCard h3 { font-family: var(--tp-display); font-weight: 600; font-size: 1.3rem; color: var(--tp-ink); margin: 10px 0 4px; }
 .blogConnectCard > p.blogConnectLead { font-size: 0.8375rem; color: var(--tp-slate); margin: 0 0 1.4rem; line-height: 1.5; }
-.blogConnectField { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
-.blogConnectField label { font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); }
+/* Floating label: the field comes first in the DOM, the label sits absolutely
+   positioned on top of it (vertically centred, reading like a placeholder)
+   until the field is focused or filled, at which point it floats up into a
+   small chip on the border line. See BlogSidebarForm for the markup order
+   this depends on. */
+.blogConnectField { position: relative; margin-bottom: 1rem; }
 .blogConnectField input, .blogConnectField textarea, .blogConnectField select {
-  font-family: var(--tp-body); font-size: 0.9375rem; color: var(--tp-ink);
-  padding: 0.7rem 0.9rem; border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line);
+  font-family: var(--tp-body); font-size: 0.9375rem; line-height: 1.5; color: var(--tp-ink);
+  padding: 1.3rem 0.9rem 0.4rem; border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line);
   background: var(--tp-fog); outline: none; transition: border-color 160ms var(--tp-ease);
-  width: 100%;
+  width: 100%; box-sizing: border-box;
 }
 .blogConnectField input:focus, .blogConnectField textarea:focus, .blogConnectField select:focus { border-color: var(--tp-lavender-400); }
+
+/* Native <select> chrome carries its own intrinsic height that padding alone
+   doesn't fully override, so it renders taller than the <input>s beside it
+   even with identical box-model CSS. appearance: none hands sizing back to
+   this stylesheet like any other control; the native arrow it removes is
+   redrawn as a background-image chevron (#56555E = --tp-slate). */
+.blogConnectField select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356555E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 14px;
+}
+
+.blogConnectField label {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9375rem;
+  color: var(--tp-slate);
+  pointer-events: none;
+  transition: top 160ms var(--tp-ease), font-size 160ms var(--tp-ease), color 160ms var(--tp-ease), background-color 160ms var(--tp-ease);
+  max-width: calc(100% - 1.8rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blogConnectField input:focus + label,
+.blogConnectField input:not(:placeholder-shown) + label,
+.blogConnectField textarea:focus + label,
+.blogConnectField textarea:not(:placeholder-shown) + label,
+.blogConnectField select:focus + label,
+.blogConnectField select:valid + label {
+  top: 0;
+  left: 0.7rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--tp-lavender-600);
+  background: #fff;
+  padding: 0 4px;
+  border-radius: 3px;
+}
 .blogConnectConsent { display: flex; gap: 8px; align-items: flex-start; font-size: 0.8125rem; color: var(--tp-slate); line-height: 1.45; margin-bottom: 1rem; }
 .blogConnectConsent input { margin-top: 2px; flex: none; }
 .blogConnectFieldError { color: var(--semantic-error, #B4483F); font-size: 0.75rem; }

@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
-import BeforeAfterCarousel, { type BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
-import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
-import PatientJourney from "@/components/home/PatientJourney";
-import PatientStories from "@/components/home/PatientStories";
-import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
-import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
-import VideoCard from "@/components/home/VideoCard";
+import type { BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
+import type { HomeFaqItem } from "@/components/home/HomeFaq";
+import type { TeamMember } from "@/components/home/TeamCarousel";
+import type { Treatment } from "@/components/home/TreatmentsCarousel";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import BeginJourney from "@/components/shared/BeginJourney";
@@ -18,6 +16,19 @@ import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
+
+/* Everything below the hero is off-screen on load, so its JS doesn't need to
+   be in the bundle blocking first paint — dynamic() splits each into its own
+   chunk, fetched in parallel with (not ahead of) the hero. SSR stays on
+   (no `ssr: false`), so there's no content/SEO regression, just a smaller
+   critical-path bundle. */
+const TreatmentsCarousel = dynamic(() => import("@/components/home/TreatmentsCarousel"));
+const PatientStories = dynamic(() => import("@/components/home/PatientStories"));
+const PatientJourney = dynamic(() => import("@/components/home/PatientJourney"));
+const VideoCard = dynamic(() => import("@/components/home/VideoCard"));
+const BeforeAfterCarousel = dynamic(() => import("@/components/home/BeforeAfterCarousel"));
+const TeamCarousel = dynamic(() => import("@/components/home/TeamCarousel"));
+const HomeFaq = dynamic(() => import("@/components/home/HomeFaq"));
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -41,23 +52,27 @@ export const metadata: Metadata = {
  * it actually depicts. All seven correspond to awards already listed in
  * Dr Sabrina's profile copy.
  */
+/* width/height below are the badges' displayed size (AutoScrollCarousel.module.css
+   .badge caps height at 132px, width auto), not the source images' raw pixel
+   dimensions — next/image sizes its generated srcset off these, so passing the
+   1080x1080 source size here was making it ship the full-size original. */
 const AWARD_BADGES = [
   {
-    src: "/Award4.jpg", width: 1080, height: 1080,
+    src: "/Award4.jpg", width: 132, height: 132,
     alt: "Aesthetics Awards Winner 2021: Consultant Surgeon of the Year",
   },
-  { src: "/Award3.png", width: 450, height: 532, alt: "Safety in Beauty Diamond Awards 2023: Winner" },
+  { src: "/Award3.png", width: 112, height: 132, alt: "Safety in Beauty Diamond Awards 2023: Winner" },
   {
-    src: "/Award2.png", width: 500, height: 591,
+    src: "/Award2.png", width: 112, height: 132,
     alt: "Safety in Beauty Diamond Awards 2016: Highly Commended for Dedication & Excellence",
   },
-  { src: "/Award5.jpg", width: 1080, height: 1080, alt: "My Face My Body Awards 2019: Highly Commended" },
+  { src: "/Award5.jpg", width: 132, height: 132, alt: "My Face My Body Awards 2019: Highly Commended" },
   {
-    src: "/Award1.jpg", width: 1080, height: 1080,
+    src: "/Award1.jpg", width: 132, height: 132,
     alt: "Aesthetics Awards 2019: Highly Commended, Sinclair Pharma Award for Best Independent Training Provider",
   },
-  { src: "/Award7.jpg", width: 1080, height: 1080, alt: "My Face My Body Ultimate 100, 2019" },
-  { src: "/Award6.jpg", width: 1080, height: 1080, alt: "Aesthetics Awards: Highly Commended 2022" },
+  { src: "/Award7.jpg", width: 132, height: 132, alt: "My Face My Body Ultimate 100, 2019" },
+  { src: "/Award6.jpg", width: 132, height: 132, alt: "Aesthetics Awards: Highly Commended 2022" },
 ];
 
 const SURGICAL_TREATMENTS: Treatment[] = [
@@ -390,8 +405,17 @@ export default function HomePage() {
                   <Image
                     src="/as-seen-in-tatler.png"
                     alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+                    /* width/height carry the source's aspect ratio, and sizes
+                       tells the browser how wide the box actually is, so
+                       next/image ships a badge-sized file rather than the
+                       1536px original. Stating the box in sizes rather than
+                       hard-coding a displayed pixel size into width/height
+                       means the two cannot fall out of step when the badge is
+                       resized: the widths below are the .badges grid track at
+                       each breakpoint. */
                     width={1536}
                     height={1024}
+                    sizes="(min-width: 768px) 184px, (min-width: 360px) 153px, 122px"
                     className={styles.pressLogo}
                   />
                 </figure>

@@ -78,55 +78,45 @@ export default function BookAppointmentForm({
       {showHeading ? <h2>Book an Appointment</h2> : null}
 
       <div className={styles.contactFormRow}>
-        <div>
-          <label htmlFor="contact-name" className={styles.contactLabel}>
-            Full Name <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
-          </label>
-          <input id="contact-name" type="text" name="your-name" required autoComplete="name" placeholder="Full Name" className={styles.contactInput} />
+        <div className={styles.contactField}>
+          <input id="contact-name" type="text" name="your-name" required autoComplete="name" placeholder=" " className={styles.contactInput} />
+          <label htmlFor="contact-name" className={styles.contactLabel}>Full Name *</label>
           {fieldErrors["your-name"] && <span className={styles.contactFieldError}>{fieldErrors["your-name"]}</span>}
         </div>
-        <div>
-          <label htmlFor="contact-email" className={styles.contactLabel}>
-            Email Address <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
-          </label>
-          <input id="contact-email" type="email" name="your-email" required autoComplete="email" placeholder="Email address" className={styles.contactInput} />
+        <div className={styles.contactField}>
+          <input id="contact-email" type="email" name="your-email" required autoComplete="email" placeholder=" " className={styles.contactInput} />
+          <label htmlFor="contact-email" className={styles.contactLabel}>Email Address *</label>
           {fieldErrors["your-email"] && <span className={styles.contactFieldError}>{fieldErrors["your-email"]}</span>}
         </div>
       </div>
 
       <div className={styles.contactFormRow}>
-        <div>
-          <label htmlFor="contact-phone" className={styles.contactLabel}>
-            Phone Number <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
-          </label>
-          <input id="contact-phone" type="tel" name="your-phone" required autoComplete="tel" placeholder="Phone" className={styles.contactInput} />
+        <div className={styles.contactField}>
+          <input id="contact-phone" type="tel" name="your-phone" required autoComplete="tel" placeholder=" " className={styles.contactInput} />
+          <label htmlFor="contact-phone" className={styles.contactLabel}>Phone Number *</label>
           {fieldErrors["your-phone"] && <span className={styles.contactFieldError}>{fieldErrors["your-phone"]}</span>}
         </div>
-        <div>
-          <label htmlFor="contact-time" className={styles.contactLabel}>
-            Preferred Contact Time <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
-          </label>
+        <div className={styles.contactField}>
           <select id="contact-time" name="preferred-time" required defaultValue="" className={styles.contactInput}>
-            <option value="" disabled>Please choose an ideal time for us to contact you</option>
+            <option value="" disabled></option>
             {PREFERRED_TIMES.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
+          <label htmlFor="contact-time" className={styles.contactLabel}>Preferred Contact Time *</label>
           {fieldErrors["preferred-time"] && <span className={styles.contactFieldError}>{fieldErrors["preferred-time"]}</span>}
         </div>
       </div>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label htmlFor="contact-enquiry" className={styles.contactLabel}>
-          Which of these are you enquiring about? <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
-        </label>
+      <div className={styles.contactField} style={{ marginBottom: "1rem" }}>
         <select id="contact-enquiry" name="enquiry-type" required defaultValue="" className={styles.contactInput}>
-          <option value="" disabled>Which of these are you enquiring about?</option>
+          <option value="" disabled></option>
           {ENQUIRY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
+        <label htmlFor="contact-enquiry" className={styles.contactLabel}>Which of these are you enquiring about? *</label>
         {fieldErrors["enquiry-type"] && <span className={styles.contactFieldError}>{fieldErrors["enquiry-type"]}</span>}
       </div>
 
       <fieldset style={{ border: 0, padding: 0, margin: "0 0 1rem" }}>
-        <legend className={styles.contactLabel}>
+        <legend className={styles.contactLegend}>
           How may we contact you? <span aria-hidden="true" style={{ color: "#B3261E" }}>*</span>
         </legend>
         <div className={styles.contactCheckGroup}>
@@ -140,9 +130,9 @@ export default function BookAppointmentForm({
         {fieldErrors["contact-method"] && <span className={styles.contactFieldError}>{fieldErrors["contact-method"]}</span>}
       </fieldset>
 
-      <div style={{ marginBottom: "1.25rem" }}>
-        <label htmlFor="contact-message" className={styles.contactLabel}>Your Message</label>
-        <textarea id="contact-message" name="your-message" rows={5} placeholder="Message" className={styles.contactInput} style={{ resize: "vertical" }} />
+      <div className={styles.contactField} style={{ marginBottom: "1.25rem" }}>
+        <textarea id="contact-message" name="your-message" rows={5} placeholder=" " className={styles.contactInput} style={{ resize: "vertical" }} />
+        <label htmlFor="contact-message" className={styles.contactLabel}>Your Message (optional)</label>
       </div>
 
       <label className={styles.contactConsent} htmlFor="contact-consent">

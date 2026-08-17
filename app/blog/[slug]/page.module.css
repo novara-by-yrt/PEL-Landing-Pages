@@ -28,12 +28,3 @@
   .blogSidebar { position: static; }
 }
 
-.tpFaqList { display: flex; flex-direction: column; }
-.tpFaqItem { border-bottom: 1px solid var(--tp-hairline); }
-.tpFaqItem:first-child { border-top: 1px solid var(--tp-hairline); }
-.tpFaqQ { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 0; cursor: pointer; list-style: none; font-family: var(--tp-display); font-weight: 600; font-size: 1.05rem; color: var(--tp-ink); }
-.tpFaqQ::-webkit-details-marker { display: none; }
-.tpFaqChev { flex-shrink: 0; color: var(--tp-indigo-700); transition: transform 220ms var(--tp-ease); }
-.tpFaqItem[open] .tpFaqChev { transform: rotate(90deg); }
-.tpFaqA { padding: 0 0 1.5rem; font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; }
-

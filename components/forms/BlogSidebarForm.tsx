@@ -36,45 +36,51 @@ export function BlogSidebarForm() {
         <p className={styles.blogConnectSuccess}>{status.message}</p>
       ) : (
         <form onSubmit={handleSubmit}>
+          {/* Floating labels: input/select comes first in markup, label second —
+              the label is absolutely positioned over the field and floats up
+              via :placeholder-shown (inputs) or :valid (selects, since the
+              disabled empty-value option fails the `required` constraint
+              until a real one is picked). Removing the separate label row
+              this replaced is what shortens the form. */}
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-name">Full name</label>
-            <input id="blog-name" name="your-name" type="text" required autoComplete="name" placeholder="*Full Name" />
+            <input id="blog-name" name="your-name" type="text" required autoComplete="name" placeholder=" " />
+            <label htmlFor="blog-name">Full Name *</label>
             {fieldErrors["your-name"] && <span className={styles.blogConnectFieldError}>{fieldErrors["your-name"]}</span>}
           </div>
 
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-email">Email</label>
-            <input id="blog-email" name="your-email" type="email" required autoComplete="email" placeholder="*Email" />
+            <input id="blog-email" name="your-email" type="email" required autoComplete="email" placeholder=" " />
+            <label htmlFor="blog-email">Email *</label>
             {fieldErrors["your-email"] && <span className={styles.blogConnectFieldError}>{fieldErrors["your-email"]}</span>}
           </div>
 
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-phone">Phone</label>
-            <input id="blog-phone" name="your-phone" type="tel" required autoComplete="tel" placeholder="*Phone" />
+            <input id="blog-phone" name="your-phone" type="tel" required autoComplete="tel" placeholder=" " />
+            <label htmlFor="blog-phone">Phone *</label>
             {fieldErrors["your-phone"] && <span className={styles.blogConnectFieldError}>{fieldErrors["your-phone"]}</span>}
           </div>
 
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-time">Ideal time to contact you</label>
             <select id="blog-time" name="ideal-time" required defaultValue="">
-              <option value="" disabled>*Please choose an ideal time for us to contact you</option>
+              <option value="" disabled></option>
               {IDEAL_TIMES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
+            <label htmlFor="blog-time">Ideal time to contact you *</label>
             {fieldErrors["ideal-time"] && <span className={styles.blogConnectFieldError}>{fieldErrors["ideal-time"]}</span>}
           </div>
 
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-method">How would you like to be contacted?</label>
             <select id="blog-method" name="contact-method" required defaultValue="">
-              <option value="" disabled>*How would you like to be contacted?</option>
+              <option value="" disabled></option>
               {CONTACT_METHODS.map((m) => <option key={m} value={m}>{m}</option>)}
             </select>
+            <label htmlFor="blog-method">How would you like to be contacted? *</label>
             {fieldErrors["contact-method"] && <span className={styles.blogConnectFieldError}>{fieldErrors["contact-method"]}</span>}
           </div>
 
           <div className={styles.blogConnectField}>
-            <label htmlFor="blog-enquiry">What are you enquiring about?</label>
-            <input id="blog-enquiry" name="enquiring-about" type="text" required placeholder="*What are you enquiring about?" />
+            <input id="blog-enquiry" name="enquiring-about" type="text" required placeholder=" " />
+            <label htmlFor="blog-enquiry">What are you enquiring about? *</label>
             {fieldErrors["enquiring-about"] && <span className={styles.blogConnectFieldError}>{fieldErrors["enquiring-about"]}</span>}
           </div>
 

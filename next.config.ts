@@ -9,16 +9,19 @@ const TREATMENT_PATHS: Record<string, string> = treatmentPaths.paths;
 // and ranking history with it. See content/legacy-redirects.json.
 const LEGACY_REDIRECTS: Record<string, string> = legacyRedirects.redirects;
 
-// Origin that backs /uploads/* when a file isn't present in the local
-// public/ directory (e.g. in production, where the 2GB uploads folder is
-// gitignored and never deployed). Point this at Cloudflare R2 (or any other
-// host) later by changing this one value — no other code needs to change.
-const UPLOADS_ORIGIN =
-  process.env.UPLOADS_ORIGIN || "https://perfecteyesltd.com/wp-content/uploads";
-
 const nextConfig: NextConfig = {
   // Static export support — pre-render all pages at build time
   output: "standalone",
+
+  // Every route was shipping 4+ render-blocking <link rel="stylesheet"> tags
+  // (PageSpeed: ~170ms). Inlining puts the CSS straight in the HTML <head>
+  // instead, cutting the request waterfall before first paint. Trade-off:
+  // returning visitors lose cross-page stylesheet caching, since inlined CSS
+  // re-downloads with every page — acceptable here since total CSS is small
+  // (~40KB) and most traffic is new visitors arriving from search.
+  experimental: {
+    inlineCss: true,
+  },
 
   // Optimise images from the migrated uploads directory
   images: {
@@ -30,19 +33,7 @@ const nextConfig: NextConfig = {
     // before/afters that change when someone replaces the file, not by the
     // minute, so a long TTL turns a repeated encode into a cache hit. The
     // filename changes when the image does, so nothing goes stale.
-    minimumCacheTTL: 60 * 60 * 24 * 31,
-  },
-
-  // Fall back to the external uploads origin for any /uploads/* path not
-  // found locally. Next.js checks the filesystem (public/) before applying
-  // these, so local dev still serves from disk when the file exists there.
-  async rewrites() {
-    return [
-      {
-        source: "/uploads/:path*",
-        destination: `${UPLOADS_ORIGIN}/:path*`,
-      },
-    ];
+    minimumCacheTTL: 60 * 60 * 24 * 365,
   },
 
   // Permanent redirects from old WordPress URL structure
@@ -58,10 +49,16 @@ const nextConfig: NextConfig = {
       { source: "/xmlrpc.php", destination: "/", permanent: true },
 
       // The gallery lives at /before-after, but the navigation calls it
-      // "Results" — so /results is the URL people guess and type, and an
+      // "Results" - so /results is the URL people guess and type, and an
       // auditor hit it too. It was a 404.
       { source: "/results", destination: "/before-after", permanent: true },
       { source: "/results/:path*", destination: "/before-after/:path*", permanent: true },
+
+      // /self-test-survey is the URL actually linked site-wide (and the one
+      // the old WordPress site published); /blepharoplasty-quiz was a second,
+      // unlinked page rendering the identical quiz, which would otherwise
+      // split ranking signal and read as duplicate content.
+      { source: "/blepharoplasty-quiz", destination: "/self-test-survey", permanent: true },
 
       // Treatment pages are canonical at the nested paths the previous site
       // published. The flat slugs the migration produced 301 to them so each
@@ -157,15 +154,18 @@ const nextConfig: NextConfig = {
       // components/analytics/GoogleAnalytics. It only ever loads once the
       // visitor has accepted cookies, but the policy has to permit the origin
       // for that load to be possible at all.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+      // link.perfecteyesltd.com serves the embedded self-test-survey widget
+      // (content/pages/self-test-survey.mdx) — a raw <iframe> plus its
+      // form_embed.js helper, both from the same GoHighLevel-hosted domain.
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://link.perfecteyesltd.com",
       "style-src 'self' 'unsafe-inline'",
       // GA still falls back to a tracking pixel on browsers that block
       // fetch/beacon, hence the analytics origins in img-src as well.
       "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
-      "frame-src https://www.youtube.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://link.perfecteyesltd.com",
+      "frame-src https://www.youtube.com https://link.perfecteyesltd.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -191,27 +191,31 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        /* Files served straight out of public/ — the logo, award badges,
-           before/after photographs, the icons. Next only manages caching for
-           what it generates (/_next/*), so these went out as
-           `Cache-Control: public, max-age=0`: a conditional request on every
-           asset, on every page, on every repeat visit. That is the single
-           largest avoidable cost for a returning mobile visitor.
+        /* Every image served straight from disk rather than through
+           next/image — the logo and award badges at the public/ root, and
+           the migrated /uploads/** originals that the MDX content links to
+           directly with raw <img> tags (next/image never touches those, so
+           images.minimumCacheTTL above doesn't apply to them). Next only
+           manages caching for what it generates (/_next/*), so all of this
+           was going out as `Cache-Control: public, max-age=0` — a
+           conditional request on every asset, on every page, on every
+           repeat visit.
 
-           The pattern deliberately excludes anything containing a slash, so
-           it matches /Award1.jpg but never /_next/static/media/*, whose
-           filenames are content-hashed and which Next already marks immutable.
+           The lookahead excludes _next/ specifically (rather than the old
+           "no slash" trick, which also excluded /uploads/**) so this still
+           never touches /_next/static/media/*, whose filenames are
+           content-hashed and which Next already marks immutable.
 
-           A day of hard caching rather than `immutable`, because these
-           filenames are not content-hashed — if someone replaces an image in
-           place, the change is live within a day, and stale-while-revalidate
-           means the month after that is still served instantly while the
-           refresh happens in the background. */
-        source: "/:file([^/]+\\.(?:png|jpe?g|gif|svg|webp|avif|ico))",
+           A year of hard caching: these filenames are not content-hashed, so
+           replacing a file in place won't show up for existing visitors
+           until the cache entry expires — acceptable here since these are
+           stable editorial and clinical photographs, not images that get
+           swapped in place. */
+        source: "/:path((?!_next/).*\\.(?:png|jpe?g|gif|svg|webp|avif|ico))",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=86400, stale-while-revalidate=2592000",
+            value: "public, max-age=31536000",
           },
         ],
       },

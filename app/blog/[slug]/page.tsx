@@ -8,13 +8,14 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/schema";
-import { RelatedBlogs, TpIcon } from "@/components/treatment";
+import { RelatedBlogs } from "@/components/treatment";
 import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogSidebarForm } from "@/components/forms/BlogSidebarForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import SafeImage from "@/components/shared/SafeImage";
+import HomeFaq from "@/components/home/HomeFaq";
 import styles from "./page.module.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -189,25 +190,23 @@ export default async function BlogPostPage({
               </>
             )}
 
-            {/* FAQ section */}
+            {/* FAQ section — same accordion component and design as the
+                homepage and treatment pages, so the FAQ pattern is one
+                design across the whole site rather than a blog-only variant. */}
             {frontmatter.faq && frontmatter.faq.length > 0 && (
-              <section style={{ marginTop: "3rem" }}>
-                <div className="tp-head" style={{ marginBottom: "1.5rem" }}>
-                  <span className="tp-eyebrow"><TpIcon name="quote" size={13} />FAQ</span>
-                  <h2>Frequently Asked Questions</h2>
-                </div>
-                <div className={styles.tpFaqList}>
-                  {frontmatter.faq.map((item, i) => (
-                    <details key={i} className={styles.tpFaqItem}>
-                      <summary className={styles.tpFaqQ}>
-                        {item.question}
-                        <span className={styles.tpFaqChev} aria-hidden="true"><TpIcon name="chevron" size={16} /></span>
-                      </summary>
-                      <div className={styles.tpFaqA} dangerouslySetInnerHTML={{ __html: item.answer }} />
-                    </details>
-                  ))}
-                </div>
-              </section>
+              <HomeFaq
+                items={frontmatter.faq}
+                eyebrow="Good to know"
+                title="Frequently asked questions"
+                lead="Still unsure? Our team is glad to talk you through anything before you book."
+                contentIsHtml
+                fullWidth
+                footer={
+                  <Link href="/contact" className="tp-btn tp-btn-primary">
+                    Ask a Question or Book an Appointment
+                  </Link>
+                }
+              />
             )}
           </article>
 

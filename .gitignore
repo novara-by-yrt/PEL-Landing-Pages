@@ -43,8 +43,6 @@ next-env.d.ts
 # Webstorm
 /.idea/
 
-# Public uploads
-/public/uploads
 # Python bytecode from the skill search tool
 __pycache__/
 *.pyc

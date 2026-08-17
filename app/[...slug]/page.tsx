@@ -12,6 +12,7 @@ import {
 } from "@/lib/schema";
 import { resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
+import BlepharoplastyQuizForm from "@/components/forms/BlepharoplastyQuizForm";
 import ContactSection from "@/components/home/ContactSection";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
@@ -241,6 +242,33 @@ export default async function CatchAllPageRoute({
       <>
         {schemas}
         <DrSabrinaBio breadcrumbItems={breadcrumbItems} siteUrl={SITE_URL} faq={frontmatter.faq} />
+      </>
+    );
+  }
+
+  /* This page's own content used to be an iframe embed of a third-party
+     survey widget — the wrong tool for the job, and it was pointed at a
+     stale URL besides. The actual candidacy quiz is a Contact Form 7 form
+     driven by a small "quiz-step" plugin (Next/Prev, one field per screen,
+     a progress bar); BlepharoplastyQuizForm reproduces that natively, field
+     for field, off the plugin's source. No lead/heroImage here — the quiz's
+     own first step already carries the same intro image, heading and body
+     copy this page's frontmatter has, so showing both would repeat it. */
+  if (fileSlug === "self-test-survey") {
+    return (
+      <>
+        {schemas}
+        <div className="tp">
+          <PageHero
+            breadcrumbItems={breadcrumbItems}
+            siteUrl={SITE_URL}
+            eyebrow="Am I A Candidate?"
+            h1="Blepharoplasty Candidacy Quiz"
+          />
+          <section style={{ padding: "0 1.5rem clamp(3rem, 6vw, 5rem)" }}>
+            <BlepharoplastyQuizForm />
+          </section>
+        </div>
       </>
     );
   }

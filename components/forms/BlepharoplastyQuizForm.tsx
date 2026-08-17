@@ -255,6 +255,7 @@ export default function BlepharoplastyQuizForm() {
                   placeholder={s.placeholder}
                   autoComplete={s.autoComplete}
                   className={styles.input}
+                  style={{ padding: '1rem', marginBottom: '16px' }}
                 />
                 {s.note && <p className={styles.quizDisclaimer}>{s.note}</p>}
                 {fieldErrors[s.name] && <span className={styles.fieldError}>{fieldErrors[s.name]}</span>}

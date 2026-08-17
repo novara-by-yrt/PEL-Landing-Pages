@@ -214,6 +214,17 @@
     position: sticky;
     top: clamp(88px, 12vh, 132px);
   }
+
+  /* Blog posts opt out of the split layout — one full-width column, and the
+     intro's sticky positioning (meant to track a column of panels beside it)
+     no longer applies once there's nothing beside it to track. */
+  .gridFullWidth {
+    grid-template-columns: 1fr;
+  }
+
+  .gridFullWidth .intro {
+    position: static;
+  }
 }
 
 /* ── Motion preferences ─────────────────────────────────────────────────── */

@@ -4,7 +4,7 @@ import { FaqItem, PostFrontmatter } from "./mdx";
 
 const SITE_NAME = "Perfect Eyes Ltd";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
-const ORG_LOGO = `${SITE_URL}/uploads/logo.png`;
+const ORG_LOGO = `${SITE_URL}/PEL_logo_without_background.png`;
 
 // ─── JSON-LD Builders ─────────────────────────────────────────────────────────
 
