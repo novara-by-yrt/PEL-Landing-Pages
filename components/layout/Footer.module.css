@@ -167,9 +167,15 @@
 }
 .contactRow {
   display: inline-flex;
-  align-items: center;
+  /* Not center: the address wraps to two lines on a phone, and centring the
+     icon against the whole block leaves it hanging in the gap between them
+     rather than beside the street. Aligned to the top, with the icon given
+     the height of one line below, it sits against the first line whether the
+     row wraps or not — so the single-line phone and email rows are unchanged. */
+  align-items: flex-start;
   gap: 10px;
   padding-block: 8px;
+  line-height: 1.55;
   font-size: var(--fs-body-md);
   color: var(--tp-lavender-100);
   text-decoration: none;
@@ -179,6 +185,11 @@ a.contactRow:hover {
   color: #fff;
 }
 .contactIcon {
+  /* One line box tall, with the glyph centred inside it, so the icon lines up
+     with the first line's optical centre instead of its top edge. */
+  display: inline-flex;
+  align-items: center;
+  height: 1.55em;
   color: var(--tp-lavender-400);
   flex-shrink: 0;
 }
