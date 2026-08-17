@@ -253,17 +253,44 @@
   container-type: inline-size;
   display: grid;
   place-items: center;
-  /* Lifted off the page rather than outlined on it: a soft top-light
-     gradient, a hairline that fades toward the foot, and a shadow tinted with
-     the brand indigo instead of neutral grey — the same treatment the cards
-     elsewhere on the page use, so the badge belongs to the design rather than
-     looking like a pasted-in widget. */
-  background: linear-gradient(168deg, #fff 0%, var(--tp-paper) 58%, var(--tp-lavender-050) 100%);
-  border: 1px solid var(--tp-line);
+  /* Glass. The hero runs a video behind this, so the pane has to do two jobs
+     that pull against each other: read as glass, and keep the score and the
+     caption legible over whatever frame happens to be playing.
+
+     The tint is therefore weighted rather than barely-there. A 0.55 white
+     over a bright video frame still leaves dark ink comfortably readable,
+     while a 0.2 pane — the look most glass tutorials reach for — swings with
+     the footage and drops the caption below 4.5:1 on a light frame. saturate
+     lifts the lavender coming through so the pane still reads as tinted
+     glass rather than fog.
+
+     The gradient runs light-to-lighter top-down, so the top edge catches what
+     reads as light and the foot settles into the page. */
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 255, 255, 0.6) 45%,
+    rgba(236, 232, 248, 0.55) 100%
+  );
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   box-shadow:
-    inset 0 1px 0 #fff,
+    /* The lit top edge and a darker inner foot: the two together are what
+       give a flat pane the thickness that reads as glass. */
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(24, 20, 64, 0.06),
     0 1px 2px rgba(24, 20, 64, 0.05),
-    0 12px 24px -16px rgba(24, 20, 64, 0.28);
+    0 16px 32px -18px rgba(24, 20, 64, 0.32);
+}
+
+/* Fallback for browsers without backdrop-filter: an opaque pane rather than
+   a 55%-transparent one, because without the blur the video reads straight
+   through the tint and the caption stops being readable. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .gBadge {
+    background: linear-gradient(165deg, #fff 0%, var(--tp-paper) 58%, var(--tp-lavender-050) 100%);
+  }
 }
 /* The inset lives here, not on .gBadge: container-type sets up a container
    for an element's DESCENDANTS, never for the element's own declarations, so
