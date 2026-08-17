@@ -30,7 +30,7 @@ interface NavItem {
   viewAll?: SimpleLink;
 }
 
-/** The Shopify storefront — same destination as the skincare link under Eye Journey. */
+/** The Shopify storefront, reached from the top-level Shop item. */
 const SHOP_HREF = "https://drsabrina.com/collections/all";
 
 const SURGICAL_TREATMENTS: SimpleLink[] = [
@@ -184,15 +184,7 @@ const NAV: NavItem[] = [
       { label: "Non-Surgical Treatments", sub: NON_SURGICAL_TREATMENTS },
     ],
   },
-  {
-    label: "Eye Journey",
-    href: "/journey-of-eye-care",
-    variant: "simple",
-    children: [
-      { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
-      { label: "Advanced Periorbital Skincare", href: SHOP_HREF, external: true },
-    ],
-  },
+  { label: "Eye Journey", href: "/journey-of-eye-care" },
   {
     label: "Results",
     href: "/before-after",
