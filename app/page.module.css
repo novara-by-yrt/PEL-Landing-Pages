@@ -211,14 +211,20 @@
 
 /* Side by side at every width, per the brief. Two equal free tracks, so the
    pair splits whatever room the column has; minmax(0,1fr) rather than 1fr so
-   a wide child can never push a track past its share. The cap keeps the two
-   badges at badge scale on a desktop instead of inflating to half the copy
-   column each. */
+   a wide child can never push a track past its share.
+
+   Two caps, because one alone only bites at one end. The rem cap holds the
+   pair at badge scale on a desktop instead of letting it inflate to half the
+   copy column; the percentage cap is what pulls the pair in on a phone,
+   where the column is already narrower than the rem cap and so the rem cap
+   never applies. Together they take about a tenth off the box at every
+   width, which is what keeps the two boxes reading as a mark beside the
+   headline rather than a panel under it. */
 .badges {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(10px, 2vw, 16px);
-  max-width: 27rem;
+  max-width: min(24rem, 88%);
 }
 
 /* Both boxes take the lockup artwork's own 3:2 proportions, so "same size"
