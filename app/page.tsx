@@ -294,9 +294,9 @@ const CLINIC_TEAM: TeamMember[] = [
  */
 /** Five-star row for the hero rating. Drawn, not an image, so it stays sharp
     and costs no request. */
-function Stars() {
+function Stars({ className }: { className: string }) {
   return (
-    <svg className={styles.stars} viewBox="0 0 90 16" aria-hidden="true">
+    <svg className={className} viewBox="0 0 90 16" aria-hidden="true">
       {[0, 18, 36, 54, 72].map((x) => (
         <path
           key={x}
@@ -377,36 +377,46 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* The Tatler lockup is the tallest thing here and cannot be made
-                shorter without its smallest line going illegible, so the three
-                text signals are set to stack to roughly its height and sit
-                beside it. Each is one line — strong value, quiet qualifier —
-                rather than the two-line label-over-value pairs they were,
-                which is what made this block so tall. */}
+            {/* Two badges of matching size on one row, with the remaining two
+                signals as text lines underneath. Previously the Tatler lockup
+                sat beside a stack of three mixed signals — a graphic, a
+                rating with its own mark and stars, and two plain text lines —
+                all competing on one row, which is what made the block read as
+                cluttered. The two things that are *marks* now sit together and
+                match; the two that are *statements* sit together and read as a
+                pair of lines. */}
             <div className={styles.credentials}>
-              <figure className={styles.press}>
-                <Image
-                  src="/as-seen-in-tatler.png"
-                  alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
-                  width={1536}
-                  height={1024}
-                  className={styles.pressLogo}
-                />
-              </figure>
+              <div className={styles.badges}>
+                <figure className={styles.press}>
+                  <Image
+                    src="/as-seen-in-tatler.png"
+                    alt="As seen in Tatler — Beauty &amp; Cosmetic Surgery Guide, 2019–2026"
+                    width={1536}
+                    height={1024}
+                    className={styles.pressLogo}
+                  />
+                </figure>
 
-              <dl className={styles.trust}>
-                <div className={styles.trustItem}>
+                {/* Same box as the lockup beside it, drawn rather than
+                    supplied as artwork. It is a definition list of one so the
+                    rating keeps the label it had before the redesign. */}
+                <dl className={styles.gBadge}>
                   <dt className="sr-only">Google rating</dt>
-                  <dd className={styles.trustValue}>
-                    <GoogleMark className={styles.googleMark} />
-                    <span className={styles.trustStrong}>4.9</span>
-                    <Stars />
-                    <span className={styles.trustMeta}>
+                  <dd className={styles.gBody}>
+                    <span className={styles.gTop}>
+                      <GoogleMark className={styles.gMark} />
+                      <span className={styles.gScore}>4.9</span>
+                    </span>
+                    <Stars className={styles.gStars} />
+                    <span className={styles.gMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
                       230+ reviews
                     </span>
                   </dd>
-                </div>
+                </dl>
+              </div>
+
+              <dl className={styles.trust}>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Surgical experience</dt>
                   <dd className={styles.trustValue}>

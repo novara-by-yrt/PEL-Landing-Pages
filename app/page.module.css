@@ -193,47 +193,124 @@
 }
 
 /* ── Hero credentials ─────────────────────────────────────────────────────
-   One block, two parts: the Tatler lockup and the three text signals beside
-   it. The lockup sets the height — its smallest line is 8% of the image, so
-   it cannot shrink far without going illegible — and the text column is
-   built to land at roughly the same height rather than sprawling past it.
+   Two rows. On top, two badges of matching size: the Tatler lockup and a
+   Google rating card drawn to the same box. Underneath, the two remaining
+   signals as text lines — a strong value followed by a quiet qualifier.
 
-   Each signal is a single line: a strong value followed by a quiet
-   qualifier. As two-line label-over-value pairs they cost twice the height
-   and left the block unbalanced against the badge.                        */
+   The previous layout put the lockup beside a stack of three unlike things
+   (a graphic, a rating carrying its own mark and stars, and two plain
+   sentences) and asked one row to hold all of it, which is what read as
+   clutter. Splitting on kind — marks together, statements together — is what
+   settles it.                                                             */
 .credentials {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(18px, 3vw, 26px);
-  align-items: center;
   margin: clamp(32px, 6vw, 44px) 0 0;
   padding-top: clamp(22px, 3.5vw, 30px);
   border-top: 1px solid var(--tp-line);
   max-width: 34rem;
 }
 
-.press {
+/* Side by side at every width, per the brief. Two equal free tracks, so the
+   pair splits whatever room the column has; minmax(0,1fr) rather than 1fr so
+   a wide child can never push a track past its share. The cap keeps the two
+   badges at badge scale on a desktop instead of inflating to half the copy
+   column each. */
+.badges {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 2vw, 16px);
+  max-width: 27rem;
+}
+
+/* Both boxes take the lockup artwork's own 3:2 proportions, so "same size"
+   holds by construction at any width — no shared height to keep in sync, and
+   the Tatler image fills its box exactly rather than sitting letterboxed
+   inside it. */
+.press,
+.gBadge {
   margin: 0;
   min-width: 0;
+  aspect-ratio: 1536 / 1024;
+  border-radius: 12px;
 }
+
 .pressLogo {
   display: block;
-  /* Floor set by the lockup's smallest line, which is 8% of the image height:
-     100px keeps it at 8px on a phone, where 92px had it at 7.4px and starting
-     to close up. */
-  height: clamp(100px, 11vw, 112px);
-  width: auto;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   /* The artwork carries its own solid black field; rounding it makes the
      block read as a deliberate badge rather than a raw rectangle. */
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
+/* ── Google rating badge ──────────────────────────────────────────────────
+   Sized from its own width, not the viewport: the box is a grid track whose
+   width depends on the copy column, so viewport units would mis-scale it at
+   the same screen size on different breakpoints. cqw ties every element to
+   the box actually drawn, which is what keeps the card legible from ~150px
+   wide on a phone up to ~210px on a desktop.                              */
+.gBadge {
+  container-type: inline-size;
+  display: grid;
+  place-items: center;
+  background: var(--tp-paper);
+  border: 1px solid var(--tp-line);
+  box-shadow: var(--tp-shadow-xs);
+}
+/* The inset lives here, not on .gBadge: container-type sets up a container
+   for an element's DESCENDANTS, never for the element's own declarations, so
+   a cqw padding on .gBadge itself would fall back to the viewport — at 1440px
+   that was 86px of padding a side, which both burst the aspect ratio and
+   pushed the grid track past its cap. */
+.gBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.4cqw;
+  margin: 0;
+  padding: 6cqw;
+}
+.gTop {
+  display: flex;
+  align-items: center;
+  gap: 4cqw;
+}
+.gMark {
+  display: block;
+  width: 12cqw;
+  height: 12cqw;
+  flex: none;
+}
+.gMark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.gScore {
+  font-family: var(--tp-display);
+  font-size: 15cqw;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-ink);
+}
+.gStars {
+  display: block;
+  width: 52cqw;
+  height: 9.3cqw;
+  fill: var(--tp-gold);
+}
+.gMeta {
+  font-size: 7.6cqw;
+  line-height: 1.2;
+  color: var(--tp-slate);
+  text-align: center;
+}
+
+/* The two statement lines, under the badge pair. */
 .trust {
   display: grid;
   gap: clamp(9px, 1.4vw, 13px);
-  margin: 0;
+  margin: clamp(16px, 2.6vw, 22px) 0 0;
   min-width: 0;
 }
 .trustItem {
@@ -259,34 +336,6 @@
 }
 .trustMeta {
   color: var(--tp-slate);
-}
-
-.googleMark {
-  display: block;
-  width: 18px;
-  height: 18px;
-  flex: none;
-}
-.googleMark svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.stars {
-  flex: 0 0 auto;
-  width: 68px;
-  height: 12px;
-  fill: var(--tp-gold);
-}
-
-/* Side by side as soon as there is room for the badge and a line of text
-   next to it. Below that the text would wrap to three lines per signal and
-   read worse than stacked. */
-@media (min-width: 600px) {
-  .credentials {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: clamp(22px, 3vw, 32px);
-  }
 }
 
 @media (min-width: 420px) {
