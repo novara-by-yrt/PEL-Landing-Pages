@@ -1,186 +1,134 @@
-/* At a Glance — the treatment's specification panel.
+/* At a Glance — the treatment's key facts.
 
-   Dark indigo glass, matching the journey roadmap band and the review cards.
-   Trust & Authority: the facts carry the section, so the surface stays quiet
-   and the type does the work. Brand tokens only; the design system's medical
-   teal is deliberately not used, because this section has to read as part of
-   this page.
+   One panel: the treatment's name, the heading, then the facts as label and
+   value pairs, exactly as the reference layout sets them, in the site's
+   indigo and lavender rather than its browns.
 
-   Contrast is the constraint that shapes the palette here. White on
-   indigo-950 clears AAA. Labels use lavender-200 rather than the -400 that
-   reads as "quieter": -400 measures 3.1:1 on this background and -200 clears
-   4.5:1, which is the same finding that set the footer's heading colour. */
+   Everything is left-aligned to a single edge — eyebrow, heading, every label
+   and every value share one line down the left of the panel — and every
+   measurement below is one of four tokens, so the spacing is uniform rather
+   than nine cards each negotiating their own.
+
+   Contrast: white on this panel clears AAA. Labels use lavender-200, not the
+   -400 that reads as "quieter": -400 measures 3.1:1 on this background and
+   -200 clears 4.5:1, the same finding that set the footer's heading colour. */
 
 .section {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: clamp(52px, 7vw, 92px);
-  background:
-    radial-gradient(120% 90% at 50% 0%, #241d4d 0%, transparent 60%),
-    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 55%, var(--tp-indigo-950) 100%);
+  padding-block: clamp(48px, 6.5vw, 88px);
+  background: var(--tp-paper);
 }
 
-/* Soft brand blooms for the cards' backdrop-filter to act on — without
-   something behind it, a blur over a flat field is invisible work. */
+/* A soft brand bloom behind the panel, so it sits on the page rather than
+   being pasted onto a flat field. */
 .glow {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(36% 44% at 20% 32%, rgba(69, 61, 155, 0.5), transparent 70%),
-    radial-gradient(32% 42% at 80% 66%, rgba(188, 160, 221, 0.22), transparent 72%);
-  filter: blur(28px);
+    radial-gradient(38% 46% at 16% 22%, rgba(188, 160, 221, 0.3), transparent 70%),
+    radial-gradient(34% 44% at 86% 78%, rgba(138, 132, 186, 0.22), transparent 72%);
+  filter: blur(30px);
+}
+
+/* ── The panel ──────────────────────────────────────────────────────────── */
+.panel {
+  --glance-pad: clamp(26px, 4vw, 52px);
+  --glance-row: clamp(22px, 2.6vw, 30px);
+  --glance-col: clamp(26px, 4vw, 60px);
+
+  padding: var(--glance-pad);
+  border-radius: var(--tp-radius-xl);
+  background:
+    radial-gradient(120% 100% at 50% 0%, #241d4d 0%, transparent 62%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 58%, var(--tp-indigo-950) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 30px 70px -40px rgba(24, 20, 64, 0.7);
 }
 
 /* ── Heading ────────────────────────────────────────────────────────────── */
 .head {
-  max-width: 46rem;
-  margin: 0 auto clamp(28px, 4vw, 44px);
-  text-align: center;
+  margin-bottom: var(--glance-pad);
+  padding-bottom: var(--glance-row);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 .eyebrow {
-  display: inline-block;
-  font-size: var(--fs-eyebrow);
+  display: block;
+  font-size: clamp(1.0625rem, 2.6vw, 1.375rem);
   font-weight: 600;
-  letter-spacing: var(--ls-eyebrow);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  line-height: 1.25;
   color: var(--tp-lavender-300);
-  margin-bottom: 14px;
-}
-.title {
-  font-family: var(--tp-display);
-  font-weight: 600;
-  font-size: clamp(1.7rem, 4.6vw, 2.3rem);
-  line-height: 1.16;
-  letter-spacing: var(--ls-tight);
-  color: #fff;
-  margin: 0;
   text-wrap: balance;
 }
-.rule {
-  display: block;
-  width: 60px;
-  height: 3px;
-  margin: 18px auto 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--tp-lavender-300), var(--tp-lavender-100));
+.title {
+  margin: 10px 0 0;
+  font-family: var(--tp-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4.2vw, 2rem);
+  line-height: 1.18;
+  letter-spacing: var(--ls-tight);
+  color: #fff;
 }
 
-/* ── Grid ───────────────────────────────────────────────────────────────────
-   auto-fit rather than fixed breakpoints: the column count follows the space
-   available, so the panel reflows continuously from one column on a phone to
-   four on a wide desktop with no width left unhandled between breakpoints.
-   min() keeps the track from exceeding the viewport on the narrowest phones,
-   which is what would otherwise force a horizontal scroll. */
+/* ── Facts ──────────────────────────────────────────────────────────────────
+   One column on a phone, as the reference sets it. Two from 620px and three
+   from 1040px, on fixed breakpoints rather than auto-fit: the column count
+   has to stay predictable so the row rhythm reads as a grid down the panel
+   rather than reflowing mid-list. */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 236px), 1fr));
-  gap: clamp(12px, 1.6vw, 18px);
+  grid-template-columns: 1fr;
+  row-gap: var(--glance-row);
+  column-gap: var(--glance-col);
   margin: 0;
-  /* Each card is as tall as its own fact. Stretched to the row instead, a
-     one-line card sitting beside the four-line "Addresses" became a mostly
-     empty panel — the same void that made the previous version of this
-     section look broken, just wearing a card. */
+  /* Rows size to their own content; a long value lengthens its own row
+     without padding out the ones beside it. */
   align-items: start;
 }
 
-/* ── Card ───────────────────────────────────────────────────────────────── */
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+.item {
   min-width: 0;
-  padding: clamp(20px, 2.4vw, 26px);
-  border-radius: var(--tp-radius-lg);
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.045) 45%,
-    rgba(255, 255, 255, 0.022) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 24px 50px -34px rgba(0, 0, 0, 0.85);
-  transition:
-    transform 240ms var(--tp-ease),
-    border-color 240ms var(--tp-ease),
-    box-shadow 240ms var(--tp-ease);
 }
-
-/* Hover only where there is a pointer — on a touch screen this would stick
-   after a tap and read as a selected state that cannot be cleared. */
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(216, 204, 238, 0.34);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.22),
-      0 34px 66px -34px rgba(0, 0, 0, 0.9);
-  }
-}
-
 .label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* 4.5:1 on this background — see the note at the top of the file. */
+  line-height: 1.3;
+  /* 4.5:1 on this panel — see the note at the top of the file. */
   color: var(--tp-lavender-200);
 }
 .value {
-  margin: 0;
-  font-family: var(--tp-display);
-  font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.005em;
+  margin: 8px 0 0;
+  font-size: clamp(1rem, 1.5vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.55;
   color: #fff;
   text-wrap: pretty;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    transition: none;
+@media (min-width: 620px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .card:hover {
-    transform: none;
+}
+@media (min-width: 1040px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* ── Entrance ───────────────────────────────────────────────────────────────
-   Scroll-driven, in CSS, with no JavaScript involved. Deliberately not the
-   shared Reveal component: that starts at opacity 0 and depends on an
-   IntersectionObserver to clear it, so a visitor without JavaScript would
-   find the treatment's facts invisible. Here the animation is additive — a
-   browser without animation-timeline support runs nothing and simply shows
-   the cards, which is the correct fallback for content that matters.
-
-   Guarded on prefers-reduced-motion, so the whole block is skipped for
-   anyone who has asked for less movement. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .card {
-      animation: glanceIn linear both;
-      animation-timeline: view();
-      /* Finishes well before the card reaches the middle of the screen, so
-         it is settled by the time it is being read. */
-      animation-range: entry 8% cover 24%;
-    }
-  }
-}
-
-@keyframes glanceIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+/* Only meaningful once there are three columns; at one or two the long value
+   already has the width it needs. */
+@media (min-width: 1040px) {
+  .itemWide {
+    grid-column: span 2;
   }
 }
