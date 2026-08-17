@@ -112,26 +112,26 @@ export default function OnLoadPopupForm() {
 
             <form onSubmit={handleSubmit}>
               <div className={styles.field}>
-                <label className="sr-only" htmlFor="popup-name">Full name (required)</label>
-                <input id="popup-name" name="your-name" type="text" required autoComplete="name" placeholder="*Full Name" className={styles.input} />
+                <input id="popup-name" name="your-name" type="text" required autoComplete="name" placeholder=" " className={styles.input} />
+                <label htmlFor="popup-name" className={styles.label}>Full Name *</label>
                 {fieldErrors["your-name"] && <span className={styles.fieldError}>{fieldErrors["your-name"]}</span>}
               </div>
 
               <div className={styles.field}>
-                <label className="sr-only" htmlFor="popup-email">Email (required)</label>
-                <input id="popup-email" name="your-email" type="email" required autoComplete="email" placeholder="*Email" className={styles.input} />
+                <input id="popup-email" name="your-email" type="email" required autoComplete="email" placeholder=" " className={styles.input} />
+                <label htmlFor="popup-email" className={styles.label}>Email *</label>
                 {fieldErrors["your-email"] && <span className={styles.fieldError}>{fieldErrors["your-email"]}</span>}
               </div>
 
               <div className={styles.field}>
-                <label className="sr-only" htmlFor="popup-phone">Phone (required)</label>
-                <input id="popup-phone" name="your-phone" type="tel" required autoComplete="tel" placeholder="*Phone" className={styles.input} />
+                <input id="popup-phone" name="your-phone" type="tel" required autoComplete="tel" placeholder=" " className={styles.input} />
+                <label htmlFor="popup-phone" className={styles.label}>Phone *</label>
                 {fieldErrors["your-phone"] && <span className={styles.fieldError}>{fieldErrors["your-phone"]}</span>}
               </div>
 
               <div className={styles.field}>
-                <label className="sr-only" htmlFor="popup-message">Message (optional)</label>
-                <textarea id="popup-message" name="your-message" rows={4} placeholder="Message" className={styles.textarea} />
+                <textarea id="popup-message" name="your-message" rows={4} placeholder=" " className={styles.textarea} />
+                <label htmlFor="popup-message" className={styles.label}>Message (optional)</label>
               </div>
 
               <label className={styles.consent} htmlFor="popup-consent">

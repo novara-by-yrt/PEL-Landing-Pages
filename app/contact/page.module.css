@@ -15,14 +15,53 @@
 .contactFormPanel h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 1.75rem; }
 .contactFormRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 @media (max-width: 640px) { .contactFormRow { grid-template-columns: 1fr; } }
-.contactLabel { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); margin-bottom: 0.4rem; }
+/* The checkbox-group fieldset's <legend> uses the pre-floating-label static
+   style — a fieldset's contents already flow below it normally, so it must
+   stay in flow rather than become absolutely positioned like .contactLabel. */
+.contactLegend { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--tp-ink); margin-bottom: 0.4rem; }
+
+/* Floating label: the field comes first in the DOM, .contactField wraps it
+   with position: relative, and .contactLabel is absolutely positioned on
+   top of it — reading like a placeholder until the field is focused or
+   filled, at which point it floats into a small chip on the border line. */
+.contactField { position: relative; }
+.contactLabel {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--tp-slate);
+  pointer-events: none;
+  transition: top 160ms var(--tp-ease), font-size 160ms var(--tp-ease), color 160ms var(--tp-ease), background-color 160ms var(--tp-ease);
+  max-width: calc(100% - 2rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .contactInput {
-  width: 100%; padding: 0.75rem 1rem; font-family: var(--tp-body); font-size: 0.9375rem; line-height: 1.5;
+  width: 100%; padding: 1.3rem 1rem 0.4rem; font-family: var(--tp-body); font-size: 0.9375rem; line-height: 1.5;
   border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); background: var(--tp-fog);
   color: var(--tp-ink); outline: none; transition: border-color 160ms var(--tp-ease), background 160ms var(--tp-ease);
   box-sizing: border-box;
 }
 .contactInput:focus { border-color: var(--tp-lavender-400); background: #fff; }
+
+.contactInput:focus + .contactLabel,
+.contactInput:not(:placeholder-shown) + .contactLabel,
+select.contactInput:valid + .contactLabel {
+  top: 0;
+  left: 0.8rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--tp-lavender-600);
+  background: #fff;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+textarea.contactInput + .contactLabel { top: 1.45rem; transform: none; }
 
 /* Native <select> chrome carries its own intrinsic height that padding alone
    doesn't fully override, so it renders taller than the <input>s beside it

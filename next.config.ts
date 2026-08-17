@@ -142,15 +142,18 @@ const nextConfig: NextConfig = {
       // components/analytics/GoogleAnalytics. It only ever loads once the
       // visitor has accepted cookies, but the policy has to permit the origin
       // for that load to be possible at all.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+      // link.perfecteyesltd.com serves the embedded self-test-survey widget
+      // (content/pages/self-test-survey.mdx) — a raw <iframe> plus its
+      // form_embed.js helper, both from the same GoHighLevel-hosted domain.
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://link.perfecteyesltd.com",
       "style-src 'self' 'unsafe-inline'",
       // GA still falls back to a tracking pixel on browsers that block
       // fetch/beacon, hence the analytics origins in img-src as well.
       "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
-      "frame-src https://www.youtube.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://link.perfecteyesltd.com",
+      "frame-src https://www.youtube.com https://link.perfecteyesltd.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",

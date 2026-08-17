@@ -184,13 +184,14 @@ a.rowValue:hover {
 .textarea {
   width: 100%;
   min-height: 56px;
-  padding: 16px 18px 16px 48px;
+  padding: 24px 18px 8px 48px;
   border-radius: 12px;
   border: 1px solid var(--tp-line);
   background: var(--tp-cream);
   font-family: var(--tp-body);
   font-size: 1rem;
   color: var(--tp-ink);
+  box-sizing: border-box;
   transition: border-color 180ms var(--tp-ease), box-shadow 180ms var(--tp-ease),
     background 180ms var(--tp-ease);
 }
@@ -198,13 +199,39 @@ a.rowValue:hover {
   min-height: 150px;
   resize: vertical;
   line-height: 1.55;
+  padding-top: 28px;
 }
-.input::placeholder,
-.textarea::placeholder {
-  /* Placeholders double as the visible label here, so they need real
-     contrast — the usual near-invisible grey would fail. */
+
+/* Floating label: the icon stays put (absolutely positioned, doesn't care
+   about DOM order); the label follows the input as its next sibling so it
+   can react to :placeholder-shown the same way the icon-less forms do. It
+   keeps the icon's left offset in both states rather than shifting inward,
+   since the icon anchors that edge regardless of whether the label has
+   floated. */
+.label {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
   color: var(--tp-slate);
-  opacity: 1;
+  pointer-events: none;
+  transition: top 180ms var(--tp-ease), font-size 180ms var(--tp-ease), color 180ms var(--tp-ease), background-color 180ms var(--tp-ease);
+  max-width: calc(100% - 66px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.textarea + .label { top: 30px; transform: none; }
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label,
+.textarea:focus + .label,
+.textarea:not(:placeholder-shown) + .label {
+  top: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tp-indigo-700);
 }
 .input:hover,
 .textarea:hover {

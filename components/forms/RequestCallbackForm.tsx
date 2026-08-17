@@ -66,40 +66,40 @@ export default function RequestCallbackForm() {
       <form onSubmit={handleSubmit}>
         <div className={styles.field}>
           <span className={styles.fieldIcon}><UserIcon /></span>
-          <label className="sr-only" htmlFor="cb-name">Full name (required)</label>
-          <input id="cb-name" name="your-name" type="text" required autoComplete="name" placeholder="Full Name *" className={styles.input} />
+          <input id="cb-name" name="your-name" type="text" required autoComplete="name" placeholder=" " className={styles.input} />
+          <label htmlFor="cb-name" className={styles.label}>Full Name *</label>
         </div>
         {fieldErrors["your-name"] && <p className={styles.status}>{fieldErrors["your-name"]}</p>}
 
         <div className={styles.field}>
           <span className={styles.fieldIcon}><MailIcon /></span>
-          <label className="sr-only" htmlFor="cb-email">Email address (required)</label>
-          <input id="cb-email" name="your-email" type="email" required autoComplete="email" placeholder="Email *" className={styles.input} />
+          <input id="cb-email" name="your-email" type="email" required autoComplete="email" placeholder=" " className={styles.input} />
+          <label htmlFor="cb-email" className={styles.label}>Email *</label>
         </div>
         {fieldErrors["your-email"] && <p className={styles.status}>{fieldErrors["your-email"]}</p>}
 
         <div className={styles.field}>
           <span className={styles.fieldIcon}><PhoneIcon /></span>
-          <label className="sr-only" htmlFor="cb-phone">Phone number (required)</label>
           <input
             id="cb-phone"
             name="your-phone"
             type="tel"
             required
             autoComplete="tel"
-            placeholder="Phone *"
+            placeholder=" "
             className={styles.input}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+          <label htmlFor="cb-phone" className={styles.label}>Phone *</label>
           <input type="hidden" name="your-phone-full" value={phone} readOnly />
         </div>
         {fieldErrors["your-phone"] && <p className={styles.status}>{fieldErrors["your-phone"]}</p>}
 
         <div className={styles.field}>
           <span className={`${styles.fieldIcon} ${styles.fieldIconArea}`}><MessageIcon /></span>
-          <label className="sr-only" htmlFor="cb-message">Message (optional)</label>
-          <textarea id="cb-message" name="your-message" rows={5} placeholder="Message" className={styles.textarea} />
+          <textarea id="cb-message" name="your-message" rows={5} placeholder=" " className={styles.textarea} />
+          <label htmlFor="cb-message" className={styles.label}>Message (optional)</label>
         </div>
 
         <label className={styles.consent} htmlFor="cb-consent">
