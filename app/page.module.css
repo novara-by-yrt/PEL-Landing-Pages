@@ -253,9 +253,17 @@
   container-type: inline-size;
   display: grid;
   place-items: center;
-  background: var(--tp-paper);
+  /* Lifted off the page rather than outlined on it: a soft top-light
+     gradient, a hairline that fades toward the foot, and a shadow tinted with
+     the brand indigo instead of neutral grey — the same treatment the cards
+     elsewhere on the page use, so the badge belongs to the design rather than
+     looking like a pasted-in widget. */
+  background: linear-gradient(168deg, #fff 0%, var(--tp-paper) 58%, var(--tp-lavender-050) 100%);
   border: 1px solid var(--tp-line);
-  box-shadow: var(--tp-shadow-xs);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 1px 2px rgba(24, 20, 64, 0.05),
+    0 12px 24px -16px rgba(24, 20, 64, 0.28);
 }
 /* The inset lives here, not on .gBadge: container-type sets up a container
    for an element's DESCENDANTS, never for the element's own declarations, so
@@ -266,42 +274,44 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3.4cqw;
+  gap: 4.4cqw;
   margin: 0;
-  padding: 6cqw;
+  padding: 7cqw;
 }
-.gTop {
-  display: flex;
-  align-items: center;
-  gap: 4cqw;
-}
-.gMark {
+/* Sized against the box, so the lockup holds the same optical weight whether
+   the badge is drawn at 139px on a phone or 208px on a desktop. */
+.gLogo {
   display: block;
-  width: 12cqw;
-  height: 12cqw;
-  flex: none;
+  width: 50cqw;
 }
-.gMark svg {
+.gLogo svg {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+.gRow {
+  display: flex;
+  align-items: center;
+  gap: 3.6cqw;
 }
 .gScore {
   font-family: var(--tp-display);
   font-size: 15cqw;
   font-weight: 600;
   line-height: 1;
+  letter-spacing: -0.01em;
   color: var(--tp-ink);
 }
 .gStars {
   display: block;
-  width: 52cqw;
-  height: 9.3cqw;
+  width: 40cqw;
+  height: 7.1cqw;
   fill: var(--tp-gold);
 }
 .gMeta {
-  font-size: 7.6cqw;
+  font-size: 7.2cqw;
   line-height: 1.2;
+  letter-spacing: 0.01em;
   color: var(--tp-slate);
   text-align: center;
 }

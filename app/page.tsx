@@ -13,7 +13,7 @@ import TreatmentsCarousel, { type Treatment } from "@/components/home/Treatments
 import VideoCard from "@/components/home/VideoCard";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
-import GoogleMark from "@/components/shared/GoogleMark";
+import GoogleWordmark from "@/components/shared/GoogleWordmark";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
@@ -399,15 +399,18 @@ export default function HomePage() {
 
                 {/* Same box as the lockup beside it, drawn rather than
                     supplied as artwork. It is a definition list of one so the
-                    rating keeps the label it had before the redesign. */}
+                    rating keeps the label it had before the redesign.
+
+                    Reads top-down the way the eye wants it: whose rating,
+                    then the score, then how many reviews stand behind it. */}
                 <dl className={styles.gBadge}>
                   <dt className="sr-only">Google rating</dt>
                   <dd className={styles.gBody}>
-                    <span className={styles.gTop}>
-                      <GoogleMark className={styles.gMark} />
+                    <GoogleWordmark className={styles.gLogo} />
+                    <span className={styles.gRow}>
                       <span className={styles.gScore}>4.9</span>
+                      <Stars className={styles.gStars} />
                     </span>
-                    <Stars className={styles.gStars} />
                     <span className={styles.gMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
                       230+ reviews
