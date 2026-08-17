@@ -339,7 +339,7 @@ function TreatmentPage({
         <PatientStories />
         <TreatmentSimilar items={treatment.similarTreatments} currentSlug={treatmentSlug} />
         <TreatmentCTA />
-        <RelatedBlogs />
+        <RelatedBlogs topic={frontmatter.title} />
         <ContactSection />
       </div>
     </>

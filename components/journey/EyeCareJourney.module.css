@@ -735,6 +735,43 @@
   line-height: 1.3;
   color: var(--tp-ink);
 }
+/* The heading itself is the link, so the whole treatment name is the target
+   rather than a separate "read more" being the only way through. */
+.subLink {
+  color: inherit;
+  text-decoration: none;
+}
+.subLink:hover {
+  color: var(--tp-indigo-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.subLink:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* A second, explicit way through at the foot of the card — the heading link
+   alone is easy to miss when the card is mostly prose. */
+.subMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--tp-indigo-700);
+  text-decoration: none;
+}
+.subMore:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.subMore:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 .subCard p {
   margin: 0 0 8px;
   font-size: var(--fs-body-sm);
@@ -931,4 +968,23 @@
     transform: none;
   }
   .trait:hover .traitIcon { transform: none; }
+}
+
+/* Hero call-to-action row. The treatment and condition templates put a way to
+   act inside the opening viewport; these pages did not, so the first CTA was
+   thousands of pixels down. Inverse button on the dark hero, outlined ghost
+   beside it. */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(20px, 3vw, 28px);
+}
+.heroCtaGhost {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+}
+.heroCtaGhost:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
 }

@@ -24,6 +24,7 @@ import {
   TreatmentSpotlight,
   TreatmentSimilar,
   TreatmentCTA,
+  RelatedBlogs,
 } from "@/components/treatment";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
@@ -190,6 +191,10 @@ export default async function ConditionPage({
           }
         />
         <PatientStories stories={PATIENT_STORIES} />
+        {/* Condition pages had no route through to the journal at all. Same
+            rail the treatment pages use, matched to this condition, and it
+            renders nothing when no post is about it. */}
+        <RelatedBlogs topic={frontmatter.title} />
         <TreatmentCTA />
         <ContactSection />
       </div>

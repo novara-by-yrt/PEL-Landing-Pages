@@ -242,6 +242,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 12px;
   }
+  /* Set by TreatmentHero on any fact whose value runs long. Only meaningful
+     while the grid has two columns; below 480px every item is full width
+     already. */
+  .tpGlanceWide {
+    grid-column: 1 / -1;
+  }
   /* Second row of the grid, i.e. the first item in the right column. */
   .tpGlanceItem:nth-child(2)::before {
     display: none;

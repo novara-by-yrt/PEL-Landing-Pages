@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
+import SafeImage from "@/components/shared/SafeImage";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./TeamRoster.module.css";
@@ -90,13 +90,17 @@ export function TeamGrid({ members }: { members: Member[] }) {
       <div className={styles.grid}>
         {members.map((member) => (
           <article key={member.id} className={styles.card}>
+            {/* SafeImage, not a bare next/image: every portrait is an
+                /uploads path served from the WordPress origin, and two of them
+                (Mary and Sally) are already 404ing there — a plain <img> then
+                paints the alt text and the browser's broken-image glyph in the
+                middle of the card, which is what the audit caught. This
+                degrades to the brand placeholder instead. */}
             <div className={styles.photo}>
-              <Image
+              <SafeImage
                 src={member.image}
                 alt={member.name}
-                fill
                 sizes="(max-width: 700px) 100vw, (max-width: 1100px) 45vw, 30vw"
-                loading="lazy"
               />
             </div>
             <div className={styles.body}>
@@ -150,10 +154,9 @@ export function TeamGrid({ members }: { members: Member[] }) {
                 tint — the visual anchor before the prose starts. */}
             <div className={styles.modalHeader}>
               <div className={styles.modalPhoto}>
-                <Image
+                <SafeImage
                   src={active.image}
                   alt={active.name}
-                  fill
                   sizes="(max-width: 760px) 100vw, 320px"
                 />
               </div>

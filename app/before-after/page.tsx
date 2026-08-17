@@ -149,6 +149,19 @@ export default function BeforeAfterIndexPage() {
             </div>
           </dl>
 
+          {/* Somewhere to act without scrolling. Measured, the first CTA on
+              this page sat 4,968px down on a laptop — and a gallery is a
+              high-intent page, so it is the wrong one to make people scroll
+              before they can book. */}
+          <div className={styles.heroCtas}>
+            <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
+              Book a Consultation
+            </Link>
+            <Link href="/self-test-survey" className={`tp-btn ${styles.heroCtaGhost}`}>
+              Take the Free Self-Test
+            </Link>
+          </div>
+
           {/* Deep links into each category, matching the Results nav panel. */}
           <nav className={styles.jump} aria-label="Jump to a category">
             {groups.map((group) => (

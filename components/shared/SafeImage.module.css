@@ -15,7 +15,23 @@
 }
 
 /* fill positions the image absolutely; the caller's container reserves the
-   ratio, so this only has to say how the photo sits inside it. */
+   ratio, so this only has to say how the photo sits inside it.
+
+   The two declarations under object-fit are what stop a thumbnail flashing
+   broken before it arrives. Every one of these sources is a /uploads path
+   fetched from the WordPress origin, so there is a real window — long, on a
+   cold cache — in which the <img> box exists but has no pixels. In that
+   window a browser paints the alt string, and then the broken-image glyph if
+   the fetch fails, on top of whatever the caller put behind it.
+
+   Transparent colour stops the alt text rendering (the attribute is still
+   there for assistive tech and for the fallback below). The gradient sits on
+   the image element itself rather than on the caller's container, so the box
+   is tinted even when a caller forgot a background; object-fit: cover hides
+   it the moment the photo paints. Neither needs JavaScript, so an image can
+   never be left invisible by a listener that did not fire. */
 .img {
   object-fit: cover;
+  color: transparent;
+  background: linear-gradient(150deg, var(--tp-lavender-100), var(--tp-lavender-050));
 }

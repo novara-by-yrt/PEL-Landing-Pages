@@ -19,7 +19,10 @@ type Aside =
   | { kind: "link"; text: string; href: string; external?: boolean }
   | { kind: "note"; icon: string; text: React.ReactNode };
 
-type SubTreatment = { title: string; body: string[] };
+/** `href` links the card to that treatment's own page. Every treatment named
+ *  in steps 2 and 3 has one, so the journey feeds the pages it describes
+ *  instead of naming them and stopping there. */
+type SubTreatment = { title: string; body: string[]; href?: string };
 
 type Section =
   | {
@@ -296,6 +299,7 @@ const SECTIONS: Section[] = [
     subTreatments: [
       {
         title: "Tear Trough Fillers",
+        href: "/non-surgical/tear-trough-fillers-uk",
         body: [
           "This gentle dermal filler treatment restores lost volume in the under-eye area, helping to smooth out hollows, brighten dark circles, and reduce shadows. Perfect for: sunken under-eyes, dark hollows, tired-looking eyes.",
           "Why it works: filler subtly lifts the area beneath the eye, instantly reducing tiredness and enhancing light reflection, often with visible results right after treatment.",
@@ -303,6 +307,7 @@ const SECTIONS: Section[] = [
       },
       {
         title: "Morpheus8",
+        href: "/non-surgical/morpheus8-treatment-uk",
         body: [
           "Combines microneedling with radiofrequency energy to tighten and remodel skin from within, softening crepey skin and improving overall texture around the eyes.",
           "Minimal downtime, but high-impact tightening, especially powerful for those seeing early signs of skin laxity.",
@@ -310,6 +315,7 @@ const SECTIONS: Section[] = [
       },
       {
         title: "Sofwave",
+        href: "/non-surgical/sofwave-treatment-uk",
         body: [
           "This non-invasive ultrasound treatment targets the deeper layers of the skin to stimulate collagen without damaging the surface. Perfect for: lifting brows, under-eye tightening, subtle firming.",
           "Often called the “lunchtime lift”: painless, quick, and with zero recovery time.",
@@ -317,6 +323,7 @@ const SECTIONS: Section[] = [
       },
       {
         title: "Polynucleotides",
+        href: "/non-surgical/polynucleotide-treatment-uk",
         body: [
           "Next-generation biostimulators derived from purified DNA fragments that encourage deep cellular repair, hydration, and collagen production, ideal for fragile, crepey under-eye skin.",
           "A natural yet science-led solution that strengthens the skin's foundation over time, without adding volume.",
@@ -324,6 +331,7 @@ const SECTIONS: Section[] = [
       },
       {
         title: "Emface Eyes",
+        href: "/non-surgical/emface-treatment-uk",
         body: [
           "Combines synchronised radiofrequency and HIFES™ to tone the delicate muscles around the eyes while tightening the overlying skin, with no needles and no downtime.",
           "Think of it as a facial workout that delivers visibly lifted, more open eyes, often after just a few sessions.",
@@ -341,42 +349,49 @@ const SECTIONS: Section[] = [
     subTreatments: [
       {
         title: "Upper and Lower Eyelid Surgery (Blepharoplasty)",
+        href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
         body: [
           "Perfect for: hooded eyelids, under-eye bags, loose skin or fat bulges. Dr Sabrina uses her advanced “invisible zip stitch” technique to remove excess skin and fat, refresh the contours around the eyes, and create a lighter, more rested appearance, often with no visible scars.",
         ],
       },
       {
         title: "Ptosis Surgery (“Scarless” Correction)",
+        href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk",
         body: [
           "Perfect for: droopy upper eyelids caused by weakened eyelid muscles. A refined, minimally invasive technique restores function and symmetry, with “scarless” correction performed from the inside of the eyelid, leaving no external trace.",
         ],
       },
       {
         title: "Brow Lift",
+        href: "/surgical/browlift-treatment-uk",
         body: [
           "Perfect for: low or sagging brows, tired or closed-off eye appearance. A subtle lift to the brow can dramatically open up the upper face, reduce forehead creases, and enhance the shape of the eyes, without an “over-pulled” look.",
         ],
       },
       {
         title: "Asian Blepharoplasty (Double Eyelid Surgery)",
+        href: "/surgical/eyelid-surgery/double-eyelids-asian-blepharoplasty-uk",
         body: [
           "Perfect for: monolids or low eyelid creases, seeking definition while respecting ethnic identity. Dr Sabrina creates natural-looking double eyelids that respect the patient's unique anatomy and cultural features.",
         ],
       },
       {
         title: "Festoon & Malar Bag Treatment",
+        href: "/surgical/festoons-malar-bags-treatment-uk",
         body: [
           "Perfect for: puffy, swollen areas on the upper cheeks or below the eyes, often mistaken for eye bags. A multi-layered approach targets the true cause of puffiness, whether fluid retention, fat, or muscle laxity.",
         ],
       },
       {
         title: "Chalazion Removal",
+        href: "/surgical/eyelid-surgery/chalazion-removal-uk",
         body: [
           "Chalazions are small, often painless cysts on the eyelid caused by blocked glands. When they don't respond to conservative treatment, minor surgery offers quick and effective removal with minimal downtime.",
         ],
       },
       {
         title: "Revision Surgery",
+        href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
         body: [
           "Perfect for: unsatisfactory results from previous procedures. If you've had eyelid surgery elsewhere and are unhappy with the results (asymmetry, scarring, or unnatural outcomes), Dr Sabrina offers expert revision procedures designed to restore natural balance.",
         ],
@@ -611,10 +626,24 @@ function StepSection({ section }: { section: Extract<Section, { kind: "step" }> 
                 <span className={styles.subIndex} aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className={styles.subTitle}>{sub.title}</h3>
+                <h3 className={styles.subTitle}>
+                  {sub.href ? (
+                    <Link href={sub.href} className={styles.subLink}>
+                      {sub.title}
+                    </Link>
+                  ) : (
+                    sub.title
+                  )}
+                </h3>
                 {sub.body.map((paragraph) => (
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
+                {sub.href && (
+                  <Link href={sub.href} className={styles.subMore}>
+                    Read about {sub.title}
+                    <TpIcon name="arrow" size={14} direction="right" />
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -643,7 +672,20 @@ export function EyeCareJourney({
            says the same thing in the way a surgeon would say it aloud. */
         h1="Caring for your eyes, at every stage of life"
         lead="A guided pathway for eye, face and skin health, from everyday skincare through to surgery and the long-term care that keeps your results looking their best."
-      />
+      >
+        {/* This page is a long read — measured, the first way to act on it sat
+            10,892px down on a laptop and 16,696px down on a phone. The
+            treatment and condition templates both put a CTA in the opening
+            viewport; this one is the same kind of landing page and had none. */}
+        <div className={styles.heroCtas}>
+          <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
+            Book a Consultation
+          </Link>
+          <Link href="/self-test-survey" className={`tp-btn ${styles.heroCtaGhost}`}>
+            Take the Free Self-Test
+          </Link>
+        </div>
+      </PageHero>
 
       {/* ── Opening statement and roadmap ───────────────────────────────── */}
       <section className={`${styles.section} ${styles.paper}`} aria-labelledby="intro-heading">

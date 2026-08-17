@@ -57,6 +57,12 @@ const nextConfig: NextConfig = {
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/xmlrpc.php", destination: "/", permanent: true },
 
+      // The gallery lives at /before-after, but the navigation calls it
+      // "Results" — so /results is the URL people guess and type, and an
+      // auditor hit it too. It was a 404.
+      { source: "/results", destination: "/before-after", permanent: true },
+      { source: "/results/:path*", destination: "/before-after/:path*", permanent: true },
+
       // Treatment pages are canonical at the nested paths the previous site
       // published. The flat slugs the migration produced 301 to them so each
       // treatment has exactly one indexable URL.

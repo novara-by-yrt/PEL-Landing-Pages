@@ -415,3 +415,22 @@
   color: var(--tp-slate);
   margin: 0;
 }
+
+/* Hero call-to-action row. The treatment and condition templates put a way to
+   act inside the opening viewport; these pages did not, so the first CTA was
+   thousands of pixels down. Inverse button on the dark hero, outlined ghost
+   beside it. */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(20px, 3vw, 28px);
+}
+.heroCtaGhost {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+}
+.heroCtaGhost:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+}

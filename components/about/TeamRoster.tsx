@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -129,7 +130,14 @@ export function TeamRoster({
         eyebrow="Perfect Eyes Ltd & Perfect Skin Studio"
         h1="Meet the Team"
         lead="Our exceptional practitioners and dedicated support staff work together to deliver outstanding aesthetic outcomes and an unparalleled patient experience."
-      />
+      >
+        {/* The first way to book was 1,303px down, just past the fold. */}
+        <div className={styles.heroCtas}>
+          <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-inverse">
+            Book a Consultation
+          </Link>
+        </div>
+      </PageHero>
 
       <section className={`${styles.section} ${styles.paper}`}>
         <div className="container">

@@ -96,7 +96,20 @@ export function TreatmentHero({
                   pairing is then something a screen reader can follow. */}
               <dl className={styles.tpGlanceGrid}>
                 {glance.map((item) => (
-                  <div key={item.label} className={styles.tpGlanceItem}>
+                  <div
+                    key={item.label}
+                    /* A value long enough to wrap several times takes the
+                       whole row rather than half of it. Left in a column it
+                       stretched its one-line neighbour to match — a card with
+                       four lines beside a card with one and a large void
+                       under it, which also knocked the divider rules in the
+                       two columns out of step. Measured against the rendered
+                       grid: values past ~46 characters are the ones that wrap
+                       beyond two lines in a half-width column. */
+                    className={`${styles.tpGlanceItem}${
+                      item.value.length > 46 ? ` ${styles.tpGlanceWide}` : ""
+                    }`}
+                  >
                     <span className={styles.tpGlanceIcon} aria-hidden="true">
                       <TpIcon name={glanceIconKey(item.label)} size={17} />
                     </span>
