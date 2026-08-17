@@ -77,20 +77,9 @@
   fill: var(--tp-indigo-700);
 }
 
-.title {
-  min-height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 18px;
-  font-family: var(--tp-body);
-  font-size: var(--fs-body-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--tp-ink);
-  text-align: center;
-  margin: 0;
-}
+/* The .title caption that sat under each thumbnail is gone — the card is the
+   thumbnail now. Its styles are removed with it rather than left behind for
+   the next person to wonder about. */
 
 .frame {
   position: absolute;

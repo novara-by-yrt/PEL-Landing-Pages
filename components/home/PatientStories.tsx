@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import GoogleMark from "@/components/shared/GoogleMark";
 /* The shared set is the default, so a page can render <PatientStories /> and
    is guaranteed the same reviews as every other page. reviews.ts only takes
@@ -19,11 +19,6 @@ export interface PatientStory {
   /** Optional: direct link to the review on that platform. */
   url?: string;
 }
-
-/** Quotes longer than this get a Read more / Read less toggle. Most of the
- *  current reviews are past it; shorter ones will not show a control that
- *  does nothing. */
-const CLAMP_THRESHOLD = 260;
 
 function Chevron({ back = false }: { back?: boolean }) {
   return (
@@ -58,10 +53,6 @@ export default function PatientStories({
   stories?: PatientStory[];
 }) {
   const railRef = useRef<HTMLDivElement>(null);
-  /* Keyed by author rather than index: the rail renders the list twice for
-     the loop, and a review and its clone are the same review — expanding one
-     should expand the other, so neither copy contradicts itself mid-scroll. */
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   /* While a programmatic hop-and-scroll is in flight, normalising would undo
      the hop the moment it happened — the same stand-down the treatments rail
@@ -170,16 +161,12 @@ export default function PatientStories({
         <div className={styles.track}>
           {/* Two passes of the same list. The second exists only so the loop
               has no seam, so it is hidden from screen readers and skipped by
-              Tab — otherwise every review would be announced twice. It stays
-              clickable, though: a clone is on screen whenever the rail sits
-              near the seam, and a dead Read more button there would just look
-              broken. */}
+              Tab — otherwise every review would be announced twice. */}
           {[0, 1].flatMap((pass) =>
             stories.map((story) => {
             const clone = pass === 1;
             const index = `${pass}-${story.author}`;
-            const isLong = story.quote.length > CLAMP_THRESHOLD;
-            const isOpen = Boolean(expanded[story.author]);
+            const hasFoot = Boolean(story.treatment || story.source || (story.url && story.source));
 
             return (
               <figure
@@ -187,66 +174,64 @@ export default function PatientStories({
                 className={styles.card}
                 aria-hidden={clone || undefined}
               >
-                <div className={styles.cardTop}>
-                  <span className={styles.rating}>
-                    <GoogleMark className={styles.googleMark} />
-                    <Stars />
+                {/* A figcaption may be the figure's first child as well as its
+                    last, so the attribution can lead the card and still be the
+                    quote's caption rather than loose text beside it. */}
+                <figcaption className={styles.cardTop}>
+                  <span className={styles.identity}>
+                    <span className={styles.author}>{story.author}</span>
+                    <span className={styles.rating}>
+                      <GoogleMark className={styles.googleMark} />
+                      <Stars />
+                      <span className="sr-only">Rated 5 out of 5 on Google</span>
+                    </span>
                   </span>
-                  <span className="sr-only">Rated 5 out of 5 on Google</span>
                   {story.source ? (
                     <span className={styles.sourceBadge} aria-hidden="true">
                       {story.source.charAt(0)}
                     </span>
                   ) : null}
+                </figcaption>
+
+                {/* The full review, scrolled rather than truncated. Every card
+                    is the same depth whatever the length of the quote, so the
+                    rail stays level and no card grows under the reader when a
+                    control is pressed.
+
+                    tabIndex makes the box reachable by keyboard, which is what
+                    lets a keyboard user scroll it at all — but not inside a
+                    clone, where a focus stop would land someone in a copy that
+                    is hidden from assistive tech. */}
+                <div className={styles.quoteWrap}>
+                  <blockquote
+                    id={`story-${index}`}
+                    className={styles.quote}
+                    tabIndex={clone ? -1 : 0}
+                  >
+                    &ldquo;{story.quote}&rdquo;
+                  </blockquote>
                 </div>
 
-                <blockquote
-                  id={`story-${index}`}
-                  className={`${styles.quote} ${
-                    isLong && !isOpen ? styles.quoteClamped : ""
-                  }`}
-                >
-                  &ldquo;{story.quote}&rdquo;
-                </blockquote>
-
-                {isLong ? (
-                  <button
-                    type="button"
-                    className={styles.toggle}
-                    aria-expanded={isOpen}
-                    aria-controls={`story-${index}`}
-                    /* Inside an aria-hidden clone, so keep it out of the tab
-                       order — a focusable control there would be a trap. */
-                    tabIndex={clone ? -1 : undefined}
-                    onClick={() =>
-                      setExpanded((prev) => ({
-                        ...prev,
-                        [story.author]: !prev[story.author],
-                      }))
-                    }
-                  >
-                    {isOpen ? "Read less" : "Read more"}
-                  </button>
+                {hasFoot ? (
+                  <div className={styles.foot}>
+                    {story.treatment || story.source ? (
+                      <span className={styles.meta}>
+                        {[story.treatment, story.source].filter(Boolean).join(" · ")}
+                      </span>
+                    ) : null}
+                    {story.url && story.source ? (
+                      <a
+                        href={story.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.readOn}
+                        tabIndex={clone ? -1 : undefined}
+                      >
+                        Read on {story.source}
+                      </a>
+                    ) : null}
+                  </div>
                 ) : null}
-
-                <figcaption className={styles.foot}>
-                  <span className={styles.author}>{story.author}</span>
-                  {story.treatment || story.source ? (
-                    <span className={styles.meta}>
-                      {[story.treatment, story.source].filter(Boolean).join(" · ")}
-                    </span>
-                  ) : null}
-                  {story.url && story.source ? (
-                    <a
-                      href={story.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.readOn}
-                    >
-                      Read on {story.source}
-                    </a>
-                  ) : null}
-                </figcaption>
               </figure>
             );
             }),
