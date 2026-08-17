@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import ClinicPhone, { ClinicPhoneIcon } from "@/components/shared/ClinicPhone";
+import BookConsultationModal from "@/components/forms/BookConsultationModal";
 import { RESULT_CATEGORIES } from "@/lib/results";
 
 interface SimpleLink {
@@ -30,7 +31,7 @@ interface NavItem {
   viewAll?: SimpleLink;
 }
 
-/** The Shopify storefront — same destination as the skincare link under Eye Journey. */
+/** The Shopify storefront, reached from the top-level Shop item. */
 const SHOP_HREF = "https://drsabrina.com/collections/all";
 
 const SURGICAL_TREATMENTS: SimpleLink[] = [
@@ -162,9 +163,12 @@ const NAV: NavItem[] = [
     ],
   },
   {
+    /* Points at the index rather than at one arbitrary condition, so the
+       top-level link and the panel's "view all" lead to the same place. */
     label: "Eye Conditions",
-    href: "/condition/hooded-eyelids",
+    href: "/conditions",
     variant: "mega",
+    viewAll: { label: "View All Conditions", href: "/conditions" },
     groups: [
       { label: "Eyes", sub: EYE_CONDITIONS },
       { label: "Face", sub: FACE_CONDITIONS },
@@ -173,23 +177,15 @@ const NAV: NavItem[] = [
   },
   {
     label: "Treatments",
-    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
+    href: "/treatments",
     variant: "mega",
-    viewAll: { label: "View All Treatments", href: "/#treatments" },
+    viewAll: { label: "View All Treatments", href: "/treatments" },
     groups: [
       { label: "Surgical Treatments", sub: SURGICAL_TREATMENTS },
       { label: "Non-Surgical Treatments", sub: NON_SURGICAL_TREATMENTS },
     ],
   },
-  {
-    label: "Eye Journey",
-    href: "/journey-of-eye-care",
-    variant: "simple",
-    children: [
-      { label: "Journey of Eye Care", href: "/journey-of-eye-care" },
-      { label: "Advanced Periorbital Skincare", href: SHOP_HREF, external: true },
-    ],
-  },
+  { label: "Eye Journey", href: "/journey-of-eye-care" },
   {
     label: "Results",
     href: "/before-after",
@@ -200,8 +196,6 @@ const NAV: NavItem[] = [
   { label: "Shop", href: SHOP_HREF, external: true },
   { label: "Blog", href: "/blog" },
 ];
-
-const BOOK_HREF = "/contact-cosmetic-eye-surgeon";
 
 /** left/top/width/height of the tubelight lamp, in pixels relative to `.pel-links`. */
 interface LampRect {
@@ -458,7 +452,7 @@ export default function Header() {
                   }}
                 >
                   {item.label}
-                  <TpIcon name="chevron" size={13} style={{ transform: "rotate(90deg)" }} />
+                  <TpIcon name="chevron" size={13} direction="down" />
                 </button>
 
                 {isOpen && item.variant !== "mega" && (
@@ -555,10 +549,10 @@ export default function Header() {
 
         <div className="pel-actions">
           <ClinicPhoneIcon className="pel-phone" />
-          <Link href={BOOK_HREF} className="pel-cta">
+          <BookConsultationModal className="pel-cta" label="Book a Consultation">
             <span className="pel-cta-long">Book a Consultation</span>
             <span className="pel-cta-short">Book</span>
-          </Link>
+          </BookConsultationModal>
         </div>
 
         <button
@@ -704,9 +698,10 @@ export default function Header() {
         </nav>
 
         <div className="pel-drawer-foot">
-          <Link href={BOOK_HREF} className="pel-cta pel-cta-full" onClick={() => setDrawerOpen(false)}>
-            Book a Consultation
-          </Link>
+          <BookConsultationModal
+            className="pel-cta pel-cta-full"
+            onOpen={() => setDrawerOpen(false)}
+          />
           <ClinicPhone className="pel-drawer-phone" icon />
         </div>
       </aside>

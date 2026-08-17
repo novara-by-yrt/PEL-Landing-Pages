@@ -66,7 +66,10 @@ export default function VideoCard({ thumbnailSrc, title, videoUrl }: VideoCardPr
           </span>
         </button>
       </span>
-      <span className={styles.title}>{title}</span>
+      {/* No visible caption under the thumbnail. `title` still describes the
+          clip to anyone who cannot see it — it names the iframe and labels
+          the play button — but it is no longer repeated as a line of text
+          below every card. */}
     </div>
   );
 }

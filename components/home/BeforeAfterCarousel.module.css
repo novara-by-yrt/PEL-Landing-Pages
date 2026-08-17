@@ -83,9 +83,46 @@
   position: relative;
   aspect-ratio: 1 / 1;
   background: var(--tp-cream);
+  /* So the labels below can size against the card rather than the viewport:
+     the same card is 92vw on a phone and about a third of that on desktop, so
+     a viewport-based size would be wildly out at one end or the other. */
+  container-type: inline-size;
 }
 .photoImg {
   object-fit: contain;
+}
+
+/* ── "Before" / "After", drawn over the two halves ───────────────────────────
+   Only for the composites that do not already carry the words in the artwork
+   (see overlayLabels). One column per half so each label centres over its own
+   side whatever the card width, and click-through so the labels never
+   intercept the tap that should open the gallery. */
+.labels {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 4.5cqw;
+  pointer-events: none;
+}
+.label {
+  text-align: center;
+  font-family: var(--tp-body);
+  font-size: clamp(0.6875rem, 4.4cqw, 1.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  /* These sit over whatever the photograph happens to be — a pale clinical
+     backdrop on one of the two cards — so white alone is not reliably
+     legible. The shadow does the work a scrim would, without laying a bar
+     across the top of the picture. */
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.55),
+    0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .body {

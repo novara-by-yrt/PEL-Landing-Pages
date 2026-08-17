@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { PageHero, TpIcon } from "@/components/treatment";
+import BookAppointmentForm from "@/components/forms/BookAppointmentForm";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC, CONSULTATION_FEES, MAPS_URL } from "@/lib/clinic";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -77,6 +77,14 @@ export default function ContactCosmeticEyeSurgeonPage() {
 
       <section className="tp-section tp-fog">
         <div className="container">
+          {/* The clinic's own form, not the LeadConnector widget that used to
+              sit here. That widget was an iframe plus a script from
+              link.perfecteyesltd.com, and the site's Content-Security-Policy
+              allows frames only from YouTube and scripts only from self and
+              Google Tag Manager — so the browser refused both and the panel
+              rendered as an empty box. Rather than open the policy to a
+              third-party origin, this uses BookAppointmentForm, which is what
+              /contact already posts through. */}
           <div className={styles.formCard}>
             <div className="tp-head">
               <span className="tp-eyebrow">
@@ -86,15 +94,10 @@ export default function ContactCosmeticEyeSurgeonPage() {
               <h2>Book an Appointment</h2>
               <p>Fill out the form below to be contacted by a member of our team.</p>
             </div>
-            <iframe
-              src="https://link.perfecteyesltd.com/widget/form/3vO7PCFhNgeqCV8cP2kL"
-              className={styles.formIframe}
-              title="Book an appointment"
-            />
+            <BookAppointmentForm />
           </div>
         </div>
       </section>
-      <Script src="https://link.perfecteyesltd.com/js/form_embed.js" strategy="lazyOnload" />
 
       <section className="tp-section">
         <div className={`container ${styles.notices}`}>

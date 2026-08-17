@@ -93,36 +93,6 @@ const PRACTITIONERS: Member[] = [
 
 const SUPPORT_STAFF: Member[] = [
   {
-    id: "leanne",
-    name: "Leanne",
-    role: "Practice Clinic Manager",
-    image: "/uploads/2025/09/Leanne-1-1.jpg",
-    bio: "Leanne joined the team in May 2025 as our Practice Clinic Manager, where she ensures every patient's journey is smooth, supportive, and well-informed. With over 20 years of experience in the beauty industry, Leanne brings a wealth of knowledge and a deep commitment to delivering an exceptional patient experience. Her warm, bubbly nature and professional approach help every patient feel welcomed and cared for — from their first visit to their final follow-up. Her door is always open for any questions or concerns.",
-    tags: [],
-    fact: "Leanne loves running and is always planning her next meal out.",
-    bookable: false,
-  },
-  {
-    id: "mojdeh",
-    name: "Mojdeh",
-    role: "Surgical Coordinator",
-    image: "/uploads/2025/09/Mojdeh-2025-09-17-15-54-00-1.jpg",
-    bio: "Mojdeh joined our team in October 2024 as our Surgical Coordinator and Patient Educator. With a background in Biomedical Sciences and over a decade in patient-centred roles, she guides patients through their surgical journeys — ensuring seamless experiences from initial consultation to post-operative care. Known for her professionalism and warm, approachable demeanour, Mojdeh is dedicated to addressing questions and making patients feel comfortable and confident at every stage.",
-    tags: [],
-    fact: "Mojdeh loves exercising and planning her next travel escape.",
-    bookable: false,
-  },
-  {
-    id: "lakshya",
-    name: "Lakshya",
-    role: "Patient Coordinator",
-    image: "/uploads/2025/09/Luxee-1.jpg",
-    bio: "Lakshya rejoined the Perfect Eyes team as our Patient Coordinator after a fulfilling career in Early Years Education. With a degree in the field and a genuine passion for supporting others, she brings a warm, nurturing approach to patient care. Driven by a deep interest in aesthetics, Lakshya finds it incredibly rewarding to be part of each patient's transformative journey with Dr Sabrina — from the first inquiry right through to post-treatment support.",
-    tags: [],
-    fact: "Latest hobbies include travelling with her husband and experimenting with new recipes in the kitchen.",
-    bookable: false,
-  },
-  {
     id: "mary",
     name: "Mary",
     role: "Patient Services Coordinator",

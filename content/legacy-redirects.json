@@ -1,5 +1,5 @@
 {
-  "description": "Old WordPress URLs whose slug changed in the migration, mapped to the page that now holds the content. Read by next.config.ts and served as 301s so inbound links and accumulated ranking signal survive the switch-over. Generated from content/url-map.json, then hand-extended for the four routes whose destination moved under a parent path.",
+  "description": "Old WordPress URLs whose slug changed in the migration, or whose page was not migrated at all, mapped to the page that now holds the content (or the closest page that does). Read by next.config.ts and served as 301s so inbound links and accumulated ranking signal survive the switch-over. Generated from content/url-map.json and from checking the live Rank Math sitemap with scripts/check-legacy-urls.js.",
   "redirects": {
     "/alternatives-to-tear-trough-filler": "/blog/alternatives-to-tear-trough-filler-for-under-eye-rejuvenation",
     "/are-hooded-eyes-attractive": "/blog/are-hooded-eyes-attractive-beauty-perception-and-modern-aesthetic-views",
@@ -7,6 +7,7 @@
     "/blog/alternatives-to-tear-trough-filler": "/blog/alternatives-to-tear-trough-filler-for-under-eye-rejuvenation",
     "/blog/are-hooded-eyes-attractive": "/blog/are-hooded-eyes-attractive-beauty-perception-and-modern-aesthetic-views",
     "/blog/best-treatment-for-large-pores": "/blog/best-treatment-for-large-pores-complete-guide",
+    "/blog/chemical-peel-benefits": "/blog/how-to-remove-sun-damage-on-face",
     "/blog/cold-compress-on-eyes-benefits-and-treatments": "/blog/cold-compress-on-eyes-benefits-treatments",
     "/blog/facial-overfilled-syndrome-what-it-is-and-how-we-can-help-you-treat-it-safely": "/blog/facial-overfilled-syndrome",
     "/blog/how-long-does-tear-trough-filler-last": "/blog/12223-2",
@@ -24,7 +25,9 @@
     "/how-to-get-rid-of-eye-bags-causes-risks-treatments": "/blog/get-rid-of-eye-bags",
     "/how-to-get-rid-of-puffiness-around-eyes": "/blog/how-to-get-rid-of-puffiness-around-eyes-complete-guide",
     "/how-to-minimise-blepharoplasty-scars": "/blog/blepharoplasty-scars",
+    "/meet-team": "/team",
     "/non-surgical-terms-conditions": "/dr-sabrina-shah-desai/non-surgical-terms-conditions",
+    "/non-surgical/chemical-peel-treatment-uk": "/non-surgical/ultraclear-laser-treatment-uk",
     "/outcome-of-ptosis-repair-a-digital-image-analysis-ophthal-plast-reconstr-surg": "/blog/outcome-of-ptosis-repair-a-digital-image-analysis-ophthal-plast-reconstr-surg-2011",
     "/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasoundimagingbased-case-series": "/blog/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasound-imaging-based-case-series",
     "/philosophy": "/dr-sabrina-shah-desai/philosophy",

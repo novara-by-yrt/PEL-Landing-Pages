@@ -12,6 +12,7 @@ export function PageHero({
   heroImage,
   heroImageAlt,
   heroBadge,
+  children,
 }: {
   breadcrumbItems: { name: string; url: string }[];
   siteUrl: string;
@@ -21,6 +22,8 @@ export function PageHero({
   heroImage?: string;
   heroImageAlt?: string;
   heroBadge?: string;
+  /** Rendered under the lead — the index pages put their jump nav here. */
+  children?: React.ReactNode;
 }) {
   const hasImage = Boolean(heroImage);
 
@@ -53,6 +56,8 @@ export function PageHero({
           <h1>{h1}</h1>
 
           {lead && <p className={styles.tpPageLead}>{lead}</p>}
+
+          {children}
 
           {hasImage && (
             <div className={styles.tpPageHeroCtas}>

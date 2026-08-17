@@ -148,3 +148,118 @@
   border-radius: var(--tp-radius-lg);
   box-shadow: var(--tp-shadow-sm);
 }
+
+/* ── Iconography ─────────────────────────────────────────────────────────────
+   Two rules for the whole set, so every icon on the site behaves the same way
+   however it is placed. See components/treatment/TpIcon.tsx for the glyphs.
+
+   1. The accent is the filled silhouette under the stroke. It carries the
+      icon's weight; at rest it is a tint, and it deepens when the control the
+      icon belongs to is hovered, so the glyph gains body rather than just
+      moving.
+
+   2. Motion is driven by the nearest interactive ancestor rather than by the
+      icon itself, because an icon is almost never the hover target — it sits
+      inside the link or button that is. The transforms are per-icon: an arrow
+      travels, a star turns, a phone rocks. One shared effect across
+      twenty-four glyphs is exactly what makes an icon set feel mechanical. */
+
+.tp-icon {
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  transform-origin: 50% 50%;
+  /* Keeps a rotating or scaling glyph from clipping against its own box. */
+  overflow: visible;
+}
+.tp-icon-accent {
+  opacity: 0.16;
+  transition: opacity 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+a:hover .tp-icon-accent,
+button:hover .tp-icon-accent,
+label:hover .tp-icon-accent,
+a:focus-visible .tp-icon-accent,
+button:focus-visible .tp-icon-accent {
+  opacity: 0.3;
+}
+
+a:hover .tp-icon-slide,
+button:hover .tp-icon-slide,
+a:focus-visible .tp-icon-slide,
+button:focus-visible .tp-icon-slide {
+  transform: translateX(3px);
+}
+a:hover .tp-icon-twinkle,
+button:hover .tp-icon-twinkle,
+a:focus-visible .tp-icon-twinkle,
+button:focus-visible .tp-icon-twinkle {
+  transform: rotate(72deg) scale(1.1);
+}
+a:hover .tp-icon-pop,
+button:hover .tp-icon-pop,
+a:focus-visible .tp-icon-pop,
+button:focus-visible .tp-icon-pop {
+  transform: scale(1.16);
+}
+a:hover .tp-icon-ring,
+button:hover .tp-icon-ring,
+a:focus-visible .tp-icon-ring,
+button:focus-visible .tp-icon-ring {
+  transform: rotate(-14deg) scale(1.08);
+}
+a:hover .tp-icon-zoom,
+button:hover .tp-icon-zoom,
+a:focus-visible .tp-icon-zoom,
+button:focus-visible .tp-icon-zoom {
+  transform: scale(1.12);
+}
+a:hover .tp-icon-turn,
+button:hover .tp-icon-turn,
+a:focus-visible .tp-icon-turn,
+button:focus-visible .tp-icon-turn {
+  transform: rotate(90deg);
+}
+a:hover .tp-icon-lift,
+button:hover .tp-icon-lift,
+a:focus-visible .tp-icon-lift,
+button:focus-visible .tp-icon-lift {
+  transform: translateY(-2px);
+}
+
+/* Directional glyphs. The rotation lives here rather than in an inline
+   style so it composes with the hover travel above: a chevron flipped to
+   point left slides left, because translateX is applied in the glyph's own
+   rotated frame. */
+.tp-icon-right { transform: rotate(0deg); }
+.tp-icon-down { transform: rotate(90deg); }
+.tp-icon-left { transform: rotate(180deg); }
+.tp-icon-up { transform: rotate(-90deg); }
+
+a:hover .tp-icon-slide.tp-icon-right,
+button:hover .tp-icon-slide.tp-icon-right { transform: rotate(0deg) translateX(3px); }
+a:hover .tp-icon-slide.tp-icon-left,
+button:hover .tp-icon-slide.tp-icon-left { transform: rotate(180deg) translateX(3px); }
+a:hover .tp-icon-slide.tp-icon-up,
+button:hover .tp-icon-slide.tp-icon-up { transform: rotate(-90deg) translateX(3px); }
+
+/* No hover travel is defined for `down`, and deliberately so. The nav chevron
+   is the only glyph using it, and layout-chrome.css already turns it to point
+   up when its panel opens — behaviour that had been dead for as long as the
+   rotation was an inline style, since that beat the stylesheet. Adding a
+   translate here would only fight it. */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Transforms go; the accent keeps its fade. A change of opacity is not
+     motion, and it is the feedback that tells someone their pointer is on the
+     control — dropping it too would leave the hover silent, and snapping it
+     without the ease would be a flash. */
+  .tp-icon {
+    transition: none;
+  }
+  a:hover .tp-icon,
+  button:hover .tp-icon,
+  a:focus-visible .tp-icon,
+  button:focus-visible .tp-icon {
+    transform: none;
+  }
+}

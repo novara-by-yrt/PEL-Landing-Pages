@@ -60,8 +60,8 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
         <section className="tp-section">
           <div className="container">
             <div className={styles.blogArchiveGrid}>
-              {posts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+              {posts.map((post, index) => (
+                <BlogCard key={post.slug} post={post} priority={index < 3} />
               ))}
             </div>
 
@@ -72,7 +72,7 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
                   className={`${styles.blogPageLink}${currentPage === 1 ? ` ${styles.isDisabled}` : ""}`}
                   aria-disabled={currentPage === 1}
                 >
-                  <TpIcon name="chevron" size={14} style={{ transform: "rotate(180deg)" }} />
+                  <TpIcon name="chevron" size={14} direction="left" />
                 </Link>
 
                 {pageNumbers.map((n, i) => {

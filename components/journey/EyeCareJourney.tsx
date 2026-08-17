@@ -637,7 +637,11 @@ export function EyeCareJourney({
         breadcrumbItems={breadcrumbItems}
         siteUrl={siteUrl}
         eyebrow="The Perfect360™ Experience"
-        h1="The Journey of Eye Care: A Lifelong Commitment to Your Vision"
+        /* The old heading — "The Journey of Eye Care: A Lifelong Commitment
+           to Your Vision" — was a colon, an abstract noun and a promise the
+           reader had not asked for, and it ran to four lines on a phone. This
+           says the same thing in the way a surgeon would say it aloud. */
+        h1="Caring for your eyes, at every stage of life"
         lead="A guided pathway for eye, face and skin health, from everyday skincare through to surgery and the long-term care that keeps your results looking their best."
       />
 

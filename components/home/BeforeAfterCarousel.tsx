@@ -12,6 +12,15 @@ export interface BeforeAfterSlide {
   alt: string;
   /** The gallery this case belongs to, so a card is a way in rather than a dead end. */
   href: string;
+  /**
+   * Draw "Before" and "After" over the two halves of the photo.
+   *
+   * Most of the composites in this rail have those words burnt into the
+   * artwork already. Two of them do not, and without the labels a visitor has
+   * to work out which half is which — so they are drawn in markup for those
+   * two only, rather than every card ending up with the words twice.
+   */
+  overlayLabels?: boolean;
 }
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -123,6 +132,16 @@ export default function BeforeAfterCarousel({ slides }: { slides: BeforeAfterSli
                       sizes="(min-width: 1000px) 33vw, 92vw"
                       className={styles.photoImg}
                     />
+
+                    {/* Hidden from assistive tech: the alt already says this
+                        is a before and after, so announcing the two words
+                        again would only repeat it. */}
+                    {slide.overlayLabels ? (
+                      <div className={styles.labels} aria-hidden="true">
+                        <span className={styles.label}>Before</span>
+                        <span className={styles.label}>After</span>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className={styles.body}>

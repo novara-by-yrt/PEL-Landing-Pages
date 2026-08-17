@@ -1,0 +1,114 @@
+/* Card grid for the treatment and condition indexes.
+
+   auto-fit with a min track rather than fixed breakpoints: one column on a
+   phone, two on a tablet, three on a desktop, and the cards keep an even
+   width at every size in between without a media query per step. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+  gap: clamp(16px, 2.2vw, 26px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--tp-paper);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: var(--tp-shadow-xs);
+  transition:
+    transform 260ms var(--tp-ease),
+    box-shadow 260ms var(--tp-ease),
+    border-color 260ms var(--tp-ease);
+}
+.link:hover {
+  transform: translateY(-3px);
+  border-color: var(--tp-lavender-300);
+  box-shadow: var(--tp-shadow-md);
+}
+.link:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+}
+
+/* A fixed ratio on the media box, so a grid of cards lines up even though the
+   artwork behind it is a mixture of photographs and line icons at every
+   aspect ratio the clinic has ever published. */
+.media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: var(--tp-lavender-050);
+  overflow: hidden;
+}
+.media :global(img) {
+  /* contain, not cover: several of these are icons and diagrams, and cropping
+     one to fill the box cuts its edges off. */
+  object-fit: contain;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 8px;
+  padding: clamp(16px, 2vw, 22px);
+}
+.title {
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 1.9vw, 1.1875rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: var(--ls-tight);
+  color: var(--tp-ink);
+  text-wrap: balance;
+}
+.blurb {
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--tp-slate);
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--tp-indigo-700);
+}
+.arrow {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  transition: transform 220ms var(--tp-ease);
+}
+.link:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .arrow {
+    transition: none;
+  }
+  .link:hover {
+    transform: none;
+  }
+  .link:hover .arrow {
+    transform: none;
+  }
+}
