@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import AutoScrollCarousel from "@/components/home/AutoScrollCarousel";
-import BeforeAfterCarousel, { type BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
 import ContactSection from "@/components/home/ContactSection";
 import HeroVideo from "@/components/home/HeroVideo";
-import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
-import PatientJourney from "@/components/home/PatientJourney";
-import PatientStories from "@/components/home/PatientStories";
-import TeamCarousel, { type TeamMember } from "@/components/home/TeamCarousel";
-import TreatmentsCarousel, { type Treatment } from "@/components/home/TreatmentsCarousel";
-import VideoCard from "@/components/home/VideoCard";
+import type { BeforeAfterSlide } from "@/components/home/BeforeAfterCarousel";
+import type { HomeFaqItem } from "@/components/home/HomeFaq";
+import type { TeamMember } from "@/components/home/TeamCarousel";
+import type { Treatment } from "@/components/home/TreatmentsCarousel";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import GoogleMark from "@/components/shared/GoogleMark";
@@ -19,6 +17,19 @@ import Reveal from "@/components/shared/Reveal";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "./page.module.css";
+
+/* Everything below the hero is off-screen on load, so its JS doesn't need to
+   be in the bundle blocking first paint — dynamic() splits each into its own
+   chunk, fetched in parallel with (not ahead of) the hero. SSR stays on
+   (no `ssr: false`), so there's no content/SEO regression, just a smaller
+   critical-path bundle. */
+const TreatmentsCarousel = dynamic(() => import("@/components/home/TreatmentsCarousel"));
+const PatientStories = dynamic(() => import("@/components/home/PatientStories"));
+const PatientJourney = dynamic(() => import("@/components/home/PatientJourney"));
+const VideoCard = dynamic(() => import("@/components/home/VideoCard"));
+const BeforeAfterCarousel = dynamic(() => import("@/components/home/BeforeAfterCarousel"));
+const TeamCarousel = dynamic(() => import("@/components/home/TeamCarousel"));
+const HomeFaq = dynamic(() => import("@/components/home/HomeFaq"));
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
