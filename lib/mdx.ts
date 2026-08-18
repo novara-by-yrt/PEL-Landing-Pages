@@ -78,6 +78,18 @@ export interface TeamBiosData {
   members: TeamBioMember[];
 }
 
+export interface ProsConsItem {
+  title: string;
+  description: string;
+}
+
+export interface ProsConsData {
+  prosHeading: string;
+  pros: ProsConsItem[];
+  consHeading: string;
+  cons: ProsConsItem[];
+}
+
 export interface PostFrontmatter {
   title: string;
   slug: string;
@@ -109,6 +121,7 @@ export interface PostFrontmatter {
   gallery?: GalleryItem[];
   videoTestimonials?: VideoTestimonialsData;
   teamBios?: TeamBiosData;
+  prosAndCons?: ProsConsData;
 }
 
 export interface GalleryItem {

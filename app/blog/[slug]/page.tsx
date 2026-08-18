@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, type ProsConsData } from "@/lib/mdx";
 import { splitContentForMidArticleCta } from "@/lib/blogContent";
 import {
   buildBlogPostingSchema,
@@ -16,7 +16,30 @@ import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import SafeImage from "@/components/shared/SafeImage";
 import HomeFaq from "@/components/home/HomeFaq";
+import { ProsCons } from "@/components/blog/ProsCons";
 import styles from "./page.module.css";
+
+/** Marks where a post's extracted "Pros and Cons" section belongs in the
+ *  body - set by the migration that pulled it into frontmatter.prosAndCons.
+ *  See components/blog/ProsCons.tsx for why that migration happened. */
+const PROS_AND_CONS_MARKER = "<!--PROS_AND_CONS-->";
+
+/** Renders one prose chunk, splitting out <ProsCons> at the marker if this
+ *  chunk happens to contain it - the CTA-box split above already cut the
+ *  body in two, and the marker only ever ends up in one of those halves. */
+function Prose({ html, prosAndCons }: { html: string; prosAndCons?: ProsConsData }) {
+  if (prosAndCons && html.includes(PROS_AND_CONS_MARKER)) {
+    const [before, after] = html.split(PROS_AND_CONS_MARKER);
+    return (
+      <>
+        <div className="prose" dangerouslySetInnerHTML={{ __html: before }} />
+        <ProsCons data={prosAndCons} />
+        <div className="prose" dangerouslySetInnerHTML={{ __html: after }} />
+      </>
+    );
+  }
+  return <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />;
+}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -188,11 +211,11 @@ export default async function BlogPostPage({
                 />
               </div>
             )}
-            <div className="prose" dangerouslySetInnerHTML={{ __html: contentBefore }} />
+            <Prose html={contentBefore} prosAndCons={frontmatter.prosAndCons} />
             {contentAfter !== null && (
               <>
                 <BlogCtaBox />
-                <div className="prose" dangerouslySetInnerHTML={{ __html: contentAfter }} />
+                <Prose html={contentAfter} prosAndCons={frontmatter.prosAndCons} />
               </>
             )}
 
