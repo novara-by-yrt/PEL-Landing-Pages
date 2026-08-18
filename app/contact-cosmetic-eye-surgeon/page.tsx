@@ -94,7 +94,11 @@ export default function ContactCosmeticEyeSurgeonPage() {
               <h2>Book an Appointment</h2>
               <p>Fill out the form below to be contacted by a member of our team.</p>
             </div>
-            <BookAppointmentForm />
+            {/* showHeading=false: this card already has its own "Book an
+                Appointment" heading above (with an eyebrow and lead
+                paragraph the form's built-in heading doesn't have), so the
+                form's own <h2> would just repeat it verbatim. */}
+            <BookAppointmentForm showHeading={false} />
           </div>
         </div>
       </section>
