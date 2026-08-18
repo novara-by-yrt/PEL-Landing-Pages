@@ -334,7 +334,7 @@ const {
   props: { srcSet: reachWideSrcSet, sizes: reachWideSizes },
 } = getImageProps({
   alt: REACH_ALT,
-  src: "/global-patient-network.png",
+  src: "/Trusted by patients worldwide Desktop.png",
   width: 1672,
   height: 941,
   sizes: REACH_SIZES,
@@ -348,9 +348,9 @@ const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
    700px breakpoint, so there is still no layout shift. */
 const { props: reachNarrowProps } = getImageProps({
   alt: REACH_ALT,
-  src: "/global-patient-network-mobile.png",
-  width: 941,
-  height: 1672,
+  src: "/Trusted by patients worldwide mobile.png",
+  width: 866,
+  height: 1817,
   sizes: REACH_SIZES,
 });
 const reachNarrow = {

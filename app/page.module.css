@@ -528,7 +528,12 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 941 / 1672;
+  /* The phone crop's own proportions. This has to track the file: the <img>
+     carries no width/height attributes (see the note beside getImageProps in
+     page.tsx), so this rule is the only thing reserving the box before the
+     image arrives. A stale value here is a layout shift, not a wrong-looking
+     picture, which is why it is stated as the source's real pixels. */
+  aspect-ratio: 866 / 1817;
 }
 @media (min-width: 700px) {
   .reachImg {
