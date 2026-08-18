@@ -17,7 +17,7 @@ import styles from "./MeetDrSabrina.module.css";
 
 const EXPERT_CREDENTIALS = [
   "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
-  "Recognised as a top practitioner for eyes for eight consecutive years, 2019-2026",
+  "Listed in Tatler’s Beauty & Cosmetic Surgery Guide as a top practitioner for eyes, eight consecutive years, 2019-2026",
   "Over 25 years of surgical and non-surgical experience",
 ];
 
@@ -64,17 +64,22 @@ export default function MeetDrSabrina({
               sizes="(min-width: 1000px) 42vw, 100vw"
               className={styles.expertPortrait}
             />
-            <div className={styles.expertBadge}>
-              <span className={styles.expertBadgeIcon} aria-hidden="true">
-                <Medal />
-              </span>
-              <span>
-                <span className={styles.expertBadgeTitle}>Top Practitioner for Eyes</span>
-                <span className={styles.expertBadgeMeta}>
-                  Eight consecutive years, 2019-2026
-                </span>
-              </span>
-            </div>
+            {/* The Tatler lockup, the same artwork the home page hero shows.
+                It replaces a written "Top Practitioner for Eyes" badge: the
+                claim it made is already the second item in the credential
+                list beside the portrait, so the bar was repeating in prose
+                what the press mark states as evidence. */}
+            <Image
+              src="/as-seen-in-tatler.png"
+              alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+              /* The source's own proportions; sizes states the drawn width at
+                 each breakpoint so next/image ships a badge-sized file rather
+                 than the 1536px original. */
+              width={1536}
+              height={1024}
+              sizes="(min-width: 1000px) 178px, (min-width: 620px) 160px, 118px"
+              className={styles.expertPress}
+            />
           </figure>
 
           <div className={styles.expertBody}>
@@ -96,8 +101,9 @@ export default function MeetDrSabrina({
               invasive techniques.
             </p>
             <p className={styles.expertText}>
-              Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking
-              subtle, natural results, she is also highly sought after for revisional
+              Named in Tatler&rsquo;s Beauty &amp; Cosmetic Surgery Guide every year since
+              2019, she is known as the &ldquo;go-to&rdquo; surgeon for discerning patients
+              seeking subtle, natural results, and is highly sought after for revisional
               procedures by those who have undergone previous fillers or eyelid surgeries.
             </p>
 

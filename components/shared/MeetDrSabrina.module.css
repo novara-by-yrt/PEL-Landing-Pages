@@ -37,42 +37,27 @@
   object-position: center top;
 }
 
-.expertBadge {
+/* The Tatler lockup, sitting on the portrait.
+
+   Pinned to one corner at a badge width rather than stretched across the
+   foot of the picture as the written badge it replaces was. The artwork is a
+   3:2 block carrying its own solid black field, so run full width it would
+   have covered a third of the portrait; at this size it reads as a press
+   mark applied to the photograph.
+
+   The width is a percentage of the portrait with a floor and a ceiling, so
+   the mark holds the same optical weight against the picture at every width
+   and still lands close to the 178/160/118px the hero draws it at. */
+.expertPress {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
   left: 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: var(--tp-radius-md);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--tp-shadow-sm);
-}
-.expertBadgeIcon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: var(--tp-indigo-700);
-  color: #fff;
-}
-.expertBadgeTitle {
-  display: block;
-  font-family: var(--tp-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--tp-ink);
-}
-.expertBadgeMeta {
-  display: block;
-  font-size: var(--fs-caption);
-  color: var(--tp-slate);
-  margin-top: 2px;
+  bottom: 16px;
+  width: clamp(118px, 34%, 178px);
+  height: auto;
+  border-radius: 12px;
+  /* The field is black and the portrait behind it is mid-grey, so the mark
+     needs its own lift to read as applied rather than cut out. */
+  box-shadow: 0 10px 26px -10px rgba(24, 20, 64, 0.55);
 }
 
 .medalIcon {

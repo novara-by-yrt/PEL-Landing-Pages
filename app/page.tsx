@@ -10,6 +10,7 @@ import type { HomeFaqItem } from "@/components/home/HomeFaq";
 import type { TeamMember } from "@/components/home/TeamCarousel";
 import type { Treatment } from "@/components/home/TreatmentsCarousel";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import GoogleMark from "@/components/shared/GoogleMark";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
@@ -107,12 +108,6 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Creates or refines an upper-lid crease, planned around Asian eyelid anatomy.",
   },
   {
-    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
-    title: "Hyaluronidase Dissolving",
-    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
-    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
-  },
-  {
     image: "/uploads/2024/07/eyelid-lump.jpg",
     title: "Eyelid Lump & Bump Removal",
     href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
@@ -133,6 +128,12 @@ const SURGICAL_TREATMENTS: Treatment[] = [
 ];
 
 const NONSURGICAL_TREATMENTS: Treatment[] = [
+  {
+    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
+    title: "Hyaluronidase Dissolving",
+    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
+    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
+  },
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
@@ -198,18 +199,18 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * desktop shows one of each treatment, and each card links through to the
  * gallery it came from.
  */
-/* The two upper-blepharoplasty composites that open the rail — the first card
-   and the fourth - are the only ones whose artwork does not already have
-   "Before" and "After" printed across the top. They are labelled in markup
-   instead so every card in the rail reads the same way. Keyed by file so
-   reordering the rail cannot detach a label from its photograph. */
-const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-1.png", "/upper-blepharoplasty-ba-2.png"]);
+/* One composite in the rail - the upper-blepharoplasty card in fourth place -
+   is the only one whose artwork does not already have "Before" and "After"
+   printed across the top. It is labelled in markup instead so every card in
+   the rail reads the same way. Keyed by file so reordering the rail cannot
+   detach the label from its photograph. */
+const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-2.png"]);
 
 const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
   [
-    ["upper", 1], ["lower", 8], ["ptosis", 8],
+    ["upper", 12], ["lower", 8], ["ptosis", 16],
     ["upper", 2], ["lower", 10], ["ptosis", 12],
-    ["upper", 8], ["lower", 2], ["ptosis", 17],
+    ["upper", 8], ["lower", 2], ["ptosis", 9],
     ["lower", 24],
   ] as const
 ).map(([set, index]) => {
@@ -334,7 +335,7 @@ const {
   props: { srcSet: reachWideSrcSet, sizes: reachWideSizes },
 } = getImageProps({
   alt: REACH_ALT,
-  src: "/global-patient-network.png",
+  src: "/Trusted by patients worldwide Desktop.png",
   width: 1672,
   height: 941,
   sizes: REACH_SIZES,
@@ -348,9 +349,9 @@ const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
    700px breakpoint, so there is still no layout shift. */
 const { props: reachNarrowProps } = getImageProps({
   alt: REACH_ALT,
-  src: "/global-patient-network-mobile.png",
-  width: 941,
-  height: 1672,
+  src: "/Trusted by patients worldwide mobile.png",
+  width: 866,
+  height: 1817,
   sizes: REACH_SIZES,
 });
 const reachNarrow = {
@@ -391,82 +392,25 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Two badges of matching size on one row, with the remaining two
-                signals as text lines underneath. Previously the Tatler lockup
-                sat beside a stack of three mixed signals - a graphic, a
-                rating with its own mark and stars, and two plain text lines -
-                all competing on one row, which is what made the block read as
-                cluttered. The two things that are *marks* now sit together and
-                match; the two that are *statements* sit together and read as a
-                pair of lines. */}
+            {/* Three plain statement lines: the Google rating, the years of
+                experience, and the registrations. No badge artwork - the
+                Tatler lockup and the drawn Google card that used to sit above
+                these lines are gone, and the rating is a line of text again
+                rather than a card of its own. */}
             <div className={styles.credentials}>
-              <div className={styles.badges}>
-                <figure className={styles.press}>
-                  <Image
-                    src="/as-seen-in-tatler.png"
-                    alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
-                    /* width/height carry the source's aspect ratio, and sizes
-                       tells the browser how wide the box actually is, so
-                       next/image ships a badge-sized file rather than the
-                       1536px original. Stating the box in sizes rather than
-                       hard-coding a displayed pixel size into width/height
-                       means the two cannot fall out of step when the badge is
-                       resized: the widths below are the .badges grid track at
-                       each breakpoint. */
-                    width={1536}
-                    height={1024}
-                    sizes="(min-width: 768px) 184px, (min-width: 360px) 153px, 122px"
-                    className={styles.pressLogo}
-                  />
-                </figure>
-
-                {/* Same box as the lockup beside it, drawn rather than
-                    supplied as artwork. It is a definition list of one so the
-                    rating keeps the label it had before the redesign.
-
-                    Reads top-down the way the eye wants it: whose rating,
-                    then the score, then how many reviews stand behind it. */}
-                <dl className={styles.gBadge}>
+              <dl className={styles.trust}>
+                <div className={styles.trustItem}>
                   <dt className="sr-only">Google rating</dt>
-                  <dd className={styles.gBody}>
-                    {/* Google's own wordmark, supplied as artwork, in place of
-                        the mark that used to sit beside the score. Through
-                        next/image rather than a bare <img>: the source is a
-                        530KB PNG rendered about 110px wide, so the optimiser
-                        resizing and re-encoding it is the difference between
-                        half a megabyte and a couple of kilobytes.
-
-                        Decorative - the score and the caption below already
-                        say whose rating this is, and the list's own <dt>
-                        names it - so the alt is empty rather than repeating
-                        "Google" to a screen reader for a third time. */}
-                    <Image
-                      src="/Google logo.png"
-                      alt=""
-                      width={2124}
-                      height={665}
-                      sizes="(min-width: 900px) 110px, 90px"
-                      className={styles.gLogo}
-                    />
-                    <span className={styles.gRow}>
-                      <span className={styles.gScore}>4.9</span>
-                      <Stars className={styles.gStars} />
-                    </span>
-                    <span className={styles.gMeta}>
-                      {/* Just "reviews": the wordmark directly above already
-                          says Google, and at 320px the longer line ran to
-                          within a few pixels of the card's edges. The full
-                          sentence is still announced - the list's <dt> says
-                          "Google rating" and the hidden text carries the
-                          rest. */}
+                  <dd className={styles.trustValue}>
+                    <GoogleMark className={styles.googleMark} />
+                    <span className={styles.trustStrong}>4.9</span>
+                    <Stars className={styles.stars} />
+                    <span className={styles.trustMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ reviews
+                      230+ Google reviews
                     </span>
                   </dd>
-                </dl>
-              </div>
-
-              <dl className={styles.trust}>
+                </div>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Surgical experience</dt>
                   <dd className={styles.trustValue}>
