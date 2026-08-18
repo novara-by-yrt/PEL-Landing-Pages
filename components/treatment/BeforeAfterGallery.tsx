@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { TpIcon } from "./TpIcon";
 import type { GalleryItem } from "@/lib/mdx";
@@ -33,6 +34,17 @@ export function BeforeAfterGallery({
 
   const count = gallery?.length ?? 0;
   const isOpen = openIndex !== null;
+
+  /* The lightbox is portalled to <body>. Without it the overlay is trapped in
+     whatever stacking context this section's ancestors create, so a fixed
+     header or another section with its own z-index can paint over it no
+     matter how high the overlay's own z-index goes.
+     Read once during render rather than in an effect: the portal only ever
+     renders after a click, so the server's null and the client's body element
+     never disagree at hydration. */
+  const [portalHost] = useState<HTMLElement | null>(() =>
+    typeof document === "undefined" ? null : document.body,
+  );
 
   const close = useCallback(() => setOpenIndex(null), []);
   const step = useCallback(
@@ -72,64 +84,65 @@ export function BeforeAfterGallery({
   const current = openIndex !== null ? gallery[openIndex] : null;
 
   return (
-    <section
-      className="tp-section"
-      /* Without the visible heading the section would have no accessible name,
-         so it takes one directly. */
-      aria-label={showHead ? undefined : `${title} before and after gallery`}
-    >
-
-      <div className="container">
-        {showHead && (
-          <div className={`tp-head ${styles.tpBagalHead}`}>
-            <span className="tp-eyebrow">
-              <TpIcon name="sparkle" size={13} />
-              Real Patient Results
-            </span>
-            <h2>{heading || `${title} Before & After Gallery`}</h2>
-            {description && <p>{description}</p>}
-            <span className={styles.tpBagalCount}>
-              <TpIcon name="eye" size={14} />
-              {count} {count === 1 ? "case" : "cases"}
-            </span>
-          </div>
-        )}
-
-        <div className={styles.tpBagalGrid}>
-          {gallery.map((item, i) => (
-            <button
-              key={`${item.image}-${i}`}
-              type="button"
-              className={styles.tpBagalItem}
-              onClick={(e) => {
-                lastFocused.current = e.currentTarget;
-                setOpenIndex(i);
-              }}
-              aria-label={`Enlarge ${title} before and after, case ${i + 1} of ${count}`}
-            >
-              <span className={styles.tpBagalZoom} aria-hidden="true">
-                <TpIcon name="search" size={16} />
+    <>
+      <section
+        className="tp-section"
+        /* Without the visible heading the section would have no accessible name,
+           so it takes one directly. */
+        aria-label={showHead ? undefined : `${title} before and after gallery`}
+      >
+        <div className="container">
+          {showHead && (
+            <div className={`tp-head ${styles.tpBagalHead}`}>
+              <span className="tp-eyebrow">
+                <TpIcon name="sparkle" size={13} />
+                Real Patient Results
               </span>
-              <Image
-                src={item.image}
-                alt={item.alt || `${title} before and after - case ${i + 1}`}
-                width={item.width ?? 1280}
-                height={item.height ?? 1280}
-                sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                loading={i < 2 ? "eager" : "lazy"}
-                priority={i === 0}
-              />
-            </button>
-          ))}
+              <h2>{heading || `${title} Before & After Gallery`}</h2>
+              {description && <p>{description}</p>}
+              <span className={styles.tpBagalCount}>
+                <TpIcon name="eye" size={14} />
+                {count} {count === 1 ? "case" : "cases"}
+              </span>
+            </div>
+          )}
+
+          <div className={styles.tpBagalGrid}>
+            {gallery.map((item, i) => (
+              <button
+                key={`${item.image}-${i}`}
+                type="button"
+                className={styles.tpBagalItem}
+                onClick={(e) => {
+                  lastFocused.current = e.currentTarget;
+                  setOpenIndex(i);
+                }}
+                aria-label={`Enlarge ${title} before and after, case ${i + 1} of ${count}`}
+              >
+                <span className={styles.tpBagalZoom} aria-hidden="true">
+                  <TpIcon name="search" size={16} />
+                </span>
+                <Image
+                  src={item.image}
+                  alt={item.alt || `${title} before and after - case ${i + 1}`}
+                  width={item.width ?? 1280}
+                  height={item.height ?? 1280}
+                  sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                  loading={i < 2 ? "eager" : "lazy"}
+                  priority={i === 0}
+                />
+              </button>
+            ))}
+          </div>
+
+          <p className={styles.tpBagalNote}>
+            Individual results vary. All photographs are of real patients treated by Dr Sabrina Shah-Desai
+            and are published with consent.
+          </p>
         </div>
+      </section>
 
-        <p className={styles.tpBagalNote}>
-          Individual results vary. All photographs are of real patients treated by Dr Sabrina Shah-Desai
-          and are published with consent.
-        </p>
-      </div>
-
-      {current && openIndex !== null && (
+      {current && openIndex !== null && portalHost && createPortal(
         <div
           className={styles.tpLb}
           role="dialog"
@@ -175,8 +188,9 @@ export function BeforeAfterGallery({
               {title} - case {openIndex + 1} of {count}
             </figcaption>
           </figure>
-        </div>
+        </div>,
+        portalHost
       )}
-    </section>
+    </>
   );
 }
