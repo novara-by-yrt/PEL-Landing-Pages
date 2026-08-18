@@ -64,17 +64,22 @@ export default function MeetDrSabrina({
               sizes="(min-width: 1000px) 42vw, 100vw"
               className={styles.expertPortrait}
             />
-            <div className={styles.expertBadge}>
-              <span className={styles.expertBadgeIcon} aria-hidden="true">
-                <Medal />
-              </span>
-              <span>
-                <span className={styles.expertBadgeTitle}>Top Practitioner for Eyes</span>
-                <span className={styles.expertBadgeMeta}>
-                  Eight consecutive years, 2019-2026
-                </span>
-              </span>
-            </div>
+            {/* The Tatler lockup, the same artwork the home page hero shows.
+                It replaces a written "Top Practitioner for Eyes" badge: the
+                claim it made is already the second item in the credential
+                list beside the portrait, so the bar was repeating in prose
+                what the press mark states as evidence. */}
+            <Image
+              src="/as-seen-in-tatler.png"
+              alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+              /* The source's own proportions; sizes states the drawn width at
+                 each breakpoint so next/image ships a badge-sized file rather
+                 than the 1536px original. */
+              width={1536}
+              height={1024}
+              sizes="(min-width: 1000px) 178px, (min-width: 620px) 160px, 118px"
+              className={styles.expertPress}
+            />
           </figure>
 
           <div className={styles.expertBody}>
