@@ -169,9 +169,14 @@ const nextConfig: NextConfig = {
       // form_embed.js helper, both from the same GoHighLevel-hosted domain.
       "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://link.perfecteyesltd.com",
       "style-src 'self' 'unsafe-inline'",
-      // GA/Ads/Meta all fall back to a tracking pixel on browsers that block
-      // fetch/beacon, hence the analytics origins in img-src as well.
-      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com",
+      // GA/Ads/Meta/Clarity/Hotjar all fall back to an image-beacon on
+      // browsers that block fetch/beacon, hence the analytics origins in
+      // img-src as well — Clarity's in particular (c.clarity.ms/c.gif) was
+      // missing here and silently breaking its own script every load.
+      // c.bing.com is Clarity's separate, documented cross-domain sync pixel
+      // for its Bing Ads integration — a different domain entirely, so the
+      // *.clarity.ms wildcard above doesn't cover it.
+      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
       "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://link.perfecteyesltd.com",
