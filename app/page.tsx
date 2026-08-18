@@ -199,49 +199,30 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * desktop shows one of each treatment, and each card links through to the
  * gallery it came from.
  */
-/* One composite in the rail - the upper-blepharoplasty card in fourth place -
-   is the only one whose artwork does not already have "Before" and "After"
-   printed across the top. It is labelled in markup instead so every card in
-   the rail reads the same way. Keyed by file so reordering the rail cannot
-   detach the label from its photograph. */
-const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-2.png"]);
-
+/* Listed one by one rather than derived from a set-and-index pair, because
+   these files are named for what the case is rather than by a number in a
+   series. No overlayLabels on any of them: every one of these composites has
+   "Before" and "After" printed into the artwork already, so drawing the
+   markup labels as well would show the words twice. */
 const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
   [
-    ["upper", 12], ["lower", 8], ["ptosis", 16],
-    ["upper", 2], ["lower", 10], ["ptosis", 12],
-    ["upper", 8], ["lower", 2], ["ptosis", 9],
-    ["lower", 24],
+    ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-2", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-ptosis-ba-3", "ptosis-surgery"],
+    ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-3", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis-2", "ptosis-surgery"],
+    ["Upper Blepharoplasty", "ba-3-mths-after-bilateral-upper-lid-bleph", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-scarless-transconjunctival-lower-lid-bleph-ba-3", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
+    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-3", "lower-blepharoplasty-eyebag-removal"],
   ] as const
-).map(([set, index]) => {
-  const meta = {
-    upper: {
-      treatment: "Upper Blepharoplasty",
-      file: "upper-blepharoplasty-ba",
-      href: "/before-after/upper-blepharoplasty",
-    },
-    lower: {
-      treatment: "Lower Blepharoplasty",
-      file: "lower-blepharoplasty-ba",
-      href: "/before-after/lower-blepharoplasty-eyebag-removal",
-    },
-    ptosis: {
-      treatment: "Ptosis Surgery",
-      file: "ptosis-surgery-ba",
-      href: "/before-after/ptosis-surgery",
-    },
-  }[set];
-
-  const image = `/${meta.file}-${index}.png`;
-
-  return {
-    treatment: meta.treatment,
-    image,
-    alt: `${meta.treatment} before and after, case ${index}, by Dr Sabrina Shah-Desai`,
-    href: meta.href,
-    overlayLabels: NEEDS_LABELS.has(image),
-  };
-});
+).map(([treatment, file, gallery]) => ({
+  treatment,
+  image: `/${file}.png`,
+  alt: `${treatment} before and after, a patient of Dr Sabrina Shah-Desai`,
+  href: `/before-after/${gallery}`,
+}));
 
 /**
  * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them

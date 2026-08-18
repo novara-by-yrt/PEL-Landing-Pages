@@ -130,7 +130,7 @@
     ]
   },
   "upper-eyelid-lift-surgery-blepharoplasty": {
-    "heroImage": "/uploads/2018/10/Eye-Lid-Lifts-Upper-Lid-Blepharoplasty-london.jpg",
+    "heroImage": "/ba-upper-lid-bleph-ba1.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Expert Upper Eyelid Blepharoplasty in London",
     "subtitle": "Removes redundant upper-lid skin and excess tissue that may cause eyelid heaviness, irritation, or visual obstruction, helping restore comfortable lid function and a natural contour.",
@@ -267,7 +267,7 @@
     ]
   },
   "eye-bag-removal-blepharoplasty-uk": {
-    "heroImage": "/lower-blepharoplasty-ba-1.png",
+    "heroImage": "/ba-scarless-transconjunctival-lower-lid-bleph-ba.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Expert Eye Bag Removal Surgery in London",
     "subtitle": "Lower-lid blepharoplasty is a precise medical procedure designed to address prolapsed fat pads and skin laxity that cause puffiness or irritation, restoring eyelid comfort and a smoother, healthier lid-cheek contour.",
@@ -392,7 +392,7 @@
     ]
   },
   "ptosis-surgery": {
-    "heroImage": "/ptosis-surgery-ba-1.png",
+    "heroImage": "/ba-ptosis-before-and-after.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "“Scarless” Ptosis Surgery in London Say goodbye to droopy lids and hello to brighter, more expressive eyes",
     "subtitle": "A precise procedure to correct drooping eyelids caused by weakened levator muscle, restoring comfortable lid function and a natural appearance.",
@@ -508,7 +508,7 @@
     ]
   },
   "ptosis-surgery-uk": {
-    "heroImage": "/uploads/2018/11/Ptosis-surgery-uk.jpg",
+    "heroImage": "/ba-ptosis-2.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Ptosis Surgery (Droopy Eyelid Repair) - by Leading Oculoplastic Surgeon, Dr Sabrina Shah-Desai, in London",
     "subtitle": "Correct a drooping eyelid and restore balance to the anatomy, whether the cause is hereditary, age-related, or affecting vision and confidence.",
@@ -594,7 +594,7 @@
     ]
   },
   "double-eyelid-surgery": {
-    "heroImage": "/uploads/2024/11/Asian-Upperlid-Blepharoplasty-1.jpg",
+    "heroImage": "/ba-asian-bleph.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Expert Double Eyelid Surgery in London",
     "subtitle": "Double-eyelid surgery treats low or absent lid creases that cause lash-line irritation or make-up trapping, restoring eyelid comfort, hygiene, and natural contour.",
@@ -1813,7 +1813,7 @@
     ]
   },
   "endolift": {
-    "heroImage": "/uploads/2026/01/Endolift-Recovery-Side-Effects.jpg",
+    "heroImage": "/ba-lower-face-endolift-after-1-year-ba.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Endolift® Treatment in London - Subdermal Remodelling for Functional Skin Support",
     "subtitle": "Endolift® treatment in London helps manage lower-eyelid and lid-cheek laxity that can cause irritation, heaviness, or hygiene difficulty. It uses precise subdermal laser energy to stimulate collagen and tighten supportive tissues.",
@@ -1935,7 +1935,7 @@
     ]
   },
   "sofwave": {
-    "heroImage": "/uploads/2018/11/Non-surgical-facelift-london.jpg",
+    "heroImage": "/ba-sofwave.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Sofwave™ Treatment in London",
     "subtitle": "Sofwave™ is a non-invasive aesthetic procedure that uses focused ultrasound technology to support collagen regeneration in patients with mild periocular (around the eyes) skin laxity, where conservative measures have not achieved sufficient improvement.",
@@ -2050,7 +2050,7 @@
     ]
   },
   "non-surgical-ultraclear-laser-treatment-uk": {
-    "heroImage": "/uploads/2024/08/ultraclearlaser1.jpg",
+    "heroImage": "/ba-ultraclear-laser-ba.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "UltraClear Laser (CoolBleph) in London - Combat sun damage, crepey eyelid skin, and more with advanced technology.",
     "subtitle": "Discover the brilliant results of our UltraClear Laser (CoolBleph) treatment. We design this to effectively treat crepey eyelid skin, deep wrinkles, eye bags, and sun damage. It helps you to achieve a smoother, brighter, and more rested appearance.",
@@ -2547,7 +2547,7 @@
     ]
   },
   "blepharoplasty-treatment-in-london": {
-    "heroImage": "/uploads/2024/08/blepharoplasty.png",
+    "heroImage": "/ba-4-mths-after-upper-lid-bleph.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Blepharoplasty Treatment in London",
     "subtitle": "Achieve bright, youthful eyes with comprehensive enhancement for upper and lower eyelids. Our precise approach targets both areas, reducing puffiness and restoring the radiance in your eyes.",
@@ -2791,7 +2791,7 @@
     ]
   },
   "double-eyelids-asian-eyelid-surgery": {
-    "heroImage": "/uploads/2018/10/Double-eyelid-surgery-london.jpg",
+    "heroImage": "/ba-asian-bleph-2.png",
     "heroBg": "/uploads/2018/11/Asian-eyelid-surgery-london.jpg",
     "heroBgOpacity": 0.65,
     "h1": "Monolids and Double Eyelid Surgery (Asian Blepharoplasty)",
@@ -3008,7 +3008,7 @@
     ]
   },
   "endolift-revolutionary-minimally-invasive-jawline-lift": {
-    "heroImage": "/uploads/2021/07/endolift-1.jpg",
+    "heroImage": "/ba-one-year-after-endolift-for-lower-face-and-upper-neck-ba1.png",
     "heroBg": "/uploads/2021/07/endolift.jpg",
     "heroBgOpacity": 0.6,
     "heroBadge": "In Treatment",
@@ -3058,7 +3058,7 @@
     "type": "non-surgical"
   },
   "eye-bag-surgery-lower-eyelid-surgery-uk": {
-    "heroImage": "/uploads/2019/01/surgery-1.jpg",
+    "heroImage": "/ba-scarless-transconjunctival-lower-lid-bleph-ba-2.png",
     "heroBg": "/uploads/2019/01/surgery-big-1.jpg",
     "heroBgOpacity": 0.55,
     "h1": "Eye-Bag Removal Surgery",
@@ -4036,7 +4036,7 @@
     ]
   },
   "midface-lift-extended-blepharoplasty": {
-    "heroImage": "/uploads/2024/12/midface.jpg",
+    "heroImage": "/ba-extended-lower-lid-bleph.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Extended Blepharoplasty and Mid Facelift Treatment in London",
     "subtitle": "A minimally invasive approach to smooth malar bags and festoons for a radiant, youthful appearance.",
@@ -5477,7 +5477,7 @@
     ]
   },
   "ultraclear-laser": {
-    "heroImage": "/uploads/2018/11/tixel-treatment-london.jpg",
+    "heroImage": "/ba-ultraclear.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Ultraclear Laser",
     "subtitle": "Resurface skin, remove uneven pigmentation and smooth fine lines with Ultraclear, the world's first cold ablative fibre-optic Erbium laser.",
@@ -5900,7 +5900,7 @@
     ]
   },
   "superior-sulcus-filler": {
-    "heroImage": "/uploads/2024/09/supeor-sulcus.jpg",
+    "heroImage": "/ba-superior-sulcus-filler-ba.png",
     "heroBg": "/uploads/2025/10/234-1.png",
     "h1": "Sunken Eyes/Brows and Superior Sulcus/Temple Fillers - by Dr Sabrina Shah-Desai, Leading Oculoplastic Surgeon",
     "subtitle": "Restore lost volume in sunken upper-lid and temple hollows with a precise, ultrasound-guided hyaluronic acid filler technique.",
