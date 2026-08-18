@@ -107,12 +107,6 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Creates or refines an upper-lid crease, planned around Asian eyelid anatomy.",
   },
   {
-    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
-    title: "Hyaluronidase Dissolving",
-    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
-    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
-  },
-  {
     image: "/uploads/2024/07/eyelid-lump.jpg",
     title: "Eyelid Lump & Bump Removal",
     href: "/surgical/eyelid-surgery/lump-on-eyelid-bumps-treatment-uk",
@@ -133,6 +127,12 @@ const SURGICAL_TREATMENTS: Treatment[] = [
 ];
 
 const NONSURGICAL_TREATMENTS: Treatment[] = [
+  {
+    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
+    title: "Hyaluronidase Dissolving",
+    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
+    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
+  },
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",

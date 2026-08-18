@@ -17,7 +17,7 @@ import styles from "./MeetDrSabrina.module.css";
 
 const EXPERT_CREDENTIALS = [
   "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
-  "Recognised as a top practitioner for eyes for eight consecutive years, 2019-2026",
+  "Listed in Tatler’s Beauty & Cosmetic Surgery Guide as a top practitioner for eyes, eight consecutive years, 2019-2026",
   "Over 25 years of surgical and non-surgical experience",
 ];
 
@@ -101,8 +101,9 @@ export default function MeetDrSabrina({
               invasive techniques.
             </p>
             <p className={styles.expertText}>
-              Known as the &ldquo;go-to&rdquo; surgeon for discerning patients seeking
-              subtle, natural results, she is also highly sought after for revisional
+              Named in Tatler&rsquo;s Beauty &amp; Cosmetic Surgery Guide every year since
+              2019, she is known as the &ldquo;go-to&rdquo; surgeon for discerning patients
+              seeking subtle, natural results, and is highly sought after for revisional
               procedures by those who have undergone previous fillers or eyelid surgeries.
             </p>
 
