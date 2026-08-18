@@ -392,12 +392,26 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Three plain statement lines: the Google rating, the years of
-                experience, and the registrations. No badge artwork - the
-                Tatler lockup and the drawn Google card that used to sit above
-                these lines are gone, and the rating is a line of text again
-                rather than a card of its own. */}
+            {/* The Tatler lockup and three text signals beside it: the Google
+                rating, the years of experience, and the registrations. Only
+                the lockup is artwork - the rating is a line of text carrying
+                the G mark and stars inline, not a card of its own. */}
             <div className={styles.credentials}>
+              <figure className={styles.press}>
+                <Image
+                  src="/as-seen-in-tatler.png"
+                  alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+                  /* The source's own proportions. The drawn height is set in
+                     CSS off the lockup's smallest line, so sizes states the
+                     widest that height can produce and next/image ships a
+                     badge-sized file rather than the 1536px original. */
+                  width={1536}
+                  height={1024}
+                  sizes="168px"
+                  className={styles.pressLogo}
+                />
+              </figure>
+
               <dl className={styles.trust}>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Google rating</dt>
