@@ -198,18 +198,18 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * desktop shows one of each treatment, and each card links through to the
  * gallery it came from.
  */
-/* The two upper-blepharoplasty composites that open the rail — the first card
-   and the fourth - are the only ones whose artwork does not already have
-   "Before" and "After" printed across the top. They are labelled in markup
-   instead so every card in the rail reads the same way. Keyed by file so
-   reordering the rail cannot detach a label from its photograph. */
-const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-1.png", "/upper-blepharoplasty-ba-2.png"]);
+/* One composite in the rail - the upper-blepharoplasty card in fourth place -
+   is the only one whose artwork does not already have "Before" and "After"
+   printed across the top. It is labelled in markup instead so every card in
+   the rail reads the same way. Keyed by file so reordering the rail cannot
+   detach the label from its photograph. */
+const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-2.png"]);
 
 const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
   [
-    ["upper", 1], ["lower", 8], ["ptosis", 8],
+    ["upper", 12], ["lower", 8], ["ptosis", 16],
     ["upper", 2], ["lower", 10], ["ptosis", 12],
-    ["upper", 8], ["lower", 2], ["ptosis", 17],
+    ["upper", 8], ["lower", 2], ["ptosis", 9],
     ["lower", 24],
   ] as const
 ).map(([set, index]) => {
