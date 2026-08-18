@@ -1,13 +1,13 @@
 /* At a Glance — the treatment's key facts.
 
-   One panel: the treatment's name, the heading, then the facts as label and
-   value pairs, exactly as the reference layout sets them, in the site's
-   indigo and lavender rather than its browns.
+   A dark specification panel: the treatment's name, the heading, then the
+   facts laid out as a ledger of label-and-value cells divided by hairlines.
 
-   Everything is left-aligned to a single edge — eyebrow, heading, every label
-   and every value share one line down the left of the panel — and every
-   measurement below is one of four tokens, so the spacing is uniform rather
-   than nine cards each negotiating their own.
+   The dividers are gaps, not borders. The grid carries the hairline colour as
+   its background and each cell paints over it, so a 1px gap shows through as
+   a continuous rule both across and down. That means the rules stay correct
+   at one, two or three columns without a single rule needing to be drawn,
+   suppressed on the last item, or re-declared per breakpoint.
 
    Contrast: white on this panel clears AAA. Labels use lavender-200, not the
    -400 that reads as "quieter": -400 measures 3.1:1 on this background and
@@ -28,41 +28,58 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(38% 46% at 16% 22%, rgba(188, 160, 221, 0.3), transparent 70%),
-    radial-gradient(34% 44% at 86% 78%, rgba(138, 132, 186, 0.22), transparent 72%);
+    radial-gradient(38% 46% at 16% 22%, rgba(188, 160, 221, 0.32), transparent 70%),
+    radial-gradient(34% 44% at 86% 78%, rgba(138, 132, 186, 0.24), transparent 72%);
   filter: blur(30px);
 }
 
 /* ── The panel ──────────────────────────────────────────────────────────── */
 .panel {
-  --glance-pad: clamp(26px, 4vw, 52px);
-  --glance-row: clamp(22px, 2.6vw, 30px);
-  --glance-col: clamp(26px, 4vw, 60px);
+  --glance-pad: clamp(22px, 3.4vw, 44px);
+  --glance-cell: clamp(18px, 2.2vw, 28px);
+  --glance-line: rgba(255, 255, 255, 0.12);
 
+  position: relative;
+  overflow: hidden;
   padding: var(--glance-pad);
   border-radius: var(--tp-radius-xl);
   background:
-    radial-gradient(120% 100% at 50% 0%, #241d4d 0%, transparent 62%),
-    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 58%, var(--tp-indigo-950) 100%);
+    radial-gradient(120% 90% at 50% 0%, #2a2258 0%, transparent 62%),
+    linear-gradient(180deg, var(--tp-indigo-950) 0%, #16123a 58%, #100e30 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 30px 70px -40px rgba(24, 20, 64, 0.7);
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 40px 80px -46px rgba(24, 20, 64, 0.8);
+}
+
+/* A lit edge along the top of the panel, the one flourish in the block. */
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--tp-lavender-300) 22%,
+    var(--tp-lavender-200) 50%,
+    var(--tp-lavender-300) 78%,
+    transparent
+  );
+  opacity: 0.75;
 }
 
 /* ── Heading ────────────────────────────────────────────────────────────── */
 .head {
   margin-bottom: var(--glance-pad);
-  padding-bottom: var(--glance-row);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 .eyebrow {
   display: block;
-  font-size: clamp(1.0625rem, 2.6vw, 1.375rem);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: clamp(0.6875rem, 1.4vw, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  line-height: 1.25;
+  line-height: 1.35;
   color: var(--tp-lavender-300);
   text-wrap: balance;
 }
@@ -70,35 +87,52 @@
   margin: 10px 0 0;
   font-family: var(--tp-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 4.2vw, 2rem);
-  line-height: 1.18;
+  font-size: clamp(1.5rem, 4.2vw, 2.125rem);
+  line-height: 1.15;
   letter-spacing: var(--ls-tight);
   color: #fff;
 }
+.rule {
+  display: block;
+  width: 54px;
+  height: 3px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tp-lavender-300), var(--tp-lavender-500));
+}
 
-/* ── Facts ──────────────────────────────────────────────────────────────────
-   One column on a phone, as the reference sets it. Two from 620px and three
-   from 1040px, on fixed breakpoints rather than auto-fit: the column count
-   has to stay predictable so the row rhythm reads as a grid down the panel
-   rather than reflowing mid-list. */
+/* ── Facts ────────────────────────────────────────────────────────────────
+   One column on a phone, two from 560px, three from 960px. Fixed breakpoints
+   rather than auto-fit so the column count stays predictable and the hairline
+   ledger reads as a grid rather than reflowing mid-list. */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: var(--glance-row);
-  column-gap: var(--glance-col);
   margin: 0;
-  /* Rows size to their own content; a long value lengthens its own row
-     without padding out the ones beside it. */
-  align-items: start;
+  border-radius: var(--tp-radius-md);
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
 }
 
+/* Each cell draws its own right and bottom rule rather than the grid showing
+   a rule colour through 1px gaps. The gap approach paints a rule wherever
+   there is a gap, including the empty area left when the item count does not
+   fill the last row - which on a nine-fact treatment showed as blank cells
+   hanging off the end of the ledger. Rules that belong to cells simply are
+   not drawn where there is no cell. The outermost rules land on the grid's
+   own rounded edge and read as its border. */
 .item {
   min-width: 0;
+  padding: var(--glance-cell);
+  box-shadow:
+    inset -1px 0 0 var(--glance-line),
+    inset 0 -1px 0 var(--glance-line);
 }
+
 .label {
   display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.6875rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   line-height: 1.3;
@@ -106,29 +140,38 @@
   color: var(--tp-lavender-200);
 }
 .value {
-  margin: 8px 0 0;
-  font-size: clamp(1rem, 1.5vw, 1.0625rem);
-  font-weight: 400;
-  line-height: 1.55;
+  margin: 10px 0 0;
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   color: #fff;
   text-wrap: pretty;
 }
 
-@media (min-width: 620px) {
+/* A handful of facts are a sentence rather than a specification - the
+   "Addresses" line runs to ninety characters on some treatments. It stays in
+   its own cell and simply wraps: because the cells are joined into a ledger
+   rather than floating as separate cards, a taller row reads as deliberate
+   instead of ragged, and nothing is left stranded. Only the type changes -
+   at that length the value is prose, not a figure. */
+.itemWide .value {
+  font-family: var(--tp-body);
+  font-size: var(--fs-body-sm);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+@media (min-width: 560px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (min-width: 1040px) {
+@media (min-width: 960px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Only meaningful once there are three columns; at one or two the long value
-   already has the width it needs. */
-@media (min-width: 1040px) {
-  .itemWide {
-    grid-column: span 2;
   }
 }

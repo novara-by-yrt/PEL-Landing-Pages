@@ -1,5 +1,11 @@
 .contactGrid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
 @media (max-width: 860px) { .contactGrid { grid-template-columns: 1fr; } }
+/* A grid item's default minimum is its min-content, so the clinic's postal
+   address and email - neither of which a browser will break by itself - held
+   this column at 299px inside a 272px track and pushed the page 3px wider
+   than a 320px screen. */
+.contactWhy, .contactForm { min-width: 0; }
+.contactDetails { overflow-wrap: anywhere; }
 .contactWhy h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.6rem; color: var(--tp-ink); margin-bottom: 1.5rem; }
 .contactWhyItem { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding: 1.1rem 1.25rem; background: var(--tp-fog); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
 .contactWhyIcon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }

@@ -635,6 +635,10 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color var(--duration-fast) var(--ease-out);
+  /* Several posts print a full URL as the link text. A browser will not break
+     inside one by default, so on a narrow screen it pushed the page wider
+     than the viewport. */
+  overflow-wrap: anywhere;
 }
 .prose a:hover { color: var(--clr-primary-dark); }
 
@@ -681,8 +685,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: var(--space-8) 0;
 }
 
+/* Tables in post bodies are authored for a desktop column and several are
+   wider than a phone. Left alone they widened the document itself, so the
+   whole page scrolled sideways rather than the table. Making the table its
+   own scroll container keeps the overflow where it belongs: the page never
+   moves, and the table can be swiped. display:block is what gives the
+   element a scrollport of its own; the inner table keeps its own layout. */
 .prose table {
-  width: 100%;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   margin: var(--space-8) 0;
   font-size: var(--text-sm);

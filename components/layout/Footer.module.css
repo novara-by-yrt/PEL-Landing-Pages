@@ -34,6 +34,19 @@
   text-align: center;
 }
 
+/* A grid item's default minimum is its min-content, not zero, so a track can
+   be floored by the longest unbreakable string inside it. Here that was the
+   postal address and the email in the brand panel: on a 320px screen their
+   min-content of 279px, plus the panel's padding, made the single shared
+   column 312.5px against a 288px track and pushed the whole document 9px
+   wider than the viewport. Every page has this footer, so every page had a
+   horizontal scrollbar at that width. */
+.colStart,
+.colEnd,
+.brand {
+  min-width: 0;
+}
+
 .colHead {
   font-size: 0.6875rem;
   font-weight: 600;
@@ -164,6 +177,11 @@
   margin-top: 16px;
   /* <address> is italic by default in every browser. */
   font-style: normal;
+  /* The street address and the email address have no break opportunity a
+     browser will take by default. Letting them break anywhere is what allows
+     the min-width above to actually shrink the column rather than just
+     moving the overflow somewhere else. */
+  overflow-wrap: anywhere;
 }
 .contactRow {
   display: inline-flex;
