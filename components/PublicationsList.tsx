@@ -12,6 +12,8 @@ export interface PublicationItem {
   date: string;
   journal: string;
   url: string;
+  /** The journal's own page, pulled off the post body. */
+  externalUrl: string | null;
   featuredImage: string | null;
 }
 
@@ -137,6 +139,20 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                 })
               : "";
 
+            /* Straight to the journal. Every one of these cards used to go
+               to the post on this site, which holds nothing but the same
+               outbound link - a stop the reader had to click through rather
+               than a page that told them anything. The post itself stays
+               published and reachable; only the card's destination changes.
+
+               Falls back to the post if a publication ever arrives without a
+               link in its body, so a card can never become a dead end. */
+            const external = pub.externalUrl;
+            const href = external ?? `/blog/${pub.slug}`;
+            const linkProps = external
+              ? { href, target: "_blank", rel: "noopener noreferrer" }
+              : { href };
+
             return (
               <article key={pub.slug || index} id={`pub-card-${index}`} className={styles.pubCard}>
                 <div>
@@ -146,14 +162,16 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                   </div>
 
                   <h3 className={styles.pubTitle}>
-                    <Link href={`/blog/${pub.slug}`} id={`pub-title-link-${index}`}>
+                    <Link {...linkProps} id={`pub-title-link-${index}`}>
                       {pub.rawTitle}
+                      {external && <span className="sr-only"> (opens in a new tab)</span>}
                     </Link>
                   </h3>
                 </div>
 
-                <Link href={`/blog/${pub.slug}`} id={`pub-link-${index}`} className={styles.pubReadLink}>
+                <Link {...linkProps} id={`pub-link-${index}`} className={styles.pubReadLink}>
                   Read Publication
+                  {external && <span className="sr-only"> (opens in a new tab)</span>}
                 </Link>
               </article>
             );
