@@ -126,18 +126,32 @@
   gap: 8px;
 }
 
+/* The dot is 8px because that is the right size to look at. The button
+   around it is 24px square because that is the smallest a finger can be
+   asked to hit (WCAG 2.5.8). The dot is drawn by ::before so growing the
+   target does not grow the mark, and the negative margin keeps the row of
+   dots visually the same width it was. */
 .tpDot {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: -8px;
   border-radius: 999px;
   border: none;
-  background: var(--tp-lavender-200);
+  background: none;
   cursor: pointer;
   padding: 0;
+}
+.tpDot::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 999px;
+  background: var(--tp-lavender-200);
   transition: background 200ms var(--tp-ease), transform 200ms var(--tp-ease);
 }
-.tpDot:hover { background: var(--tp-lavender-300); }
-.tpDotActive {
+.tpDot:hover::before { background: var(--tp-lavender-300); }
+.tpDotActive::before {
   background: var(--tp-indigo-700);
   transform: scale(1.25);
 }

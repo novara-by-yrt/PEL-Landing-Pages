@@ -26,7 +26,9 @@ const CQC_BADGE_SRC = "/uploads/2024/09/Frame-252.png";
 
 const QUICK_LINKS = [
   { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
-  { href: "/meet-team", label: "About the Clinic" },
+  /* /meet-team is a 308 to /team, so linking it sent every visitor who used
+     this footer entry through a redirect. Pointing at the destination. */
+  { href: "/team", label: "About the Clinic" },
   { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
   { href: "/before-after", label: "Results" },
   { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
