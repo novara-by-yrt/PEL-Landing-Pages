@@ -10,6 +10,7 @@ import type { HomeFaqItem } from "@/components/home/HomeFaq";
 import type { TeamMember } from "@/components/home/TeamCarousel";
 import type { Treatment } from "@/components/home/TreatmentsCarousel";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
+import GoogleMark from "@/components/shared/GoogleMark";
 import MeetDrSabrina from "@/components/shared/MeetDrSabrina";
 import BeginJourney from "@/components/shared/BeginJourney";
 import Reveal from "@/components/shared/Reveal";
@@ -391,82 +392,25 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Two badges of matching size on one row, with the remaining two
-                signals as text lines underneath. Previously the Tatler lockup
-                sat beside a stack of three mixed signals - a graphic, a
-                rating with its own mark and stars, and two plain text lines -
-                all competing on one row, which is what made the block read as
-                cluttered. The two things that are *marks* now sit together and
-                match; the two that are *statements* sit together and read as a
-                pair of lines. */}
+            {/* Three plain statement lines: the Google rating, the years of
+                experience, and the registrations. No badge artwork - the
+                Tatler lockup and the drawn Google card that used to sit above
+                these lines are gone, and the rating is a line of text again
+                rather than a card of its own. */}
             <div className={styles.credentials}>
-              <div className={styles.badges}>
-                <figure className={styles.press}>
-                  <Image
-                    src="/as-seen-in-tatler.png"
-                    alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
-                    /* width/height carry the source's aspect ratio, and sizes
-                       tells the browser how wide the box actually is, so
-                       next/image ships a badge-sized file rather than the
-                       1536px original. Stating the box in sizes rather than
-                       hard-coding a displayed pixel size into width/height
-                       means the two cannot fall out of step when the badge is
-                       resized: the widths below are the .badges grid track at
-                       each breakpoint. */
-                    width={1536}
-                    height={1024}
-                    sizes="(min-width: 768px) 184px, (min-width: 360px) 153px, 122px"
-                    className={styles.pressLogo}
-                  />
-                </figure>
-
-                {/* Same box as the lockup beside it, drawn rather than
-                    supplied as artwork. It is a definition list of one so the
-                    rating keeps the label it had before the redesign.
-
-                    Reads top-down the way the eye wants it: whose rating,
-                    then the score, then how many reviews stand behind it. */}
-                <dl className={styles.gBadge}>
+              <dl className={styles.trust}>
+                <div className={styles.trustItem}>
                   <dt className="sr-only">Google rating</dt>
-                  <dd className={styles.gBody}>
-                    {/* Google's own wordmark, supplied as artwork, in place of
-                        the mark that used to sit beside the score. Through
-                        next/image rather than a bare <img>: the source is a
-                        530KB PNG rendered about 110px wide, so the optimiser
-                        resizing and re-encoding it is the difference between
-                        half a megabyte and a couple of kilobytes.
-
-                        Decorative - the score and the caption below already
-                        say whose rating this is, and the list's own <dt>
-                        names it - so the alt is empty rather than repeating
-                        "Google" to a screen reader for a third time. */}
-                    <Image
-                      src="/Google logo.png"
-                      alt=""
-                      width={2124}
-                      height={665}
-                      sizes="(min-width: 900px) 110px, 90px"
-                      className={styles.gLogo}
-                    />
-                    <span className={styles.gRow}>
-                      <span className={styles.gScore}>4.9</span>
-                      <Stars className={styles.gStars} />
-                    </span>
-                    <span className={styles.gMeta}>
-                      {/* Just "reviews": the wordmark directly above already
-                          says Google, and at 320px the longer line ran to
-                          within a few pixels of the card's edges. The full
-                          sentence is still announced - the list's <dt> says
-                          "Google rating" and the hidden text carries the
-                          rest. */}
+                  <dd className={styles.trustValue}>
+                    <GoogleMark className={styles.googleMark} />
+                    <span className={styles.trustStrong}>4.9</span>
+                    <Stars className={styles.stars} />
+                    <span className={styles.trustMeta}>
                       <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ reviews
+                      230+ Google reviews
                     </span>
                   </dd>
-                </dl>
-              </div>
-
-              <dl className={styles.trust}>
+                </div>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Surgical experience</dt>
                   <dd className={styles.trustValue}>

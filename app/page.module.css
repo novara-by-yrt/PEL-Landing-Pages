@@ -193,15 +193,15 @@
 }
 
 /* ── Hero credentials ─────────────────────────────────────────────────────
-   Two rows. On top, two badges of matching size: the Tatler lockup and a
-   Google rating card drawn to the same box. Underneath, the two remaining
-   signals as text lines — a strong value followed by a quiet qualifier.
+   Three statement lines under a hairline: the Google rating, the years of
+   experience, and the registrations. Each is a strong value followed by a
+   quiet qualifier, so the three read as one list rather than three unlike
+   things.
 
-   The previous layout put the lockup beside a stack of three unlike things
-   (a graphic, a rating carrying its own mark and stars, and two plain
-   sentences) and asked one row to hold all of it, which is what read as
-   clutter. Splitting on kind — marks together, statements together — is what
-   settles it.                                                             */
+   No artwork. This block briefly carried two matched badge boxes above the
+   lines - the Tatler lockup and a Google rating card drawn to the same box -
+   and both have been taken out, the rating returning to the line of text it
+   had been.                                                               */
 .credentials {
   margin: clamp(32px, 6vw, 44px) 0 0;
   padding-top: clamp(22px, 3.5vw, 30px);
@@ -209,156 +209,34 @@
   max-width: 34rem;
 }
 
-/* Side by side at every width, per the brief. Two equal free tracks, so the
-   pair splits whatever room the column has; minmax(0,1fr) rather than 1fr so
-   a wide child can never push a track past its share.
-
-   Two caps, because one alone only bites at one end. The rem cap holds the
-   pair at badge scale on a desktop instead of letting it inflate to half the
-   copy column; the percentage cap is what pulls the pair in on a phone,
-   where the column is already narrower than the rem cap and so the rem cap
-   never applies. Together they take about a tenth off the box at every
-   width, which is what keeps the two boxes reading as a mark beside the
-   headline rather than a panel under it. */
-.badges {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 2vw, 16px);
-  max-width: min(24rem, 88%);
+/* The Google mark and the stars that open the first statement line. Both are
+   sized to sit on a line of body text rather than to be looked at on their
+   own: the mark matches the cap height beside it, and the stars are the same
+   width the rating had before the badge experiment replaced it. */
+.googleMark {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: none;
 }
-
-/* Both boxes take the lockup artwork's own 3:2 proportions, so "same size"
-   holds by construction at any width — no shared height to keep in sync, and
-   the Tatler image fills its box exactly rather than sitting letterboxed
-   inside it. */
-.press,
-.gBadge {
-  margin: 0;
-  min-width: 0;
-  aspect-ratio: 1536 / 1024;
-  border-radius: 12px;
-}
-
-.pressLogo {
+.googleMark svg {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  /* The artwork carries its own solid black field; rounding it makes the
-     block read as a deliberate badge rather than a raw rectangle. */
-  border-radius: 12px;
 }
-
-/* ── Google rating badge ──────────────────────────────────────────────────
-   Sized from its own width, not the viewport: the box is a grid track whose
-   width depends on the copy column, so viewport units would mis-scale it at
-   the same screen size on different breakpoints. cqw ties every element to
-   the box actually drawn, which is what keeps the card legible from ~150px
-   wide on a phone up to ~210px on a desktop.                              */
-.gBadge {
-  container-type: inline-size;
-  display: grid;
-  place-items: center;
-  /* Glass. The hero runs a video behind this, so the pane has to do two jobs
-     that pull against each other: read as glass, and keep the score and the
-     caption legible over whatever frame happens to be playing.
-
-     The tint is therefore weighted rather than barely-there. A 0.55 white
-     over a bright video frame still leaves dark ink comfortably readable,
-     while a 0.2 pane — the look most glass tutorials reach for — swings with
-     the footage and drops the caption below 4.5:1 on a light frame. saturate
-     lifts the lavender coming through so the pane still reads as tinted
-     glass rather than fog.
-
-     The gradient runs light-to-lighter top-down, so the top edge catches what
-     reads as light and the foot settles into the page. */
-  background: linear-gradient(
-    165deg,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(255, 255, 255, 0.6) 45%,
-    rgba(236, 232, 248, 0.55) 100%
-  );
-  backdrop-filter: blur(18px) saturate(165%);
-  -webkit-backdrop-filter: blur(18px) saturate(165%);
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow:
-    /* The lit top edge and a darker inner foot: the two together are what
-       give a flat pane the thickness that reads as glass. */
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(24, 20, 64, 0.06),
-    0 1px 2px rgba(24, 20, 64, 0.05),
-    0 16px 32px -18px rgba(24, 20, 64, 0.32);
-}
-
-/* Fallback for browsers without backdrop-filter: an opaque pane rather than
-   a 55%-transparent one, because without the blur the video reads straight
-   through the tint and the caption stops being readable. */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .gBadge {
-    background: linear-gradient(165deg, #fff 0%, var(--tp-paper) 58%, var(--tp-lavender-050) 100%);
-  }
-}
-/* The inset lives here, not on .gBadge: container-type sets up a container
-   for an element's DESCENDANTS, never for the element's own declarations, so
-   a cqw padding on .gBadge itself would fall back to the viewport — at 1440px
-   that was 86px of padding a side, which both burst the aspect ratio and
-   pushed the grid track past its cap. */
-.gBody {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4.2cqw;
-  margin: 0;
-  padding: 7cqw;
-}
-/* Everything below is sized against the badge's own width, so the lockup
-   holds the same optical weight whether the badge is drawn at 139px on a
-   phone or 208px on a desktop.
-
-   The mark sits on the row with the score rather than above it. Stacked as a
-   third row it left the box looking half-empty; paired with the number it
-   makes one strong line and the three rows fill the card. */
-.gRow {
-  display: flex;
-  align-items: center;
-  gap: 4cqw;
-}
-/* Google's supplied wordmark. Sized on width only, height following its own
-   2124x665 proportions, so the artwork is never squashed. 52cqw keeps it the
-   widest thing in the card without crowding the rounded corners. */
-.gLogo {
-  display: block;
-  width: 52cqw;
-  height: auto;
-}
-.gScore {
-  font-family: var(--tp-display);
-  font-size: 17cqw;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.015em;
-  color: var(--tp-ink);
-}
-.gStars {
-  display: block;
-  width: 52cqw;
-  height: 9.3cqw;
+.stars {
+  flex: 0 0 auto;
+  width: 68px;
+  height: 12px;
   fill: var(--tp-gold);
 }
-.gMeta {
-  font-size: 7.4cqw;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-  color: var(--tp-slate);
-  text-align: center;
-  text-wrap: balance;
-}
 
-/* The two statement lines, under the badge pair. */
+/* The three statement lines. These are the whole of the hero's
+   credentials now; there is no badge row above them. */
 .trust {
   display: grid;
   gap: clamp(9px, 1.4vw, 13px);
-  margin: clamp(16px, 2.6vw, 22px) 0 0;
+  margin: 0;
   min-width: 0;
 }
 .trustItem {
