@@ -1,6 +1,10 @@
 /**
- * Minimal cookie-consent state, shared between the banner and (later) any
- * analytics/tracking script that needs to check before it loads.
+ * Minimal cookie-consent state behind the CookieConsent banner.
+ *
+ * Nothing in the codebase currently gates on this choice — the trackers in
+ * components/analytics/Tracking fire unconditionally, matching the previous
+ * site's behaviour. The banner still records a choice for anything that
+ * wants to check it later.
  *
  * Stored in localStorage rather than a cookie — the choice about whether
  * non-essential cookies may be set doesn't itself need to be a cookie, and
@@ -46,9 +50,4 @@ export function getCookieConsentSnapshot(): CookieConsentSnapshot {
 
 export function getServerCookieConsentSnapshot(): CookieConsentSnapshot {
   return "unknown";
-}
-
-/** Whether it's currently OK to load non-essential (e.g. analytics) scripts. */
-export function hasAnalyticsConsent(): boolean {
-  return getCookieConsent() === "accepted";
 }

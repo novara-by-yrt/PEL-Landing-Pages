@@ -150,21 +150,31 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      // googletagmanager.com serves gtag.js — the GA4 tag in
-      // components/analytics/GoogleAnalytics. It only ever loads once the
-      // visitor has accepted cookies, but the policy has to permit the origin
-      // for that load to be possible at all.
+      // googletagmanager.com serves both gtm.js (components/analytics/Tracking)
+      // and, dynamically from inside that GTM container, gtag.js for GA4 and
+      // Google Ads — those two properties' IDs are configured in GTM's own
+      // dashboard, not in this codebase, so there's nothing more specific to
+      // name here for them. *.google.com/*.doubleclick.net are wildcarded
+      // rather than pinned to exact hosts because Google's own conversion and
+      // remarketing pings fan out across many undocumented subdomains (ccm,
+      // rmkt, pagead, ad, plus country TLD variants like google.co.in) that
+      // GTM calls at runtime with no fixed list — the old WordPress site hit
+      // all of these too, just with no CSP at all to block them.
+      // connect.facebook.net is the Meta Pixel; clarity.ms is Microsoft
+      // Clarity (both the direct project and the one GTM loads); hotjar.com
+      // is session recording, also GTM-configured; gstatic.com serves
+      // Google's call-tracking (dynamic number swap for Ads attribution).
       // link.perfecteyesltd.com serves the embedded self-test-survey widget
       // (content/pages/self-test-survey.mdx) — a raw <iframe> plus its
       // form_embed.js helper, both from the same GoHighLevel-hosted domain.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://link.perfecteyesltd.com",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://link.perfecteyesltd.com",
       "style-src 'self' 'unsafe-inline'",
-      // GA still falls back to a tracking pixel on browsers that block
+      // GA/Ads/Meta all fall back to a tracking pixel on browsers that block
       // fetch/beacon, hence the analytics origins in img-src as well.
-      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
+      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://link.perfecteyesltd.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://link.perfecteyesltd.com",
       "frame-src https://www.youtube.com https://link.perfecteyesltd.com",
       "object-src 'none'",
       "base-uri 'self'",
