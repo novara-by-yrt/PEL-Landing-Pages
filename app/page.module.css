@@ -252,12 +252,26 @@
   fill: var(--tp-gold);
 }
 
-/* The three statement lines, in the column beside the lockup. */
+/* The three statement lines, in the column beside the lockup.
+
+   The gap is stated for a phone first. The old clamp(9px, 1.4vw, 13px) gave
+   a phone its floor of 9px and a desktop its ceiling of 13px, so the lines
+   were tightest exactly where they are stacked under the lockup with no
+   column beside them to give them air - and where a line is most likely to
+   wrap onto two. This sets a phone's gap outright and hands back to the
+   original clamp at 600px, which is where the lockup moves alongside the
+   lines and where the clamp already resolved to 9px, so nothing above a
+   phone changes. */
 .trust {
   display: grid;
-  gap: clamp(9px, 1.4vw, 13px);
+  gap: 15px;
   margin: 0;
   min-width: 0;
+}
+@media (min-width: 600px) {
+  .trust {
+    gap: clamp(9px, 1.4vw, 13px);
+  }
 }
 .trustItem {
   margin: 0;
