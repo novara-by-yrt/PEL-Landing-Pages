@@ -686,6 +686,15 @@ h1, h2, h3, h4, h5, h6 {
   border-collapse: collapse;
   margin: var(--space-8) 0;
   font-size: var(--text-sm);
+  /* Content tables are raw HTML from the migrated posts, so there's no JSX
+     wrapper to hang overflow handling on - some have cells wide enough to
+     overflow a phone viewport and blow out the whole page. display:block
+     lets overflow-x apply directly to the table itself (browsers still
+     generate the correct anonymous table-row/cell boxes for its children),
+     so a wide table scrolls within its own bounds instead of the page. */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .prose th {
   background: var(--clr-surface);

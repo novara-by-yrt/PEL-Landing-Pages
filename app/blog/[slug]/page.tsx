@@ -131,24 +131,30 @@ export default async function BlogPostPage({
         <section className={styles.blogHero}>
           <div className={styles.blogHeroGlow} />
           <div className={`container ${styles.blogHeroInner}`}>
-            <div className={styles.blogHeroTop}>
-              <nav aria-label="Breadcrumb" className={styles.blogBreadcrumb}>
-                <Link href="/">Home</Link>
-                <span aria-hidden="true">/</span>
-                <Link href="/blog">Blog</Link>
-                <span aria-hidden="true">/</span>
-                <span style={{ color: "rgba(255,255,255,0.9)" }}>{frontmatter.title}</span>
-              </nav>
+            <nav aria-label="Breadcrumb" className={styles.blogBreadcrumb}>
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <Link href="/blog">Blog</Link>
+              <span aria-hidden="true">/</span>
+              <span style={{ color: "rgba(255,255,255,0.9)" }}>{frontmatter.title}</span>
+            </nav>
+
+            {/* Category and share sit in one row, not paired with the
+                breadcrumb above - on mobile the breadcrumb often wraps to two
+                lines on its own, and a long breadcrumb pushed the share icons
+                onto their own orphaned row below it. Category pills and share
+                icons are both compact, so this row stays on one line at
+                virtually every width. */}
+            <div className={styles.blogHeroMetaRow}>
+              {frontmatter.categories && frontmatter.categories.length > 0 && (
+                <div className={styles.blogCategories}>
+                  {frontmatter.categories.map((cat) => (
+                    <span key={cat} className={styles.blogCategoryPill}>{cat}</span>
+                  ))}
+                </div>
+              )}
               <BlogShareIcons url={url} title={frontmatter.title} />
             </div>
-
-            {frontmatter.categories && frontmatter.categories.length > 0 && (
-              <div className={styles.blogCategories}>
-                {frontmatter.categories.map((cat) => (
-                  <span key={cat} className={styles.blogCategoryPill}>{cat}</span>
-                ))}
-              </div>
-            )}
 
             <h1 className="tp-h1">{frontmatter.title}</h1>
 
