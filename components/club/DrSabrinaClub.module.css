@@ -70,7 +70,12 @@
 .closingCta p { font-size: 1.0625rem; color: rgba(255,255,255,0.85); margin: 0 0 28px; }
 
 .modalOverlay {
-  position: fixed; inset: 0; z-index: 100; background: rgba(15,13,46,0.6);
+  /* 1000, not 100: the fixed site header (.pel-nav) is z-index 200, so a
+     lower value here lets the header paint over the top of this dialog
+     instead of behind it. Matches the z-index other fixed-position dialogs
+     in this codebase use (BeforeAfterGallery's .tpLb, Forms.module.css's
+     .overlay). */
+  position: fixed; inset: 0; z-index: 1000; background: rgba(15,13,46,0.6);
   display: flex; align-items: center; justify-content: center; padding: 1.5rem;
 }
 .modalContent {

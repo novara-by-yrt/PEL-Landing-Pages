@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
@@ -96,7 +97,19 @@ const WHY_JOIN = [
 export function DrSabrinaClub() {
   const [joinOpen, setJoinOpen] = useState(false);
 
+  /* The dialog is portalled to <body> so its z-index competes with the
+     site's fixed header (.pel-nav, z-index 200) on equal footing — nested
+     inline it lost that contest, since this overlay's z-index (100) is
+     lower and the two sit in the same stacking context.
+     Read once during render rather than in an effect: the portal only ever
+     renders after a click, so the server's null and the client's body element
+     never disagree at hydration. */
+  const [portalHost] = useState<HTMLElement | null>(() =>
+    typeof document === "undefined" ? null : document.body,
+  );
+
   return (
+    <>
     <div className="tp">
       {/* Hero */}
       <section className={styles.hero}>
@@ -246,22 +259,24 @@ export function DrSabrinaClub() {
       </section>
 
       <ContactSection />
-
-      {joinOpen && (
-        <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Join Dr Sabrina Club">
-          <div className={styles.modalContent}>
-            <button type="button" className={styles.modalClose} onClick={() => setJoinOpen(false)} aria-label="Close">
-              <TpIcon name="close" size={18} />
-            </button>
-            <h2>Join Dr Sabrina Club</h2>
-            <iframe
-              src="https://link.perfecteyesltd.com/widget/form/JQ2ZWfjL0dQjXZ3Xyb7s"
-              title="Choose Club & Join"
-              className={styles.modalIframe}
-            />
-          </div>
-        </div>
-      )}
     </div>
+
+    {joinOpen && portalHost && createPortal(
+      <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Join Dr Sabrina Club">
+        <div className={styles.modalContent}>
+          <button type="button" className={styles.modalClose} onClick={() => setJoinOpen(false)} aria-label="Close">
+            <TpIcon name="close" size={18} />
+          </button>
+          <h2>Join Dr Sabrina Club</h2>
+          <iframe
+            src="https://link.perfecteyesltd.com/widget/form/JQ2ZWfjL0dQjXZ3Xyb7s"
+            title="Choose Club & Join"
+            className={styles.modalIframe}
+          />
+        </div>
+      </div>,
+      portalHost
+    )}
+    </>
   );
 }
