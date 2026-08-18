@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import SafeImage from "@/components/shared/SafeImage";
-import { TpIcon } from "./TpIcon";
 import type { BreadcrumbItem } from "./types";
 import styles from "./TreatmentHero.module.css";
 
@@ -27,11 +26,11 @@ export function TreatmentHero({
   /** Overrides the subtle default (0.16) for a real content photo, rather than the generic abstract-texture background, which needs more visual weight to register. */
   heroBgOpacity?: number;
 }) {
-  /* The hero's right column is the treatment's photograph and the surgeon
-     card, on every treatment. It used to be given over to the At a Glance
-     panel wherever a treatment had facts, which meant the picture appeared on
-     only a handful of pages; the facts now have a section of their own below
-     the accreditation strip, so the two no longer compete for the space. */
+  /* The hero's right column is the treatment's photograph, on every
+     treatment. It used to be given over to the At a Glance panel wherever a
+     treatment had facts, which meant the picture appeared on only a handful
+     of pages; the facts now have a section of their own below the
+     accreditation strip, so the two no longer compete for the space. */
   return (
     <section className={styles.tpHero}>
 
@@ -93,16 +92,6 @@ export function TreatmentHero({
                 priority
               />
             )}
-          </div>
-          <div className={styles.tpDoctorCard}>
-            <span className={styles.tpDot}>
-              <TpIcon name="sparkle" size={19} />
-            </span>
-            <div>
-              <h5>Dr. Sabrina Shah-Desai</h5>
-              <small>MS, FRCS (Ed) Ophth.</small>
-              <p>Recognised as a top practitioner for eyes for eight consecutive years, 2018-2026</p>
-            </div>
           </div>
         </div>
       </div>

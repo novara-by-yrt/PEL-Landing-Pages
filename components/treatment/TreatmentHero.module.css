@@ -32,7 +32,8 @@
 .tpHeroActions > * { flex: 1 1 100%; }
 @media (min-width: 420px) { .tpHeroActions > * { flex: 0 0 auto; } }
 
-.tpHeroRight { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+/* Just the photograph now; the surgeon card that sat under it has gone. */
+.tpHeroRight { position: relative; }
 .tpHeroFrame {
   position: relative; width: 100%; aspect-ratio: 4 / 3.1; border-radius: var(--tp-radius-xl);
   background: linear-gradient(150deg, var(--tp-lavender-200), var(--tp-lavender-050));
@@ -45,20 +46,8 @@
   border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--tp-indigo-700);
 }
-.tpDoctorCard {
-  width: 100%; display: flex; gap: 14px; align-items: flex-start;
-  background: var(--tp-paper); border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg);
-  padding: 1.1rem 1.25rem; box-shadow: var(--tp-shadow-sm);
-  transition: transform 260ms var(--tp-ease), border-color 260ms var(--tp-ease), box-shadow 260ms var(--tp-ease);
-}
-.tpDoctorCard:hover { transform: translateY(-4px); border-color: var(--tp-lavender-300); box-shadow: var(--tp-shadow-md); }
 .tpHeroFrame { transition: box-shadow 280ms var(--tp-ease); }
 .tpHeroFrame:hover { box-shadow: var(--tp-shadow-lg); }
 @media (prefers-reduced-motion: reduce) {
-  .tpDoctorCard, .tpHeroFrame { transition: none; }
-  .tpDoctorCard:hover { transform: none; }
+  .tpHeroFrame { transition: none; }
 }
-.tpDoctorCard .tpDot { flex-shrink: 0; width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--tp-lavender-200); background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
-.tpDoctorCard h5 { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tp-indigo-700); margin: 0 0 2px; }
-.tpDoctorCard small { font-size: 12px; color: var(--tp-slate); }
-.tpDoctorCard p { font-size: 12.5px; color: var(--tp-mist); margin: 0.3rem 0 0; line-height: 1.5; }
