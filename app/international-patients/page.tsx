@@ -124,7 +124,7 @@ const NOTES: HomeFaqItem[] = [
   {
     question: "Are consultations free?",
     answer:
-      "No. Dr Shah-Desai does not offer free consultations, and the fee is the same whether you have flown in or walked round the corner. The current rates are set out above.",
+      "No. Dr Shah-Desai does not offer free consultations, and the fee is the same whether you have flown in or walked round the corner. The current rates are set out below.",
   },
   {
     question: "What happens once I have flown home?",

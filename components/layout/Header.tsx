@@ -162,6 +162,10 @@ const NAV: NavItem[] = [
     children: [
       { label: "Dr Sabrina Shah-Desai", href: "/oculoplastic-surgeon-eyelid-cosmetic-surgeon-london" },
       { label: "Team", href: "/team" },
+      /* Sits with the clinic pages rather than as a ninth top-level item: the
+         bar is already full at eight, and someone flying in is reading about
+         the practice, not browsing a treatment. */
+      { label: "International Patients", href: "/international-patients" },
       { label: "Publications", href: "/publications" },
     ],
   },
