@@ -172,8 +172,8 @@ const SECTIONS: Section[] = [
     tone: "paper",
     eyebrow: "The Dr Sabrina Range",
     heading: { lead: "An award-winning ", accent: "eye skincare collection." },
-    image: "/uploads/2025/09/Sabrina-1.jpg",
-    imageAlt: "Dr Sabrina Shah-Desai",
+    image: "/Shop-products1.png",
+    imageAlt: "A Dr Sabrina Relax & Refresh Eye Mask tube held in the hand",
     caption: { title: "Perfect 360 Eye Illuminate", meta: "Powered by the Kiara Molecule™" },
     body: (
       <p>

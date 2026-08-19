@@ -90,9 +90,46 @@ export default function TreatmentsCarousel({ groups }: { groups: TreatmentGroup[
     // step to zero and the rail would never move.
     let position = el.scrollLeft;
 
-    // If anything else moves the rail — a swipe, the arrows, a keypress —
-    // adopt that position instead of yanking it back.
+    /* How far the rail travels before it is showing the duplicate half.
+       Measured between a card and its own clone rather than taken as half the
+       scroll width: the track's trailing gap and padding count towards
+       scrollWidth but do not repeat, so half of it overshoots the seam by 8px
+       on a phone and 28px on a desktop - a visible jump every time the loop
+       came round. */
+    const measureWrap = () => {
+      const first = el.querySelector<HTMLElement>("a");
+      const clone = el.querySelector<HTMLElement>('a[aria-hidden="true"]');
+      return first && clone ? clone.offsetLeft - first.offsetLeft : el.scrollWidth / 2;
+    };
+    let wrap = measureWrap();
+    const onResize = () => {
+      wrap = measureWrap();
+    };
+    window.addEventListener("resize", onResize);
+
+    /* If anything else moves the rail — a swipe, the arrows, a keypress —
+       adopt that position instead of yanking it back, and keep it inside the
+       first half of the track.
+
+       The drift wraps at the midpoint, but only from inside its own frame
+       loop. A touch scroll never went through it, so a swipe carried straight
+       past the midpoint into the duplicated half: every treatment shown a
+       second time, then a dead end at the last clone. That is invisible on a
+       desktop, where the arrows step one card at a time and the drift wraps
+       first, and unmissable on a phone, where swiping is how the rail is
+       used. Wrapping here covers every way the rail can move.
+
+       Subtracting the half lands on pixel-identical content, so the
+       correction cannot be seen; `wrapping` stops the scrollLeft write from
+       re-entering through the event it fires. */
+    let wrapping = false;
     const onScroll = () => {
+      if (wrapping) return;
+      if (wrap > 0 && el.scrollLeft >= wrap) {
+        wrapping = true;
+        el.scrollLeft -= wrap;
+        wrapping = false;
+      }
       if (Math.abs(el.scrollLeft - position) > 2) position = el.scrollLeft;
     };
     el.addEventListener("scroll", onScroll, { passive: true });
@@ -111,8 +148,7 @@ export default function TreatmentsCarousel({ groups }: { groups: TreatmentGroup[
       last = now;
       if (!pausedRef.current && !offscreen && now >= nudgeUntilRef.current) {
         position += (DRIFT_SPEED * delta) / 1000;
-        const half = el.scrollWidth / 2;
-        if (position >= half) position -= half;
+        if (wrap > 0 && position >= wrap) position -= wrap;
         el.scrollLeft = position;
       }
       frame = requestAnimationFrame(step);
@@ -123,6 +159,7 @@ export default function TreatmentsCarousel({ groups }: { groups: TreatmentGroup[
       cancelAnimationFrame(frame);
       observer.disconnect();
       el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, [active]);
 
