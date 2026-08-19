@@ -149,7 +149,7 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
   {
     image: "/uploads/2024/09/supeor-sulcus.jpg",
     title: "Superior Sulcus Filler",
-    href: "/non-surgical-injectables-medical-aesthetic",
+    href: "/non-surgical-injectables-medical-aesthetic/superior-sulcus-filler",
     blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
   {
