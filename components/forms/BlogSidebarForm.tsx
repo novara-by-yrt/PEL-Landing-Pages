@@ -2,6 +2,7 @@
 
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/blog/BlogContactForm.module.css";
 
 /**
@@ -33,7 +34,11 @@ export function BlogSidebarForm() {
       </p>
 
       {status.kind === "success" ? (
-        <p className={styles.blogConnectSuccess}>{status.message}</p>
+        <p className={styles.blogConnectSuccess} role="status">
+          {FORMS.blogSidebar.successHeading}
+          <br />
+          <span style={{ fontWeight: 400 }}>{status.message}</span>
+        </p>
       ) : (
         <form onSubmit={handleSubmit}>
           {/* Floating labels: input/select comes first in markup, label second —

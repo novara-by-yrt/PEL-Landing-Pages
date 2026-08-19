@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
 
 /**
@@ -49,7 +50,13 @@ export default function GeneralContactForm({ title = "Send us a message" }: { ti
             role="status"
             className={`${styles.status} ${status.kind === "success" ? styles.statusOk : styles.statusError}`}
           >
-            {status.message}
+            {status.kind === "success" ? (
+              <>
+                <strong>{FORMS.general.successHeading}</strong> {status.message}
+              </>
+            ) : (
+              status.message
+            )}
           </p>
         )}
 

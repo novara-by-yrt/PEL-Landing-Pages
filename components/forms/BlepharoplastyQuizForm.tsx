@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
 
 /**
@@ -197,8 +198,8 @@ export default function BlepharoplastyQuizForm() {
     return (
       <div className={styles.quiz}>
         <div className={styles.quizSuccess}>
-          <h2>Thank you</h2>
-          <p>{status.message}</p>
+          <h2>{FORMS.quiz.successHeading}</h2>
+          <p role="status">{status.message}</p>
         </div>
       </div>
     );
@@ -295,11 +296,18 @@ export default function BlepharoplastyQuizForm() {
             </button>
           )}
           {isLast ? (
-            <button type="submit" className="tp-btn tp-btn-primary" disabled={pending}>
+            // key="submit" (as opposed to the "Next" button's implicit,
+            // shared position below) forces React to mount a fresh element
+            // here rather than flip the existing button's type in place.
+            // Without it, clicking "Next" on the step before this one
+            // changes that same DOM node's type from "button" to "submit"
+            // mid-click, and the browser submits the form on the click that
+            // was only meant to advance to this (still-unanswered) step.
+            <button key="submit" type="submit" className="tp-btn tp-btn-primary" disabled={pending}>
               {pending ? "Sending…" : "SUBMIT"}
             </button>
           ) : (
-            <button type="button" className="tp-btn tp-btn-primary" onClick={next}>
+            <button key="next" type="button" className="tp-btn tp-btn-primary" onClick={next}>
               {index === 0 ? "Start the quiz" : "Next"}
             </button>
           )}

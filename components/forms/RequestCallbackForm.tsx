@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Reveal from "@/components/shared/Reveal";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/home/ContactSection.module.css";
 
 /**
@@ -115,7 +116,13 @@ export default function RequestCallbackForm() {
                 status.kind === "success" ? styles.statusOk : styles.statusError
               }`}
             >
-              {status.message}
+              {status.kind === "success" ? (
+                <>
+                  <strong>{FORMS.callback.successHeading}</strong> {status.message}
+                </>
+              ) : (
+                status.message
+              )}
             </p>
           </Reveal>
         ) : null}

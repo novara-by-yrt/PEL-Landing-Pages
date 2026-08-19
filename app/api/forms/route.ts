@@ -13,7 +13,6 @@ import { render, send } from "@/lib/forms/email";
  */
 
 const MESSAGES = {
-  sent: "Thank you for your message. It has been sent.",
   invalid: "One or more fields have an error. Please check and try again.",
   failed: "There was an error trying to send your message. Please try again later.",
 };
@@ -76,5 +75,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ status: "error", message: MESSAGES.failed }, { status: 502 });
   }
 
-  return NextResponse.json({ status: "sent", message: MESSAGES.sent }, { status: 200 });
+  return NextResponse.json(
+    { status: "sent", message: FORMS[formKey].successMessage },
+    { status: 200 }
+  );
 }

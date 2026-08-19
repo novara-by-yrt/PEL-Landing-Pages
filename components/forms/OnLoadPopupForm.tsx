@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
 
 /**
@@ -97,8 +98,8 @@ export default function OnLoadPopupForm() {
 
         {status.kind === "success" ? (
           <>
-            <h2 id="popup-title" className={styles.popupTitle}>Thank you</h2>
-            <p className={styles.popupLead}>{status.message}</p>
+            <h2 id="popup-title" className={styles.popupTitle}>{FORMS.popup.successHeading}</h2>
+            <p className={styles.popupLead} role="status">{status.message}</p>
             <button type="button" className={`tp-btn tp-btn-primary ${styles.submit}`} onClick={dismiss}>
               Close
             </button>

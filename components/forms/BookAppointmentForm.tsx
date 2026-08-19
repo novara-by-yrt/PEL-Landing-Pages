@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/app/contact/page.module.css";
 
 /**
@@ -64,8 +65,8 @@ export default function BookAppointmentForm({
     return (
       <div className={styles.contactSuccess}>
         <div className={styles.contactSuccessIcon}><TpIcon name="check" size={26} /></div>
-        <h2>Message Sent!</h2>
-        <p>{status.message}</p>
+        <h2>{FORMS.appointment.successHeading}</h2>
+        <p role="status">{status.message}</p>
         <button onClick={reset} className="tp-btn tp-btn-secondary">
           Send Another Message
         </button>

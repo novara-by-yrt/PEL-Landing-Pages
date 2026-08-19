@@ -31,6 +31,13 @@ export type FormDefinition = {
   /** Optional opening line in the email body. */
   intro?: string;
   fields: FieldSpec[];
+  /** Shown as the success-state heading after a real submission. */
+  successHeading: string;
+  /** Shown as the success-state body text after a real submission — names
+   *  what happens next for this specific form rather than a generic
+   *  "message sent", since a caller checking availability and a visitor
+   *  taking a self-assessment quiz expect different next steps. */
+  successMessage: string;
 };
 
 const NAME: FieldSpec = { name: "your-name", label: "Name", required: true };
@@ -52,6 +59,8 @@ export const FORMS = {
       MESSAGE,
       { name: "consent", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Call Back Requested",
+    successMessage: "Thank you for requesting a call back. A member of our team will call you shortly.",
   },
 
   blogSidebar: {
@@ -68,6 +77,8 @@ export const FORMS = {
       { name: "enquiring-about", label: "Enquiring about", required: true },
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Enquiry Received",
+    successMessage: "Thank you for reaching out. Our team will be in touch about your enquiry shortly.",
   },
 
   appointment: {
@@ -85,6 +96,9 @@ export const FORMS = {
       MESSAGE,
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Appointment Request Received",
+    successMessage:
+      "Thank you for your appointment enquiry. Our team will contact you within 24-48 hours to confirm your consultation.",
   },
 
   quiz: {
@@ -106,6 +120,9 @@ export const FORMS = {
       { name: "medications", label: "Medications", multiple: true },
       { name: "symptoms", label: "Symptoms", required: true },
     ],
+    successHeading: "Quiz Submitted",
+    successMessage:
+      "Thank you for completing the Blepharoplasty Candidacy Quiz. Our team will review your answers and be in touch to discuss your results.",
   },
 
   popup: {
@@ -120,6 +137,8 @@ export const FORMS = {
       MESSAGE,
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Enquiry Received",
+    successMessage: "Thank you for your enquiry. A member of our team will be in touch shortly.",
   },
 
   general: {
@@ -132,6 +151,8 @@ export const FORMS = {
       { name: "your-subject", label: "Subject", required: true },
       MESSAGE,
     ],
+    successHeading: "Message Sent",
+    successMessage: "Thank you for contacting us. We'll respond to your message shortly.",
   },
 } satisfies Record<string, FormDefinition>;
 
