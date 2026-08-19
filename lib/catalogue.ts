@@ -44,6 +44,20 @@ const CARD_IMAGE_OVERRIDES: Record<string, string> = {
          takes a dark-circles photograph. */
   "autologous-exosomes": "/uploads/2024/01/skin-treatment-01.jpg",
   "dark-circles-and-polynucleotides-or-mesotherapy": "/uploads/2025/05/Dark-Circle-1.png",
+
+  /* Two cards whose page offers a result but would not otherwise reach it.
+
+     The festoons comparison page led with a portrait of Dr Shah-Desai beside
+     her awards - a picture of the surgeon, not the treatment. Its gallery
+     holds three results; the first is already claimed by the sibling festoons
+     card and the second is a four-panel collage whose captions are unreadable
+     at card size, so this takes the third, a plain two-panel comparison.
+
+     Thyroid lid lowering led with a Graves' ophthalmopathy schematic. Its one
+     result is the hero, and its filename says nothing about being a before
+     and after, so no ordering rule would find it. */
+  "festoons-and-malar-bags-treatment-uk": "/uploads/2021/09/Festoons-3.jpg",
+  "surgical-thyroid-lid-lowering-surgery": "/uploads/2013/08/case-study-thyroid-eye-disease.jpg",
 };
 
 export interface CatalogueCard {
@@ -82,6 +96,29 @@ export interface CatalogueCard {
  */
 function isVideoStill(src: string): boolean {
   return /video/i.test(src);
+}
+
+/**
+ * The before/after results a page publishes for itself.
+ *
+ * Every treatment page's `gallery` block is its before/after gallery - each
+ * one's galleryHeading says so - which makes membership a better test than
+ * the filename. Plenty of genuine result photos are named things like
+ * poly.jpg or 3-2-1.png and would never be spotted by pattern-matching a path.
+ *
+ * These come first in a card's candidate list: a result is what a visitor
+ * scanning the index is actually trying to see.
+ */
+function galleryImages(frontmatter: { gallery?: { image?: string }[] }): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const item of frontmatter.gallery || []) {
+    if (item.image && !seen.has(item.image) && !isVideoStill(item.image)) {
+      seen.add(item.image);
+      out.push(item.image);
+    }
+  }
+  return out;
 }
 
 function pageImages(frontmatter: { overviewPanels?: { image?: string }[] }): string[] {
@@ -153,9 +190,11 @@ export function getTreatmentCatalogue(): {
            as a backstop for the twelve treatments whose page has none. */
         candidates: CARD_IMAGE_OVERRIDES[page.slug]
           ? [CARD_IMAGE_OVERRIDES[page.slug]]
-          : [...pageImages(page.frontmatter), meta.heroImage].filter(
-              (src): src is string => Boolean(src) && !isVideoStill(src),
-            ),
+          : [
+              ...galleryImages(page.frontmatter),
+              ...pageImages(page.frontmatter),
+              meta.heroImage,
+            ].filter((src): src is string => Boolean(src) && !isVideoStill(src)),
         type: meta.type,
       }),
     )
