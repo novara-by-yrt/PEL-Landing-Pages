@@ -94,38 +94,31 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
 
-      // Publications the previous site served at the site root. Their content
-      // lives in content/posts, which is served under /blog, so point the old
-      // root URLs at the canonical blog URL.
+      // Publications the previous site served at the site root (and one at
+      // /blog). Their content used to live as standalone posts under
+      // content/posts, but those were bare stub pages (a single link out to
+      // PubMed, no real article) — they've been removed and the same
+      // citations now live as cards on /publications with a direct external
+      // link, so the old URLs point there instead of at a deleted page.
       {
         source: "/nylon-hang-sutures-repair-secondary-ptosis-overcorrected-dysthyroid-upper-eyelid-retraction",
-        destination:
-          "/blog/nylon-hang-back-sutures-in-the-repair-of-secondary-ptosis-following-overcorrected-dysthyroid-upper-eyelid-retraction",
+        destination: "/publications",
         permanent: true,
       },
       {
         source: "/stability-of-eyelid-height-after-graded-anterior-approach-lid-lowering-for-dysthyroid-upper-lid-retraction",
-        destination:
-          "/blog/stability-of-eyelid-height-after-graded-anterior-approach-lid-lowering-for-dysthyroid-upper-lid-retraction",
+        destination: "/publications",
         permanent: true,
       },
       {
         source: "/two-new-cases-of-metastatic-basal-cell-carcinoma-from-the-eyelids",
-        destination: "/blog/two-new-cases-of-metastatic-basal-cell-carcinoma-from-the-eyelids",
+        destination: "/publications",
         permanent: true,
       },
-
-      // The WordPress export wrote this post's filename with two U+2010
-      // hyphens already percent-encoded, so the slug the sitemap advertised
-      // was "…ultrasound%e2%80%90imaging…". The request decodes that back to
-      // the real character, no file matches, and the URL 404'd — a sitemap
-      // entry pointing at a dead page. The file is renamed to plain hyphens;
-      // this keeps the old form resolving for anything already linking to it.
       {
         source:
           "/blog/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasound%e2%80%90imaging%e2%80%90based-case-series",
-        destination:
-          "/blog/periorbital-venous-stasis-may-be-involved-with-filler-induced-malar-edema-a-duplex-ultrasound-imaging-based-case-series",
+        destination: "/publications",
         permanent: true,
       },
     ];
