@@ -67,13 +67,28 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
 
             {totalPages > 1 && (
               <nav aria-label="Blog pagination" className={styles.blogPagination}>
-                <Link
-                  href={currentPage > 1 ? pageHref(currentPage - 1) : "#"}
-                  className={`${styles.blogPageLink}${currentPage === 1 ? ` ${styles.isDisabled}` : ""}`}
-                  aria-disabled={currentPage === 1}
-                >
-                  <TpIcon name="chevron" size={14} direction="left" />
-                </Link>
+                {/* A disabled arrow is a span, not a link. As <a href="#">
+                    it stayed focusable and clickable - aria-disabled does not
+                    stop activation - so pressing it jumped the reader to the
+                    top of the page and appended a bare # to the URL. Both
+                    arrows also carry a name: they contain only an icon, and
+                    without one a screen reader announced them as "link". */}
+                {currentPage > 1 ? (
+                  <Link
+                    href={pageHref(currentPage - 1)}
+                    className={styles.blogPageLink}
+                    aria-label="Previous page"
+                  >
+                    <TpIcon name="chevron" size={14} direction="left" />
+                  </Link>
+                ) : (
+                  <span
+                    className={`${styles.blogPageLink} ${styles.isDisabled}`}
+                    aria-hidden="true"
+                  >
+                    <TpIcon name="chevron" size={14} direction="left" />
+                  </span>
+                )}
 
                 {pageNumbers.map((n, i) => {
                   const prev = pageNumbers[i - 1];
@@ -84,6 +99,8 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
                       <Link
                         href={pageHref(n)}
                         className={`${styles.blogPageLink}${n === currentPage ? ` ${styles.isActive}` : ""}`}
+                        aria-current={n === currentPage ? "page" : undefined}
+                        aria-label={`Page ${n}`}
                       >
                         {n}
                       </Link>
@@ -91,13 +108,22 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
                   );
                 })}
 
-                <Link
-                  href={currentPage < totalPages ? pageHref(currentPage + 1) : "#"}
-                  className={`${styles.blogPageLink}${currentPage === totalPages ? ` ${styles.isDisabled}` : ""}`}
-                  aria-disabled={currentPage === totalPages}
-                >
-                  <TpIcon name="chevron" size={14} />
-                </Link>
+                {currentPage < totalPages ? (
+                  <Link
+                    href={pageHref(currentPage + 1)}
+                    className={styles.blogPageLink}
+                    aria-label="Next page"
+                  >
+                    <TpIcon name="chevron" size={14} />
+                  </Link>
+                ) : (
+                  <span
+                    className={`${styles.blogPageLink} ${styles.isDisabled}`}
+                    aria-hidden="true"
+                  >
+                    <TpIcon name="chevron" size={14} />
+                  </span>
+                )}
               </nav>
             )}
           </div>

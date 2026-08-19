@@ -10,6 +10,7 @@ export interface PublicationItem {
   rawTitle: string;
   date: string;
   journal: string;
+  /** The journal's own page. */
   url: string;
   featuredImage: string | null;
 }
@@ -136,6 +137,12 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                 })
               : "";
 
+            /* Straight to the journal. These cards used to go to a post on
+               this site holding nothing but the same outbound link - a stop
+               the reader had to click through rather than a page that told
+               them anything. Those posts have since been removed, so the
+               journal is the only destination there is. */
+
             return (
               <article key={pub.slug || index} id={`pub-card-${index}`} className={styles.pubCard}>
                 <div>
@@ -147,12 +154,14 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                   <h3 className={styles.pubTitle}>
                     <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-title-link-${index}`}>
                       {pub.rawTitle}
+                      <span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </h3>
                 </div>
 
                 <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-link-${index}`} className={styles.pubReadLink}>
                   Read Publication
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </article>
             );

@@ -12,4 +12,4 @@
 .hero h1 { position: relative; font-family: var(--tp-display); font-weight: 600; font-size: clamp(2.1rem, 5vw, 3.1rem); line-height: 1.15; color: #fff; margin: 16px auto 0; max-width: 20ch; }
 .hero p { position: relative; font-size: 1.0625rem; color: rgba(255,255,255,0.82); max-width: 52ch; margin: 1rem auto 0; line-height: 1.6; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.75rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr)); gap: 1.75rem; }

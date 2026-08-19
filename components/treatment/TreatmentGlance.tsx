@@ -4,13 +4,11 @@ import styles from "./TreatmentGlance.module.css";
 /**
  * The treatment's key facts.
  *
- * One panel holding the treatment's name, the heading, and the facts as plain
- * label-and-value pairs. The facts were previously a card each, which gave
- * every fact its own border and shadow and left the grid ragged: cards sized
- * to their own text, so a four-line value stood beside a one-line value and
- * the last row held a single card adrift. A list inside one container has one
- * edge instead of nine and a single spacing rhythm, which is what makes the
- * desktop layout line up.
+ * One panel holding the treatment's name, the heading, and the facts as a
+ * ledger of label-and-value cells divided by hairlines. The dividers are 1px
+ * grid gaps showing the panel's rule colour through, so they stay correct at
+ * one, two or three columns without a rule ever being drawn per cell or
+ * suppressed on the last one.
  *
  * No icons. A glyph beside single words like "Duration" and "Day Case" added
  * colour but no meaning.
@@ -36,6 +34,7 @@ export function TreatmentGlance({
             <h2 id="glance-heading" className={styles.title}>
               At a Glance
             </h2>
+            <span className={styles.rule} aria-hidden="true" />
           </div>
 
           {/* A definition list, so each fact is a term paired with its value
@@ -44,14 +43,14 @@ export function TreatmentGlance({
             {glance.map((item) => (
               <div
                 key={item.label}
-                /* A value long enough to wrap past two lines takes two of the
-                   three columns. Left in one, it made its whole row as tall as
-                   itself and the short facts beside it ended well short of the
-                   panel's foot: bottom padding measured 106px against 53px on
-                   the other three sides. Threshold measured against the
-                   rendered panel, not guessed. */
+                /* A fact that is a sentence rather than a specification takes
+                   the whole row. Left in one cell of three it would set the
+                   height of the row and strand the short facts beside it. The
+                   threshold is 40 characters: measured against the rendered
+                   panel, that is the point at which a value stops fitting a
+                   single cell on two lines at the narrowest column width. */
                 className={`${styles.item}${
-                  item.value.length > 46 ? ` ${styles.itemWide}` : ""
+                  item.value.length > 40 ? ` ${styles.itemWide}` : ""
                 }`}
               >
                 <dt className={styles.label}>{item.label}</dt>

@@ -70,11 +70,25 @@ export interface CatalogueCard {
  * Read from the page rather than copied into a list beside it: a card cannot
  * then drift from the page it points at when the content changes.
  */
+/**
+ * Video screengrabs, which are never a card's picture.
+ *
+ * A little over twenty treatments carry a still lifted from their explainer
+ * video in the first overview panel, and fourteen of those stills are the
+ * same shot of the surgeon talking to camera in front of the same shelf. As
+ * a card image that is neither the treatment nor distinguishable from its
+ * neighbours, so these are skipped and the card takes the next real
+ * photograph the page offers, or its hero.
+ */
+function isVideoStill(src: string): boolean {
+  return /video/i.test(src);
+}
+
 function pageImages(frontmatter: { overviewPanels?: { image?: string }[] }): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
   for (const panel of frontmatter.overviewPanels || []) {
-    if (panel.image && !seen.has(panel.image)) {
+    if (panel.image && !seen.has(panel.image) && !isVideoStill(panel.image)) {
       seen.add(panel.image);
       out.push(panel.image);
     }
@@ -139,7 +153,9 @@ export function getTreatmentCatalogue(): {
            as a backstop for the twelve treatments whose page has none. */
         candidates: CARD_IMAGE_OVERRIDES[page.slug]
           ? [CARD_IMAGE_OVERRIDES[page.slug]]
-          : [...pageImages(page.frontmatter), meta.heroImage].filter(Boolean),
+          : [...pageImages(page.frontmatter), meta.heroImage].filter(
+              (src): src is string => Boolean(src) && !isVideoStill(src),
+            ),
         type: meta.type,
       }),
     )

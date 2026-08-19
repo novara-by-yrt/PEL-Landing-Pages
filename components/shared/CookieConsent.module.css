@@ -61,7 +61,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  flex: 0 0 auto;
+  /* Was flex: 0 0 auto, which refused to shrink: the two buttons together
+     are wider than a 320px screen, so the row pushed the banner - and with
+     it the page - past the viewport. It may still not grow, but it must be
+     allowed to shrink and wrap. */
+  flex: 0 1 auto;
+  min-width: 0;
   margin-inline-start: auto;
 }
 

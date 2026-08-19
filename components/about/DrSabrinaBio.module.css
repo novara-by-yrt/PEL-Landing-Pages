@@ -205,7 +205,7 @@
 /* ── Stat row ───────────────────────────────────────────────────────────── */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
   gap: clamp(12px, 2vw, 20px);
   list-style: none;
   margin: clamp(32px, 5vw, 48px) 0 0;

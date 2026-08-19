@@ -193,20 +193,41 @@
 }
 
 /* ── Hero credentials ─────────────────────────────────────────────────────
-   Three statement lines under a hairline: the Google rating, the years of
-   experience, and the registrations. Each is a strong value followed by a
-   quiet qualifier, so the three read as one list rather than three unlike
-   things.
+   One block, two parts: the Tatler lockup and the three text signals beside
+   it. The lockup sets the height - its smallest line is 8% of the image, so
+   it cannot shrink far without going illegible - and the text column is
+   built to land at roughly the same height rather than sprawling past it.
 
-   No artwork. This block briefly carried two matched badge boxes above the
-   lines - the Tatler lockup and a Google rating card drawn to the same box -
-   and both have been taken out, the rating returning to the line of text it
-   had been.                                                               */
+   Each signal is a single line: a strong value followed by a quiet
+   qualifier. The rating is one of those lines, carrying the G mark and the
+   stars inline; it is not a card.                                         */
 .credentials {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 3vw, 26px);
+  align-items: center;
   margin: clamp(32px, 6vw, 44px) 0 0;
   padding-top: clamp(22px, 3.5vw, 30px);
   border-top: 1px solid var(--tp-line);
   max-width: 34rem;
+}
+
+.press {
+  margin: 0;
+  min-width: 0;
+}
+.pressLogo {
+  display: block;
+  /* Floor set by the lockup's smallest line, which is 8% of the image height:
+     100px keeps it at 8px on a phone, where 92px had it at 7.4px and starting
+     to close up. */
+  height: clamp(100px, 11vw, 112px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  /* The artwork carries its own solid black field; rounding it makes the
+     block read as a deliberate badge rather than a raw rectangle. */
+  border-radius: 8px;
 }
 
 /* The Google mark and the stars that open the first statement line. Both are
@@ -231,13 +252,26 @@
   fill: var(--tp-gold);
 }
 
-/* The three statement lines. These are the whole of the hero's
-   credentials now; there is no badge row above them. */
+/* The three statement lines, in the column beside the lockup.
+
+   The gap is stated for a phone first. The old clamp(9px, 1.4vw, 13px) gave
+   a phone its floor of 9px and a desktop its ceiling of 13px, so the lines
+   were tightest exactly where they are stacked under the lockup with no
+   column beside them to give them air - and where a line is most likely to
+   wrap onto two. This sets a phone's gap outright and hands back to the
+   original clamp at 600px, which is where the lockup moves alongside the
+   lines and where the clamp already resolved to 9px, so nothing above a
+   phone changes. */
 .trust {
   display: grid;
-  gap: clamp(9px, 1.4vw, 13px);
+  gap: 15px;
   margin: 0;
   min-width: 0;
+}
+@media (min-width: 600px) {
+  .trust {
+    gap: clamp(9px, 1.4vw, 13px);
+  }
 }
 .trustItem {
   margin: 0;
@@ -262,6 +296,16 @@
 }
 .trustMeta {
   color: var(--tp-slate);
+}
+
+/* Side by side as soon as there is room for the badge and a line of text
+   next to it. Below that the text would wrap to three lines per signal and
+   read worse than stacked. */
+@media (min-width: 600px) {
+  .credentials {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(22px, 3vw, 32px);
+  }
 }
 
 @media (min-width: 420px) {
@@ -411,7 +455,7 @@
      page.tsx), so this rule is the only thing reserving the box before the
      image arrives. A stale value here is a layout shift, not a wrong-looking
      picture, which is why it is stated as the source's real pixels. */
-  aspect-ratio: 866 / 1817;
+  aspect-ratio: 852 / 1570;
 }
 @media (min-width: 700px) {
   .reachImg {

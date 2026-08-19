@@ -10,7 +10,7 @@ import {
   buildMedicalProcedureSchema,
   buildPhysicianSchema,
 } from "@/lib/schema";
-import { resolveHeroImage } from "@/lib/page-utils";
+import { isBeforeAfterImage, resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import BlepharoplastyQuizForm from "@/components/forms/BlepharoplastyQuizForm";
 import ContactSection from "@/components/home/ContactSection";
@@ -309,6 +309,29 @@ function TreatmentPage({
     ? getPostBySlug("before-after", beforeAfterSlug)?.frontmatter.gallery
     : undefined;
 
+  /* Most treatment heroes are now a before/after photograph of a patient
+     rather than a stock picture of the procedure, so "<treatment> illustration"
+     would describe the wrong kind of image to a screen reader.
+
+     Membership of one of the page's own before/after galleries is the test,
+     not the filename: plenty of genuine result photos are called things like
+     poly.jpg or 3-2-1.png. The filename check only has to catch a hero that
+     is a result photo without being listed in a gallery on this page. */
+  const heroIsBeforeAfter =
+    isBeforeAfterImage(treatment.heroImage) ||
+    [...(frontmatter.gallery ?? []), ...(beforeAfterGallery ?? [])].some(
+      (item) => item?.image === treatment.heroImage,
+    );
+  /* The chip over the hero photo. Derived from the image rather than stored,
+     because the stored value went stale the moment a hero changed: two pages
+     still said "Surgical Procedure" and one "In Treatment" over what is now a
+     results photo. Nothing is claimed over a hero that is not a result. */
+  const heroBadge = heroIsBeforeAfter ? "Before & After" : treatment.heroBadge;
+
+  const heroImageAlt = heroIsBeforeAfter
+    ? `${frontmatter.title} before and after, a patient of Dr Sabrina Shah-Desai`
+    : `${frontmatter.title} illustration`;
+
   return (
     <>
       {schemas}
@@ -319,8 +342,8 @@ function TreatmentPage({
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
           heroImage={treatment.heroImage}
-          heroImageAlt={`${frontmatter.title} illustration`}
-          heroBadge={treatment.heroBadge}
+          heroImageAlt={heroImageAlt}
+          heroBadge={heroBadge}
           heroBg={treatment.heroBg}
           heroBgOpacity={treatment.heroBgOpacity}
         />

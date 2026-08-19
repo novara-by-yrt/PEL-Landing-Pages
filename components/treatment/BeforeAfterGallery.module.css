@@ -1,6 +1,6 @@
 .tpBagalHead { max-width: 780px; }
 .tpBagalHead p { font-size: 0.9375rem; color: var(--tp-slate); line-height: 1.7; margin: 1rem 0 0; }
-.tpBagalGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 2.75rem; }
+.tpBagalGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 1.75rem; margin-top: 2.75rem; }
 @media (max-width: 700px) { .tpBagalGrid { grid-template-columns: 1fr; gap: 1.25rem; } }
 .tpBagalItem {
   display: block; position: relative; padding: 0; width: 100%;

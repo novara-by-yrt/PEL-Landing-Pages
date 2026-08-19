@@ -257,9 +257,10 @@ a.rowValue:hover {
   cursor: pointer;
 }
 .checkbox {
-  width: 20px;
-  height: 20px;
-  margin: 1px 0 0;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  margin: -1px 0 0;
   accent-color: var(--tp-indigo-700);
   cursor: pointer;
 }
