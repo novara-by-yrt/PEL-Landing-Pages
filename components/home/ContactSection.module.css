@@ -322,12 +322,15 @@ a.rowValue:hover {
    compete for a line they cannot both have. */
 @media (max-width: 420px) {
   .field {
-    --fi-inset: 13px;
-    --fi-gutter: 41px;
+    /* Still asymmetric - the icon has to live somewhere - but narrowed from
+       41px/14px to 36px/16px so the empty margin on the blank side no longer
+       reads as nearly three times the icon side. */
+    --fi-inset: 11px;
+    --fi-gutter: 36px;
   }
   .input,
   .textarea {
-    padding-right: 14px;
+    padding-right: 16px;
   }
   .row {
     gap: 12px;
