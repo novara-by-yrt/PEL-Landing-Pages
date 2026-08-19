@@ -38,7 +38,7 @@ const PLANS: Plan[] = [
     image: "/uploads/2026/01/DSC02254-1.jpg",
     includes: [
       "3 polynucleotide/Sunekos eye/face injections",
-      "Biostimulator face injections (2 vials of Juläine of Sweden / 3ml of Ellanse)",
+      "Biostimulator face injections (2 vials of Juläine of Sweden / 3ml of Biostimulation)",
       "Quarterly Skin Visia analysis",
       "10% off Dr Sabrina periorbital skincare",
       "5% off Skinceuticals skincare",
