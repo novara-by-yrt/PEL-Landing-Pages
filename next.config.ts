@@ -157,10 +157,13 @@ const nextConfig: NextConfig = {
       // Clarity (both the direct project and the one GTM loads); hotjar.com
       // is session recording, also GTM-configured; gstatic.com serves
       // Google's call-tracking (dynamic number swap for Ads attribution).
-      // link.perfecteyesltd.com serves the embedded self-test-survey widget
-      // (content/pages/self-test-survey.mdx) — a raw <iframe> plus its
-      // form_embed.js helper, both from the same GoHighLevel-hosted domain.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://link.perfecteyesltd.com",
+      // link.perfecteyesltd.com used to serve two GoHighLevel-hosted iframe
+      // embeds — the self-test-survey widget and the Dr Sabrina Club join
+      // form — both since replaced with native components
+      // (components/forms/BlepharoplastyQuizForm.tsx and
+      // components/forms/JoinClubForm.tsx), so nothing loads from that
+      // domain anymore and it's dropped from every directive below.
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com",
       "style-src 'self' 'unsafe-inline'",
       // GA/Ads/Meta/Clarity/Hotjar all fall back to an image-beacon on
       // browsers that block fetch/beacon, hence the analytics origins in
@@ -172,7 +175,7 @@ const nextConfig: NextConfig = {
       "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://link.perfecteyesltd.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com",
       // reCAPTCHA v2's checkbox widget (components/forms/useFormSubmit.ts)
       // renders as an <iframe> from Google's own recaptcha origin — without
       // it here the widget's container div stays in the DOM but the browser
@@ -180,7 +183,7 @@ const nextConfig: NextConfig = {
       // checkbox. recaptcha.net is Google's alternate host for regions
       // where google.com is blocked; included for the same reason the script
       // itself is allowed from both above.
-      "frame-src https://www.youtube.com https://link.perfecteyesltd.com https://www.google.com https://recaptcha.net",
+      "frame-src https://www.youtube.com https://www.google.com https://recaptcha.net",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",

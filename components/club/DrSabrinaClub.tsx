@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { JoinClubForm } from "@/components/forms/JoinClubForm";
 import styles from "./DrSabrinaClub.module.css";
 
 interface Plan {
@@ -96,6 +97,15 @@ const WHY_JOIN = [
 
 export function DrSabrinaClub() {
   const [joinOpen, setJoinOpen] = useState(false);
+  // Set when a specific plan card's "Choose X" button opens the modal, so
+  // JoinClubForm can preselect it — the hero and closing CTAs open with no
+  // plan in mind, so this stays unset for those.
+  const [selectedPlan, setSelectedPlan] = useState<string | undefined>(undefined);
+
+  const openJoin = (plan?: string) => {
+    setSelectedPlan(plan);
+    setJoinOpen(true);
+  };
 
   /* The dialog is portalled to <body> so its z-index competes with the
      site's fixed header (.pel-nav, z-index 200) on equal footing — nested
@@ -122,7 +132,7 @@ export function DrSabrinaClub() {
             <h1 className={styles.heroTitle}>The Dr Sabrina Club</h1>
             <p className={styles.heroTagline}>Doctor-led Care, Smart Plans &amp; Real Results.</p>
             <p className={styles.heroSub}>A full-year journey made just for you.</p>
-            <button type="button" className="tp-btn tp-btn-primary" onClick={() => setJoinOpen(true)}>
+            <button type="button" className="tp-btn tp-btn-primary" onClick={() => openJoin()}>
               Choose Your Club &amp; Join
             </button>
           </div>
@@ -191,7 +201,7 @@ export function DrSabrinaClub() {
                     ))}
                   </ul>
 
-                  <button type="button" className="tp-btn tp-btn-secondary" onClick={() => setJoinOpen(true)}>
+                  <button type="button" className="tp-btn tp-btn-secondary" onClick={() => openJoin(plan.name)}>
                     Choose {plan.name}
                   </button>
                 </div>
@@ -248,7 +258,7 @@ export function DrSabrinaClub() {
           <h2>It&apos;s Time To Upgrade Your Care!</h2>
           <p>Join the Dr Sabrina Club &amp; Feel The Comfort.</p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
-            <button type="button" className="tp-btn tp-btn-inverse" onClick={() => setJoinOpen(true)}>
+            <button type="button" className="tp-btn tp-btn-inverse" onClick={() => openJoin()}>
               Choose Your Club &amp; Join
             </button>
             <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-outline-light">
@@ -268,10 +278,10 @@ export function DrSabrinaClub() {
             <TpIcon name="close" size={18} />
           </button>
           <h2>Join Dr Sabrina Club</h2>
-          <iframe
-            src="https://link.perfecteyesltd.com/widget/form/JQ2ZWfjL0dQjXZ3Xyb7s"
-            title="Choose Club & Join"
-            className={styles.modalIframe}
+          <JoinClubForm
+            plans={PLANS.map((plan) => ({ name: plan.name, price: plan.price }))}
+            initialPlan={selectedPlan}
+            onClose={() => setJoinOpen(false)}
           />
         </div>
       </div>,

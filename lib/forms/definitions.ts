@@ -1,11 +1,15 @@
 /**
  * Form definitions.
  *
- * These five forms began life as Contact Form 7 entries in WordPress. The
+ * Five of these forms began life as Contact Form 7 entries in WordPress; their
  * field names are kept verbatim from those definitions so the notification
- * emails keep the exact shape downstream systems already parse — but nothing
- * here talks to WordPress. Validation, spam checking and delivery all happen
- * in this app.
+ * emails keep the exact shape downstream systems already parse. `club` is the
+ * exception — it replaces a third-party GoHighLevel iframe embed (see
+ * components/forms/JoinClubForm.tsx) rather than a CF7 form, so its field
+ * names follow the same `your-name`/`your-email`/`your-phone` convention for
+ * consistency but have no external system to stay compatible with. Nothing
+ * here talks to WordPress or GoHighLevel; validation, spam checking and
+ * delivery all happen in this app.
  *
  * Adding a field means adding it here AND to the matching component in
  * components/forms/; this file is what the server validates and emails.
@@ -139,6 +143,23 @@ export const FORMS = {
     ],
     successHeading: "Enquiry Received",
     successMessage: "Thank you for your enquiry. A member of our team will be in touch shortly.",
+  },
+
+  club: {
+    title: "Join Dr Sabrina Club",
+    recaptcha: true,
+    subject: (get) => `New Dr Sabrina Club enquiry from ${get("your-name")} (${get("plan")})`,
+    intro: "A new Dr Sabrina Club membership enquiry was submitted on the website.",
+    fields: [
+      NAME,
+      EMAIL,
+      PHONE,
+      { name: "plan", label: "Selected plan", required: true },
+      { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
+    ],
+    successHeading: "Welcome to Dr Sabrina Club",
+    successMessage:
+      "Thank you for joining. Our team will be in touch shortly to confirm your membership and next steps.",
   },
 } satisfies Record<string, FormDefinition>;
 
