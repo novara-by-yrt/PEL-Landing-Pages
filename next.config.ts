@@ -173,7 +173,14 @@ const nextConfig: NextConfig = {
       "media-src 'self' https://embed-ssl.wistia.com",
       "font-src 'self' data:",
       "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://link.perfecteyesltd.com",
-      "frame-src https://www.youtube.com https://link.perfecteyesltd.com",
+      // reCAPTCHA v2's checkbox widget (components/forms/useFormSubmit.ts)
+      // renders as an <iframe> from Google's own recaptcha origin — without
+      // it here the widget's container div stays in the DOM but the browser
+      // blocks the iframe's navigation, leaving an empty box with no
+      // checkbox. recaptcha.net is Google's alternate host for regions
+      // where google.com is blocked; included for the same reason the script
+      // itself is allowed from both above.
+      "frame-src https://www.youtube.com https://link.perfecteyesltd.com https://www.google.com https://recaptcha.net",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",

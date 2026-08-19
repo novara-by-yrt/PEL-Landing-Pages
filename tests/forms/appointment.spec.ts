@@ -1,10 +1,18 @@
 import { test, expect } from "@playwright/test";
 import { FORMS } from "@/lib/forms/definitions";
-import { DUMMY_TEXT, DUMMY_EMAIL, DUMMY_PHONE, mockFormsApiSuccess, suppressOnLoadPopup } from "./helpers";
+import {
+  DUMMY_TEXT,
+  DUMMY_EMAIL,
+  DUMMY_PHONE,
+  mockRecaptcha,
+  mockFormsApiSuccess,
+  suppressOnLoadPopup,
+} from "./helpers";
 
 test.describe("Book an Appointment form (/contact)", () => {
   test("submits and shows a tailored success message", async ({ page }) => {
     await suppressOnLoadPopup(page);
+    await mockRecaptcha(page);
     await mockFormsApiSuccess(page, "appointment");
     await page.goto("/contact");
 

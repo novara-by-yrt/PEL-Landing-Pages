@@ -47,7 +47,7 @@ export default function OnLoadPopupForm() {
     previouslyFocused.current?.focus();
   }, []);
 
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("popup", {
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("popup", {
     recaptcha: true,
   });
 
@@ -139,6 +139,8 @@ export default function OnLoadPopupForm() {
                 <input id="popup-consent" name="consent-checkbox" type="checkbox" value="1" />
                 <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
               </label>
+
+              <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
               {status.kind === "error" && (
                 <p role="alert" className={`${styles.status} ${styles.statusError}`}>{status.message}</p>

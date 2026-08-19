@@ -1,11 +1,11 @@
 /**
  * Form definitions.
  *
- * These six forms began life as Contact Form 7 entries in WordPress. The field
- * names are kept verbatim from those definitions so the notification emails
- * keep the exact shape downstream systems already parse — but nothing here
- * talks to WordPress. Validation, spam checking and delivery all happen in
- * this app.
+ * These five forms began life as Contact Form 7 entries in WordPress. The
+ * field names are kept verbatim from those definitions so the notification
+ * emails keep the exact shape downstream systems already parse — but nothing
+ * here talks to WordPress. Validation, spam checking and delivery all happen
+ * in this app.
  *
  * Adding a field means adding it here AND to the matching component in
  * components/forms/; this file is what the server validates and emails.
@@ -83,7 +83,7 @@ export const FORMS = {
 
   appointment: {
     title: "Book an Appointment",
-    recaptcha: false,
+    recaptcha: true,
     subject: (get) => `Website Enquiry: ${get("your-name")}`,
     intro: "A new appointment enquiry was submitted on the website.",
     fields: [
@@ -103,7 +103,7 @@ export const FORMS = {
 
   quiz: {
     title: "Blepharoplasty Candidacy Quiz",
-    recaptcha: false,
+    recaptcha: true,
     subject: (get) => `New Blepharoplasty Quiz lead: ${get("your-name")}`,
     intro: "A new Blepharoplasty candidacy quiz was submitted on the website.",
     fields: [
@@ -139,20 +139,6 @@ export const FORMS = {
     ],
     successHeading: "Enquiry Received",
     successMessage: "Thank you for your enquiry. A member of our team will be in touch shortly.",
-  },
-
-  general: {
-    title: "General Contact Form",
-    recaptcha: false,
-    subject: (get) => `Website enquiry: ${get("your-subject")}`,
-    fields: [
-      NAME,
-      EMAIL,
-      { name: "your-subject", label: "Subject", required: true },
-      MESSAGE,
-    ],
-    successHeading: "Message Sent",
-    successMessage: "Thank you for contacting us. We'll respond to your message shortly.",
   },
 } satisfies Record<string, FormDefinition>;
 

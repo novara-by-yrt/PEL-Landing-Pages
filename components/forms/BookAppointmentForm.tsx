@@ -59,7 +59,9 @@ export default function BookAppointmentForm({
 }: {
   showHeading?: boolean;
 } = {}) {
-  const { status, fieldErrors, handleSubmit, reset, pending } = useFormSubmit("appointment");
+  const { status, fieldErrors, handleSubmit, reset, pending, recaptchaRef } = useFormSubmit("appointment", {
+    recaptcha: true,
+  });
 
   if (status.kind === "success") {
     return (
@@ -140,6 +142,8 @@ export default function BookAppointmentForm({
         <input id="contact-consent" name="consent-checkbox" type="checkbox" value="1" />
         <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
       </label>
+
+      <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
       {status.kind === "error" && (
         <div role="alert" className={styles.contactError}>{status.message}</div>

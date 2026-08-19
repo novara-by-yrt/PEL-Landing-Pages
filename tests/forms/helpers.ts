@@ -11,12 +11,14 @@ export const DUMMY_EMAIL = "testing-please-ignore@example.com";
 export const DUMMY_PHONE = "07700900000";
 
 /**
- * Stubs Google's reCAPTCHA v3 script instead of loading the real one.
- *
- * The real script is unreachable in some CI/sandbox network environments
- * (and would otherwise send a live verification request to Google on every
- * test run) — this keeps the three reCAPTCHA-gated forms testable and
- * deterministic without depending on that external service.
+ * Stubs Google's reCAPTCHA v2 explicit-render script instead of loading the
+ * real one — every form on the site now requires a checkbox widget (see
+ * components/forms/useFormSubmit.ts), and a real widget needs an actual
+ * human to click it, which a Playwright run can't do. The stub renders
+ * instantly-"completed" so submission proceeds; it calls
+ * `window.__recaptchaOnLoad` itself since that's the mechanism the real
+ * script uses too (the `onload=` query param names a global callback,
+ * independent of the `<script>` tag's own native load event).
  */
 export async function mockRecaptcha(page: Page) {
   await page.route("https://www.google.com/recaptcha/api.js**", (route) => {
@@ -24,9 +26,14 @@ export async function mockRecaptcha(page: Page) {
       contentType: "application/javascript",
       body: `
         window.grecaptcha = {
-          ready: (cb) => cb(),
-          execute: () => Promise.resolve("test-stub-token"),
+          render: (container, params) => {
+            container.textContent = "[reCAPTCHA stub]";
+            return 1;
+          },
+          getResponse: (widgetId) => "test-stub-token",
+          reset: (widgetId) => {},
         };
+        if (window.__recaptchaOnLoad) window.__recaptchaOnLoad();
       `,
     });
   });

@@ -21,7 +21,7 @@ const IDEAL_TIMES = ["9:00 AM - 12:00 PM", "12:00 PM - 3:00 PM", "3:00 PM - 6:00
 const CONTACT_METHODS = ["Email", "Phone", "Text"];
 
 export function BlogSidebarForm() {
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("blogSidebar", {
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("blogSidebar", {
     recaptcha: true,
   });
 
@@ -93,6 +93,8 @@ export function BlogSidebarForm() {
             <input id="blog-consent" name="consent-checkbox" type="checkbox" value="1" />
             <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
           </label>
+
+          <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
           {status.kind === "error" && <p role="alert" className={styles.blogConnectError}>{status.message}</p>}
 

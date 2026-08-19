@@ -1,6 +1,13 @@
 import { test, expect, type Page } from "@playwright/test";
 import { FORMS } from "@/lib/forms/definitions";
-import { DUMMY_TEXT, DUMMY_EMAIL, DUMMY_PHONE, mockFormsApiSuccess, suppressOnLoadPopup } from "./helpers";
+import {
+  DUMMY_TEXT,
+  DUMMY_EMAIL,
+  DUMMY_PHONE,
+  mockRecaptcha,
+  mockFormsApiSuccess,
+  suppressOnLoadPopup,
+} from "./helpers";
 
 /** Every radio/checkbox step is scoped to its own fieldset (named by its
  *  legend) rather than picked by option label alone — every step's inputs
@@ -13,6 +20,7 @@ function questionGroup(page: Page, question: string | RegExp) {
 test.describe("Blepharoplasty Candidacy Quiz (/self-test-survey)", () => {
   test("steps through the wizard and shows a tailored success message", async ({ page }) => {
     await suppressOnLoadPopup(page);
+    await mockRecaptcha(page);
     await mockFormsApiSuccess(page, "quiz");
     await page.goto("/self-test-survey");
 

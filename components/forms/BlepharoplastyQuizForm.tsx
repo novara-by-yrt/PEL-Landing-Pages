@@ -155,7 +155,9 @@ export default function BlepharoplastyQuizForm() {
   const [stepError, setStepError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("quiz");
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("quiz", {
+    recaptcha: true,
+  });
 
   const step = STEPS[index];
   const isLast = index === STEPS.length - 1;
@@ -288,6 +290,12 @@ export default function BlepharoplastyQuizForm() {
         {status.kind === "error" && (
           <p role="alert" className={`${styles.status} ${styles.statusError}`}>{status.message}</p>
         )}
+
+        {/* Only rendered on the last step, right before SUBMIT — the
+            callback ref in useFormSubmit re-checks readiness whenever this
+            container itself mounts, so it renders correctly however late
+            that is, same as the on-load popup's own delayed container. */}
+        {isLast && <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />}
 
         <div className={styles.quizNav}>
           {index > 0 && (
