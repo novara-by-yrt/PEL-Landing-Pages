@@ -322,15 +322,19 @@ a.rowValue:hover {
    compete for a line they cannot both have. */
 @media (max-width: 420px) {
   .field {
-    /* Still asymmetric - the icon has to live somewhere - but narrowed from
-       41px/14px to 36px/16px so the empty margin on the blank side no longer
-       reads as nearly three times the icon side. */
-    --fi-inset: 11px;
-    --fi-gutter: 36px;
+    /* Still asymmetric - the icon has to live somewhere - but the previous
+       pass over-corrected: it shrank the gutter (48px->36px) while also
+       shrinking the right padding (18px->14px), so the right edge actually
+       lost breathing room on the exact screens this was meant to fix. The
+       gutter is tightened here same as before; the right side now gets MORE
+       than the desktop default, not less, closing the ratio from ~3:1 to
+       under 2:1 by growing the small side instead of shrinking it further. */
+    --fi-inset: 10px;
+    --fi-gutter: 34px;
   }
   .input,
   .textarea {
-    padding-right: 16px;
+    padding-right: 20px;
   }
   .row {
     gap: 12px;
