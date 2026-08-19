@@ -455,7 +455,7 @@
      page.tsx), so this rule is the only thing reserving the box before the
      image arrives. A stale value here is a layout shift, not a wrong-looking
      picture, which is why it is stated as the source's real pixels. */
-  aspect-ratio: 866 / 1817;
+  aspect-ratio: 852 / 1570;
 }
 @media (min-width: 700px) {
   .reachImg {
