@@ -32,7 +32,7 @@
 /* ── Grid ───────────────────────────────────────────────────────────────── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(1.25rem, 2.5vw, 1.75rem);
 }
 
@@ -123,7 +123,7 @@
 /* Side-by-side only once there's room for the credential chips to flow more
    than one per line — below that the stacked layout reads better. */
 @media (min-width: 900px) {
-  .modalHeader { grid-template-columns: minmax(260px, 340px) 1fr; }
+  .modalHeader { grid-template-columns: minmax(min(260px, 100%), 340px) 1fr; }
 }
 
 .modalPhoto {

@@ -1,5 +1,11 @@
 .contactGrid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
 @media (max-width: 860px) { .contactGrid { grid-template-columns: 1fr; } }
+/* A grid item's default minimum is its min-content, so the clinic's postal
+   address and email - neither of which a browser will break by itself - held
+   this column at 299px inside a 272px track and pushed the page 3px wider
+   than a 320px screen. */
+.contactWhy, .contactForm { min-width: 0; }
+.contactDetails { overflow-wrap: anywhere; }
 .contactWhy h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.6rem; color: var(--tp-ink); margin-bottom: 1.5rem; }
 .contactWhyItem { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding: 1.1rem 1.25rem; background: var(--tp-fog); border-radius: var(--tp-radius-md); border: 1px solid var(--tp-line); }
 .contactWhyIcon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--tp-lavender-100); color: var(--tp-indigo-700); display: flex; align-items: center; justify-content: center; }
@@ -89,6 +95,18 @@ select.contactInput {
    marketing consent checkbox that the previous form did not have. */
 .contactCheckGroup { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; padding: 0.25rem 0 0.5rem; }
 .contactCheckOption { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; color: var(--tp-slate); cursor: pointer; }
+/* A browser draws a checkbox about 13px square, half the 24px a touch target
+   needs (WCAG 2.5.8). Sized explicitly rather than scaled with a transform,
+   so the box that is hit and the box that is drawn are the same box. */
+.contactCheckOption input[type="checkbox"],
+.contactConsent input[type="checkbox"] {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--tp-indigo-700);
+  cursor: pointer;
+}
+.contactConsent input[type="checkbox"] { margin-top: 1px; }
 .contactConsent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.8125rem; color: var(--tp-slate); line-height: 1.5; margin-bottom: 1.5rem; cursor: pointer; }
 .contactConsent input { margin-top: 3px; flex: none; }
 .contactFieldError { display: block; color: #B3261E; font-size: 0.75rem; margin-top: 0.3rem; }

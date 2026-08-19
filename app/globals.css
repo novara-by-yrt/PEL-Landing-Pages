@@ -635,6 +635,10 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color var(--duration-fast) var(--ease-out);
+  /* Several posts print a full URL as the link text. A browser will not break
+     inside one by default, so on a narrow screen it pushed the page wider
+     than the viewport. */
+  overflow-wrap: anywhere;
 }
 .prose a:hover { color: var(--clr-primary-dark); }
 
@@ -1291,3 +1295,12 @@ textarea.form-input {
   margin: 2rem 0;
 }
 
+
+/* Breadcrumb links sit at 13px, which leaves the clickable box about 22px tall —
+   just under the 24px minimum target size in WCAG 2.5.8. Pad the link vertically
+   and pull the same amount back off the margin so the crumb row does not grow. */
+nav[aria-label="Breadcrumb"] a {
+  display: inline-block;
+  padding-block: 4px;
+  margin-block: -4px;
+}

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 const WHY_CHOOSE_US = [
   { icon: "shield", title: "CQC Regulated", body: "All treatments are performed in a fully CQC-regulated environment for your safety." },
   { icon: "eye", title: "Specialist Surgeons", body: "Our surgeons are fellowship-trained oculoplastic specialists with 20+ years of experience." },
-  { icon: "star", title: "5-Star Rated", body: "Consistently rated 5 stars by our patients across all major review platforms." },
+  { icon: "star", title: "4.8 Star Rated", body: "Rated 4.8 out of 5 across 240+ Google reviews from our patients." },
   { icon: "sparkle", title: "Personalised Approach", body: "Every treatment plan is tailored to your unique anatomy, goals, and lifestyle." },
 ] as const;
 

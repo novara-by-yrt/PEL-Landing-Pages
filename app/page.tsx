@@ -90,6 +90,12 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Lower-lid surgery addressing under-eye bags, puffiness and the shadow they cast.",
   },
   {
+    image: "/uploads/2025/03/browlift-min.jpg",
+    title: "Brow Lift",
+    href: "/surgical/browlift-treatment-uk",
+    blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
+  },
+  {
     image: "/uploads/2018/10/eyeboost.jpg",
     title: "Festoons & Malar Bags",
     href: "/surgical/festoons-malar-bags-treatment-uk",
@@ -118,22 +124,10 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     title: "Revision Blepharoplasty",
     href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
     blurb: "Corrective work after previous eyelid surgery or filler complications.",
-  },
-  {
-    image: "/uploads/2025/03/browlift-min.jpg",
-    title: "Brow Lift",
-    href: "/surgical/browlift-treatment-uk",
-    blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
-  },
+  }
 ];
 
 const NONSURGICAL_TREATMENTS: Treatment[] = [
-  {
-    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
-    title: "Hyaluronidase Dissolving",
-    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
-    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
-  },
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
@@ -147,22 +141,16 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Radiofrequency microneedling that remodels and firms facial skin.",
   },
   {
-    image: "/uploads/2024/09/supeor-sulcus.jpg",
-    title: "Superior Sulcus Filler",
-    href: "/non-surgical-injectables-medical-aesthetic",
-    blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
-  },
-  {
     image: "/uploads/2018/10/tear-trough-treatment-london.jpg",
     title: "Tear Trough Fillers",
     href: "/non-surgical/tear-trough-fillers-uk",
     blurb: "Softens under-eye hollows with precisely placed hyaluronic acid.",
   },
   {
-    image: "/uploads/2018/10/Ultherapy-london.jpg",
-    title: "Ellansé",
-    href: "/ellanse",
-    blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
+    image: "/uploads/2024/09/supeor-sulcus.jpg",
+    title: "Superior Sulcus Filler",
+    href: "/non-surgical-injectables-medical-aesthetic",
+    blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
   {
     image: "/uploads/2024/09/ultraclear-laser.jpg",
@@ -171,23 +159,35 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Cold-fibre laser resurfacing that targets texture, tone and fine lines.",
   },
   {
-    image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
-    title: "Non-Surgical Facial Contouring",
-    href: "/non-surgical-facial-contouring",
-    blurb: "Injectable contouring to rebalance facial proportions without surgery.",
-  },
-  {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
     href: "/non-surgical/sofwave-treatment-uk",
     blurb: "Ultrasound energy that lifts and tightens skin across the brow and face.",
   },
   {
+    image: "/uploads/2018/10/Ultherapy-london.jpg",
+    title: "Biostimulation",
+    href: "/ellanse",
+    blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
+  },
+  {
+    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
+    title: "Hyaluronidase Dissolving",
+    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
+    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
+  },
+  {
+    image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
+    title: "Non-Surgical Facial Contouring",
+    href: "/non-surgical-facial-contouring",
+    blurb: "Injectable contouring to rebalance facial proportions without surgery.",
+  },
+  {
     image: "/uploads/2025/06/Plasma-Pen.jpg",
     title: "Plexr / Plasma Pen",
     href: "/plexr-plasma-pen",
     blurb: "Plasma treatment for eyelid skin laxity as an alternative to surgery.",
-  },
+  }
 ];
 
 
@@ -199,49 +199,30 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
  * desktop shows one of each treatment, and each card links through to the
  * gallery it came from.
  */
-/* One composite in the rail - the upper-blepharoplasty card in fourth place -
-   is the only one whose artwork does not already have "Before" and "After"
-   printed across the top. It is labelled in markup instead so every card in
-   the rail reads the same way. Keyed by file so reordering the rail cannot
-   detach the label from its photograph. */
-const NEEDS_LABELS = new Set(["/upper-blepharoplasty-ba-2.png"]);
-
+/* Listed one by one rather than derived from a set-and-index pair, because
+   these files are named for what the case is rather than by a number in a
+   series. No overlayLabels on any of them: every one of these composites has
+   "Before" and "After" printed into the artwork already, so drawing the
+   markup labels as well would show the words twice. */
 const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
   [
-    ["upper", 12], ["lower", 8], ["ptosis", 16],
-    ["upper", 2], ["lower", 10], ["ptosis", 12],
-    ["upper", 8], ["lower", 2], ["ptosis", 9],
-    ["lower", 24],
+    ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-2", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-ptosis-ba-3", "ptosis-surgery"],
+    ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-3", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis-2", "ptosis-surgery"],
+    ["Upper Blepharoplasty", "ba-3-mths-after-bilateral-upper-lid-bleph", "upper-blepharoplasty"],
+    ["Lower Blepharoplasty", "ba-scarless-transconjunctival-lower-lid-bleph-ba-3", "lower-blepharoplasty-eyebag-removal"],
+    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
+    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-3", "lower-blepharoplasty-eyebag-removal"],
   ] as const
-).map(([set, index]) => {
-  const meta = {
-    upper: {
-      treatment: "Upper Blepharoplasty",
-      file: "upper-blepharoplasty-ba",
-      href: "/before-after/upper-blepharoplasty",
-    },
-    lower: {
-      treatment: "Lower Blepharoplasty",
-      file: "lower-blepharoplasty-ba",
-      href: "/before-after/lower-blepharoplasty-eyebag-removal",
-    },
-    ptosis: {
-      treatment: "Ptosis Surgery",
-      file: "ptosis-surgery-ba",
-      href: "/before-after/ptosis-surgery",
-    },
-  }[set];
-
-  const image = `/${meta.file}-${index}.png`;
-
-  return {
-    treatment: meta.treatment,
-    image,
-    alt: `${meta.treatment} before and after, case ${index}, by Dr Sabrina Shah-Desai`,
-    href: meta.href,
-    overlayLabels: NEEDS_LABELS.has(image),
-  };
-});
+).map(([treatment, file, gallery]) => ({
+  treatment,
+  image: `/${file}.png`,
+  alt: `${treatment} before and after, a patient of Dr Sabrina Shah-Desai`,
+  href: `/before-after/${gallery}`,
+}));
 
 /**
  * Home-page FAQ. Fees and clinical claims here are supplied copy — keep them
@@ -335,7 +316,7 @@ const {
   props: { srcSet: reachWideSrcSet, sizes: reachWideSizes },
 } = getImageProps({
   alt: REACH_ALT,
-  src: "/Trusted by patients worldwide Desktop.png",
+  src: "/Trusted by patients worldwide desktop new.png",
   width: 1672,
   height: 941,
   sizes: REACH_SIZES,
@@ -349,9 +330,9 @@ const reachWide = { srcSet: reachWideSrcSet, sizes: reachWideSizes };
    700px breakpoint, so there is still no layout shift. */
 const { props: reachNarrowProps } = getImageProps({
   alt: REACH_ALT,
-  src: "/Trusted by patients worldwide mobile.png",
-  width: 866,
-  height: 1817,
+  src: "/Trusted by patients worldwide mobile new.png",
+  width: 852,
+  height: 1570,
   sizes: REACH_SIZES,
 });
 const reachNarrow = {
@@ -392,22 +373,36 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Three plain statement lines: the Google rating, the years of
-                experience, and the registrations. No badge artwork - the
-                Tatler lockup and the drawn Google card that used to sit above
-                these lines are gone, and the rating is a line of text again
-                rather than a card of its own. */}
+            {/* The Tatler lockup and three text signals beside it: the Google
+                rating, the years of experience, and the registrations. Only
+                the lockup is artwork - the rating is a line of text carrying
+                the G mark and stars inline, not a card of its own. */}
             <div className={styles.credentials}>
+              <figure className={styles.press}>
+                <Image
+                  src="/as-seen-in-tatler.png"
+                  alt="As seen in Tatler, Beauty &amp; Cosmetic Surgery Guide, 2019-2026"
+                  /* The source's own proportions. The drawn height is set in
+                     CSS off the lockup's smallest line, so sizes states the
+                     widest that height can produce and next/image ships a
+                     badge-sized file rather than the 1536px original. */
+                  width={1536}
+                  height={1024}
+                  sizes="168px"
+                  className={styles.pressLogo}
+                />
+              </figure>
+
               <dl className={styles.trust}>
                 <div className={styles.trustItem}>
                   <dt className="sr-only">Google rating</dt>
                   <dd className={styles.trustValue}>
                     <GoogleMark className={styles.googleMark} />
-                    <span className={styles.trustStrong}>4.9</span>
+                    <span className={styles.trustStrong}>4.8</span>
                     <Stars className={styles.stars} />
                     <span className={styles.trustMeta}>
-                      <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ Google reviews
+                      <span className="sr-only">Rated 4.8 out of 5 from </span>
+                      240+ Google reviews
                     </span>
                   </dd>
                 </div>

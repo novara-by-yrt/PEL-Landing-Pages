@@ -6,6 +6,32 @@ import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
+/**
+ * Built per request rather than baked in at build time.
+ *
+ * Next prerenders a sitemap by default, which freezes both the URL list and
+ * every lastModified at the moment of the deploy. Forcing it dynamic means a
+ * crawler always gets the current set of pages and the real modified dates
+ * from the content, without the site needing a rebuild to say so.
+ *
+ * The cost is that each request re-reads the MDX collections from disk, since
+ * nothing here is memoised. That is paid by crawlers rather than by visitors,
+ * and only on this route.
+ */
+export const dynamic = "force-dynamic";
+
+/**
+ * Stand-in modified date for the hand-built routes, whose content lives in
+ * TSX rather than MDX and so has no date of its own.
+ *
+ * Module scope, not per request: it is evaluated once when the server
+ * instance loads, which approximates the deploy. Calling new Date() inside
+ * the handler would make these sixteen URLs claim to have changed on every
+ * crawl, and a lastmod that moves on every fetch tells a crawler nothing -
+ * worse, it is a reason to discount lastmod across the whole file.
+ */
+const DEPLOYED_AT = new Date();
+
 function lastModified(frontmatter: PostFrontmatter): Date {
   const raw = frontmatter.modified || frontmatter.date;
   const d = raw ? new Date(raw) : new Date();
@@ -31,7 +57,7 @@ function collection(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = DEPLOYED_AT;
 
   // Hand-built routes that have no MDX behind them (app/**/page.tsx). Kept
   // explicit so a new landing page is a deliberate addition, not a surprise.

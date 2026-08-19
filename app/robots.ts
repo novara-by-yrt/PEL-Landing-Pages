@@ -3,6 +3,17 @@ import type { MetadataRoute } from "next";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 /**
+ * Built per request, matching the sitemap.
+ *
+ * Nothing here reads content, so today this produces the same bytes it did
+ * when prerendered. It is dynamic so that the two files that tell a crawler
+ * how to crawl the site behave the same way, and so that anything added here
+ * later - a rule that depends on the environment, or on a flag rather than on
+ * a rebuild - takes effect without a deploy.
+ */
+export const dynamic = "force-dynamic";
+
+/**
  * robots.txt
  *
  * Two things here are deliberate and easy to get wrong.
