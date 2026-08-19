@@ -245,7 +245,7 @@ export default async function BlogPostPage({
         </div>
 
         <BlogCTA />
-        <RelatedBlogs excludeSlug={slug} />
+        <RelatedBlogs topic={frontmatter.title} excludeSlug={slug} />
       </div>
     </>
   );
