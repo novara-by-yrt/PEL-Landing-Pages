@@ -11,7 +11,7 @@ export function TreatmentHero({
   subtitle,
   heroImage,
   heroImageAlt,
-  heroBadge = "Before & After",
+  heroBadge,
   heroBg,
   heroBgOpacity,
 }: {
@@ -21,6 +21,7 @@ export function TreatmentHero({
   subtitle?: string;
   heroImage?: string;
   heroImageAlt: string;
+  /** Caption chip over the hero photo. Omitted when there is nothing true to say about the image — it used to default to "Before & After", which mislabelled every hero that was a stock treatment photo. */
   heroBadge?: string;
   heroBg?: string;
   /** Overrides the subtle default (0.16) for a real content photo, rather than the generic abstract-texture background, which needs more visual weight to register. */
