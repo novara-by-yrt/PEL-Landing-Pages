@@ -184,59 +184,11 @@
   }
 }
 
-/* ── Category jump links ────────────────────────────────────────────────── */
-.jump {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: clamp(32px, 5vw, 44px);
-}
-.jumpChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  padding: 11px 18px;
-  border-radius: 999px;
-  border: 1px solid var(--tp-hairline);
-  background: rgba(255, 255, 255, 0.78);
-  font-size: var(--fs-body-sm);
-  font-weight: 600;
-  color: var(--tp-ink);
-  text-decoration: none;
-  cursor: pointer;
-  transition:
-    background 200ms var(--tp-ease),
-    border-color 200ms var(--tp-ease),
-    transform 200ms var(--tp-ease);
-}
-.jumpChip:hover {
-  background: #fff;
-  border-color: var(--tp-indigo-700);
-  transform: translateY(-1px);
-}
-.jumpChip:focus-visible {
-  outline: 3px solid var(--tp-indigo-700);
-  outline-offset: 2px;
-}
-.jumpCount {
-  display: inline-grid;
-  place-items: center;
-  min-width: 22px;
-  height: 22px;
-  padding-inline: 6px;
-  border-radius: 999px;
-  background: var(--tp-lavender-050);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--tp-indigo-700);
-}
-
 /* ── Case groups ────────────────────────────────────────────────────────── */
 .group {
   padding-block: clamp(56px, 8vw, 96px);
   background: var(--tp-paper);
-  /* Clears the fixed header when a jump link lands here. */
+  /* Clears the fixed header when an anchor link lands on this group. */
   scroll-margin-top: 96px;
 }
 .groupAlt {
@@ -466,7 +418,6 @@
   .cardLink,
   .cardImg,
   .cardCta svg,
-  .jumpChip,
   .showcase,
   .showcaseImg,
   .showcaseCta svg {
@@ -474,7 +425,6 @@
   }
   .cardLink:hover,
   .cardLink:hover .cardImg,
-  .jumpChip:hover,
   .showcase:hover,
   .showcase:hover .showcaseImg,
   .showcase:hover .showcaseCta svg {

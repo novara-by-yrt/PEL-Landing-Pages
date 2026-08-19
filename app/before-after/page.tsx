@@ -187,16 +187,6 @@ export default function BeforeAfterIndexPage() {
               </Link>
             ) : null}
           </div>
-
-          {/* Deep links into each category, matching the Results nav panel. */}
-          <nav className={styles.jump} aria-label="Jump to a category">
-            {groups.map((group) => (
-              <a key={group.id} href={`#${group.id}`} className={styles.jumpChip}>
-                {group.label}
-                <span className={styles.jumpCount}>{group.items.length}</span>
-              </a>
-            ))}
-          </nav>
         </div>
       </section>
 
