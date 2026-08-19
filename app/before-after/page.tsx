@@ -178,7 +178,7 @@ export default function BeforeAfterIndexPage() {
                   <dt className={styles.statLabel}>Patient rating</dt>
                   <dd className={`${styles.statValue} ${styles.statRating}`}>
                     <GoogleMark className={styles.googleMark} />
-                    4.9
+                    4.8
                   </dd>
                 </div>
               </dl>

@@ -88,7 +88,7 @@ Telephone: ${CLINIC.phoneDisplay}
 Email: ${CLINIC.email}
 Opening hours: ${CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(", ")}
 Company number: ${CLINIC.companyNumber}
-Patient rating: 4.9 from 230+ Google reviews
+Patient rating: 4.8 from 240+ Google reviews
 
 Consultation fees:
 ${CONSULTATION_FEES.map((f) => `- ${f.label}: ${f.price}`).join("\n")}

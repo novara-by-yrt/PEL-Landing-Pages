@@ -138,8 +138,8 @@ export default function PatientStories({
               <Stars className={styles.leadStars} />
             </span>
             <span className={styles.leadText}>
-              <strong className={styles.leadScore}>4.9</strong>
-              <span className="sr-only">out of 5</span> from 230+ Google reviews
+              <strong className={styles.leadScore}>4.8</strong>
+              <span className="sr-only">out of 5</span> from 240+ Google reviews
             </span>
           </p>
         </div>

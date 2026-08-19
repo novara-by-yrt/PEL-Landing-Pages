@@ -6,7 +6,7 @@ import styles from "./TreatmentVideoTestimonials.module.css";
 
 /** Regulatory / review-platform trust marks shown under the video pair. */
 const TRUST_BADGES = [
-  { src: "/uploads/2024/09/Frame-249.png", alt: "Rated 4.9 out of 5 on Google", width: 177, height: 23 },
+  { src: "/uploads/2024/09/Frame-249.png", alt: "Rated 4.8 out of 5 on Google", width: 177, height: 23 },
   { src: "/uploads/2024/09/Frame-253.png", alt: "Rated 4.9 out of 5 on RealSelf", width: 246, height: 27 },
   {
     src: "/uploads/2024/09/Frame-252.png",

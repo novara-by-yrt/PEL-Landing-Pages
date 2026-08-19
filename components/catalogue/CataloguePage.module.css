@@ -3,57 +3,10 @@
    Section rhythm and colour banding follow the results index, which follows
    the home page. */
 
-.jump {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: clamp(24px, 3.5vw, 34px);
-}
-.jumpChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  /* 44px is the smallest comfortable tap target; these are the first things
-     a thumb reaches on a phone. */
-  min-height: 44px;
-  padding: 11px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.1);
-  font-size: var(--fs-body-sm);
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  transition:
-    background 200ms var(--tp-ease),
-    border-color 200ms var(--tp-ease),
-    transform 200ms var(--tp-ease);
-}
-.jumpChip:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.55);
-  transform: translateY(-1px);
-}
-.jumpChip:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-.jumpCount {
-  display: inline-grid;
-  place-items: center;
-  min-width: 22px;
-  height: 22px;
-  padding-inline: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
 .section {
   padding-block: clamp(48px, 7vw, 88px);
   background: var(--tp-paper);
-  /* Clears the fixed header when a jump link lands here. */
+  /* Clears the fixed header when an anchor link lands on this section. */
   scroll-margin-top: 96px;
 }
 .sectionAlt {
@@ -114,15 +67,6 @@
   font-size: var(--fs-body-sm);
   line-height: 1.7;
   color: var(--tp-slate);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .jumpChip {
-    transition: none;
-  }
-  .jumpChip:hover {
-    transform: none;
-  }
 }
 
 /* Hero call-to-action row, mirroring the treatment and condition templates so

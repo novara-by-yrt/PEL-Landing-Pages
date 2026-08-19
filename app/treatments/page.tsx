@@ -95,15 +95,6 @@ export default function TreatmentsIndexPage() {
           h1="Every treatment we offer"
           lead={`${surgical.length + nonSurgical.length} surgical and non-surgical treatments for the eyelids, the area around the eyes and the wider face - each one explained in full on its own page.`}
         >
-          <nav className={styles.jump} aria-label="Jump to a group of treatments">
-            {groups.map((group) => (
-              <a key={group.id} href={`#${group.id}`} className={styles.jumpChip}>
-                {group.title}
-                <span className={styles.jumpCount}>{group.items.length}</span>
-              </a>
-            ))}
-          </nav>
-
           {/* A way to act without scrolling. The condition and treatment
               templates both put their CTAs inside the first viewport; these
               index pages are the same kind of landing page and were the only

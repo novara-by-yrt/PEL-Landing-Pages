@@ -398,11 +398,11 @@ export default function HomePage() {
                   <dt className="sr-only">Google rating</dt>
                   <dd className={styles.trustValue}>
                     <GoogleMark className={styles.googleMark} />
-                    <span className={styles.trustStrong}>4.9</span>
+                    <span className={styles.trustStrong}>4.8</span>
                     <Stars className={styles.stars} />
                     <span className={styles.trustMeta}>
-                      <span className="sr-only">Rated 4.9 out of 5 from </span>
-                      230+ Google reviews
+                      <span className="sr-only">Rated 4.8 out of 5 from </span>
+                      240+ Google reviews
                     </span>
                   </dd>
                 </div>
