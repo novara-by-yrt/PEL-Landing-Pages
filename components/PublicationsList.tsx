@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./PublicationsList.module.css";
 
@@ -146,15 +145,15 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                   </div>
 
                   <h3 className={styles.pubTitle}>
-                    <Link href={`/blog/${pub.slug}`} id={`pub-title-link-${index}`}>
+                    <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-title-link-${index}`}>
                       {pub.rawTitle}
-                    </Link>
+                    </a>
                   </h3>
                 </div>
 
-                <Link href={`/blog/${pub.slug}`} id={`pub-link-${index}`} className={styles.pubReadLink}>
+                <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-link-${index}`} className={styles.pubReadLink}>
                   Read Publication
-                </Link>
+                </a>
               </article>
             );
           })}

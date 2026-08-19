@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PublicationsList from "@/components/PublicationsList";
-import { getAllPosts } from "@/lib/mdx";
+import publicationsData from "@/content/publications-data.json";
 import { TpIcon } from "@/components/treatment";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import ContactSection from "@/components/home/ContactSection";
@@ -29,43 +29,6 @@ export const metadata: Metadata = {
 };
 
 export default function PublicationsPage() {
-  // Dynamically load all blog posts with category or tag "Publications" or "Scientific Papers"
-  const allPosts = getAllPosts("posts");
-  const publicationsData = allPosts
-    .filter((post) => {
-      const cats = post.frontmatter.categories || [];
-      const tags = post.frontmatter.tags || [];
-      const allTaxonomies = [...cats, ...tags].map((t) => t.toLowerCase());
-      return allTaxonomies.some(
-        (t) =>
-          t.includes("publication") ||
-          t.includes("scientific-paper") ||
-          t.includes("scientific paper")
-      );
-    })
-    .map((post) => {
-      const title = post.frontmatter.title;
-      const linkMatch = post.content.match(/href=\"([^\"]+)\"/i);
-
-      let journal = "Medical Journal";
-      if (title.includes("Ophthal Plast Reconstr Surg")) journal = "Ophthalmic Plastic & Reconstructive Surgery";
-      else if (title.includes("Annals of Emergency Medicine")) journal = "Annals of Emergency Medicine";
-      else if (title.includes("Archives of Plastic Surgery")) journal = "Archives of Plastic Surgery";
-      else if (title.includes("Journal of Bombay Ophthalmologists")) journal = "Journal of Bombay Ophthalmologists";
-      else if (title.includes("Journal Aesthetic Nursing")) journal = "Journal of Aesthetic Nursing";
-
-      return {
-        slug: post.slug,
-        title: title.replace(/\"/g, "&quot;"),
-        rawTitle: title,
-        date: post.frontmatter.date || "",
-        journal,
-        url: `/blog/${post.slug}`,
-        externalUrl: linkMatch ? linkMatch[1] : null,
-        featuredImage: post.frontmatter.featuredImage || null,
-      };
-    });
-
   // Build Breadcrumb & Collection JSON-LD Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
