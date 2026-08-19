@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/app/contact/page.module.css";
 
 /**
@@ -58,14 +59,16 @@ export default function BookAppointmentForm({
 }: {
   showHeading?: boolean;
 } = {}) {
-  const { status, fieldErrors, handleSubmit, reset, pending } = useFormSubmit("appointment");
+  const { status, fieldErrors, handleSubmit, reset, pending, recaptchaRef } = useFormSubmit("appointment", {
+    recaptcha: true,
+  });
 
   if (status.kind === "success") {
     return (
       <div className={styles.contactSuccess}>
         <div className={styles.contactSuccessIcon}><TpIcon name="check" size={26} /></div>
-        <h2>Message Sent!</h2>
-        <p>{status.message}</p>
+        <h2>{FORMS.appointment.successHeading}</h2>
+        <p role="status">{status.message}</p>
         <button onClick={reset} className="tp-btn tp-btn-secondary">
           Send Another Message
         </button>
@@ -139,6 +142,8 @@ export default function BookAppointmentForm({
         <input id="contact-consent" name="consent-checkbox" type="checkbox" value="1" />
         <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
       </label>
+
+      <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
       {status.kind === "error" && (
         <div role="alert" className={styles.contactError}>{status.message}</div>

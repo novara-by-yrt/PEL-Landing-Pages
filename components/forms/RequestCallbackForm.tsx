@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Reveal from "@/components/shared/Reveal";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/home/ContactSection.module.css";
 
 /**
@@ -48,7 +49,7 @@ function MessageIcon() {
 }
 
 export default function RequestCallbackForm() {
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("callback", {
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("callback", {
     recaptcha: true,
   });
   // CF7 carries a hidden `your-phone-full` alongside the visible number; in
@@ -107,6 +108,8 @@ export default function RequestCallbackForm() {
           <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
         </label>
 
+        <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
+
         {status.kind === "success" || status.kind === "error" ? (
           <Reveal>
             <p
@@ -115,7 +118,13 @@ export default function RequestCallbackForm() {
                 status.kind === "success" ? styles.statusOk : styles.statusError
               }`}
             >
-              {status.message}
+              {status.kind === "success" ? (
+                <>
+                  <strong>{FORMS.callback.successHeading}</strong> {status.message}
+                </>
+              ) : (
+                status.message
+              )}
             </p>
           </Reveal>
         ) : null}

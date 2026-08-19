@@ -1,11 +1,15 @@
 /**
  * Form definitions.
  *
- * These six forms began life as Contact Form 7 entries in WordPress. The field
- * names are kept verbatim from those definitions so the notification emails
- * keep the exact shape downstream systems already parse — but nothing here
- * talks to WordPress. Validation, spam checking and delivery all happen in
- * this app.
+ * Five of these forms began life as Contact Form 7 entries in WordPress; their
+ * field names are kept verbatim from those definitions so the notification
+ * emails keep the exact shape downstream systems already parse. `club` is the
+ * exception — it replaces a third-party GoHighLevel iframe embed (see
+ * components/forms/JoinClubForm.tsx) rather than a CF7 form, so its field
+ * names follow the same `your-name`/`your-email`/`your-phone` convention for
+ * consistency but have no external system to stay compatible with. Nothing
+ * here talks to WordPress or GoHighLevel; validation, spam checking and
+ * delivery all happen in this app.
  *
  * Adding a field means adding it here AND to the matching component in
  * components/forms/; this file is what the server validates and emails.
@@ -31,6 +35,13 @@ export type FormDefinition = {
   /** Optional opening line in the email body. */
   intro?: string;
   fields: FieldSpec[];
+  /** Shown as the success-state heading after a real submission. */
+  successHeading: string;
+  /** Shown as the success-state body text after a real submission — names
+   *  what happens next for this specific form rather than a generic
+   *  "message sent", since a caller checking availability and a visitor
+   *  taking a self-assessment quiz expect different next steps. */
+  successMessage: string;
 };
 
 const NAME: FieldSpec = { name: "your-name", label: "Name", required: true };
@@ -52,6 +63,8 @@ export const FORMS = {
       MESSAGE,
       { name: "consent", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Call Back Requested",
+    successMessage: "Thank you for requesting a call back. A member of our team will call you shortly.",
   },
 
   blogSidebar: {
@@ -68,11 +81,13 @@ export const FORMS = {
       { name: "enquiring-about", label: "Enquiring about", required: true },
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Enquiry Received",
+    successMessage: "Thank you for reaching out. Our team will be in touch about your enquiry shortly.",
   },
 
   appointment: {
     title: "Book an Appointment",
-    recaptcha: false,
+    recaptcha: true,
     subject: (get) => `Website Enquiry: ${get("your-name")}`,
     intro: "A new appointment enquiry was submitted on the website.",
     fields: [
@@ -85,11 +100,14 @@ export const FORMS = {
       MESSAGE,
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Appointment Request Received",
+    successMessage:
+      "Thank you for your appointment enquiry. Our team will contact you within 24-48 hours to confirm your consultation.",
   },
 
   quiz: {
     title: "Blepharoplasty Candidacy Quiz",
-    recaptcha: false,
+    recaptcha: true,
     subject: (get) => `New Blepharoplasty Quiz lead: ${get("your-name")}`,
     intro: "A new Blepharoplasty candidacy quiz was submitted on the website.",
     fields: [
@@ -106,6 +124,9 @@ export const FORMS = {
       { name: "medications", label: "Medications", multiple: true },
       { name: "symptoms", label: "Symptoms", required: true },
     ],
+    successHeading: "Quiz Submitted",
+    successMessage:
+      "Thank you for completing the Blepharoplasty Candidacy Quiz. Our team will review your answers and be in touch to discuss your results.",
   },
 
   popup: {
@@ -120,18 +141,25 @@ export const FORMS = {
       MESSAGE,
       { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Enquiry Received",
+    successMessage: "Thank you for your enquiry. A member of our team will be in touch shortly.",
   },
 
-  general: {
-    title: "General Contact Form",
-    recaptcha: false,
-    subject: (get) => `Website enquiry: ${get("your-subject")}`,
+  club: {
+    title: "Join Dr Sabrina Club",
+    recaptcha: true,
+    subject: (get) => `New Dr Sabrina Club enquiry from ${get("your-name")} (${get("plan")})`,
+    intro: "A new Dr Sabrina Club membership enquiry was submitted on the website.",
     fields: [
       NAME,
       EMAIL,
-      { name: "your-subject", label: "Subject", required: true },
-      MESSAGE,
+      PHONE,
+      { name: "plan", label: "Selected plan", required: true },
+      { name: "consent-checkbox", label: "Marketing consent", kind: "consent" },
     ],
+    successHeading: "Welcome to Dr Sabrina Club",
+    successMessage:
+      "Thank you for joining. Our team will be in touch shortly to confirm your membership and next steps.",
   },
 } satisfies Record<string, FormDefinition>;
 

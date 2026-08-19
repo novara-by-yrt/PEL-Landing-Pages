@@ -6,37 +6,46 @@ import { trackFormSubmitted } from "@/lib/analytics/track";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-/** Kept as the reCAPTCHA v3 action name for continuity with existing stats. */
-const RECAPTCHA_ACTION = "contactform";
-
 declare global {
   interface Window {
     grecaptcha?: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+      render: (
+        container: HTMLElement,
+        params: { sitekey: string }
+      ) => number;
+      getResponse: (widgetId: number) => string;
+      reset: (widgetId: number) => void;
     };
+    __recaptchaOnLoad?: () => void;
   }
 }
 
 let recaptchaLoader: Promise<void> | null = null;
 
 /**
- * Loads Google's reCAPTCHA v3 script once per page, no matter how many forms
- * are mounted. Resolves as soon as `grecaptcha` is ready to execute.
+ * Loads Google's reCAPTCHA v2 script once per page, no matter how many forms
+ * are mounted — explicit-render mode, matching the site key's actual
+ * registration (v2 checkbox) and the same integration the WordPress Contact
+ * Form 7 plugin used. Resolves once `grecaptcha.render` is available; each
+ * form then renders its own checkbox widget into its own container via
+ * `renderWidget` below, since forms can mount well after this script has
+ * already loaded (e.g. the on-load popup, 8s after first paint).
  */
-function loadRecaptcha(siteKey: string): Promise<void> {
+function loadRecaptcha(): Promise<void> {
   if (recaptchaLoader) return recaptchaLoader;
 
   recaptchaLoader = new Promise<void>((resolve, reject) => {
     if (window.grecaptcha) {
-      window.grecaptcha.ready(() => resolve());
+      resolve();
       return;
     }
 
+    window.__recaptchaOnLoad = () => resolve();
+
     const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+    script.src = "https://www.google.com/recaptcha/api.js?onload=__recaptchaOnLoad&render=explicit";
     script.async = true;
-    script.onload = () => window.grecaptcha?.ready(() => resolve());
+    script.defer = true;
     script.onerror = () => reject(new Error("Could not load reCAPTCHA."));
     document.head.appendChild(script);
   });
@@ -74,6 +83,9 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const mounted = useRef(true);
 
+  const recaptchaContainerNode = useRef<HTMLDivElement | null>(null);
+  const widgetIdRef = useRef<number | null>(null);
+
   useEffect(() => {
     mounted.current = true;
     return () => {
@@ -81,11 +93,35 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
     };
   }, []);
 
-  // Warm the reCAPTCHA script up front so submitting doesn't wait on a cold
-  // network fetch. Failures are ignored here and surfaced at submit time.
-  useEffect(() => {
-    if (recaptcha && SITE_KEY) loadRecaptcha(SITE_KEY).catch(() => {});
+  // Renders this form's own checkbox widget once both the (shared) script
+  // and this form's container are ready — whichever happens second. A plain
+  // ref + one-time effect isn't enough here: the on-load popup's container
+  // doesn't exist until the popup opens, well after the script has already
+  // loaded, so the callback ref below re-checks readiness every time the
+  // container itself mounts, not just once on the hook's own mount.
+  const renderWidgetIfReady = useCallback(() => {
+    if (!recaptcha || !SITE_KEY) return;
+    if (!recaptchaContainerNode.current || widgetIdRef.current !== null) return;
+    if (!window.grecaptcha) return;
+    widgetIdRef.current = window.grecaptcha.render(recaptchaContainerNode.current, {
+      sitekey: SITE_KEY,
+    });
   }, [recaptcha]);
+
+  const recaptchaRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      recaptchaContainerNode.current = node;
+      if (node) renderWidgetIfReady();
+    },
+    [renderWidgetIfReady]
+  );
+
+  useEffect(() => {
+    if (!recaptcha || !SITE_KEY) return;
+    loadRecaptcha().then(renderWidgetIfReady).catch(() => {
+      /* surfaced at submit time via the missing-response check below */
+    });
+  }, [recaptcha, renderWidgetIfReady]);
 
   const reset = useCallback(() => {
     setStatus({ kind: "idle" });
@@ -97,6 +133,19 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
       event.preventDefault();
       const form = event.currentTarget;
 
+      const resetWidget = () => {
+        if (widgetIdRef.current !== null) window.grecaptcha?.reset(widgetIdRef.current);
+      };
+
+      let recaptchaToken = "";
+      if (recaptcha) {
+        recaptchaToken = widgetIdRef.current !== null ? window.grecaptcha?.getResponse(widgetIdRef.current) || "" : "";
+        if (!recaptchaToken) {
+          setStatus({ kind: "error", message: "Please complete the reCAPTCHA verification." });
+          return;
+        }
+      }
+
       setStatus({ kind: "sending" });
       setFieldErrors({});
 
@@ -104,19 +153,9 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
       data.set("formKey", formKey);
       // Tells the notification which of the site's pages the enquiry came from.
       data.set("_page", window.location.pathname);
+      if (recaptcha) data.set("_recaptcha_token", recaptchaToken);
 
       try {
-        if (recaptcha) {
-          if (!SITE_KEY) {
-            throw new Error("This form is not configured correctly. Please call the clinic.");
-          }
-          await loadRecaptcha(SITE_KEY);
-          const token = await window.grecaptcha!.execute(SITE_KEY, {
-            action: RECAPTCHA_ACTION,
-          });
-          data.set("_recaptcha_token", token);
-        }
-
         const res = await fetch("/api/forms", { method: "POST", body: data });
         const result = (await res.json()) as ApiResponse;
 
@@ -126,11 +165,15 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
           setStatus({ kind: "success", message: result.message });
           trackFormSubmitted(FORMS[formKey].title);
           form.reset();
+          resetWidget();
           onSuccess?.();
           return;
         }
 
         if (result.fieldErrors) setFieldErrors(result.fieldErrors);
+        // A reCAPTCHA response is single-use — reset so the next attempt
+        // (after fixing a validation error, say) can get a fresh one.
+        resetWidget();
 
         setStatus({
           kind: "error",
@@ -138,6 +181,7 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
         });
       } catch (error) {
         if (!mounted.current) return;
+        resetWidget();
         setStatus({
           kind: "error",
           message:
@@ -156,5 +200,8 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
     handleSubmit,
     reset,
     pending: status.kind === "sending",
+    /** Attach to the container element the checkbox widget should render
+     *  into. Unused (safely) by forms that don't set `recaptcha: true`. */
+    recaptchaRef,
   };
 }

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
 
 /**
@@ -46,7 +47,7 @@ export default function OnLoadPopupForm() {
     previouslyFocused.current?.focus();
   }, []);
 
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("popup", {
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("popup", {
     recaptcha: true,
   });
 
@@ -97,8 +98,8 @@ export default function OnLoadPopupForm() {
 
         {status.kind === "success" ? (
           <>
-            <h2 id="popup-title" className={styles.popupTitle}>Thank you</h2>
-            <p className={styles.popupLead}>{status.message}</p>
+            <h2 id="popup-title" className={styles.popupTitle}>{FORMS.popup.successHeading}</h2>
+            <p className={styles.popupLead} role="status">{status.message}</p>
             <button type="button" className={`tp-btn tp-btn-primary ${styles.submit}`} onClick={dismiss}>
               Close
             </button>
@@ -138,6 +139,8 @@ export default function OnLoadPopupForm() {
                 <input id="popup-consent" name="consent-checkbox" type="checkbox" value="1" />
                 <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
               </label>
+
+              <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
               {status.kind === "error" && (
                 <p role="alert" className={`${styles.status} ${styles.statusError}`}>{status.message}</p>

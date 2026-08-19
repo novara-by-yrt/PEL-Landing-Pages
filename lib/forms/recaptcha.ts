@@ -1,19 +1,20 @@
 /**
- * reCAPTCHA v3 verification.
+ * reCAPTCHA v2 verification.
  *
- * Contact Form 7 used to do this inside WordPress; now it happens here. The
- * 0.5 score threshold matches the one CF7 applied, so spam behaviour is
- * unchanged from the previous setup.
+ * Contact Form 7 used to do this inside WordPress via the wpcf7-recaptcha
+ * plugin, using the same site/secret key pair as a v2 checkbox widget (see
+ * components/forms/useFormSubmit.ts for the client-side render/getResponse
+ * flow) — not v3. This mirrors that: the endpoint and secret+response
+ * exchange are the same for both versions, but v2's response carries no
+ * `score` field, so unlike a v3 integration there is no threshold to apply
+ * here — a successful verification is just `success: true`.
  *
  * RECAPTCHA_SECRET_KEY is server-only and must never be prefixed NEXT_PUBLIC_.
  */
 
 const VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-const THRESHOLD = 0.5;
 
-export type RecaptchaResult =
-  | { ok: true; score: number }
-  | { ok: false; reason: string };
+export type RecaptchaResult = { ok: true } | { ok: false; reason: string };
 
 export async function verifyRecaptcha(
   token: string | null,
@@ -34,7 +35,7 @@ export async function verifyRecaptcha(
   const body = new URLSearchParams({ secret, response: token });
   if (clientIp) body.set("remoteip", clientIp);
 
-  let payload: { success?: boolean; score?: number; "error-codes"?: string[] };
+  let payload: { success?: boolean; "error-codes"?: string[] };
 
   try {
     const res = await fetch(VERIFY_URL, {
@@ -55,10 +56,5 @@ export async function verifyRecaptcha(
     };
   }
 
-  const score = payload.score ?? 0;
-  if (score < THRESHOLD) {
-    return { ok: false, reason: `reCAPTCHA score ${score} is below ${THRESHOLD}.` };
-  }
-
-  return { ok: true, score };
+  return { ok: true };
 }

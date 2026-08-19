@@ -2,6 +2,7 @@
 
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
+import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/blog/BlogContactForm.module.css";
 
 /**
@@ -20,7 +21,7 @@ const IDEAL_TIMES = ["9:00 AM - 12:00 PM", "12:00 PM - 3:00 PM", "3:00 PM - 6:00
 const CONTACT_METHODS = ["Email", "Phone", "Text"];
 
 export function BlogSidebarForm() {
-  const { status, fieldErrors, handleSubmit, pending } = useFormSubmit("blogSidebar", {
+  const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("blogSidebar", {
     recaptcha: true,
   });
 
@@ -33,7 +34,11 @@ export function BlogSidebarForm() {
       </p>
 
       {status.kind === "success" ? (
-        <p className={styles.blogConnectSuccess}>{status.message}</p>
+        <p className={styles.blogConnectSuccess} role="status">
+          {FORMS.blogSidebar.successHeading}
+          <br />
+          <span style={{ fontWeight: 400 }}>{status.message}</span>
+        </p>
       ) : (
         <form onSubmit={handleSubmit}>
           {/* Floating labels: input/select comes first in markup, label second —
@@ -88,6 +93,8 @@ export function BlogSidebarForm() {
             <input id="blog-consent" name="consent-checkbox" type="checkbox" value="1" />
             <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
           </label>
+
+          <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
 
           {status.kind === "error" && <p role="alert" className={styles.blogConnectError}>{status.message}</p>}
 
