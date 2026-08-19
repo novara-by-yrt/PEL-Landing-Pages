@@ -169,15 +169,31 @@ a.rowValue:hover {
   position: relative;
   margin-bottom: 14px;
 }
+/* Icon, resting label and the text the visitor types all sit on one line.
+
+   That line is the field's own first line of text: its border plus its
+   padding-top. The fields are padded 24px/28px at the top to leave room for
+   the label to float into, and only 8px at the bottom, so the text sits well
+   below the middle of the box - which is where the icon and the resting
+   label both used to be. The icon was 3px off the label on a single-line
+   field and 18px off on the message box, and both were 8px above the text
+   once anything was typed.
+
+   Each icon is boxed to one line height and centres its glyph inside, so the
+   three line up whatever the field is doing. */
 .fieldIcon {
   position: absolute;
-  top: 18px;
+  top: 25px; /* .input border (1px) + padding-top (24px) */
+  transform: none;
   left: 16px;
+  display: flex;
+  align-items: center;
+  height: 1.7rem; /* one line of the label's 1.7 line-height at 1rem */
   color: var(--tp-lavender-400);
   pointer-events: none;
 }
 .fieldIconArea {
-  top: 16px;
+  top: 28px; /* .textarea border (1px) + padding-top (28px), less its shorter line */
 }
 
 .input,
@@ -211,8 +227,10 @@ a.rowValue:hover {
 .label {
   position: absolute;
   left: 48px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* Rests on the field's first line of text, not the middle of the box, so
+     the placeholder does not jump 8px when the visitor starts typing. */
+  top: 25px;
+  transform: none;
   font-size: 1rem;
   color: var(--tp-slate);
   pointer-events: none;
@@ -222,7 +240,7 @@ a.rowValue:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.textarea + .label { top: 30px; transform: none; }
+.textarea + .label { top: 28px; transform: none; }
 
 .input:focus + .label,
 .input:not(:placeholder-shown) + .label,
