@@ -45,8 +45,12 @@ export default function ContactSection() {
                 </span>
                 <span>
                   <span className={styles.rowLabel}>Email us</span>
+                  {/* Offered a break at the @ rather than left to the browser,
+                      which otherwise splits the address mid-word on a narrow
+                      screen ("enquiries@perfecte / yesltd.com"). */}
                   <a href={`mailto:${CLINIC.email}`} className={styles.rowValue}>
-                    {CLINIC.email}
+                    {CLINIC.email.split("@")[0]}@<wbr />
+                    {CLINIC.email.split("@")[1]}
                   </a>
                 </span>
               </div>

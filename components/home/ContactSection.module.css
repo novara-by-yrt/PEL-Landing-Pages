@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(32px, 5vw, 56px);
-  padding: clamp(28px, 5vw, 56px);
+  padding: clamp(18px, 5vw, 56px);
   border-radius: clamp(24px, 3vw, 34px);
   background:
     radial-gradient(90% 70% at 100% 0%, rgba(115, 108, 171, 0.55), transparent 62%),
@@ -101,7 +101,7 @@
   color: #fff;
   margin: 0;
   text-decoration: none;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 /* Negative margin keeps the row's spacing while the padding lifts the hit
    area to 44px. */
@@ -152,7 +152,7 @@ a.rowValue:hover {
 .card {
   background: var(--tp-paper);
   border-radius: clamp(18px, 2vw, 24px);
-  padding: clamp(22px, 4vw, 34px);
+  padding: clamp(16px, 4vw, 34px);
   box-shadow: var(--tp-shadow-md);
   align-self: start;
 }
@@ -168,6 +168,12 @@ a.rowValue:hover {
 .field {
   position: relative;
   margin-bottom: 14px;
+  /* The icon's inset and the gutter it reserves, as one pair of knobs: the
+     input's left padding, the label's left offset and the width the label is
+     allowed all derive from them, so a narrow screen tightens the gutter in
+     one place instead of four. */
+  --fi-inset: 16px;
+  --fi-gutter: 48px;
 }
 /* Icon and resting label sit on the same line as each other, centred in the
    single-line fields so there is equal space above and below them.
@@ -182,7 +188,7 @@ a.rowValue:hover {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 16px;
+  left: var(--fi-inset);
   display: flex;
   align-items: center;
   height: 1.7rem; /* one line of the label's 1.7 line-height at 1rem */
@@ -198,7 +204,7 @@ a.rowValue:hover {
 .textarea {
   width: 100%;
   min-height: 56px;
-  padding: 24px 18px 8px 48px;
+  padding: 24px 18px 8px var(--fi-gutter);
   border-radius: 12px;
   border: 1px solid var(--tp-line);
   background: var(--tp-cream);
@@ -224,7 +230,7 @@ a.rowValue:hover {
    floated. */
 .label {
   position: absolute;
-  left: 48px;
+  left: var(--fi-gutter);
   /* Centred in the box: equal space above and below the resting label. */
   top: 50%;
   transform: translateY(-50%);
@@ -232,7 +238,7 @@ a.rowValue:hover {
   color: var(--tp-slate);
   pointer-events: none;
   transition: top 180ms var(--tp-ease), transform 180ms var(--tp-ease), font-size 180ms var(--tp-ease), color 180ms var(--tp-ease), background-color 180ms var(--tp-ease);
-  max-width: calc(100% - 66px);
+  max-width: calc(100% - var(--fi-gutter) - 18px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -307,6 +313,39 @@ a.rowValue:hover {
 
 .submit {
   width: 100%;
+}
+
+/* Below ~420px the panel is narrow enough that the two-column rows and the
+   48px icon gutter stop working: "Message (optional)" was ellipsised inside
+   its own field, and the opening-hours time ran past the day beside it. The
+   gutter tightens, the icon discs shrink, and the hours stack rather than
+   compete for a line they cannot both have. */
+@media (max-width: 420px) {
+  .field {
+    --fi-inset: 13px;
+    --fi-gutter: 41px;
+  }
+  .input,
+  .textarea {
+    padding-right: 14px;
+  }
+  .row {
+    gap: 12px;
+  }
+  .rowIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .hours {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .hoursTime {
+    text-align: left;
+  }
+  .consent {
+    gap: 10px;
+  }
 }
 
 @media (min-width: 1000px) {

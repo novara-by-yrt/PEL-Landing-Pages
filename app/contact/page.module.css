@@ -1,4 +1,4 @@
-.contactGrid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
+.contactGrid { max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vw, 4.5rem) clamp(1rem, 4vw, 1.5rem) 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3.5rem; align-items: start; }
 @media (max-width: 860px) { .contactGrid { grid-template-columns: 1fr; } }
 /* A grid item's default minimum is its min-content, so the clinic's postal
    address and email - neither of which a browser will break by itself - held
@@ -17,7 +17,7 @@
 .contactDetailsRow a { color: var(--tp-indigo-700); text-decoration: none; }
 .contactDetailsRow a:hover { color: var(--tp-indigo-600); }
 
-.contactFormPanel { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: 2.5rem; box-shadow: var(--tp-shadow-sm); }
+.contactFormPanel { background: #fff; border: 1px solid var(--tp-line); border-radius: var(--tp-radius-lg); padding: clamp(1.25rem, 5vw, 2.5rem); box-shadow: var(--tp-shadow-sm); }
 .contactFormPanel h2 { font-family: var(--tp-display); font-weight: 600; font-size: 1.5rem; color: var(--tp-ink); margin-bottom: 1.75rem; }
 .contactFormRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 @media (max-width: 640px) { .contactFormRow { grid-template-columns: 1fr; } }

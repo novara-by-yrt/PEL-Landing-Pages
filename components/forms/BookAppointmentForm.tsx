@@ -114,7 +114,7 @@ export default function BookAppointmentForm({
           <option value="" disabled></option>
           {ENQUIRY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
-        <label htmlFor="contact-enquiry" className={styles.contactLabel}>Which of these are you enquiring about? *</label>
+        <label htmlFor="contact-enquiry" className={styles.contactLabel}>Enquiry Type *</label>
         {fieldErrors["enquiry-type"] && <span className={styles.contactFieldError}>{fieldErrors["enquiry-type"]}</span>}
       </div>
 
