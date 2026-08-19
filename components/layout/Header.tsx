@@ -55,6 +55,9 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Sofwave™", href: "/non-surgical/sofwave-treatment-uk" },
   { label: "UltraClear Laser", href: "/non-surgical/ultraclear-laser-treatment-uk" },
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
+  /* Path stays /ellanse: the page has been renamed for readers, not moved,
+     so its inbound links and redirects still resolve. */
+  { label: "Biostimulation", href: "/ellanse" },
 ];
 
 /* Conditions, split across the three panel columns.

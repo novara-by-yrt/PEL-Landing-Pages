@@ -44,7 +44,7 @@ const ENQUIRY_TYPES = [
   "Plexr/Plasma Pen Treatment",
   "Non Surgical Facial Contouring",
   "Endolift Treatment",
-  "Ellansé Biostimulation",
+  "Biostimulation",
   "EMFACE Treatment",
   "Radiofrequency Treatment",
   "Teoxane babyGLOW Skin (Redensity 1)",

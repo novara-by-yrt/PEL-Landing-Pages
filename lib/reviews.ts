@@ -46,7 +46,7 @@ export const PATIENT_STORIES: PatientStory[] = [
   },
   {
     quote:
-      "I am so happy with my experience. The results look natural, and I feel like a fresher version of myself since having my Ellanse treatment with Doctor Sabrina. The whole experience was comfortable and professional, and I felt supported and well cared for throughout. I would definitely recommend this treatment to anyone looking for a natural-looking boost.",
+      "I am so happy with my experience. The results look natural, and I feel like a fresher version of myself since having my Biostimulation treatment with Doctor Sabrina. The whole experience was comfortable and professional, and I felt supported and well cared for throughout. I would definitely recommend this treatment to anyone looking for a natural-looking boost.",
     author: "Minda Wang",
   },
   {

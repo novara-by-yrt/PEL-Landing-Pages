@@ -90,6 +90,12 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Lower-lid surgery addressing under-eye bags, puffiness and the shadow they cast.",
   },
   {
+    image: "/uploads/2025/03/browlift-min.jpg",
+    title: "Brow Lift",
+    href: "/surgical/browlift-treatment-uk",
+    blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
+  },
+  {
     image: "/uploads/2018/10/eyeboost.jpg",
     title: "Festoons & Malar Bags",
     href: "/surgical/festoons-malar-bags-treatment-uk",
@@ -118,22 +124,10 @@ const SURGICAL_TREATMENTS: Treatment[] = [
     title: "Revision Blepharoplasty",
     href: "/surgical/eyelid-surgery/revision-blepharoplasty-uk",
     blurb: "Corrective work after previous eyelid surgery or filler complications.",
-  },
-  {
-    image: "/uploads/2025/03/browlift-min.jpg",
-    title: "Brow Lift",
-    href: "/surgical/browlift-treatment-uk",
-    blurb: "Repositions a heavy or descended brow to open up the upper eye area.",
-  },
+  }
 ];
 
 const NONSURGICAL_TREATMENTS: Treatment[] = [
-  {
-    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
-    title: "Hyaluronidase Dissolving",
-    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
-    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
-  },
   {
     image: "/uploads/2018/10/Silhoutte-Soft-treatment-london.jpg",
     title: "Endolift®",
@@ -147,22 +141,16 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Radiofrequency microneedling that remodels and firms facial skin.",
   },
   {
-    image: "/uploads/2024/09/supeor-sulcus.jpg",
-    title: "Superior Sulcus Filler",
-    href: "/non-surgical-injectables-medical-aesthetic",
-    blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
-  },
-  {
     image: "/uploads/2018/10/tear-trough-treatment-london.jpg",
     title: "Tear Trough Fillers",
     href: "/non-surgical/tear-trough-fillers-uk",
     blurb: "Softens under-eye hollows with precisely placed hyaluronic acid.",
   },
   {
-    image: "/uploads/2018/10/Ultherapy-london.jpg",
-    title: "Ellansé",
-    href: "/ellanse",
-    blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
+    image: "/uploads/2024/09/supeor-sulcus.jpg",
+    title: "Superior Sulcus Filler",
+    href: "/non-surgical-injectables-medical-aesthetic",
+    blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
   {
     image: "/uploads/2024/09/ultraclear-laser.jpg",
@@ -171,23 +159,35 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     blurb: "Cold-fibre laser resurfacing that targets texture, tone and fine lines.",
   },
   {
-    image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
-    title: "Non-Surgical Facial Contouring",
-    href: "/non-surgical-facial-contouring",
-    blurb: "Injectable contouring to rebalance facial proportions without surgery.",
-  },
-  {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
     href: "/non-surgical/sofwave-treatment-uk",
     blurb: "Ultrasound energy that lifts and tightens skin across the brow and face.",
   },
   {
+    image: "/uploads/2018/10/Ultherapy-london.jpg",
+    title: "Biostimulation",
+    href: "/ellanse",
+    blurb: "A collagen-stimulating filler used to rebuild facial volume and contour.",
+  },
+  {
+    image: "/uploads/2024/09/hyaluronidase-dissolving.jpg",
+    title: "Hyaluronidase Dissolving",
+    href: "/eyelid-swelling-migrated-fillers-hyaluronidase-dissolving",
+    blurb: "Dissolves migrated or unwanted hyaluronic acid filler around the eyes and midface.",
+  },
+  {
+    image: "/uploads/2018/11/Non-surgical-facelift-fillers-london.jpg",
+    title: "Non-Surgical Facial Contouring",
+    href: "/non-surgical-facial-contouring",
+    blurb: "Injectable contouring to rebalance facial proportions without surgery.",
+  },
+  {
     image: "/uploads/2025/06/Plasma-Pen.jpg",
     title: "Plexr / Plasma Pen",
     href: "/plexr-plasma-pen",
     blurb: "Plasma treatment for eyelid skin laxity as an alternative to surgery.",
-  },
+  }
 ];
 
 
