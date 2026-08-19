@@ -67,10 +67,13 @@ export function buildProductSchema(frontmatter: PostFrontmatter, url: string) {
     image: frontmatter.featuredImage
       ? `${SITE_URL}${frontmatter.featuredImage}`
       : undefined,
+    /* The clinic's own rating. It used to claim 5.0 from 158, a figure that
+       appeared nowhere on the site and disagreed with the rating every page
+       displays. */
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: 5.0,
-      ratingCount: 158,
+      ratingValue: 4.8,
+      ratingCount: 240,
       bestRating: 5,
       worstRating: 1,
     },
@@ -151,11 +154,13 @@ const CLINIC_ADDRESS = {
   addressCountry: "GB",
 };
 
-/** The reviews rail states 4.9 from 230+ Google reviews. */
+/** The reviews rail states 4.8 from 240+ Google reviews. Keep the two in
+    step: structured data that disagrees with the page it is on is the kind of
+    mismatch Google treats as spammy review markup. */
 const CLINIC_RATING = {
   "@type": "AggregateRating",
-  ratingValue: "4.9",
-  reviewCount: "230",
+  ratingValue: "4.8",
+  reviewCount: "240",
   bestRating: "5",
 };
 
