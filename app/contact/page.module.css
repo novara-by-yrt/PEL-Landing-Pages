@@ -54,8 +54,14 @@
 }
 .contactInput:focus { border-color: var(--tp-lavender-400); background: #fff; }
 
+/* Scoped to input/textarea: a <select> has no placeholder, so
+   :not(:placeholder-shown) matches it permanently and left the two dropdown
+   labels floated into the chip position before anything had been chosen.
+   Selects float on :valid instead, which the disabled empty option holds off
+   until a real choice is made. */
 .contactInput:focus + .contactLabel,
-.contactInput:not(:placeholder-shown) + .contactLabel,
+input.contactInput:not(:placeholder-shown) + .contactLabel,
+textarea.contactInput:not(:placeholder-shown) + .contactLabel,
 select.contactInput:valid + .contactLabel {
   top: 0;
   left: 0.8rem;

@@ -169,22 +169,19 @@ a.rowValue:hover {
   position: relative;
   margin-bottom: 14px;
 }
-/* Icon, resting label and the text the visitor types all sit on one line.
+/* Icon and resting label sit on the same line as each other, centred in the
+   single-line fields so there is equal space above and below them.
 
-   That line is the field's own first line of text: its border plus its
-   padding-top. The fields are padded 24px/28px at the top to leave room for
-   the label to float into, and only 8px at the bottom, so the text sits well
-   below the middle of the box - which is where the icon and the resting
-   label both used to be. The icon was 3px off the label on a single-line
-   field and 18px off on the message box, and both were 8px above the text
-   once anything was typed.
+   Each icon is boxed to one line height and centres its glyph inside, so it
+   lines up with the label whatever the field is doing.
 
-   Each icon is boxed to one line height and centres its glyph inside, so the
-   three line up whatever the field is doing. */
+   The message box is the exception: centring inside a 150px-tall textarea
+   would strand both in the middle of an empty panel, so there they stay on
+   the first line of text, where typing begins. */
 .fieldIcon {
   position: absolute;
-  top: 25px; /* .input border (1px) + padding-top (24px) */
-  transform: none;
+  top: 50%;
+  transform: translateY(-50%);
   left: 16px;
   display: flex;
   align-items: center;
@@ -193,7 +190,8 @@ a.rowValue:hover {
   pointer-events: none;
 }
 .fieldIconArea {
-  top: 28px; /* .textarea border (1px) + padding-top (28px), less its shorter line */
+  top: 28px; /* .textarea border (1px) + padding-top (28px) */
+  transform: none;
 }
 
 .input,
@@ -227,14 +225,13 @@ a.rowValue:hover {
 .label {
   position: absolute;
   left: 48px;
-  /* Rests on the field's first line of text, not the middle of the box, so
-     the placeholder does not jump 8px when the visitor starts typing. */
-  top: 25px;
-  transform: none;
+  /* Centred in the box: equal space above and below the resting label. */
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1rem;
   color: var(--tp-slate);
   pointer-events: none;
-  transition: top 180ms var(--tp-ease), font-size 180ms var(--tp-ease), color 180ms var(--tp-ease), background-color 180ms var(--tp-ease);
+  transition: top 180ms var(--tp-ease), transform 180ms var(--tp-ease), font-size 180ms var(--tp-ease), color 180ms var(--tp-ease), background-color 180ms var(--tp-ease);
   max-width: calc(100% - 66px);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -247,6 +244,9 @@ a.rowValue:hover {
 .textarea:focus + .label,
 .textarea:not(:placeholder-shown) + .label {
   top: 12px;
+  /* Cancels the centring translate, so the floated position is measured from
+     the top of the box on single-line fields and textareas alike. */
+  transform: none;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--tp-indigo-700);
