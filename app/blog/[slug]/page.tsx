@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, type ProsConsData } from "@/lib/mdx";
 import { splitContentForMidArticleCta } from "@/lib/blogContent";
 import {
   buildBlogPostingSchema,
@@ -16,7 +16,30 @@ import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import SafeImage from "@/components/shared/SafeImage";
 import HomeFaq from "@/components/home/HomeFaq";
+import { ProsCons } from "@/components/blog/ProsCons";
 import styles from "./page.module.css";
+
+/** Marks where a post's extracted "Pros and Cons" section belongs in the
+ *  body - set by the migration that pulled it into frontmatter.prosAndCons.
+ *  See components/blog/ProsCons.tsx for why that migration happened. */
+const PROS_AND_CONS_MARKER = "<!--PROS_AND_CONS-->";
+
+/** Renders one prose chunk, splitting out <ProsCons> at the marker if this
+ *  chunk happens to contain it - the CTA-box split above already cut the
+ *  body in two, and the marker only ever ends up in one of those halves. */
+function Prose({ html, prosAndCons }: { html: string; prosAndCons?: ProsConsData }) {
+  if (prosAndCons && html.includes(PROS_AND_CONS_MARKER)) {
+    const [before, after] = html.split(PROS_AND_CONS_MARKER);
+    return (
+      <>
+        <div className="prose" dangerouslySetInnerHTML={{ __html: before }} />
+        <ProsCons data={prosAndCons} />
+        <div className="prose" dangerouslySetInnerHTML={{ __html: after }} />
+      </>
+    );
+  }
+  return <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />;
+}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
@@ -131,24 +154,30 @@ export default async function BlogPostPage({
         <section className={styles.blogHero}>
           <div className={styles.blogHeroGlow} />
           <div className={`container ${styles.blogHeroInner}`}>
-            <div className={styles.blogHeroTop}>
-              <nav aria-label="Breadcrumb" className={styles.blogBreadcrumb}>
-                <Link href="/">Home</Link>
-                <span aria-hidden="true">/</span>
-                <Link href="/blog">Blog</Link>
-                <span aria-hidden="true">/</span>
-                <span style={{ color: "rgba(255,255,255,0.9)" }}>{frontmatter.title}</span>
-              </nav>
+            <nav aria-label="Breadcrumb" className={styles.blogBreadcrumb}>
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <Link href="/blog">Blog</Link>
+              <span aria-hidden="true">/</span>
+              <span style={{ color: "rgba(255,255,255,0.9)" }}>{frontmatter.title}</span>
+            </nav>
+
+            {/* Category and share sit in one row, not paired with the
+                breadcrumb above - on mobile the breadcrumb often wraps to two
+                lines on its own, and a long breadcrumb pushed the share icons
+                onto their own orphaned row below it. Category pills and share
+                icons are both compact, so this row stays on one line at
+                virtually every width. */}
+            <div className={styles.blogHeroMetaRow}>
+              {frontmatter.categories && frontmatter.categories.length > 0 && (
+                <div className={styles.blogCategories}>
+                  {frontmatter.categories.map((cat) => (
+                    <span key={cat} className={styles.blogCategoryPill}>{cat}</span>
+                  ))}
+                </div>
+              )}
               <BlogShareIcons url={url} title={frontmatter.title} />
             </div>
-
-            {frontmatter.categories && frontmatter.categories.length > 0 && (
-              <div className={styles.blogCategories}>
-                {frontmatter.categories.map((cat) => (
-                  <span key={cat} className={styles.blogCategoryPill}>{cat}</span>
-                ))}
-              </div>
-            )}
 
             <h1 className="tp-h1">{frontmatter.title}</h1>
 
@@ -182,11 +211,11 @@ export default async function BlogPostPage({
                 />
               </div>
             )}
-            <div className="prose" dangerouslySetInnerHTML={{ __html: contentBefore }} />
+            <Prose html={contentBefore} prosAndCons={frontmatter.prosAndCons} />
             {contentAfter !== null && (
               <>
                 <BlogCtaBox />
-                <div className="prose" dangerouslySetInnerHTML={{ __html: contentAfter }} />
+                <Prose html={contentAfter} prosAndCons={frontmatter.prosAndCons} />
               </>
             )}
 
@@ -216,7 +245,7 @@ export default async function BlogPostPage({
         </div>
 
         <BlogCTA />
-        <RelatedBlogs excludeSlug={slug} />
+        <RelatedBlogs topic={frontmatter.title} excludeSlug={slug} />
       </div>
     </>
   );

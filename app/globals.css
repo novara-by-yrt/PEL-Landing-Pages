@@ -685,19 +685,20 @@ h1, h2, h3, h4, h5, h6 {
   margin: var(--space-8) 0;
 }
 
-/* Tables in post bodies are authored for a desktop column and several are
-   wider than a phone. Left alone they widened the document itself, so the
-   whole page scrolled sideways rather than the table. Making the table its
-   own scroll container keeps the overflow where it belongs: the page never
-   moves, and the table can be swiped. display:block is what gives the
-   element a scrollport of its own; the inner table keeps its own layout. */
-.prose table {
-  display: block;
-  max-width: 100%;
+/* Content tables are raw HTML from the migrated posts, so lib/mdx.ts wraps
+   every <table> in a .tableScroll div at load time - see
+   wrapTablesForScroll() there for why overflow lives on this wrapper rather
+   than the table itself (overflow-x has no effect on a display:table box in
+   any current browser, and the usual display:block workaround breaks
+   width:100% stretching for narrow tables). */
+.prose .tableScroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  border-collapse: collapse;
   margin: var(--space-8) 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: var(--text-sm);
 }
 .prose th {

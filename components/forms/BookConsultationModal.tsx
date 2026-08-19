@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import BookAppointmentForm from "./BookAppointmentForm";
 import styles from "./Forms.module.css";
 
@@ -36,6 +37,18 @@ export default function BookConsultationModal({
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
+
+  /* The dialog is portalled to <body>. One of the two triggers lives inside
+     the mobile nav drawer, which has its own `transform` for the slide-in
+     animation — that transform creates a new containing block for
+     `position: fixed` descendants, so without the portal this overlay gets
+     clipped to the drawer's own box instead of covering the screen.
+     Read once during render rather than in an effect: the portal only ever
+     renders after a click, so the server's null and the client's body element
+     never disagree at hydration. */
+  const [portalHost] = useState<HTMLElement | null>(() =>
+    typeof document === "undefined" ? null : document.body,
+  );
 
   const close = useCallback(() => {
     setOpen(false);
@@ -76,7 +89,7 @@ export default function BookConsultationModal({
         {children ?? label}
       </button>
 
-      {open ? (
+      {open && portalHost && createPortal(
         <div className={styles.overlay} onClick={close} role="presentation">
           <div
             className={styles.popup}
@@ -105,8 +118,9 @@ export default function BookConsultationModal({
 
             <BookAppointmentForm showHeading={false} />
           </div>
-        </div>
-      ) : null}
+        </div>,
+        portalHost
+      )}
     </>
   );
 }

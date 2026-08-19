@@ -44,7 +44,7 @@ export function TreatmentOverview({
     ) : (
       <div className={styles.tpOverviewFrame}>
         {imageBadge && <span className={styles.tpOverviewBadge}>{imageBadge}</span>}
-        <Image src={image!} alt={heading} fill sizes="(max-width: 860px) 100vw, 45vw" loading="lazy" />
+        <Image src={image!} alt={heading} fill sizes="(max-width: 860px) 100vw, 45vw" loading="lazy" className={styles.tpOverviewImg} />
       </div>
     )
   );

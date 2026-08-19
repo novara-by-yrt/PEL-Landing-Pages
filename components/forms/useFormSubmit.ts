@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import type { FormKey } from "@/lib/forms/definitions";
+import { FORMS, type FormKey } from "@/lib/forms/definitions";
+import { trackFormSubmitted } from "@/lib/analytics/track";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -123,6 +124,7 @@ export function useFormSubmit(formKey: FormKey, options: Options = {}) {
 
         if (result.status === "sent") {
           setStatus({ kind: "success", message: result.message });
+          trackFormSubmitted(FORMS[formKey].title);
           form.reset();
           onSuccess?.();
           return;

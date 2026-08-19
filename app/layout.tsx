@@ -6,7 +6,7 @@ import "./layout-chrome.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import Tracking from "@/components/analytics/Tracking";
 import OnLoadPopupForm from "@/components/forms/OnLoadPopupForm";
 import { buildOrganizationSchema, buildMedicalBusinessSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -37,6 +37,12 @@ const newsreader = Newsreader({
 
 // ── Site-wide default metadata ─────────────────────────────────────────────
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+
+// Also read directly in components/analytics/Tracking.tsx, which renders the
+// scripts these IDs belong to - duplicated here only because the noscript
+// fallbacks below have to live at the top of <body>, not inside that component.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -105,6 +111,33 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Noscript fallbacks for GTM and the Meta Pixel - both tools require
+            these as high in <body> as possible for the no-JS case, per their
+            own setup instructions. The scripts that do the real work are in
+            <Tracking />, further down. */}
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        )}
+        {FB_PIXEL_ID && (
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        )}
         <Header />
         <main id="main-content">{children}</main>
         <div id="footer-spacer" aria-hidden="true" />
@@ -113,10 +146,7 @@ export default function RootLayout({
         {/* On-load enquiry popup - opens once a week, after a delay,
             so it never competes with first paint. */}
         <OnLoadPopupForm />
-        {/* Reads the same consent store the banner writes to, and stays
-            inert - no script, no connection - until that store says
-            "accepted". */}
-        <GoogleAnalytics />
+        <Tracking />
       </body>
     </html>
   );

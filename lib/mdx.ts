@@ -2,6 +2,26 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+/**
+ * Wraps every raw <table> in migrated content with a scrollable container.
+ *
+ * overflow-x has no effect on a `display: table` box in any current
+ * browser - it's a real, long-standing CSS limitation, not an oversight
+ * here. The usual workaround is forcing `display: block` on the table
+ * itself, but that has its own cost: it makes the browser build an
+ * anonymous inner table for the row/cell layout, and that inner table stops
+ * inheriting `width: 100%` from the outer (now block) box. A narrow table
+ * (few short columns) then renders at its own content width while the
+ * bordered outer box still stretches to fill the container, leaving an
+ * empty bordered gap next to the actual table.
+ * A wrapper div sidesteps both problems: the table keeps its native
+ * `display: table` (so width:100% and column auto-sizing behave normally),
+ * and the div - an ordinary block box - is what actually scrolls.
+ */
+function wrapTablesForScroll(html: string): string {
+  return html.replace(/<table\b[\s\S]*?<\/table>/gi, (table) => `<div class="tableScroll">${table}</div>`);
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface FaqItem {
@@ -78,6 +98,18 @@ export interface TeamBiosData {
   members: TeamBioMember[];
 }
 
+export interface ProsConsItem {
+  title: string;
+  description: string;
+}
+
+export interface ProsConsData {
+  prosHeading: string;
+  pros: ProsConsItem[];
+  consHeading: string;
+  cons: ProsConsItem[];
+}
+
 export interface PostFrontmatter {
   title: string;
   slug: string;
@@ -109,6 +141,7 @@ export interface PostFrontmatter {
   gallery?: GalleryItem[];
   videoTestimonials?: VideoTestimonialsData;
   teamBios?: TeamBiosData;
+  prosAndCons?: ProsConsData;
 }
 
 export interface GalleryItem {
@@ -259,7 +292,7 @@ export function getPostBySlug(folder: string, slugInput: string | string[]): Pos
 
   return {
     frontmatter: data as PostFrontmatter,
-    content,
+    content: wrapTablesForScroll(content),
     slug: resolvedFilename,
   };
 }

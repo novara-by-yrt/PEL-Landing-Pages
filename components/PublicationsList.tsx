@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import styles from "./PublicationsList.module.css";
 
@@ -11,9 +10,8 @@ export interface PublicationItem {
   rawTitle: string;
   date: string;
   journal: string;
+  /** The journal's own page. */
   url: string;
-  /** The journal's own page, pulled off the post body. */
-  externalUrl: string | null;
   featuredImage: string | null;
 }
 
@@ -139,19 +137,11 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                 })
               : "";
 
-            /* Straight to the journal. Every one of these cards used to go
-               to the post on this site, which holds nothing but the same
-               outbound link - a stop the reader had to click through rather
-               than a page that told them anything. The post itself stays
-               published and reachable; only the card's destination changes.
-
-               Falls back to the post if a publication ever arrives without a
-               link in its body, so a card can never become a dead end. */
-            const external = pub.externalUrl;
-            const href = external ?? `/blog/${pub.slug}`;
-            const linkProps = external
-              ? { href, target: "_blank", rel: "noopener noreferrer" }
-              : { href };
+            /* Straight to the journal. These cards used to go to a post on
+               this site holding nothing but the same outbound link - a stop
+               the reader had to click through rather than a page that told
+               them anything. Those posts have since been removed, so the
+               journal is the only destination there is. */
 
             return (
               <article key={pub.slug || index} id={`pub-card-${index}`} className={styles.pubCard}>
@@ -162,17 +152,17 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
                   </div>
 
                   <h3 className={styles.pubTitle}>
-                    <Link {...linkProps} id={`pub-title-link-${index}`}>
+                    <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-title-link-${index}`}>
                       {pub.rawTitle}
-                      {external && <span className="sr-only"> (opens in a new tab)</span>}
-                    </Link>
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
                   </h3>
                 </div>
 
-                <Link {...linkProps} id={`pub-link-${index}`} className={styles.pubReadLink}>
+                <a href={pub.url} target="_blank" rel="noopener noreferrer" id={`pub-link-${index}`} className={styles.pubReadLink}>
                   Read Publication
-                  {external && <span className="sr-only"> (opens in a new tab)</span>}
-                </Link>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
               </article>
             );
           })}

@@ -1,0 +1,78 @@
+/* Pros and cons.
+
+   Two cards, not two bare bullet lists - each item keeps its title paired
+   with its own description, and pros/cons get their own colour identity
+   (sage vs clay) so the eye can tell them apart while skimming. */
+
+.prosCons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin: var(--space-8, 2rem) 0;
+}
+
+.column {
+  padding: clamp(20px, 2.6vw, 26px);
+  border: 1px solid var(--tp-line);
+  border-radius: var(--tp-radius-lg);
+  background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-xs);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--tp-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--tp-ink);
+  margin: 0 0 1rem;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconPro { background: #e3f1e8; color: #2f7a52; }
+.iconCon { background: #f7e9e3; color: #b1552f; }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--tp-line);
+}
+.column:not(.consColumn) .item { border-left-color: #bfe0cc; }
+.consColumn .item { border-left-color: #eec9b6; }
+
+.item strong {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--tp-ink);
+}
+.item p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--tp-slate);
+  line-height: 1.6;
+}
+
+@media (min-width: 700px) {
+  .prosCons { grid-template-columns: 1fr 1fr; }
+}
