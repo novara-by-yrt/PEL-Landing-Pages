@@ -5,7 +5,6 @@ import ContactSection from "@/components/home/ContactSection";
 import PatientStories from "@/components/home/PatientStories";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import BeginJourney from "@/components/shared/BeginJourney";
-import GoogleMark from "@/components/shared/GoogleMark";
 import { getAllPosts, type Post } from "@/lib/mdx";
 import { RESULT_CATEGORIES, type ResultCategory } from "@/lib/results";
 import { PATIENT_STORIES } from "@/lib/reviews";
@@ -110,7 +109,6 @@ export default function BeforeAfterIndexPage() {
     });
   }
 
-  const total = cases.length;
 
   /* The hero's showcase panel. Taken from the content rather than named here,
      so it can never point at a case that has been renamed or withdrawn. */
@@ -164,24 +162,6 @@ export default function BeforeAfterIndexPage() {
                   Take the Free Self-Test
                 </Link>
               </div>
-
-              <dl className={styles.stats}>
-                <div className={styles.stat}>
-                  <dt className={styles.statLabel}>Case studies</dt>
-                  <dd className={styles.statValue}>{total}</dd>
-                </div>
-                <div className={styles.stat}>
-                  <dt className={styles.statLabel}>Experience</dt>
-                  <dd className={styles.statValue}>25+ years</dd>
-                </div>
-                <div className={styles.stat}>
-                  <dt className={styles.statLabel}>Patient rating</dt>
-                  <dd className={`${styles.statValue} ${styles.statRating}`}>
-                    <GoogleMark className={styles.googleMark} />
-                    4.8
-                  </dd>
-                </div>
-              </dl>
             </div>
 
             {featured?.frontmatter.featuredImage ? (
