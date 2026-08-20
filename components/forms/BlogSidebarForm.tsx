@@ -4,6 +4,7 @@ import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
 import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/blog/BlogContactForm.module.css";
+import RecaptchaField from "./RecaptchaField";
 
 /**
  * "Website Form (Blog Sidebar)" — the blog post sidebar.
@@ -94,7 +95,7 @@ export function BlogSidebarForm() {
             <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
           </label>
 
-          <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
+          <RecaptchaField innerRef={recaptchaRef} />
 
           {status.kind === "error" && <p role="alert" className={styles.blogConnectError}>{status.message}</p>}
 

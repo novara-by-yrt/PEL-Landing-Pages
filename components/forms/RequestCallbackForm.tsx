@@ -5,6 +5,7 @@ import Reveal from "@/components/shared/Reveal";
 import { useFormSubmit } from "./useFormSubmit";
 import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/components/home/ContactSection.module.css";
+import RecaptchaField from "./RecaptchaField";
 
 /**
  * "Request A Call Back" — the home page contact panel.
@@ -108,7 +109,7 @@ export default function RequestCallbackForm() {
           <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
         </label>
 
-        <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
+        <RecaptchaField innerRef={recaptchaRef} />
 
         {status.kind === "success" || status.kind === "error" ? (
           <Reveal>

@@ -5,6 +5,7 @@ import { TpIcon } from "@/components/treatment/TpIcon";
 import { useFormSubmit } from "./useFormSubmit";
 import { FORMS } from "@/lib/forms/definitions";
 import styles from "@/app/contact/page.module.css";
+import RecaptchaField from "./RecaptchaField";
 
 /**
  * "Book an Appointment" — the /contact page form.
@@ -143,7 +144,7 @@ export default function BookAppointmentForm({
         <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
       </label>
 
-      <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
+      <RecaptchaField innerRef={recaptchaRef} />
 
       {status.kind === "error" && (
         <div role="alert" className={styles.contactError}>{status.message}</div>
