@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 import styles from "./HeroVideo.module.css";
 
-const MEDIA_ID = "7l8ljy368t";
+const MEDIA_ID = "aab9b1a82e";
 const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
 /**
@@ -50,7 +50,7 @@ export default function HeroVideo() {
           <wistia-player
             className={styles.player}
             media-id={MEDIA_ID}
-            aspect="0.5625"
+            aspect="1.7777777777777777"
             autoplay="true"
             muted="true"
             silent-autoplay="allow"

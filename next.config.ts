@@ -135,11 +135,20 @@ const nextConfig: NextConfig = {
   // type="application/ld+json">) on nearly every page and a handful of
   // inline style={{...}} attributes — a nonce-based policy would need
   // middleware and touching every one of those call sites. frame-src allows
-  // YouTube specifically for the video embeds in components/home/VideoCard;
-  // img-src/media-src allow Wistia's CDN for the home hero's background
-  // video (components/home/HeroVideo) — its poster frame is an <img>-style
-  // fetch, the actual clip is a native <video> source, both served straight
-  // from Wistia rather than through this site.
+  // YouTube specifically for the video embeds in components/home/VideoCard.
+  //
+  // Wistia entries (script-src/img-src/media-src/connect-src/frame-src) are
+  // for the home hero's background video (components/home/HeroVideo), which
+  // renders Wistia's own <wistia-player> web component — not, as an earlier
+  // version of this comment said, a plain <video> pointed at Wistia's CDN.
+  // That matters here specifically: script-src was never updated when the
+  // component switched back to the player SDK, so fast.wistia.com's two
+  // player scripts (player.js and the per-media embed loader) were being
+  // silently blocked by this policy — no console-visible failure beyond a
+  // CSP violation report, just a video that never played. *.wistia.com and
+  // *.wistia.net are wildcarded rather than pinned to exact hosts because
+  // the player's own video/HLS delivery, analytics pings and asset manifest
+  // fetches land on subdomains this codebase doesn't choose or control.
   async headers() {
     const csp = [
       "default-src 'self'",
@@ -163,7 +172,7 @@ const nextConfig: NextConfig = {
       // (components/forms/BlepharoplastyQuizForm.tsx and
       // components/forms/JoinClubForm.tsx), so nothing loads from that
       // domain anymore and it's dropped from every directive below.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://fast.wistia.com",
       "style-src 'self' 'unsafe-inline'",
       // GA/Ads/Meta/Clarity/Hotjar all fall back to an image-beacon on
       // browsers that block fetch/beacon, hence the analytics origins in
@@ -173,9 +182,9 @@ const nextConfig: NextConfig = {
       // for its Bing Ads integration — a different domain entirely, so the
       // *.clarity.ms wildcard above doesn't cover it.
       "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
-      "media-src 'self' https://embed-ssl.wistia.com",
+      "media-src 'self' https://fast.wistia.com https://embed-ssl.wistia.com https://*.wistia.com https://*.wistia.net",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net",
       // reCAPTCHA v2's checkbox widget (components/forms/useFormSubmit.ts)
       // renders as an <iframe> from Google's own recaptcha origin — without
       // it here the widget's container div stays in the DOM but the browser
@@ -183,7 +192,10 @@ const nextConfig: NextConfig = {
       // checkbox. recaptcha.net is Google's alternate host for regions
       // where google.com is blocked; included for the same reason the script
       // itself is allowed from both above.
-      "frame-src https://www.youtube.com https://www.google.com https://recaptcha.net",
+      // fast.wistia.com covers the player's own fallback iframe path on
+      // browsers it can't render natively into; harmless to allow even if
+      // this particular player build never takes that path.
+      "frame-src https://www.youtube.com https://www.google.com https://recaptcha.net https://fast.wistia.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
