@@ -77,14 +77,12 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={`${workSans.variable} ${newsreader.variable}`}>
       <head>
-        {/* The hero's poster frame and video clip both come from Wistia, and
-            the request for them is only issued once React has hydrated and
-            HeroVideo's effect has run. By then the DNS lookup and TLS
-            handshake for two cross-origin hosts are pure added latency on the
-            critical path to the largest thing on the page. Warming both
-            connections in the document head moves that handshake into the
-            time the browser is already spending parsing HTML - on a 4G phone
-            it is the cheapest few hundred milliseconds of LCP available here.
+        {/* The hero's poster and clip come from two Wistia origins whose
+            handshake would otherwise land on the critical path the moment
+            HeroVideo's player script loads (next/script, `lazyOnload`, well
+            after the analytics scripts in <Tracking />). Warming the DNS
+            lookup and TLS handshake here means that whenever the lazy load
+            does fire, it isn't also paying for the connection setup.
 
             preconnect rather than preload: the clip must not compete for
             bandwidth with the fonts and CSS, it just must not wait for a
