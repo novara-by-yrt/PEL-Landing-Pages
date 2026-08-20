@@ -16,6 +16,12 @@
   background: var(--tp-indigo-950);
   color: var(--tp-lavender-200);
   padding-block: clamp(40px, 5vw, 60px);
+  /* Extra room at the foot for the fixed "Request a call back" pill, which
+     floats over everything down here — without it the pill sits on top of the
+     legal line. Added as padding on the footer itself so it feeds straight
+     into the --footer-h that Footer.tsx measures, and #footer-spacer reserves
+     the matching scroll room automatically. */
+  padding-bottom: calc(clamp(40px, 5vw, 60px) + 72px);
 }
 
 /* Footer taller than the viewport — typically any phone, where the columns

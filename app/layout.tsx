@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
 import Tracking from "@/components/analytics/Tracking";
 import OnLoadPopupForm from "@/components/forms/OnLoadPopupForm";
+import StickyCallbackBar from "@/components/shared/StickyCallbackBar";
 import { buildOrganizationSchema, buildMedicalBusinessSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -144,6 +145,9 @@ export default function RootLayout({
         <div id="footer-spacer" aria-hidden="true" />
         <Footer />
         <CookieConsent />
+        {/* Persistent bottom-centre "Request a call back" trigger. Sits below
+            the cookie banner in z-order, so consent is answered first. */}
+        <StickyCallbackBar />
         {/* On-load enquiry popup - opens once a week, after a delay,
             so it never competes with first paint. */}
         <OnLoadPopupForm />

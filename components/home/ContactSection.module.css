@@ -369,3 +369,59 @@ a.rowValue:hover {
     transition: none;
   }
 }
+
+/* ── Dialog variant ─────────────────────────────────────────────────────────
+   The same form rendered inside the sticky "Request a call back" dialog,
+   which supplies its own white panel, padding, shadow and heading — so this
+   carries none of .card's shell, only the tightened rhythm that lets all four
+   fields, the consent line, the reCAPTCHA and the button clear a short phone
+   viewport without the dialog scrolling. Everything else (field icons,
+   floating labels, the narrow-screen gutters) is inherited unchanged from the
+   rules above, which is the whole reason this is a variant rather than a
+   second form. */
+.cardCompact {
+  align-self: start;
+}
+.cardCompact .field {
+  margin-bottom: 10px;
+}
+/* Shorter than the panel's 150px: rows={2} sets the intrinsic height, and
+   this stops min-height from overriding it back up. */
+.cardCompact .textarea {
+  min-height: 0;
+}
+.cardCompact .consent {
+  margin: 12px 0 12px;
+}
+
+/* Short-viewport tiers for the dialog variant - see the matching blocks in
+   StickyCallbackBar.module.css. The fields themselves are trimmed only after
+   the dialog's own chrome has already given up what it can. */
+@media (max-height: 740px) {
+  .cardCompact .field {
+    margin-bottom: 8px;
+  }
+  .cardCompact .consent {
+    margin: 10px 0 10px;
+  }
+}
+
+@media (max-height: 660px) {
+  .cardCompact .field {
+    margin-bottom: 6px;
+  }
+  /* Single-line fields lose their generous 56px box; the floating label still
+     has its 24px of headroom, so nothing collides. */
+  .cardCompact .input {
+    min-height: 50px;
+    padding-top: 21px;
+    padding-bottom: 6px;
+  }
+  .cardCompact .textarea {
+    padding-top: 24px;
+  }
+  .cardCompact .consent {
+    margin: 8px 0 8px;
+    font-size: 0.75rem;
+  }
+}
