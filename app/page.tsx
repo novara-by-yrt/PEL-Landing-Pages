@@ -213,7 +213,7 @@ const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
     ["Upper and Lower Eyelid Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
     ["Ptosis Surgery", "ba-ptosis-ba-3", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-3", "upper-blepharoplasty"],
-    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
+    ["Extended Lower Eyelid Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
     ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis-2", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-3-mths-after-bilateral-upper-lid-bleph", "upper-blepharoplasty"],
     ["Lower Blepharoplasty", "ba-scarless-transconjunctival-lower-lid-bleph-ba-3", "lower-blepharoplasty-eyebag-removal"],
