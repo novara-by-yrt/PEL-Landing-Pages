@@ -91,33 +91,57 @@
 .head .lead { margin-inline: auto; }
 
 /* ── Hero ───────────────────────────────────────────────────────────────── */
+/* Full-bleed portrait, centred text at every viewport width, matching the
+   old WordPress reference's structure. Where this departs from it: the
+   reference puts plain dark text straight on the photo with no legibility
+   treatment, which only reads there because of where its crop happens to put
+   her against the text. On ours the text runs across her dark top at every
+   width, so plain text and a text-shadow halo both failed, and a flat dark
+   tint across the whole photo - while it worked - covered more of the image
+   than wanted. This confines the fade to the bottom, where the text actually
+   sits, and leaves the rest of the photo completely untouched; the text goes
+   back to dark ink since it now sits on a light fade rather than a dark tint. */
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: clamp(48px, 8vw, 96px);
-  background: linear-gradient(180deg, var(--tp-lavender-050) 0%, var(--tp-fog) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(560px, 92vh, 880px);
+  padding-block: clamp(28px, 6vw, 52px);
+  background: var(--tp-lavender-050);
 }
-.heroGlow {
+.heroMedia {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(32% 42% at 14% 26%, rgba(188, 160, 221, 0.5), transparent 70%),
-    radial-gradient(30% 40% at 86% 72%, rgba(138, 132, 186, 0.36), transparent 72%);
-  filter: blur(32px);
 }
-.heroGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(28px, 5vw, 56px);
-  align-items: stretch;
+.heroImg {
+  object-fit: cover;
+  object-position: center top;
+}
+/* Untouched for the top ~55%, then ramps up to the same paper tone the page
+   itself uses, so the bottom of the photo blends into the section below it
+   rather than ending on a hard edge. */
+.heroFade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(247, 246, 251, 0) 0%,
+    rgba(247, 246, 251, 0) 55%,
+    rgba(247, 246, 251, 0.55) 72%,
+    rgba(247, 246, 251, 0.92) 88%,
+    rgba(247, 246, 251, 0.97) 100%
+  );
 }
 .heroBody {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-width: 46rem;
   min-width: 0;
+  margin-inline: auto;
+  text-align: center;
 }
 .heroTitle {
   font-family: var(--tp-display);
@@ -134,81 +158,38 @@
   color: var(--tp-lavender-600);
   margin: 12px 0 0;
 }
-.heroLead {
-  font-size: clamp(1.0625rem, 3.6vw, 1.1875rem);
-  line-height: 1.6;
-  color: var(--tp-slate);
-  margin: 20px 0 0;
-  max-width: 46ch;
-}
 .heroActions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  margin-top: clamp(26px, 4vw, 34px);
+  margin: clamp(48px, 8vw, 72px) 0 clamp(28px, 4.5vw, 44px);
 }
 .heroActions > * { flex: 1 1 100%; }
 
-/* Same as the panel figures: the portrait sets its own height on phones. */
-.heroFigure {
-  position: relative;
-  border-radius: var(--tp-radius-xl);
-  overflow: hidden;
-  background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
-  box-shadow: var(--tp-shadow-lg);
-  margin: 0;
-}
-.heroImg {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 700ms var(--tp-ease);
-}
-.heroFigure:hover .heroImg { transform: scale(1.03); }
-.heroBadge {
-  position: absolute;
-  inset: auto 14px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  border-radius: var(--tp-radius-md);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--tp-shadow-sm);
-}
-.heroBadgeIcon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: var(--tp-indigo-700);
-  color: #fff;
-}
-.heroBadgeTitle {
-  display: block;
-  font-family: var(--tp-display);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--tp-ink);
-}
-.heroBadgeMeta {
-  display: block;
-  font-size: var(--fs-caption);
-  color: var(--tp-slate);
-  margin-top: 2px;
-}
-
 /* ── Stat row ───────────────────────────────────────────────────────────── */
+/* Sits in its own strip below the now full-bleed hero rather than inside it,
+   so the photo is not competing with four cards for the same space. The
+   intro paragraph moved down here too, off the photo - it was the hero's
+   lead paragraph, styled for white-on-image; this is the plain-background
+   equivalent. */
+.statsWrap {
+  padding-top: clamp(28px, 4.5vw, 44px);
+}
+.introLead {
+  font-size: clamp(1.0625rem, 3.6vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--tp-slate);
+  text-align: center;
+  margin: 0 auto clamp(28px, 4.5vw, 40px);
+  max-width: 46ch;
+}
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
   gap: clamp(12px, 2vw, 20px);
   list-style: none;
-  margin: clamp(32px, 5vw, 48px) 0 0;
+  margin-bottom: 32px;
   padding: 0;
 }
 .stat {
@@ -748,24 +729,6 @@
   }
 }
 
-@media (min-width: 900px) {
-  .heroGrid { grid-template-columns: 1.05fr 0.95fr; }
-  /* Two columns: the portrait now matches the copy column's height, so it is
-     taken out of flow and cropped to fill, as on the panels below. */
-  .heroFigure {
-    height: 100%;
-    min-height: 520px;
-  }
-  .heroImg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-  }
-}
-
 @media (min-width: 1000px) {
   .split {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -823,7 +786,6 @@
     transition: none;
   }
   .figure:hover .figureImg,
-  .heroFigure:hover .heroImg,
   .stat:hover,
   .award:hover,
   .fact:hover,
