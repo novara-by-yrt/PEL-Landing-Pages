@@ -91,7 +91,7 @@ Company number: ${CLINIC.companyNumber}
 Patient rating: 4.8 from 240+ Google reviews
 
 Consultation fees:
-${CONSULTATION_FEES.map((f) => `- ${f.label}: ${f.price}`).join("\n")}
+${CONSULTATION_FEES.map((f) => `- ${f.label} (with ${f.with}): ${f.price}`).join("\n")}
 
 Dr Shah-Desai does not offer free consultations. The consultation includes a
 full facial and periocular assessment, medical history and clinical

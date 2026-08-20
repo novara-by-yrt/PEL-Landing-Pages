@@ -85,6 +85,19 @@
   color: #fff;
   margin: 0;
 }
+/* Who the appointment is actually with. Its own line under the fee name
+   rather than appended to it: the names are long enough that inlining them
+   would wrap every row in this narrow card, and the price sits on the
+   baseline of the first line, so a second line hangs below it cleanly.
+   lavender-200 to sit back from the white fee name without dropping the
+   contrast that a translucent white would. */
+.feesWith {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--fs-caption);
+  line-height: 1.35;
+  color: var(--tp-lavender-200);
+}
 .feesPrice {
   font-family: var(--tp-display);
   font-size: 1.375rem;
