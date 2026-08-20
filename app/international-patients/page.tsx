@@ -50,7 +50,7 @@ const REASONS = [
   {
     icon: "star",
     title: "Recognised eight years running",
-    body: "Named a top practitioner for eyes for eight consecutive years, from 2019 to 2026, alongside more than twenty-five years of surgical and non-surgical practice.",
+    body: "Named a top practitioner for eyes for eight consecutive years, from 2019 to 2026, alongside twenty-five years of surgical and seventeen years of non-surgical practice.",
   },
   {
     icon: "clipboard",

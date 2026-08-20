@@ -15,7 +15,7 @@ const PRACTITIONERS: Member[] = [
     /* The same portrait the home page's team carousel and About section use,
        so she looks consistent everywhere she appears. */
     image: "/dr-sabrina-profile.png",
-    bio: "Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth, is a multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner specialising in reconstructive, revisional and cosmetic surgery of the eyelids, alongside non-surgical treatments for the eyes and face. With over 25 years of experience, she is globally recognised for her pioneering, minimally invasive techniques and is known as the “go-to” surgeon for discerning patients seeking subtle, natural results.",
+    bio: "Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth, is a multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner specialising in reconstructive, revisional and cosmetic surgery of the eyelids, alongside non-surgical treatments for the eyes and face. With 25 years of surgical and 17 years of non-surgical experience, she is globally recognised for her pioneering, minimally invasive techniques and is known as the “go-to” surgeon for discerning patients seeking subtle, natural results.",
     tags: [
       "MS, FRCS (Ed) Ophth",
       "Board-Certified Cosmetic Surgeon, RCS England",
@@ -92,29 +92,6 @@ const PRACTITIONERS: Member[] = [
   },
 ];
 
-const SUPPORT_STAFF: Member[] = [
-  {
-    id: "mary",
-    name: "Mary",
-    role: "Patient Services Coordinator",
-    image: "/uploads/2024/12/Mary-1.png",
-    bio: "Mary joined our team in July 2024 as our Patient Services Coordinator. She enjoys speaking with new and existing patients, helping to arrange appointments, and addressing any requests they may have. She manages Dr Sabrina's, Dr Janine's and Dr Michelle's consultation and treatment diaries, and is committed to ensuring every patient feels welcome and taken care of from the moment they reach out.",
-    tags: [],
-    fact: "Bali is her favourite travel spot.",
-    bookable: false,
-  },
-  {
-    id: "sally",
-    name: "Sally",
-    role: "Aesthetic Therapist & Patient Coordinator",
-    image: "/uploads/2025/09/Sally-1.jpg",
-    bio: "Sally is a trained aesthetic therapist and NEBDN-registered dental nurse, specialising in advanced skincare. As a patient coordinator, she is dedicated to providing a seamless and welcoming experience, ensuring every patient feels comfortable and cared for throughout their journey. Her warm, bubbly personality and passion for patient care makes her a trusted and reassuring presence at every visit.",
-    tags: [],
-    fact: null,
-    bookable: false,
-  },
-];
-
 export function TeamRoster({
   breadcrumbItems,
   siteUrl,
@@ -168,23 +145,6 @@ export function TeamRoster({
               Perfect Eyes Ltd.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.paper}`}>
-        <div className="container">
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>
-              <TpIcon name="shield" size={13} />
-              Clinical Administrative &amp; Support Staff
-            </span>
-            <h2 className={styles.heading}>Supporting Every Step of Your Journey</h2>
-            <p className={styles.lead}>
-              The dedicated team ensuring every patient journey is seamless, informed and truly
-              exceptional from first contact to final follow-up.
-            </p>
-          </div>
-          <TeamGrid members={SUPPORT_STAFF} />
         </div>
       </section>
 

@@ -75,7 +75,7 @@ Profile: ${SITE_URL}/dr-sabrina-shah-desai
   Board-Certified Cosmetic Surgeons.
 - Recognised as a top practitioner for eyes for eight consecutive years,
   2019-2026 (Tatler Beauty & Cosmetic Surgery Guide).
-- Over 25 years of surgical and non-surgical experience.
+- 25 years of surgical and 17 years of non-surgical experience.
 - Widely sought for revision work by patients who have had previous eyelid
   surgery or filler elsewhere.
 - Peer-reviewed publications: ${SITE_URL}/publications
