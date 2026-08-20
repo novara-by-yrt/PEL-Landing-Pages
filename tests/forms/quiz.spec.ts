@@ -29,9 +29,9 @@ test.describe("Blepharoplasty Candidacy Quiz (/self-test-survey)", () => {
     // own "Open Next.js Dev Tools" button, which is injected outside it.
     const next = () => form.getByRole("button", { name: "Next", exact: true }).click();
 
-    await page.getByRole("button", { name: "Start the quiz" }).click();
+    await page.getByRole("button", { name: "Start the Test" }).click();
 
-    await questionGroup(page, "Are you an existing customer of Perfect Eyes Limited?")
+    await questionGroup(page, "Are you an existing customer of Perfect Eyes Clinic?")
       .getByRole("radio", { name: "No" })
       .check();
     await next();

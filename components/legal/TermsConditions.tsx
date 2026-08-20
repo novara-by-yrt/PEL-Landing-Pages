@@ -111,7 +111,7 @@ const SECTIONS: Section[] = [
           "You will be advised of the full costs of any treatment plan proposed and agreed, including that of any maintenance treatment, before any treatment is undertaken.",
           "Payment is taken, in full, at the time of treatment.",
           "The clinic accepts all major debit and credit cards. We do not accept cash payment.",
-          "Finance options are available; please ask the team for further details about how to apply for this via PLIM Limited.",
+          "Finance options are available, please ask the team for further details if it is something you'd like to discuss with us.",
           "A discretionary deposit will be taken for some treatments and in some circumstances.",
         ],
       },
@@ -120,7 +120,7 @@ const SECTIONS: Section[] = [
         text: (
           <p>
             <strong>Important:</strong> all lower lid blepharoplasty procedures will incur an
-            additional 20% VAT unless you provide a GP letter confirming medical necessity prior to
+            additional 20% VAT unless you provide a GP or psychiatrists letter confirming medical necessity prior to
             your consultation.
           </p>
         ),

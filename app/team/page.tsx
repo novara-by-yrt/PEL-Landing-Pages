@@ -6,7 +6,7 @@ import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 const URL = `${SITE_URL}/team`;
 const DESCRIPTION =
-  "Meet the aesthetic practitioners, surgical coordinators and patient care specialists at the Perfect Eyes Ltd clinic on Harley Street, London.";
+  "Meet the aesthetic practitioners, surgical coordinators and patient care specialists at the Perfect Eyes Clinic clinic on Harley Street, London.";
 
 export const metadata: Metadata = {
   title: "Meet the Team",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: URL,
-    title: "Meet the Team | Perfect Eyes Ltd",
+    title: "Meet the Team | Perfect Eyes Clinic",
     images: [DEFAULT_OG_IMAGE],
   },
 };

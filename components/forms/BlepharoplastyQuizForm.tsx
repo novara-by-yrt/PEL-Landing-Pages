@@ -42,7 +42,7 @@ const STEPS: Step[] = [
   {
     kind: "radio",
     name: "existing-customer",
-    question: "Are you an existing customer of Perfect Eyes Limited?",
+    question: "Are you an existing customer of Perfect Eyes Clinic?",
     options: YES_NO,
   },
   {
@@ -237,14 +237,14 @@ export default function BlepharoplastyQuizForm() {
                   priority={false}
                 />
                 <h2 className={styles.quizTitle}>
-                  Take the quiz and find out if you are a fit for Blepharoplasty
+                  Take the Test and find out if you are a fit for Blepharoplasty
                 </h2>
                 <p className={styles.quizIntroBody}>
                   As you age, the skin loses elasticity resulting in droopy eyelids with excess skin
                   and folds. Fat can bulge out and cause a puffy look around your eyes. This can make
                   you look tired, and affects your self-confidence. With Blepharoplasty, you can get
                   rid of the saggy extra skin and excess fat pads around your eyes to rejuvenate your
-                  appearance. Take the quiz to find out whether you are a good candidate for
+                  appearance. Take the Test to find out whether you are a good candidate for
                   Blepharoplasty.
                 </p>
               </>
@@ -317,7 +317,7 @@ export default function BlepharoplastyQuizForm() {
             </button>
           ) : (
             <button key="next" type="button" className="tp-btn tp-btn-primary" onClick={next}>
-              {index === 0 ? "Start the quiz" : "Next"}
+              {index === 0 ? "Start the Test" : "Next"}
             </button>
           )}
         </div>

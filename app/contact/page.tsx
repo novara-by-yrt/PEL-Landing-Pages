@@ -20,12 +20,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 export const metadata: Metadata = {
   title: "Contact the Clinic",
   description:
-    "Contact Perfect Eyes Ltd on Harley Street, London. Book a consultation for eyelid surgery, tear trough fillers or periocular treatment.",
+    "Contact Perfect Eyes Clinic on Harley Street, London. Book a consultation for eyelid surgery, tear trough fillers or periocular treatment.",
   alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
     url: `${SITE_URL}/contact`,
     type: "website",
-    title: "Contact Perfect Eyes Ltd | Harley Street, London",
+    title: "Contact Perfect Eyes Clinic | Harley Street, London",
     description:
       "Book a consultation for eyelid surgery, tear trough fillers or periocular treatment with our oculoplastic team on Harley Street.",
     images: [DEFAULT_OG_IMAGE],

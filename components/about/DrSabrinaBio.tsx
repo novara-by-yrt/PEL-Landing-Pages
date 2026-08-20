@@ -44,7 +44,7 @@ const PANELS: Panel[] = [
     id: "the-surgeon",
     tone: "paper",
     eyebrow: "The Surgeon",
-    heading: { lead: "A trusted name in ", accent: "eye & face surgery." },
+    heading: { lead: "A trusted name in ", accent: "eye surgery & facial aesthetics." },
     image: "/uploads/2025/09/Sabrina-1.jpg",
     imageAlt: "Dr Sabrina Shah-Desai",
     caption: { title: "Dr Sabrina Shah-Desai", meta: "MS, FRCS (Ed) Ophth" },
@@ -292,10 +292,6 @@ const PANELS: Panel[] = [
             text: "Built around her revolutionary patent-pending “Kiara Molecule”.",
           },
           {
-            title: "Dark Circle Corrector System",
-            text: "The Kiara Molecule is the key component here too.",
-          },
-          {
             title: "Eye Regenerate LED mask",
             text: "Uses the photons of light to alter biological activity and rejuvenate the skin.",
           },
@@ -485,69 +481,71 @@ export function DrSabrinaBio({
   return (
     <div className={styles.page}>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/* Full-bleed portrait, centred text at every viewport width - the
+          same structure as the old WordPress reference. Where this departs
+          from it: the reference puts plain dark text straight on the photo
+          with no legibility treatment at all, which only reads because her
+          dark hair/top happen not to sit under every line on their crop. On
+          ours the text runs across her dark top, so plain text and a
+          text-shadow halo both failed, and a flat dark tint across the whole
+          photo (while it worked) covered more of the image than wanted. This
+          is a soft white fade confined to the bottom, where the text actually
+          sits - the rest of the photo is left completely untouched. Text
+          reverts to dark ink here since it now sits on a light fade rather
+          than a dark tint. */}
       <section className={styles.hero} aria-labelledby="bio-title">
-        <span className={styles.heroGlow} aria-hidden="true" />
+        <div className={styles.heroMedia}>
+          <Image
+            src="/uploads/2024/10/A59Z5738ggcopy-1.jpg"
+            alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon, in her clinic"
+            fill
+            sizes="100vw"
+            priority
+            className={styles.heroImg}
+          />
+          <span className={styles.heroFade} aria-hidden="true" />
+        </div>
+
         <div className="container">
-          <div className={styles.heroGrid}>
-            <div className={styles.heroBody}>
-              <span className={styles.eyebrow}>Surgeon, Educator &amp; Scientist</span>
-              <h1 id="bio-title" className={styles.heroTitle}>
-                Dr Sabrina Shah-Desai
-              </h1>
-              <p className={styles.heroCred}>MS, FRCS (Ed) Ophth.</p>
-              <span className={styles.rule} aria-hidden="true" />
-              <p className={styles.heroLead}>
-                Multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic
-                Practitioner, and one of the safest, most experienced eye and face
-                rejuvenation experts practising in the UK.
-              </p>
-              <div className={styles.heroActions}>
-                <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
-                  Book a Consultation
-                </Link>
-                <Link href="/before-after" className="tp-btn tp-btn-secondary">
-                  See Before &amp; After
-                </Link>
-              </div>
-            </div>
-
-            <figure className={styles.heroFigure}>
-              {/* Intrinsic rather than `fill`: on phones the figure takes its
-                  height from the photograph, so the frame is exactly the image
-                  at full container width - nothing cropped and no letterbox.
-                  width/height only reserve space before it loads; `height:
-                  auto` hands the final ratio back to the file itself. */}
-              <Image
-                src="/uploads/2024/10/A59Z5738ggcopy-1.jpg"
-                alt="Dr Sabrina Shah-Desai, Consultant Oculoplastic Surgeon, in her clinic"
-                width={1200}
-                height={1500}
-                sizes="(min-width: 900px) 44vw, 100vw"
-                loading="eager"
-                className={styles.heroImg}
-              />
-              <figcaption className={styles.heroBadge}>
-                <span className={styles.heroBadgeIcon} aria-hidden="true">
-                  <TpIcon name="shield" size={18} />
-                </span>
-                <span>
-                  <span className={styles.heroBadgeTitle}>Top practitioner for eyes</span>
-                  <span className={styles.heroBadgeMeta}>Eight consecutive years, 2019-2026</span>
-                </span>
-              </figcaption>
-            </figure>
+          <div className={styles.heroBody}>
+            <span className={styles.eyebrow}>Surgeon, Educator &amp; Scientist</span>
+            <h1 id="bio-title" className={styles.heroTitle}>
+              Dr Sabrina Shah-Desai
+            </h1>
+            <p className={styles.heroCred}>MS, FRCS (Ed) Ophth.</p>
+            <span className={`${styles.rule} ${styles.ruleCenter}`} aria-hidden="true" />
           </div>
-
-          <ul className={styles.stats}>
-            {STATS.map((stat) => (
-              <li key={stat.label} className={styles.stat}>
-                <span className={styles.statValue}>{stat.value}</span>
-                <span className={styles.statLabel}>{stat.label}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
+
+      <div className={`container ${styles.statsWrap}`}>
+        {/* Off the photo now - this was the hero's lead paragraph, sitting
+            directly on the image. Moved here, on the page's plain background,
+            since a full paragraph of body copy reads better off a photo than
+            a short headline does. The buttons followed it down, off the photo
+            too. */}
+        <p className={styles.introLead}>
+          Multi-award-winning Oculoplastic Reconstructive Surgeon and Aesthetic
+          Practitioner, and one of the safest, most experienced eye and face
+          rejuvenation experts practising in the UK.
+        </p>
+        <div className={styles.heroActions}>
+          <Link href="/contact-cosmetic-eye-surgeon" className="tp-btn tp-btn-primary">
+            Book a Consultation
+          </Link>
+          <Link href="/before-after" className="tp-btn tp-btn-secondary">
+            See Before &amp; After
+          </Link>
+        </div>
+        <ul className={styles.stats}>
+          {STATS.map((stat) => (
+            <li key={stat.label} className={styles.stat}>
+              <span className={styles.statValue}>{stat.value}</span>
+              <span className={styles.statLabel}>{stat.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* ── Accredited & recognised by ───────────────────────────────────── */}
       <AccreditedStrip />

@@ -263,7 +263,7 @@ export default async function CatchAllPageRoute({
             breadcrumbItems={breadcrumbItems}
             siteUrl={SITE_URL}
             eyebrow="Am I A Candidate?"
-            h1="Blepharoplasty Candidacy Quiz"
+            h1="Blepharoplasty Candidacy Test"
           />
           <section style={{ padding: "0 1.5rem clamp(3rem, 6vw, 5rem)" }}>
             <BlepharoplastyQuizForm />

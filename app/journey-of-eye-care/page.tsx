@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     url: URL,
-    title: "The Journey of Eye Care | Perfect Eyes Ltd",
+    title: "The Journey of Eye Care | Perfect Eyes Clinic",
     images: [DEFAULT_OG_IMAGE],
   },
 };

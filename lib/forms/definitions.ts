@@ -106,10 +106,10 @@ export const FORMS = {
   },
 
   quiz: {
-    title: "Blepharoplasty Candidacy Quiz",
+    title: "Blepharoplasty Candidacy Test",
     recaptcha: true,
-    subject: (get) => `New Blepharoplasty Quiz lead: ${get("your-name")}`,
-    intro: "A new Blepharoplasty candidacy quiz was submitted on the website.",
+    subject: (get) => `New Blepharoplasty Test lead: ${get("your-name")}`,
+    intro: "A new Blepharoplasty candidacy test was submitted on the website.",
     fields: [
       NAME,
       PHONE,
@@ -124,9 +124,9 @@ export const FORMS = {
       { name: "medications", label: "Medications", multiple: true },
       { name: "symptoms", label: "Symptoms", required: true },
     ],
-    successHeading: "Quiz Submitted",
+    successHeading: "Test Submitted",
     successMessage:
-      "Thank you for completing the Blepharoplasty Candidacy Quiz. Our team will review your answers and be in touch to discuss your results.",
+      "Thank you for completing the Blepharoplasty Candidacy Test. Our team will review your answers and be in touch to discuss your results.",
   },
 
   popup: {

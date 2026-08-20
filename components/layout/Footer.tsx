@@ -60,7 +60,7 @@ const LEGAL_LINKS = [
   { href: "/privacy-notice", label: "Privacy Notice" },
   {
     href: "/dr-sabrina-shah-desai/non-surgical-terms-conditions",
-    label: "Non Surgical Terms Conditions",
+    label: "Terms & Conditions",
   },
 ];
 
@@ -283,7 +283,10 @@ export default function Footer() {
 
           <div className={styles.fine}>
             <p>
-              © {currentYear} {CLINIC.name}. All rights reserved. Registered in England &amp;
+              {/* Registered name, not CLINIC.name (the trading name) — this
+                  line makes a statement about the actual Companies House
+                  entity, which must carry its "Ltd" suffix. See lib/clinic.ts. */}
+              © {currentYear} Perfect Eyes Ltd. All rights reserved. Registered in England &amp;
               Wales, company no. {CLINIC.companyNumber}.
             </p>
             <p>{CLINIC.addressShort}</p>

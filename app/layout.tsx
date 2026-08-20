@@ -48,15 +48,15 @@ const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Perfect Eyes Ltd | Expert Eye & Aesthetic Treatments",
-    template: "%s | Perfect Eyes Ltd",
+    default: "Perfect Eyes Clinic | Expert Eye & Aesthetic Treatments",
+    template: "%s | Perfect Eyes Clinic",
   },
   description:
-    "Perfect Eyes Ltd offers expert cosmetic eye surgery, non-surgical aesthetic treatments, and skincare solutions. Discover blepharoplasty, tear trough fillers, polynucleotides, and more.",
+    "Perfect Eyes Clinic offers expert cosmetic eye surgery, non-surgical aesthetic treatments, and skincare solutions. Discover blepharoplasty, tear trough fillers, polynucleotides, and more.",
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "Perfect Eyes Ltd",
+    siteName: "Perfect Eyes Clinic",
     locale: "en_GB",
     images: [DEFAULT_OG_IMAGE],
   },

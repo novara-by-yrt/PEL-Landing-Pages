@@ -2,7 +2,7 @@ import { FaqItem, PostFrontmatter } from "./mdx";
 
 // ─── Site-wide defaults ────────────────────────────────────────────────────────
 
-const SITE_NAME = "Perfect Eyes Ltd";
+const SITE_NAME = "Perfect Eyes Clinic";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 const ORG_LOGO = `${SITE_URL}/PEL_logo_without_background.png`;
 

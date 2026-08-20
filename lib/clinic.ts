@@ -18,14 +18,23 @@
  *
  * Confirm these are current before this goes live — a wrong number on a
  * clinic site sends patients nowhere.
+ *
+ * "Perfect Eyes Clinic" is the public trading name used here and everywhere
+ * else on the site. The registered company name at Companies House is still
+ * "Perfect Eyes Ltd" (companyNumber below) — UK company law requires that
+ * suffix on the legal name — so it stays hardcoded, not sourced from here, in
+ * the few places that make a legal/regulatory statement about the entity:
+ * the footer's copyright/registration line (components/layout/Footer.tsx),
+ * the privacy notices' Data Controller statements, and the T&Cs' entity
+ * clauses.
  */
 export const CLINIC = {
-  name: "Perfect Eyes Ltd",
+  name: "Perfect Eyes Clinic",
   phoneDisplay: "020 7183 5121",
   phoneHref: "tel:+442071835121",
   email: "enquiries@perfecteyesltd.com",
   addressShort: "121 Harley Street, London",
-  address: "Perfect Eyes Ltd, 121 Harley Street, London, W1G 6AX",
+  address: "Perfect Eyes Clinic, 121 Harley Street, London, W1G 6AX",
   companyNumber: "10036376",
   hours: [
     { day: "Mon to Fri", time: "9:30am to 6:00pm" },

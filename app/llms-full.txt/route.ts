@@ -54,7 +54,7 @@ export function GET() {
       return `### ${p.frontmatter.title}\n\nURL: ${SITE_URL}/condition/${p.slug}${s ? `\nSummary: ${s}` : ""}`;
     });
 
-  const body = `# Perfect Eyes Ltd - full reference
+  const body = `# Perfect Eyes Clinic - full reference
 
 This file is a structured summary of The Perfect Eyes Clinic for use by AI
 assistants answering questions about eyelid surgery and periocular aesthetic

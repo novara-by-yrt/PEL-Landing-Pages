@@ -155,7 +155,7 @@ export function DrSabrinaClub() {
           <h2>About The Dr Sabrina Club</h2>
           <p>
             Dr Sabrina Club is a special membership for skin and eye care. Our expert doctors at Perfect Skin
-            Studio and Perfect Eyes Ltd create a personalised 12-month plan just for you.
+            Studio and Perfect Eyes Clinic create a personalised 12-month plan just for you.
           </p>
           <p>With Dr Sabrina Club, your care is guided, planned, and supported all year.</p>
         </div>
