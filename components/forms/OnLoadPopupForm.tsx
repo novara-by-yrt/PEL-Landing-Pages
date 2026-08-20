@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormSubmit } from "./useFormSubmit";
 import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
+import RecaptchaField from "./RecaptchaField";
 
 /**
  * "On Load Popup Form" — the site-wide enquiry popup.
@@ -140,7 +141,7 @@ export default function OnLoadPopupForm() {
                 <span>Yes, I&rsquo;d like to receive updates, offers and tips by email, SMS or phone.</span>
               </label>
 
-              <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />
+              <RecaptchaField innerRef={recaptchaRef} />
 
               {status.kind === "error" && (
                 <p role="alert" className={`${styles.status} ${styles.statusError}`}>{status.message}</p>

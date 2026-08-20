@@ -1,86 +1,106 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Script from "next/script";
 import styles from "./HeroVideo.module.css";
 
-const MEDIA_ID = "82n4t7ug2e";
-const POSTER = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
-
-// Direct file deliveries from Wistia's asset API (fast.wistia.net/embed/medias/{id}.json),
-// not the player SDK. This loop is decorative, muted and controls-free, so none of the SDK's
-// adaptive-bitrate engine, captions, chapters or analytics pings are needed — the file stays
-// hosted on Wistia's CDN, we just stop asking a ~600KiB JS player to fetch it for us.
-const SOURCE_MOBILE = "https://embed-ssl.wistia.com/deliveries/609d2eff00ea27c7c292b657a4b9e30880792394.bin";
-const SOURCE_DESKTOP = "https://embed-ssl.wistia.com/deliveries/f23a6837b804502c76142cbf5028e0f0711ead9c.bin";
+const MEDIA_ID = "aab9b1a82e";
+const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
 /**
- * Looping, muted background video for the hero.
+ * Looping, muted background video for the hero — expected to be already
+ * playing by the time a visitor sees the page, not something that starts
+ * seconds later.
  *
  * Two deliberate choices:
  *
- * 1. A native <video>, not Wistia's player SDK. Profiling showed the SDK
- *    (public API + HLS engine + captions/chapters/logo modules) costs over a
- *    second of main-thread script evaluation and several MB of transfer —
- *    all for a video with no controls, captions or analytics need. A plain
- *    <video poster> gets the same visual result with none of that: the
- *    browser decodes it natively, and nothing renders empty while it loads
- *    because the poster frame covers the gap.
+ * 1. The Wistia scripts load with `afterInteractive`: right after hydration,
+ *    not gated on the browser going idle. `lazyOnload` was tried here first
+ *    and rolled back — on a page also running GTM, Clarity and the Meta
+ *    Pixel, idle time can be seconds away or later, which reads as "the
+ *    video doesn't play" to anyone landing on the page in that window. Same
+ *    tier as those analytics scripts, not before them: <Tracking /> renders
+ *    higher in the tree (root layout, ahead of page content), so it reaches
+ *    Next.js's script queue first without this needing its own later stage.
  *
- * 2. The clip only downloads when the visitor has not asked for reduced
+ * 2. The player only mounts when the visitor has not asked for reduced
  *    motion. Hiding an autoplaying video in CSS still downloads and decodes
- *    it; `preload="none"` plus a play() call gated on the media query means
- *    the request is never made, and the poster frame is what they get
- *    instead.
+ *    it; not rendering it means the request is never made, and the still
+ *    frame is what they get instead.
  */
 export default function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [motionAllowed, setMotionAllowed] = useState(false);
+  const playerRef = useRef<HTMLElement & { play?: () => void }>(null);
 
-  /* Start playback only when the visitor hasn't asked for reduced motion.
-     Deliberately `.play()` from an effect rather than an `autoplay`
-     attribute, and deliberately the same <video> element in every state:
-     an earlier version swapped a poster <div> for a <video> once this
-     check ran, which tore down an already-painted element ~450ms into
-     every page load and left the bare stage colour showing while the new
-     element re-decoded its poster - a visible flash on each refresh,
-     worst on iOS.
-
-     With `preload="none"` the clip is still never fetched unless play()
-     is called, so reduced-motion visitors pay nothing for the element
-     being present - they just keep the poster frame, same as before. */
   useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => {
-      if (query.matches) {
-        el.pause();
-      } else {
-        // Muted + playsInline, so autoplay policies allow this; a rejection
-        // (older iOS in Low Power Mode) just leaves the poster showing.
-        void el.play().catch(() => {});
-      }
-    };
-
+    const sync = () => setMotionAllowed(!query.matches);
     sync();
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
   }, []);
 
+  /* Belt and braces on top of autoplay="true". The attribute is what should
+     start playback, but it is evaluated when the element upgrades, and an
+     autoplay attempt that the browser declines at that instant is not retried
+     — so a muted background clip can silently sit on its first frame. Calling
+     play() once the element is actually defined costs nothing when autoplay
+     already worked (it's a no-op on an playing video) and recovers the case
+     where it didn't. Guarded on reduced motion so it can't override choice 2
+     above. */
+  useEffect(() => {
+    if (!motionAllowed) return;
+    let cancelled = false;
+
+    customElements
+      .whenDefined("wistia-player")
+      .then(() => {
+        if (cancelled) return;
+        try {
+          playerRef.current?.play?.();
+        } catch {
+          // Autoplay refused outright (e.g. iOS Low Power Mode): the poster
+          // swatch underneath stays visible, which is the intended fallback.
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [motionAllowed]);
+
   return (
     <div className={styles.stage} aria-hidden="true">
-      <video
-        ref={videoRef}
-        className={styles.player}
-        poster={POSTER}
-        muted
-        loop
-        playsInline
-        preload="none"
-      >
-        <source src={SOURCE_MOBILE} type="video/mp4" media="(max-width: 899px)" />
-        <source src={SOURCE_DESKTOP} type="video/mp4" />
-      </video>
+      <div className={styles.poster} style={{ backgroundImage: `url(${SWATCH})` }} />
+
+      {motionAllowed && (
+        <>
+          <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
+          <Script
+            src={`https://fast.wistia.com/embed/${MEDIA_ID}.js`}
+            type="module"
+            strategy="afterInteractive"
+          />
+          <wistia-player
+            ref={playerRef}
+            className={styles.player}
+            media-id={MEDIA_ID}
+            aspect="1.7777777777777777"
+            autoplay="true"
+            muted="true"
+            silent-autoplay="allow"
+            end-video-behavior="loop"
+            controls-visible-on-load="false"
+            big-play-button="false"
+            playbar="false"
+            volume-control="false"
+            fullscreen-button="false"
+            settings-control="false"
+            playsinline="true"
+          />
+        </>
+      )}
     </div>
   );
 }

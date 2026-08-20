@@ -18,7 +18,7 @@ import styles from "./MeetDrSabrina.module.css";
 const EXPERT_CREDENTIALS = [
   "Listed on the Royal College of Surgeons of England register of Board-Certified Cosmetic Surgeons",
   "Listed in Tatler’s Beauty & Cosmetic Surgery Guide as a top practitioner for eyes, eight consecutive years, 2019-2026",
-  "Over 25 years of surgical and non-surgical experience",
+  "25 years of surgical and 17 years of non-surgical experience",
 ];
 
 /** Award medal, used on the eyebrow and the portrait's badge. */
@@ -96,9 +96,9 @@ export default function MeetDrSabrina({
               Dr Sabrina Shah-Desai, MS, FRCS (Ed) Ophth is a multi-award-winning
               Oculoplastic Reconstructive Surgeon and Aesthetic Practitioner specialising
               in reconstructive, revisional, and cosmetic surgery of the eyelids, as well
-              as non-surgical treatments for the eyes and face. With over 25 years of
-              experience, she is globally recognised for her pioneering, minimally
-              invasive techniques.
+              as non-surgical treatments for the eyes and face. With 25 years of surgical
+              and 17 years of non-surgical experience, she is globally recognised for
+              her pioneering, minimally invasive techniques.
             </p>
             <p className={styles.expertText}>
               Named in Tatler&rsquo;s Beauty &amp; Cosmetic Surgery Guide every year since

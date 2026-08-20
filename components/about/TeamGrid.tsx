@@ -90,12 +90,11 @@ export function TeamGrid({ members }: { members: Member[] }) {
       <div className={styles.grid}>
         {members.map((member) => (
           <article key={member.id} className={styles.card}>
-            {/* SafeImage, not a bare next/image: every portrait is an
-                /uploads path served from the WordPress origin, and two of them
-                (Mary and Sally) are already 404ing there - a plain <img> then
-                paints the alt text and the browser's broken-image glyph in the
-                middle of the card, which is what the audit caught. This
-                degrades to the brand placeholder instead. */}
+            {/* SafeImage, not a bare next/image: a portrait can be a
+                /uploads path served from the WordPress origin, where files
+                have gone missing before - a plain <img> then paints the alt
+                text and the browser's broken-image glyph in the middle of the
+                card. This degrades to the brand placeholder instead. */}
             <div className={styles.photo}>
               <SafeImage
                 src={member.image}

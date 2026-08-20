@@ -1,0 +1,36 @@
+/* Google's reCAPTCHA v2 checkbox renders at a fixed 304x78 and offers no way
+   to resize it through its own API. Inside the form card there is less room
+   than that on any phone narrower than about 414px — 17px short on a 390px
+   iPhone 12 Pro, 84px short at 320px — so the widget used to hang over the
+   card's right-hand padding, which read as the form having no right gutter at
+   all on narrow screens.
+
+   The wrapper measures the room actually available and scales the widget down
+   to fit (never up past 1:1). Height is set from the widget's own unscaled
+   layout height times that scale, so the space reserved matches what is drawn
+   and nothing below it shifts.
+
+   overflow: hidden matters as much as the transform: a scaled element keeps
+   its original 304px layout box, so without clipping it would still be able
+   to push a horizontal scrollbar onto the page. */
+.wrap {
+  position: relative;
+  overflow: hidden;
+  /* Collapsed until the widget actually renders, so a missing or blocked
+     site key leaves no empty 78px gap in the middle of the form. Height and
+     scale are both set from script once there is something to measure. */
+  height: 0;
+}
+
+.wrap[data-ready="true"] {
+  margin: 1rem 0;
+}
+
+.inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 304px;
+  transform: scale(var(--rc-scale, 1));
+  transform-origin: 0 0;
+}

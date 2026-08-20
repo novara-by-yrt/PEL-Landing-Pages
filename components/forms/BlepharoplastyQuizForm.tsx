@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useFormSubmit } from "./useFormSubmit";
 import { FORMS } from "@/lib/forms/definitions";
 import styles from "./Forms.module.css";
+import RecaptchaField from "./RecaptchaField";
 
 /**
  * "Blepharoplasty Candidacy Quiz" — the standalone candidacy quiz.
@@ -295,7 +296,7 @@ export default function BlepharoplastyQuizForm() {
             callback ref in useFormSubmit re-checks readiness whenever this
             container itself mounts, so it renders correctly however late
             that is, same as the on-load popup's own delayed container. */}
-        {isLast && <div ref={recaptchaRef} style={{ margin: "1rem 0" }} />}
+        {isLast && <RecaptchaField innerRef={recaptchaRef} />}
 
         <div className={styles.quizNav}>
           {index > 0 && (

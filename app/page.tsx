@@ -207,14 +207,17 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
 const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
   [
     ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-2", "upper-blepharoplasty"],
-    ["Lower Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
+    /* Both lids, not just the lower one - the case is a scarless lower lid
+       blepharoplasty combined with a bilateral upper lid blepharoplasty, which
+       is what the photograph shows. */
+    ["Upper and Lower Eyelid Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
     ["Ptosis Surgery", "ba-ptosis-ba-3", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-3", "upper-blepharoplasty"],
-    ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
+    ["Extended Lower Eyelid Blepharoplasty", "ba-extended-lower-lid-bleph-2", "lower-blepharoplasty-eyebag-removal"],
     ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis-2", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-3-mths-after-bilateral-upper-lid-bleph", "upper-blepharoplasty"],
     ["Lower Blepharoplasty", "ba-scarless-transconjunctival-lower-lid-bleph-ba-3", "lower-blepharoplasty-eyebag-removal"],
-    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
+    ["Upper Eyelid Blepharoplasty & Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
     ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-3", "lower-blepharoplasty-eyebag-removal"],
   ] as const
 ).map(([treatment, file, gallery]) => ({
