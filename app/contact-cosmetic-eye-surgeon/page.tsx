@@ -10,13 +10,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 
 export const metadata: Metadata = {
   title: "Contact Us for Any Queries",
-  description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us Today!",
+  description: "Get in touch with Perfect Eyes Clinic. Ask questions about our treatments & doctors. Contact us Today!",
   alternates: { canonical: `${SITE_URL}/contact-cosmetic-eye-surgeon` },
   openGraph: {
     url: `${SITE_URL}/contact-cosmetic-eye-surgeon`,
     type: "website",
-    title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Ltd.",
-    description: "Get in touch with Perfect Eyes Ltd. Ask questions about our treatments & doctors. Contact us today!",
+    title: "Get In Touch | Contact Us for Any Queries - Perfect Eyes Clinic.",
+    description: "Get in touch with Perfect Eyes Clinic. Ask questions about our treatments & doctors. Contact us today!",
     images: [DEFAULT_OG_IMAGE],
   },
 };

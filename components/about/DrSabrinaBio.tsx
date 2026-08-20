@@ -44,7 +44,7 @@ const PANELS: Panel[] = [
     id: "the-surgeon",
     tone: "paper",
     eyebrow: "The Surgeon",
-    heading: { lead: "A trusted name in ", accent: "eye & face surgery." },
+    heading: { lead: "A trusted name in ", accent: "eye surgery & facial aesthetics." },
     image: "/uploads/2025/09/Sabrina-1.jpg",
     imageAlt: "Dr Sabrina Shah-Desai",
     caption: { title: "Dr Sabrina Shah-Desai", meta: "MS, FRCS (Ed) Ophth" },
@@ -290,10 +290,6 @@ const PANELS: Panel[] = [
           {
             title: "Perfect 360 Eye Illuminate",
             text: "Built around her revolutionary patent-pending “Kiara Molecule”.",
-          },
-          {
-            title: "Dark Circle Corrector System",
-            text: "The Kiara Molecule is the key component here too.",
           },
           {
             title: "Eye Regenerate LED mask",

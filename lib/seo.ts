@@ -17,16 +17,16 @@ export const DEFAULT_OG_IMAGE = {
 };
 
 /** The brand as it appears in the title template in app/layout.tsx. */
-export const SITE_NAME = "Perfect Eyes Ltd";
+export const SITE_NAME = "Perfect Eyes Clinic";
 
 /**
  * Removes a brand sign-off the title has already made for itself.
  *
- * Every page title goes through the `%s | Perfect Eyes Ltd` template in the
+ * Every page title goes through the `%s | Perfect Eyes Clinic` template in the
  * root layout, and a good many of the migrated titles end in the brand
  * *as well* — Yoast had its own suffix configured, so the export carries it
  * baked into the string. The two compose into "Meet the Team | Perfect Eyes
- * Ltd | Perfect Eyes Ltd", which is what 17 pages were publishing, and the
+ * Ltd | Perfect Eyes Clinic", which is what 17 pages were publishing, and the
  * "- PEL" house abbreviation adds a third mention of the same clinic on 52
  * more. Beyond looking careless in a result listing, it spends characters
  * from the ~60 Google renders on repeating a word the user can already see.
@@ -40,8 +40,8 @@ export function stripBrandSuffix(title: string): string {
   // Repeat: the export produced doubled suffixes on some pages.
   for (;;) {
     const next = out
-      // " | Perfect Eyes Ltd", " - Perfect Eyes Ltd.", " — Perfect Eyes Ltd"
-      .replace(/\s*[|\---]\s*Perfect\s+Eyes\s+Ltd\.?\s*$/i, "")
+      // " | Perfect Eyes Clinic", " - Perfect Eyes Clinic.", " — Perfect Eyes Clinic"
+      .replace(/\s*[|\---]\s*Perfect\s+Eyes\s+Clinic\.?\s*$/i, "")
       // The in-house abbreviation, which only ever appears as a sign-off.
       .replace(/\s*[|\---]\s*PEL\.?\s*$/i, "")
       .trim();
@@ -54,7 +54,7 @@ export function stripBrandSuffix(title: string): string {
 /**
  * Yoast wrote its title templates into the export unresolved on some posts, so
  * the frontmatter carries the literal template rather than a title — e.g.
- * "%title% %page% %sep% PEL | Perfect Eyes Ltd". Those strings are truthy, so
+ * "%title% %page% %sep% PEL | Perfect Eyes Clinic". Those strings are truthy, so
  * a plain `seo?.title || title` fallback publishes the template as the page
  * title. Anything containing a %placeholder% is treated as absent.
  *
@@ -69,9 +69,9 @@ export function resolveTitle(seoTitle: string | undefined, fallback: string): st
 /**
  * A page title as it should be handed to Next's `metadata.title`.
  *
- * The root layout appends "| Perfect Eyes Ltd" to every plain string. Most
+ * The root layout appends "| Perfect Eyes Clinic" to every plain string. Most
  * titles want that. A handful name the clinic mid-sentence — "Temple Fillers
- * - Perfect Eyes Ltd London, UK" — where the brand is not a suffix to strip
+ * - Perfect Eyes Clinic London, UK" — where the brand is not a suffix to strip
  * without rewriting the author's line, but appending to it still produces the
  * clinic's name twice. Those are passed through as `absolute`, which opts out
  * of the template and leaves the title exactly as written.

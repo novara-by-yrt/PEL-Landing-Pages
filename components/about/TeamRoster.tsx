@@ -104,7 +104,7 @@ export function TeamRoster({
       <PageHero
         breadcrumbItems={breadcrumbItems}
         siteUrl={siteUrl}
-        eyebrow="Perfect Eyes Ltd & Perfect Skin Studio"
+        eyebrow="Perfect Eyes Clinic & Perfect Skin Studio"
         h1="Meet the Team"
         lead="Our exceptional practitioners and dedicated support staff work together to deliver outstanding aesthetic outcomes and an unparalleled patient experience."
       >
@@ -142,7 +142,7 @@ export function TeamRoster({
             <p className={styles.bandText}>
               Behind every exceptional patient experience is a team that goes beyond clinical
               expertise - coordinating, educating and supporting every step of your journey at
-              Perfect Eyes Ltd.
+              Perfect Eyes Clinic.
             </p>
           </div>
         </div>

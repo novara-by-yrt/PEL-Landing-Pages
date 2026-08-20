@@ -26,7 +26,7 @@ const TO = (
   .filter(Boolean);
 
 const FROM =
-  process.env.FORM_NOTIFICATION_FROM || "Perfect Eyes Ltd <website@perfecteyesltd.com>";
+  process.env.FORM_NOTIFICATION_FROM || "Perfect Eyes Clinic <website@perfecteyesltd.com>";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 

@@ -23,7 +23,7 @@ export function TreatmentExpert() {
         <div className={styles.tpExpertContent}>
           <h2>Meet the Expert: Dr Sabrina Shah-Desai</h2>
           <span className={styles.tpExpertRule} aria-hidden="true" />
-          <p>Dr Sabrina Shah-Desai is the founder and Medical Director of Perfect Eyes Ltd. With over two decades of surgical and non-surgical experience, she is considered one of the safest, most experienced oculoplastic surgeons in the UK.</p>
+          <p>Dr Sabrina Shah-Desai is the founder and Medical Director of Perfect Eyes Clinic. With over two decades of surgical and non-surgical experience, she is considered one of the safest, most experienced oculoplastic surgeons in the UK.</p>
           <p>
             Her extensive training, combined with her caring and empathetic nature, makes her a natural choice for patients seeking the very best care. Dr Sabrina appears consistently in <em>Tatler</em> magazine as one of the UK&apos;s &ldquo;Best Eye Surgeons&rdquo; and &ldquo;Top Doctors&rdquo; since 2019.
           </p>

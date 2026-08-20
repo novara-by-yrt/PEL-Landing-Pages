@@ -34,14 +34,14 @@ const HomeFaq = dynamic(() => import("@/components/home/HomeFaq"));
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 export const metadata: Metadata = {
-  title: "Perfect Eyes Ltd | London's Leading Cosmetic Eye Surgeon",
+  title: "Perfect Eyes Clinic | London's Leading Cosmetic Eye Surgeon",
   description:
     "Rejuvenate your eyes with blepharoplasty, fillers, and laser treatments by Dr Sabrina Shah-Desai, a leading cosmetic eye surgeon in London.",
   alternates: { canonical: SITE_URL },
   openGraph: {
     url: SITE_URL,
     type: "website",
-    title: "London's Leading Cosmetic Eye Surgeon - Perfect Eyes Ltd",
+    title: "London's Leading Cosmetic Eye Surgeon - Perfect Eyes Clinic",
     description:
       "Rejuvenate your eyes with blepharoplasty, fillers, and laser treatments by Dr. Sabrina Shah-Desai, leading cosmetic eye surgeon in London.",
     images: [DEFAULT_OG_IMAGE],

@@ -42,7 +42,7 @@ const STEPS: Step[] = [
   {
     kind: "radio",
     name: "existing-customer",
-    question: "Are you an existing customer of Perfect Eyes Limited?",
+    question: "Are you an existing customer of Perfect Eyes Clinic?",
     options: YES_NO,
   },
   {

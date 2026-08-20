@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: URL,
-    title: "Terms & Conditions | Perfect Eyes Ltd",
+    title: "Terms & Conditions | Perfect Eyes Clinic",
     images: [DEFAULT_OG_IMAGE],
   },
 };

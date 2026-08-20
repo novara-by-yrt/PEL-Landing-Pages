@@ -17,12 +17,12 @@ const URL = `${SITE_URL}/conditions`;
 export const metadata: Metadata = {
   title: "Eye Conditions We Treat",
   description:
-    "Every eye and eyelid condition treated at Perfect Eyes Ltd - from hooded eyelids, ptosis and eye bags to chalazion, xanthelasma and thyroid eye disease.",
+    "Every eye and eyelid condition treated at Perfect Eyes Clinic - from hooded eyelids, ptosis and eye bags to chalazion, xanthelasma and thyroid eye disease.",
   alternates: { canonical: URL },
   openGraph: {
     url: URL,
     type: "website",
-    title: "Eye Conditions Treated at Perfect Eyes Ltd",
+    title: "Eye Conditions Treated at Perfect Eyes Clinic",
     description:
       "The eye and eyelid conditions treated by Dr Sabrina Shah-Desai, consultant oculoplastic surgeon, on Harley Street.",
     images: [DEFAULT_OG_IMAGE],
@@ -40,7 +40,7 @@ export default function ConditionsIndexPage() {
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Eye conditions treated at Perfect Eyes Ltd",
+    name: "Eye conditions treated at Perfect Eyes Clinic",
     numberOfItems: conditions.length,
     itemListElement: conditions.map((item, index) => ({
       "@type": "ListItem",

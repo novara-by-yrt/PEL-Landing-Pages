@@ -31,7 +31,7 @@ test.describe("Blepharoplasty Candidacy Quiz (/self-test-survey)", () => {
 
     await page.getByRole("button", { name: "Start the quiz" }).click();
 
-    await questionGroup(page, "Are you an existing customer of Perfect Eyes Limited?")
+    await questionGroup(page, "Are you an existing customer of Perfect Eyes Clinic?")
       .getByRole("radio", { name: "No" })
       .check();
     await next();
