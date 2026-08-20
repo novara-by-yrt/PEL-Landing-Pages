@@ -217,7 +217,7 @@ const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
     ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis-2", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-3-mths-after-bilateral-upper-lid-bleph", "upper-blepharoplasty"],
     ["Lower Blepharoplasty", "ba-scarless-transconjunctival-lower-lid-bleph-ba-3", "lower-blepharoplasty-eyebag-removal"],
-    ["Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
+    ["Upper Eyelid Blepharoplasty & Ptosis Surgery", "ba-3-mths-upper-lid-bleph-and-right-eyelid-ptosis", "ptosis-surgery"],
     ["Lower Blepharoplasty", "ba-extended-lower-lid-bleph-3", "lower-blepharoplasty-eyebag-removal"],
   ] as const
 ).map(([treatment, file, gallery]) => ({
