@@ -21,10 +21,43 @@
 .blogLayout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; padding: 3rem 1.5rem 2rem; }
 .blogMain { min-width: 0; max-width: 80ch; }
 .blogFeaturedImg { border-radius: var(--tp-radius-xl); overflow: hidden; box-shadow: var(--tp-shadow-md); aspect-ratio: 16/10; position: relative; margin-bottom: 2rem; }
-.blogSidebar { position: sticky; top: calc(var(--header-height, 72px) + 1.5rem); }
+/* Sticky, but never taller than the space left beneath its own offset.
+   Without the cap a sidebar taller than the viewport is not merely clipped,
+   it is unreachable: sticky pins the top, so scrolling the page can never
+   bring the bottom into view. Measured before the fix, the submit button sat
+   at 785px on a 768px-tall laptop and could not be scrolled to at all.
+
+   --sb-gutter is breathing room for the card's shadow and rounded corners,
+   which the scroll box would otherwise shear flush. It is added as padding
+   and taken straight back off as margin, and the sticky offset and max-height
+   are adjusted by the same amount, so the card lands in exactly the position
+   and size it did before - the gutter only widens the scroll container. */
+.blogSidebar {
+  --sb-gutter: 8px;
+  position: sticky;
+  top: calc(var(--header-height, 72px) + 1.5rem - var(--sb-gutter));
+  max-height: calc(100dvh - var(--header-height, 72px) - 3rem + (var(--sb-gutter) * 2));
+  overflow-y: auto;
+  /* Keeps a wheel/trackpad gesture inside the sidebar from chaining to the
+     page once it hits its end. */
+  overscroll-behavior: contain;
+  padding: var(--sb-gutter);
+  margin: calc(var(--sb-gutter) * -1);
+}
 @media (max-width: 960px) {
   .blogLayout { grid-template-columns: 1fr; }
   .blogMain { max-width: 100%; }
-  .blogSidebar { position: static; }
+  /* One column here, so the sidebar just flows with the page - it needs none
+     of the sticky cap above, and leaving the scroll box on would trap the
+     form in its own scroller on a phone. Everything the rule sets is unwound,
+     not just the position. */
+  .blogSidebar {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    overscroll-behavior: auto;
+    padding: 0;
+    margin: 0;
+  }
 }
 
