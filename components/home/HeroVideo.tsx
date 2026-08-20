@@ -8,16 +8,20 @@ const MEDIA_ID = "aab9b1a82e";
 const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
 /**
- * Looping, muted background video for the hero.
+ * Looping, muted background video for the hero — expected to be already
+ * playing by the time a visitor sees the page, not something that starts
+ * seconds later.
  *
  * Two deliberate choices:
  *
- * 1. The Wistia scripts load with `lazyOnload`, during browser idle time —
- *    after the analytics scripts in <Tracking /> (GTM, Clarity, Meta Pixel,
- *    all `afterInteractive`) have already had the main thread. The hero's
- *    LCP element is the headline, and a decorative video has no business
- *    competing with analytics, or with the headline, for bandwidth — the
- *    swatch frame covers the gap, so nothing renders empty in the meantime.
+ * 1. The Wistia scripts load with `afterInteractive`: right after hydration,
+ *    not gated on the browser going idle. `lazyOnload` was tried here first
+ *    and rolled back — on a page also running GTM, Clarity and the Meta
+ *    Pixel, idle time can be seconds away or later, which reads as "the
+ *    video doesn't play" to anyone landing on the page in that window. Same
+ *    tier as those analytics scripts, not before them: <Tracking /> renders
+ *    higher in the tree (root layout, ahead of page content), so it reaches
+ *    Next.js's script queue first without this needing its own later stage.
  *
  * 2. The player only mounts when the visitor has not asked for reduced
  *    motion. Hiding an autoplaying video in CSS still downloads and decodes
@@ -41,11 +45,11 @@ export default function HeroVideo() {
 
       {motionAllowed && (
         <>
-          <Script src="https://fast.wistia.com/player.js" strategy="lazyOnload" />
+          <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
           <Script
             src={`https://fast.wistia.com/embed/${MEDIA_ID}.js`}
             type="module"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
           <wistia-player
             className={styles.player}

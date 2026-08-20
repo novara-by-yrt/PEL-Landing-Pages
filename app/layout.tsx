@@ -78,11 +78,14 @@ export default function RootLayout({
     <html lang="en-GB" className={`${workSans.variable} ${newsreader.variable}`}>
       <head>
         {/* The hero's poster and clip come from two Wistia origins whose
-            handshake would otherwise land on the critical path the moment
-            HeroVideo's player script loads (next/script, `lazyOnload`, well
-            after the analytics scripts in <Tracking />). Warming the DNS
-            lookup and TLS handshake here means that whenever the lazy load
-            does fire, it isn't also paying for the connection setup.
+            handshake would otherwise land on the critical path right after
+            hydration, when HeroVideo's player script loads (next/script,
+            `afterInteractive` — the video is expected to already be playing
+            by the time a visitor sees the page, not something that starts
+            seconds later, so this can't be deferred the way a truly
+            optional script could be). Warming the DNS lookup and TLS
+            handshake here means that request isn't also paying for the
+            connection setup.
 
             preconnect rather than preload: the clip must not compete for
             bandwidth with the fonts and CSS, it just must not wait for a
