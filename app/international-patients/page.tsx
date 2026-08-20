@@ -34,7 +34,9 @@ export const metadata: Metadata = {
    - the surgeon profile, the Perfect360 patient journey sheet, the contact
    page and the clinic record in lib/clinic.ts - and rewritten rather than
    copied. Nothing here promises a service the site does not document: no
-   visa letters, no transfers, no accommodation, no remote consulting. */
+   visa letters, no transfers, no accommodation. Remote consultation is the
+   one exception - it is not written up elsewhere on the site, but is offered
+   on request for patients travelling from abroad (see the FAQ below). */
 
 const REASONS = [
   {
@@ -49,8 +51,8 @@ const REASONS = [
   },
   {
     icon: "star",
-    title: "Recognised eight years running",
-    body: "Named a top practitioner for eyes for eight consecutive years, from 2019 to 2026, alongside twenty-five years of surgical and seventeen years of non-surgical practice.",
+    title: "Recognised by Tattler UK for eight years running",
+    body: "Named a top practitioner by Tattler UK for eyes for eight consecutive years, from 2019 to 2026, alongside more than twenty-five years of surgical and seventeen years of non-surgical practice.",
   },
   {
     icon: "clipboard",
@@ -120,6 +122,11 @@ const NOTES: HomeFaqItem[] = [
     question: "Can the whole thing be done in a single trip?",
     answer:
       "Often, but not always. The surgical route includes a separate planning-and-consent appointment before the operation itself, and whether that can sit in the same visit depends on the procedure and on your own circumstances. It is one of the first things the team will talk through with you.",
+  },
+  {
+    question: "Can I have a consultation remotely before I travel?",
+    answer:
+      "Yes - a remote consultation can be arranged on request, so many of the initial questions can be worked through before you book flights. Get in touch with the team to set one up.",
   },
   {
     question: "Are consultations free?",
@@ -322,7 +329,7 @@ export default function InternationalPatientsPage() {
           items={NOTES}
           eyebrow="Before you book"
           title="Questions people ask from abroad"
-          lead="The four that come up in almost every enquiry from overseas. Anything they do not answer, ask us directly - we would rather you asked before booking a flight than after."
+          lead="The five that come up in almost every enquiry from overseas. Anything they do not answer, ask us directly - we would rather you asked before booking a flight than after."
           footer={
             <a href={`mailto:${CLINIC.email}`} className="tp-btn tp-btn-secondary">
               Email the team
