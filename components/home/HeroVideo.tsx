@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import styles from "./HeroVideo.module.css";
 
@@ -30,6 +30,7 @@ const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
  */
 export default function HeroVideo() {
   const [motionAllowed, setMotionAllowed] = useState(false);
+  const playerRef = useRef<HTMLElement & { play?: () => void }>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -38,6 +39,36 @@ export default function HeroVideo() {
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
   }, []);
+
+  /* Belt and braces on top of autoplay="true". The attribute is what should
+     start playback, but it is evaluated when the element upgrades, and an
+     autoplay attempt that the browser declines at that instant is not retried
+     — so a muted background clip can silently sit on its first frame. Calling
+     play() once the element is actually defined costs nothing when autoplay
+     already worked (it's a no-op on an playing video) and recovers the case
+     where it didn't. Guarded on reduced motion so it can't override choice 2
+     above. */
+  useEffect(() => {
+    if (!motionAllowed) return;
+    let cancelled = false;
+
+    customElements
+      .whenDefined("wistia-player")
+      .then(() => {
+        if (cancelled) return;
+        try {
+          playerRef.current?.play?.();
+        } catch {
+          // Autoplay refused outright (e.g. iOS Low Power Mode): the poster
+          // swatch underneath stays visible, which is the intended fallback.
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [motionAllowed]);
 
   return (
     <div className={styles.stage} aria-hidden="true">
@@ -52,6 +83,7 @@ export default function HeroVideo() {
             strategy="afterInteractive"
           />
           <wistia-player
+            ref={playerRef}
             className={styles.player}
             media-id={MEDIA_ID}
             aspect="1.7777777777777777"

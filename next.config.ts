@@ -172,7 +172,7 @@ const nextConfig: NextConfig = {
       // (components/forms/BlepharoplastyQuizForm.tsx and
       // components/forms/JoinClubForm.tsx), so nothing loads from that
       // domain anymore and it's dropped from every directive below.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://fast.wistia.com",
+      "script-src 'self' 'unsafe-inline' blob: https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net",
       "style-src 'self' 'unsafe-inline'",
       // GA/Ads/Meta/Clarity/Hotjar all fall back to an image-beacon on
       // browsers that block fetch/beacon, hence the analytics origins in
@@ -181,10 +181,26 @@ const nextConfig: NextConfig = {
       // c.bing.com is Clarity's separate, documented cross-domain sync pixel
       // for its Bing Ads integration — a different domain entirely, so the
       // *.clarity.ms wildcard above doesn't cover it.
-      "img-src 'self' data: blob: https://fast.wistia.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
-      "media-src 'self' https://fast.wistia.com https://embed-ssl.wistia.com https://*.wistia.com https://*.wistia.net",
+      "img-src 'self' data: blob: https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
+      // blob: is the load-bearing entry here, not the wistia hosts. The player
+      // streams over HLS via Media Source Extensions, which does not point the
+      // <video> at an https:// file at all — it attaches a MediaSource and sets
+      // src to a blob: URL. media-src governs that URL, so without blob: the
+      // player mounts, paints its first frame and then never advances: exactly
+      // "the video is there but stuck". The https hosts below only cover the
+      // non-MSE fallback path (a direct progressive MP4).
+      "media-src 'self' blob: data: https://fast.wistia.com https://embed-ssl.wistia.com https://*.wistia.com https://*.wistia.net https://embedwistia-a.akamaihd.net",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net",
+      // blob: here for the same MSE reason as media-src — the HLS engine
+      // fetches segments and hands them to a MediaSource; akamaihd is Wistia's
+      // older delivery CDN, which neither wistia wildcard covers.
+      "connect-src 'self' blob: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://embedwistia-a.akamaihd.net",
+      // Explicit, because the fallback chain lands somewhere useless: with no
+      // worker-src, CSP3 falls back to child-src, then to script-src — which
+      // is set here and has no blob:, so Wistia's HLS engine (a worker built
+      // from a blob URL) gets blocked by a directive that was never written
+      // with workers in mind.
+      "worker-src 'self' blob:",
       // reCAPTCHA v2's checkbox widget (components/forms/useFormSubmit.ts)
       // renders as an <iframe> from Google's own recaptcha origin — without
       // it here the widget's container div stays in the DOM but the browser
