@@ -159,6 +159,39 @@
 .pel-cta-full{width:100%;justify-content:center}
 .pel-drawer-phone{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;font-family:var(--tp-body);font-size:0.9375rem;font-weight:600;color:var(--tp-indigo-700);text-decoration:none;border:1px solid var(--tp-hairline);border-radius:999px}
 
+/* ── Drawer fitting on short screens ──────────────────────────────────────
+   The eight top-level links need 460px at their full 54px row height. On a
+   375x667 phone the drawer has 403px left for them once the brand row (77px)
+   and the CTA foot (147px) have taken their share, so the list scrolled and
+   "Blog" - the last item - sat below the fold with nothing to suggest it was
+   there. At 320x568 only 304px was left and the last three were hidden.
+
+   Rows are what gets tightened, in two stages, because eight of them multiply
+   any saving by eight; the brand row and the foot give up padding at the same
+   time. Nothing is removed and no font drops below 17px, so every option
+   stays present and legible - the point is that they are all reachable
+   without scrolling. */
+@media (max-height: 720px) {
+  .pel-drawer{padding-top:max(12px,env(safe-area-inset-top));padding-bottom:max(12px,env(safe-area-inset-bottom))}
+  .pel-drawer-top{padding:2px 16px 12px}
+  .pel-drawer-links{padding:8px}
+  .pel-drawer-link{min-height:46px;font-size:18px}
+  .pel-drawer-sublink{min-height:40px}
+  .pel-drawer-sub{padding:2px 0 8px 12px}
+  .pel-drawer-foot{padding:12px 16px;gap:8px}
+  .pel-drawer-phone{min-height:42px}
+}
+
+@media (max-height: 620px) {
+  .pel-drawer-top{padding:2px 14px 8px}
+  .pel-drawer-links{padding:6px}
+  .pel-drawer-link{min-height:40px;font-size:17px}
+  .pel-drawer-sublink{min-height:36px;font-size:0.875rem}
+  .pel-drawer-foot{padding:10px 14px;gap:6px}
+  .pel-drawer-phone{min-height:38px}
+  .pel-drawer-foot .tp-btn{padding-block:10px}
+}
+
 /* ── Nav bar fitting ──────────────────────────────────────────────────────
    The link group sits in the pill's `1fr` grid track with min-width:0, so it
    was allowed to be squeezed narrower than its own contents. The links are
