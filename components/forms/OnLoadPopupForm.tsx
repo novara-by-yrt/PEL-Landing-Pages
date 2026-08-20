@@ -18,7 +18,7 @@ import RecaptchaField from "./RecaptchaField";
  */
 
 const STORAGE_KEY = "pel-popup-dismissed";
-const OPEN_DELAY_MS = 8000;
+const OPEN_DELAY_MS = 15000;
 const DISMISS_DAYS = 7;
 
 function recentlyDismissed(): boolean {

@@ -8,11 +8,11 @@ test.describe("On Load Popup Form (site-wide)", () => {
     await mockFormsApiSuccess(page, "popup");
     await page.goto("/");
 
-    // Opens 8s after mount unless dismissed in the last 7 days (see
+    // Opens 15s after mount unless dismissed in the last 7 days (see
     // components/forms/OnLoadPopupForm.tsx) — a fresh browser context here
     // has no localStorage entry, so it always opens.
     const dialog = page.getByRole("dialog");
-    await expect(dialog).toBeVisible({ timeout: 15_000 });
+    await expect(dialog).toBeVisible({ timeout: 20_000 });
 
     await dialog.locator("#popup-name").fill(DUMMY_TEXT);
     await dialog.locator("#popup-email").fill(DUMMY_EMAIL);
