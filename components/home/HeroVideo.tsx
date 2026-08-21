@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import styles from "./HeroVideo.module.css";
 
-const MEDIA_ID = "aab9b1a82e";
+const MEDIA_ID = "7jmeer6jnr";
 const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
 /**
