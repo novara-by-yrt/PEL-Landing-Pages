@@ -7,6 +7,10 @@ import styles from "./HeroVideo.module.css";
 const MEDIA_ID = "7jmeer6jnr";
 const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
+/* Distinguishes one mount's copy of the media module from the next. See the
+   effect that injects it for why each mount needs its own URL. */
+let mediaScriptSequence = 0;
+
 /**
  * Looping, muted background video for the hero — expected to be already
  * playing by the time a visitor sees the page, not something that starts
@@ -14,14 +18,16 @@ const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
  *
  * Two deliberate choices:
  *
- * 1. The Wistia scripts load with `afterInteractive`: right after hydration,
- *    not gated on the browser going idle. `lazyOnload` was tried here first
+ * 1. player.js loads with `afterInteractive`: right after hydration, not
+ *    gated on the browser going idle. `lazyOnload` was tried here first
  *    and rolled back — on a page also running GTM, Clarity and the Meta
  *    Pixel, idle time can be seconds away or later, which reads as "the
  *    video doesn't play" to anyone landing on the page in that window. Same
  *    tier as those analytics scripts, not before them: <Tracking /> renders
  *    higher in the tree (root layout, ahead of page content), so it reaches
  *    Next.js's script queue first without this needing its own later stage.
+ *    The other half of the embed snippet, the per-media module, is injected
+ *    by hand instead — see the effect below for why.
  *
  * 2. The player only mounts when the visitor has not asked for reduced
  *    motion. Hiding an autoplaying video in CSS still downloads and decodes
@@ -40,6 +46,41 @@ export default function HeroVideo() {
     return () => query.removeEventListener("change", sync);
   }, []);
 
+  /* Wistia's per-media module — the half of the embed snippet that carries
+     this clip's data and brings a matching <wistia-player> to life. It is
+     injected by hand, once per mount, rather than through <Script>, because
+     two separate layers of caching otherwise make it run only once for the
+     lifetime of the tab:
+
+       • next/script keeps a module-level LoadCache of every src it has
+         loaded and returns early for a repeat, so no second tag is ever
+         appended;
+       • an ES module is keyed by URL in the module registry, so even an
+         identical tag appended by hand would not re-execute.
+
+     Landing on "/" directly therefore works — everything runs for the first
+     time — while arriving from another page leaves the freshly mounted
+     player with nothing to initialise it, sitting on its poster frame. That
+     is the "video is stuck until I refresh" report. The query string gives
+     each mount a URL the registry has not seen, which is what makes the
+     module run again; the tag is removed on unmount so repeat visits do not
+     pile them up.
+
+     player.js, the other half of the snippet, is deliberately left on
+     <Script> below: it defines the custom element once and re-running it
+     would only risk a duplicate customElements.define(). */
+  useEffect(() => {
+    if (!motionAllowed) return;
+
+    const script = document.createElement("script");
+    script.type = "module";
+    script.async = true;
+    script.src = `https://fast.wistia.com/embed/${MEDIA_ID}.js?remount=${++mediaScriptSequence}`;
+    document.body.appendChild(script);
+
+    return () => script.remove();
+  }, [motionAllowed]);
+
   /* Belt and braces on top of autoplay="true". The attribute is what should
      start playback, but it is evaluated when the element upgrades, and an
      autoplay attempt that the browser declines at that instant is not
@@ -48,17 +89,12 @@ export default function HeroVideo() {
      choice 2 above.
 
      `customElements.whenDefined` only proves the wistia-player *class* is
-     registered — on the first visit that coincides with the player instance
-     actually being ready, because defining the class and the browser
-     fetching/decoding the video happen around the same time. On a client-side
-     navigation back to "/" later in the session the class is already
-     defined, so this promise resolves on the next tick — before the fresh
-     instance has necessarily finished its own internal setup (fetching the
-     manifest, wiring the source). A single play() attempt at that instant can
-     silently do nothing, with nothing to retry it. So this retries on a short
-     timer instead of firing once: each attempt is a no-op once the video is
-     genuinely playing (per the same reasoning as the single-shot version),
-     and it stops as soon as playback is confirmed or after ~5s. */
+     registered, not that this particular instance has finished its own setup
+     — and on a client-side navigation the class is already defined, so it
+     resolves on the next tick, potentially well before the player is ready
+     to accept a play(). Hence a short retry rather than a single attempt:
+     each one is a no-op once the video is genuinely playing, and it stops as
+     soon as playback is confirmed or after ~5s. */
   useEffect(() => {
     if (!motionAllowed) return;
     let cancelled = false;
@@ -107,11 +143,6 @@ export default function HeroVideo() {
       {motionAllowed && (
         <>
           <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
-          <Script
-            src={`https://fast.wistia.com/embed/${MEDIA_ID}.js`}
-            type="module"
-            strategy="afterInteractive"
-          />
           <wistia-player
             ref={playerRef}
             className={styles.player}
