@@ -38,7 +38,7 @@ const SECTIONS: Section[] = [
       },
       {
         kind: "p",
-        text: "Please note that Perfect Eyes Ltd is the medical arm of Dr Shah Desai's practice. Perfect Skin Studio is the aesthetic arm of Dr Shah Desai's practice, and treatments will incur a VAT charge.",
+        text: "Please note that Perfect Eyes Clinic, trading as Perfect Eyes Ltd, is the medical arm of Dr Shah Desai's practice. Perfect Skin Studio is the aesthetic arm of Dr Sabrina Shah-Desai's practice, and treatments there will incur a VAT charge.",
       },
       {
         kind: "p",
