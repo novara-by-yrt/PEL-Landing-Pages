@@ -51,12 +51,17 @@ export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encod
  * your journey" CTA panel. Single source of truth for the same reason as
  * CLINIC above: two hard-coded copies of a price list will eventually say
  * two different things.
+ *
+ * `with` is who the fee is for time with — the first three rows read as
+ * generic consultation types with nothing to say they are specifically with
+ * Dr Sabrina, and the fourth (Perfect Skin Studio) is with her team rather
+ * than her personally, which the label alone doesn't distinguish either.
  */
 export const CONSULTATION_FEES = [
-  { label: "New Consultation", price: "£300" },
-  { label: "Revision / 2nd Opinion", price: "£400" },
-  { label: "Follow-up / Review", price: "From £200" },
-  { label: "Perfect Skin Studio consultation", price: "£100" },
+  { label: "New Consultation", price: "£300", with: "Dr Sabrina Shah-Desai" },
+  { label: "Revision / 2nd Opinion", price: "£400", with: "Dr Sabrina Shah-Desai" },
+  { label: "Follow-up / Review", price: "From £200", with: "Dr Sabrina Shah-Desai" },
+  { label: "Perfect Skin Studio consultation", price: "£100", with: "Dr Sabrina's team" },
 ] as const;
 
 /**

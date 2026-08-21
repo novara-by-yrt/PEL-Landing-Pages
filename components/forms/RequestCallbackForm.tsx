@@ -49,7 +49,15 @@ function MessageIcon() {
   );
 }
 
-export default function RequestCallbackForm() {
+export default function RequestCallbackForm({
+  /* Dialog rendering: drops the standalone card's own shell (background,
+     padding, shadow, heading) because the dialog already supplies all four,
+     and tightens the vertical rhythm so the whole form clears a short phone
+     viewport without the dialog needing to scroll. */
+  compact = false,
+}: {
+  compact?: boolean;
+} = {}) {
   const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("callback", {
     recaptcha: true,
   });
@@ -59,8 +67,8 @@ export default function RequestCallbackForm() {
   const [phone, setPhone] = useState("");
 
   return (
-    <div className={styles.card}>
-      <h3 className={styles.cardTitle}>Request a call back</h3>
+    <div className={compact ? styles.cardCompact : styles.card}>
+      {!compact && <h3 className={styles.cardTitle}>Request a call back</h3>}
 
       {/* The design labels fields with placeholders only. Sighted users get
           that; the visually hidden labels below give everyone else the same
@@ -100,7 +108,10 @@ export default function RequestCallbackForm() {
 
         <div className={styles.field}>
           <span className={`${styles.fieldIcon} ${styles.fieldIconArea}`}><MessageIcon /></span>
-          <textarea id="cb-message" name="your-message" rows={5} placeholder=" " className={styles.textarea} />
+          {/* Two rows in a dialog rather than five: the message is optional,
+              and the taller box is the single biggest reason the form would
+              otherwise overrun a short viewport. */}
+          <textarea id="cb-message" name="your-message" rows={compact ? 2 : 5} placeholder=" " className={styles.textarea} />
           <label htmlFor="cb-message" className={styles.label}>Message (optional)</label>
         </div>
 
