@@ -19,6 +19,10 @@
 }
 .feesRow:last-child { border-bottom: none; }
 .feesRow dt { font-size: 0.9375rem; color: var(--tp-slate); margin: 0; }
+/* Second line under the fee name — see BeginJourney.module.css for why this
+   isn't inlined. --tp-mist against this card's light background, one step
+   back from the slate fee name. */
+.feesWith { display: block; margin-top: 2px; font-size: 0.8125rem; line-height: 1.35; color: var(--tp-mist); }
 .feesRow dd { font-family: var(--tp-display); font-weight: 600; font-size: 1.0625rem; color: var(--tp-ink); margin: 0; white-space: nowrap; }
 
 .contactName { font-family: var(--tp-display); font-weight: 600; font-size: 1.35rem; color: var(--tp-ink); margin: 1rem 0 0.2rem; }

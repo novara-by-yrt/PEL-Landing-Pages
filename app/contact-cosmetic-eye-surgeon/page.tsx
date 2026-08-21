@@ -44,7 +44,10 @@ export default function ContactCosmeticEyeSurgeonPage() {
             <dl className={styles.feesList}>
               {CONSULTATION_FEES.map((fee) => (
                 <div key={fee.label} className={styles.feesRow}>
-                  <dt>{fee.label}</dt>
+                  <dt>
+                    {fee.label}
+                    <span className={styles.feesWith}>with {fee.with}</span>
+                  </dt>
                   <dd>{fee.price}</dd>
                 </div>
               ))}

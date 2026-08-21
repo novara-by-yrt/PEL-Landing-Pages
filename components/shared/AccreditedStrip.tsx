@@ -10,11 +10,11 @@ const AWARD_LOGOS: Logo[] = [
      dimensions let the marquee scale it on height without distorting the
      letterforms. */
   { src: "/tatler-logo.png", alt: "Tatler", width: 1467, height: 551, tile: true },
-  { src: "/uploads/2024/09/11.png", alt: "Award logo 1" },
-  { src: "/uploads/2024/09/22.png", alt: "Award logo 2" },
-  { src: "/uploads/2024/09/31.png", alt: "Award logo 3" },
-  { src: "/uploads/2024/09/41.png", alt: "Award logo 4" },
-  { src: "/uploads/2024/09/51.png", alt: "Award logo 5" },
+  { src: "/uploads/2024/09/11.png", alt: "The Royal College of Ophthalmologists" },
+  { src: "/uploads/2024/09/22.png", alt: "The Royal College of Surgeons of Edinburgh" },
+  { src: "/uploads/2024/09/31.png", alt: "BAPRAS, the British Association of Plastic, Reconstructive and Aesthetic Surgeons" },
+  { src: "/uploads/2024/09/41.png", alt: "General Medical Council" },
+  { src: "/uploads/2024/09/51.png", alt: "APRASSA, the Association of Plastic, Reconstructive and Aesthetic Surgeons of Southern Africa" },
   { src: "/uploads/2024/09/61.png", alt: "South African Society for Dermatologic Surgery" },
   { src: "/uploads/2024/09/71.png", alt: "BOPSS British Oculoplastic Surgery Society" },
 ];
