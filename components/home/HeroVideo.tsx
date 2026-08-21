@@ -42,31 +42,61 @@ export default function HeroVideo() {
 
   /* Belt and braces on top of autoplay="true". The attribute is what should
      start playback, but it is evaluated when the element upgrades, and an
-     autoplay attempt that the browser declines at that instant is not retried
-     — so a muted background clip can silently sit on its first frame. Calling
-     play() once the element is actually defined costs nothing when autoplay
-     already worked (it's a no-op on an playing video) and recovers the case
-     where it didn't. Guarded on reduced motion so it can't override choice 2
-     above. */
+     autoplay attempt that the browser declines at that instant is not
+     retried by the player itself — so a muted background clip can silently
+     sit on its first frame. Guarded on reduced motion so it can't override
+     choice 2 above.
+
+     `customElements.whenDefined` only proves the wistia-player *class* is
+     registered — on the first visit that coincides with the player instance
+     actually being ready, because defining the class and the browser
+     fetching/decoding the video happen around the same time. On a client-side
+     navigation back to "/" later in the session the class is already
+     defined, so this promise resolves on the next tick — before the fresh
+     instance has necessarily finished its own internal setup (fetching the
+     manifest, wiring the source). A single play() attempt at that instant can
+     silently do nothing, with nothing to retry it. So this retries on a short
+     timer instead of firing once: each attempt is a no-op once the video is
+     genuinely playing (per the same reasoning as the single-shot version),
+     and it stops as soon as playback is confirmed or after ~5s. */
   useEffect(() => {
     if (!motionAllowed) return;
     let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let attempts = 0;
+    const MAX_ATTEMPTS = 10;
+    const RETRY_DELAY_MS = 500;
+
+    const isPlaying = () => {
+      const player = playerRef.current as (HTMLElement & { paused?: boolean }) | null;
+      return player?.paused === false;
+    };
+
+    const attemptPlay = () => {
+      if (cancelled || isPlaying()) return;
+      try {
+        playerRef.current?.play?.();
+      } catch {
+        // Autoplay refused outright (e.g. iOS Low Power Mode): retrying won't
+        // help, but there is no harm in the next scheduled attempt trying anyway.
+      }
+      attempts += 1;
+      if (!cancelled && !isPlaying() && attempts < MAX_ATTEMPTS) {
+        timer = setTimeout(attemptPlay, RETRY_DELAY_MS);
+      }
+    };
 
     customElements
       .whenDefined("wistia-player")
       .then(() => {
         if (cancelled) return;
-        try {
-          playerRef.current?.play?.();
-        } catch {
-          // Autoplay refused outright (e.g. iOS Low Power Mode): the poster
-          // swatch underneath stays visible, which is the intended fallback.
-        }
+        attemptPlay();
       })
       .catch(() => {});
 
     return () => {
       cancelled = true;
+      if (timer) clearTimeout(timer);
     };
   }, [motionAllowed]);
 
