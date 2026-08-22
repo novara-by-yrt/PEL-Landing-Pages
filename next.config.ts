@@ -172,7 +172,12 @@ const nextConfig: NextConfig = {
       // (components/forms/BlepharoplastyQuizForm.tsx and
       // components/forms/JoinClubForm.tsx), so nothing loads from that
       // domain anymore and it's dropped from every directive below.
-      "script-src 'self' 'unsafe-inline' blob: https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net",
+      // browser.sentry-cdn.com is Sentry's browser SDK loader — GTM was
+      // configured with a Sentry tag, but this host was never added here, so
+      // the loader script has been silently CSP-blocked since that tag went
+      // live (error monitoring quietly not running, no visible symptom
+      // besides the console violation itself).
+      "script-src 'self' 'unsafe-inline' blob: https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://static.hotjar.com https://script.hotjar.com https://www.gstatic.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://browser.sentry-cdn.com",
       "style-src 'self' 'unsafe-inline'",
       // GA/Ads/Meta/Clarity/Hotjar all fall back to an image-beacon on
       // browsers that block fetch/beacon, hence the analytics origins in
@@ -181,7 +186,11 @@ const nextConfig: NextConfig = {
       // c.bing.com is Clarity's separate, documented cross-domain sync pixel
       // for its Bing Ads integration — a different domain entirely, so the
       // *.clarity.ms wildcard above doesn't cover it.
-      "img-src 'self' data: blob: https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
+      // *.google.com does not match google.co.in — different domain, not a
+      // subdomain — so Google Ads' remarketing pixel was being blocked
+      // whenever it fired from that country-TLD host (observed for .co.in;
+      // the same gap applies to any other ccTLD variant Ads decides to use).
+      "img-src 'self' data: blob: https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.google.com https://*.google.co.in https://*.doubleclick.net https://www.facebook.com https://*.clarity.ms https://*.hotjar.com https://c.bing.com",
       // blob: is the load-bearing entry here, not the wistia hosts. The player
       // streams over HLS via Media Source Extensions, which does not point the
       // <video> at an https:// file at all — it attaches a MediaSource and sets
@@ -190,11 +199,26 @@ const nextConfig: NextConfig = {
       // "the video is there but stuck". The https hosts below only cover the
       // non-MSE fallback path (a direct progressive MP4).
       "media-src 'self' blob: data: https://fast.wistia.com https://embed-ssl.wistia.com https://*.wistia.com https://*.wistia.net https://embedwistia-a.akamaihd.net",
-      "font-src 'self' data:",
+      // The wistia-player web component ships its own UI font (Inter, plus
+      // several Unicode-range subsets) from Wistia's CDN rather than bundling
+      // it — font-src had no third-party entries at all, so every one of
+      // those requests was blocked outright.
+      "font-src 'self' data: https://fast.wistia.com https://*.wistia.com https://*.wistia.net",
       // blob: here for the same MSE reason as media-src — the HLS engine
       // fetches segments and hands them to a MediaSource; akamaihd is Wistia's
       // older delivery CDN, which neither wistia wildcard covers.
-      "connect-src 'self' blob: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.doubleclick.net https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://embedwistia-a.akamaihd.net",
+      // *.sentry.io covers the SDK's error/session ingest calls once the
+      // browser.sentry-cdn.com loader above is actually allowed to run.
+      // googleadservices.com was already in script-src (it serves the
+      // conversion-tracking snippet) but missing here — the snippet's own
+      // conversion ping is a fetch/beacon to this same host, which connect-src
+      // governs separately from script-src. *.google.co.in is the same ccTLD
+      // gap as img-src below, just hit via a fetch (attribution/wcm) instead
+      // of an <img> pixel this time. litix.io is Mux Data, the video-QoE
+      // analytics backend the wistia-player component reports metrics to
+      // under the hood — undocumented from this codebase's side, same as the
+      // other third-party analytics origins here.
+      "connect-src 'self' blob: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.google.co.in https://*.doubleclick.net https://www.googleadservices.com https://*.clarity.ms https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://fast.wistia.com https://*.wistia.com https://*.wistia.net https://embedwistia-a.akamaihd.net https://*.litix.io https://*.sentry.io",
       // Explicit, because the fallback chain lands somewhere useless: with no
       // worker-src, CSP3 falls back to child-src, then to script-src — which
       // is set here and has no blob:, so Wistia's HLS engine (a worker built
@@ -216,6 +240,15 @@ const nextConfig: NextConfig = {
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'none'",
+      // Wistia's player.js and Google's call-tracking loader both request a
+      // handful of their own sub-resources over plain http:// even on this
+      // https:// page — CSP checks the scheme, so an http:// request to an
+      // https-only-listed host (fast.wistia.com, www.gstatic.com) is a
+      // violation despite the host itself being allowed. This tells the
+      // browser to silently upgrade those requests to https: before the CSP
+      // check runs, rather than trying to enumerate every insecure URL a
+      // third-party script might hardcode.
+      "upgrade-insecure-requests",
     ].join("; ");
 
     return [
