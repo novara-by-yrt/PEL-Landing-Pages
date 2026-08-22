@@ -7,9 +7,31 @@ import styles from "./HeroVideo.module.css";
 const MEDIA_ID = "7jmeer6jnr";
 const SWATCH = `https://fast.wistia.com/embed/medias/${MEDIA_ID}/swatch`;
 
-/* Distinguishes one mount's copy of the media module from the next. See the
-   effect that injects it for why each mount needs its own URL. */
-let mediaScriptSequence = 0;
+/**
+ * Every attribute the player is configured with, applied by hand rather than
+ * written as JSX props — see the effect below for why that matters.
+ */
+const PLAYER_ATTRIBUTES: Record<string, string> = {
+  "media-id": MEDIA_ID,
+  aspect: "1.7777777777777777",
+  autoplay: "true",
+  muted: "true",
+  "silent-autoplay": "allow",
+  /** Restarts the video when it ends. */
+  "end-video-behavior": "loop",
+  /* The player suspends a *muted* video whenever it is scrolled out of the
+     viewport and resumes it on the way back in — that is what its default of
+     "auto" means, and this video is muted. Sensible for a video someone chose
+     to watch, wrong for decorative wallpaper, so it is switched off here. */
+  "play-suspended-off-screen": "false",
+  "controls-visible-on-load": "false",
+  "big-play-button": "false",
+  "play-bar-control": "false",
+  "volume-control": "false",
+  "fullscreen-control": "false",
+  "settings-control": "false",
+  playsinline: "true",
+};
 
 /**
  * Looping, muted background video for the hero — expected to be already
@@ -18,16 +40,14 @@ let mediaScriptSequence = 0;
  *
  * Two deliberate choices:
  *
- * 1. player.js loads with `afterInteractive`: right after hydration, not
- *    gated on the browser going idle. `lazyOnload` was tried here first
+ * 1. The Wistia scripts load with `afterInteractive`: right after hydration,
+ *    not gated on the browser going idle. `lazyOnload` was tried here first
  *    and rolled back — on a page also running GTM, Clarity and the Meta
  *    Pixel, idle time can be seconds away or later, which reads as "the
  *    video doesn't play" to anyone landing on the page in that window. Same
  *    tier as those analytics scripts, not before them: <Tracking /> renders
  *    higher in the tree (root layout, ahead of page content), so it reaches
  *    Next.js's script queue first without this needing its own later stage.
- *    The other half of the embed snippet, the per-media module, is injected
- *    by hand instead — see the effect below for why.
  *
  * 2. The player only mounts when the visitor has not asked for reduced
  *    motion. Hiding an autoplaying video in CSS still downloads and decodes
@@ -36,7 +56,7 @@ let mediaScriptSequence = 0;
  */
 export default function HeroVideo() {
   const [motionAllowed, setMotionAllowed] = useState(false);
-  const playerRef = useRef<HTMLElement & { play?: () => void }>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,75 +66,66 @@ export default function HeroVideo() {
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  /* Wistia's per-media module — the half of the embed snippet that carries
-     this clip's data and brings a matching <wistia-player> to life. It is
-     injected by hand, once per mount, rather than through <Script>, because
-     two separate layers of caching otherwise make it run only once for the
-     lifetime of the tab:
+  /* The player element is built by hand instead of being written as JSX.
+     React would otherwise decide, per prop, whether to write a DOM attribute
+     or assign a property — and for a custom element it assigns the property
+     whenever one exists. Which of the two it picks here depends on whether
+     wistia-player has been registered yet, and that differs between the two
+     ways of arriving at "/":
 
-       • next/script keeps a module-level LoadCache of every src it has
-         loaded and returns early for a repeat, so no second tag is ever
-         appended;
-       • an ES module is keyed by URL in the module registry, so even an
-         identical tag appended by hand would not re-execute.
+       • landing on "/" directly, player.js is still in flight, so there is
+         no autoplay property to assign and React writes autoplay="true";
+       • arriving from another page, the class was registered on an earlier
+         visit, so React assigns the *string* "true" to the property — and
+         the player's setter takes `boolean`, bails on anything else, and
+         never reflects it back to an attribute.
 
-     Landing on "/" directly therefore works — everything runs for the first
-     time — while arriving from another page leaves the freshly mounted
-     player with nothing to initialise it, sitting on its poster frame. That
-     is the "video is stuck until I refresh" report. The query string gives
-     each mount a URL the registry has not seen, which is what makes the
-     module run again; the tag is removed on unmount so repeat visits do not
-     pile them up.
+     The element then connects with no autoplay attribute at all, reads the
+     default of false, and sits on its first frame: the video that only plays
+     if you reload. Measured against the real player, the whole attribute set
+     (autoplay, muted, the rest) was missing on that second path.
 
-     player.js, the other half of the snippet, is deliberately left on
-     <Script> below: it defines the custom element once and re-running it
-     would only risk a duplicate customElements.define(). */
+     Creating the element, setting every attribute, and only then putting it
+     in the document sidesteps the guesswork entirely and matches the order
+     the player expects — it reads its attributes in connectedCallback, so
+     they have to be there before it is appended, which also rules out
+     setting them from a ref callback or a later effect. */
   useEffect(() => {
     if (!motionAllowed) return;
+    const stage = stageRef.current;
+    if (!stage) return;
 
-    const script = document.createElement("script");
-    script.type = "module";
-    script.async = true;
-    script.src = `https://fast.wistia.com/embed/${MEDIA_ID}.js?remount=${++mediaScriptSequence}`;
-    document.body.appendChild(script);
+    const player = document.createElement("wistia-player") as HTMLElement & {
+      play?: () => void;
+      paused?: boolean;
+    };
+    for (const [name, value] of Object.entries(PLAYER_ATTRIBUTES)) {
+      player.setAttribute(name, value);
+    }
+    player.className = styles.player;
 
-    return () => script.remove();
-  }, [motionAllowed]);
-
-  /* Belt and braces on top of autoplay="true". The attribute is what should
-     start playback, but it is evaluated when the element upgrades, and an
-     autoplay attempt that the browser declines at that instant is not
-     retried by the player itself — so a muted background clip can silently
-     sit on its first frame. Guarded on reduced motion so it can't override
-     choice 2 above.
-
-     `customElements.whenDefined` only proves the wistia-player *class* is
-     registered, not that this particular instance has finished its own setup
-     — and on a client-side navigation the class is already defined, so it
-     resolves on the next tick, potentially well before the player is ready
-     to accept a play(). Hence a short retry rather than a single attempt:
-     each one is a no-op once the video is genuinely playing, and it stops as
-     soon as playback is confirmed or after ~5s. */
-  useEffect(() => {
-    if (!motionAllowed) return;
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let attempts = 0;
     const MAX_ATTEMPTS = 10;
     const RETRY_DELAY_MS = 500;
 
-    const isPlaying = () => {
-      const player = playerRef.current as (HTMLElement & { paused?: boolean }) | null;
-      return player?.paused === false;
-    };
+    const isPlaying = () => player.paused === false;
 
+    /* Belt and braces on top of autoplay. "api-ready" is the event the player
+       fires once it has fetched its media and built its public API, which is
+       the first moment a play() call can be honoured; the bounded retry
+       behind it covers an instance that was already ready before the listener
+       was attached. Each attempt is a no-op once the video is genuinely
+       playing, and the loop stops as soon as it is, or after ~5s. */
     const attemptPlay = () => {
       if (cancelled || isPlaying()) return;
+      if (timer) clearTimeout(timer);
       try {
-        playerRef.current?.play?.();
+        player.play?.();
       } catch {
-        // Autoplay refused outright (e.g. iOS Low Power Mode): retrying won't
-        // help, but there is no harm in the next scheduled attempt trying anyway.
+        // Autoplay refused outright (e.g. iOS Low Power Mode): the poster
+        // swatch underneath stays visible, which is the intended fallback.
       }
       attempts += 1;
       if (!cancelled && !isPlaying() && attempts < MAX_ATTEMPTS) {
@@ -122,43 +133,29 @@ export default function HeroVideo() {
       }
     };
 
-    customElements
-      .whenDefined("wistia-player")
-      .then(() => {
-        if (cancelled) return;
-        attemptPlay();
-      })
-      .catch(() => {});
+    player.addEventListener("api-ready", attemptPlay);
+    stage.appendChild(player);
+    attemptPlay();
 
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);
+      player.removeEventListener("api-ready", attemptPlay);
+      player.remove();
     };
   }, [motionAllowed]);
 
   return (
-    <div className={styles.stage} aria-hidden="true">
+    <div className={styles.stage} ref={stageRef} aria-hidden="true">
       <div className={styles.poster} style={{ backgroundImage: `url(${SWATCH})` }} />
 
       {motionAllowed && (
         <>
           <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
-          <wistia-player
-            ref={playerRef}
-            className={styles.player}
-            media-id={MEDIA_ID}
-            aspect="1.7777777777777777"
-            autoplay="true"
-            muted="true"
-            silent-autoplay="allow"
-            end-video-behavior="loop"
-            controls-visible-on-load="false"
-            big-play-button="false"
-            playbar="false"
-            volume-control="false"
-            fullscreen-button="false"
-            settings-control="false"
-            playsinline="true"
+          <Script
+            src={`https://fast.wistia.com/embed/${MEDIA_ID}.js`}
+            type="module"
+            strategy="afterInteractive"
           />
         </>
       )}
