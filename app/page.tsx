@@ -210,7 +210,7 @@ const BEFORE_AFTER_SLIDES: BeforeAfterSlide[] = (
     /* Both lids, not just the lower one - the case is a scarless lower lid
        blepharoplasty combined with a bilateral upper lid blepharoplasty, which
        is what the photograph shows. */
-    ["Upper and Lower Eyelid Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-ba", "lower-blepharoplasty-eyebag-removal"],
+    ["Upper and Lower Eyelid Blepharoplasty", "ba-scarless-lower-lid-bleph-and-bil-ul-bleph-2", "lower-blepharoplasty-eyebag-removal"],
     ["Ptosis Surgery", "ba-ptosis-ba-3", "ptosis-surgery"],
     ["Upper Blepharoplasty", "ba-4-mths-after-upper-lid-bleph-4", "upper-blepharoplasty"],
     ["Upper Blepharoplasty", "upper-blepharoplasty-ba-8", "upper-blepharoplasty"],
