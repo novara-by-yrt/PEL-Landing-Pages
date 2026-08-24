@@ -40,6 +40,8 @@
    Each section heading carries a short brand rule above it, so a long body
    reads as a sequence of parts rather than one undifferentiated run. */
 .tpContentBody h2 {
+  /* Only bites where the body floats something - /meet-the-team's portraits. */
+  clear: both;
   font-family: var(--tp-display);
   font-weight: 600;
   font-size: clamp(1.375rem, 3vw, 1.75rem);

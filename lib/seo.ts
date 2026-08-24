@@ -134,3 +134,31 @@ export function resolveDescription(
   const cut = window.lastIndexOf(" ");
   return `${window.slice(0, cut > 0 ? cut : limit).trim()}…`;
 }
+
+/**
+ * The `robots` meta value for a page, from its own frontmatter.
+ *
+ * The three templates used to collapse this to a fixed `"noindex,nofollow"`
+ * the moment `noindex` appeared anywhere in the list, which threw away the
+ * other half of the declaration. /meet-the-team is the case that exposed it:
+ * WordPress publishes it as `follow, noindex` — deliberately, so the links
+ * out of it still pass — and the migrated page was republishing it as
+ * `nofollow`, contradicting both the source page and the `follow` its own
+ * frontmatter asks for.
+ *
+ * Both axes are always stated, because most of the migrated content declares
+ * only `index` and leaves the crawl half implicit: emitting the list verbatim
+ * would silently drop `follow` from 90-odd pages that read `index,follow`
+ * today. The default for each axis is the permissive one, matching what a
+ * crawler assumes when the directive is absent, and any other directive in
+ * the list (`max-snippet`, and the like) is carried through untouched.
+ */
+export function resolveRobots(robots: string[] | undefined): string {
+  const declared = (robots ?? []).map((r) => r.trim().toLowerCase()).filter(Boolean);
+  const index = declared.includes("noindex") ? "noindex" : "index";
+  const follow = declared.includes("nofollow") ? "nofollow" : "follow";
+  const extras = declared.filter(
+    (r) => !["index", "noindex", "follow", "nofollow"].includes(r),
+  );
+  return [index, follow, ...extras].join(",");
+}

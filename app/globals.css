@@ -1203,6 +1203,49 @@ textarea.form-input {
   opacity: 1;
 }
 
+/* ── 24a. Team Portraits ─────────────────────────────────────────────────── */
+/* /meet-the-team pairs every bio with a photograph. The live page lays each
+   one out as a two-column row; inside the single prose column of the generic
+   template the equivalent is a float, so the text still wraps beside the
+   portrait instead of the 1500px original filling a screen on its own.
+   `.tp` (the page wrapper) outbids the content card's generic `img` rule. */
+.tp img.team-portrait {
+  float: right;
+  width: min(300px, 40%);
+  height: auto;
+  margin: 6px 0 20px 28px;
+  border-radius: var(--radius-xl, 16px);
+  shape-outside: inset(0 round 16px);
+}
+
+@media (max-width: 720px) {
+  .tp img.team-portrait {
+    float: none;
+    width: 100%;
+    margin: 20px 0 0;
+  }
+}
+
+/* ── 24b. Awards Badge Grid ──────────────────────────────────────────────── */
+/* The migrated /meet-the-team awards row. Nine 400x400 badges stacked one per
+   line filled several screens; the live page shows them as a single band, so
+   they wrap here instead. The `img.award` selector outbids the generic
+   `img` rule inside the content card, same trick as `.step img.nm` above. */
+.award-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0 0;
+}
+
+.award-grid img.award {
+  width: clamp(90px, 14vw, 130px);
+  height: auto;
+  margin: 0;
+  border-radius: var(--radius-lg, 12px);
+}
+
 /* ── 25. Treatment Card Hero Banner ──────────────────────────────────────── */
 .treatment-hero-banner {
   position: relative;

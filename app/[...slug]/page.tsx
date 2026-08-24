@@ -10,7 +10,7 @@ import {
   buildMedicalProcedureSchema,
   buildPhysicianSchema,
 } from "@/lib/schema";
-import { isBeforeAfterImage, resolveHeroImage } from "@/lib/page-utils";
+import { ACCREDITATION_LOGOS, isBeforeAfterImage, resolveHeroImage } from "@/lib/page-utils";
 import { DrSabrinaBio } from "@/components/about/DrSabrinaBio";
 import BlepharoplastyQuizForm from "@/components/forms/BlepharoplastyQuizForm";
 import ContactSection from "@/components/home/ContactSection";
@@ -24,7 +24,7 @@ import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
-import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveRobots, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
@@ -122,7 +122,6 @@ export async function generateMetadata({
   const metaFileSlug = frontmatter.slug || slugSegments[slugSegments.length - 1];
   const canonicalPath = TREATMENT_PATHS[metaFileSlug] ?? metaFileSlug;
   const url = `${SITE_URL}/${canonicalPath}`;
-  const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
 
   const title = resolveTitle(frontmatter.seo?.title, frontmatter.title);
   const description = resolveDescription(
@@ -134,7 +133,7 @@ export async function generateMetadata({
   return {
     title: metadataTitle(title),
     description,
-    robots: isNoIndex ? "noindex,nofollow" : "index,follow",
+    robots: resolveRobots(frontmatter.seo?.robots),
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       type: (["website", "article", "book", "profile"].includes(frontmatter.seo?.og?.type || "")
@@ -443,6 +442,11 @@ function GenericPage({
           heroImage={resolveHeroImage(frontmatter)}
           heroImageAlt={frontmatter.title}
         />
+
+        {/* Opt-in, same flag and placement the condition template uses: the
+            strip belongs on a page that introduces the people behind the
+            clinic, not on a privacy notice. */}
+        {frontmatter.showAccreditation && <AccreditedStrip logos={ACCREDITATION_LOGOS} />}
 
         <TreatmentContent content={content} />
         <BeforeAfterGallery
