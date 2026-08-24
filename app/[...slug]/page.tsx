@@ -110,8 +110,17 @@ export async function generateMetadata({
 
   const { frontmatter } = page;
   // Treatments are canonical at their nested WordPress path, not the flat slug.
+  // Everything else is canonical at its own file slug — not at
+  // slugSegments.join("/"), which is whatever alias URL this particular
+  // request happened to use. Content reachable by several old URLs (a flat
+  // slug, a nested WordPress path, sometimes both) previously had each of
+  // those alias requests self-canonicalize to itself, so the same page
+  // published several different "correct" canonicals depending on which URL
+  // a crawler hit — Google's fix for that is to ignore ours and pick its own,
+  // which is exactly the "Google chose a different canonical" pattern seen
+  // in Search Console for pages like /non-surgical/facial-contouring-uk.
   const metaFileSlug = frontmatter.slug || slugSegments[slugSegments.length - 1];
-  const canonicalPath = TREATMENT_PATHS[metaFileSlug] ?? slugSegments.join("/");
+  const canonicalPath = TREATMENT_PATHS[metaFileSlug] ?? metaFileSlug;
   const url = `${SITE_URL}/${canonicalPath}`;
   const isNoIndex = frontmatter.seo?.robots?.includes("noindex");
 
@@ -152,8 +161,10 @@ export default async function CatchAllPageRoute({
 
   const { frontmatter, content } = page;
   const fileSlug = frontmatter.slug || slugSegments[slugSegments.length - 1];
-  // Treatments are canonical at their nested WordPress path, not the flat slug.
-  const canonicalPath = TREATMENT_PATHS[fileSlug] ?? slugSegments.join("/");
+  // Treatments are canonical at their nested WordPress path, not the flat slug;
+  // everything else is canonical at its own file slug (see generateMetadata
+  // above for why this can't fall back to the requested slugSegments).
+  const canonicalPath = TREATMENT_PATHS[fileSlug] ?? fileSlug;
   const url = `${SITE_URL}/${canonicalPath}`;
   const treatment = TREATMENT_SLUGS.has(fileSlug) ? treatmentMeta[fileSlug] : null;
 
