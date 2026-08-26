@@ -12,6 +12,9 @@ const PRACTITIONERS: Member[] = [
     id: "sabrina",
     name: "Dr Sabrina Shah-Desai",
     role: "Board Certified Cosmetic Oculoplastic Surgeon",
+    /* She is the one member with a profile page of her own, so her card goes
+       there rather than opening the bio modal the others use. */
+    profileHref: "/dr-sabrina-shah-desai",
     /* The same portrait the home page's team carousel and About section use,
        so she looks consistent everywhere she appears. */
     image: "/dr-sabrina-profile.png",

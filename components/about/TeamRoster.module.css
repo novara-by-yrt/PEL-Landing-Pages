@@ -38,6 +38,7 @@
 
 /* ── Card (compact — photo, name, role, actions) ─────────────────────────── */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--tp-cream);
@@ -62,6 +63,36 @@
 
 .actions { display: flex; flex-direction: column; gap: 8px; }
 .actions :global(.tp-btn) { min-height: 40px; padding: 10px 18px; font-size: 0.8125rem; }
+
+/* Stretched hit area: the card's primary action claims the whole card, so the
+   portrait and the name are tappable, not just the button. The pseudo-element
+   paints nothing, so the button still looks exactly like a button, and the
+   control stays a single real button/link - one accessible name, one tab
+   stop, keyboard behaviour unchanged.
+   .card is the containing block, so this must stay unpositioned: giving it
+   position:relative would anchor the ::after to the button itself and the
+   stretch would cover nothing. */
+.cardStretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+/* .tp-btn lifts on hover and scales on :active, and a transform makes an
+   element a containing block for absolutely-positioned descendants - which
+   would re-anchor the ::after to the button for the duration of a press, on
+   exactly the tap that is supposed to open the profile. The card already
+   animates as a whole on hover, so the button forgoes its own movement. */
+.cardStretch,
+.cardStretch:hover,
+.cardStretch:active { transform: none; }
+
+/* "Book Now" has to out-rank the stretched sheet or it would swallow taps
+   meant for it. */
+.aboveStretch { position: relative; z-index: 2; }
+
+/* The card reads as one target, so the pointer says so across all of it. */
+.card:has(.cardStretch) { cursor: pointer; }
 
 /* ── Bio modal ──────────────────────────────────────────────────────────── */
 .overlay {
@@ -133,7 +164,12 @@
      reader has seen who this is. A height cap rather than an aspect-ratio,
      because aspect-ratio would shrink the width to match. */
   width: 100%;
-  height: min(44vh, 380px);
+  /* dvh, not vh, to match the modal's own max-height above. On iOS Safari vh
+     resolves against the large viewport - the height the page would have with
+     the URL bar hidden - so while the bar is showing a vh-sized portrait is
+     measured against a taller viewport than the dvh-capped modal it sits in,
+     and takes a bigger share of the card than intended. */
+  height: min(44dvh, 380px);
   background: linear-gradient(160deg, var(--tp-lavender-100), var(--tp-lavender-050));
 }
 /* Stacked, the frame is wide and short, so `top` would leave the face low in

@@ -18,6 +18,12 @@ export type Member = {
   bookable: boolean;
   /** Optional pull-quote shown in the profile's header band. */
   quote?: string;
+  /**
+   * Where this member's card leads. Someone with a profile page of their own
+   * goes there; everyone else opens the bio modal, which is the only place
+   * their full biography exists as a page-like view.
+   */
+  profileHref?: string;
 };
 
 /** Splits the bio into paragraphs so the modal body can run in two columns. */
@@ -109,18 +115,38 @@ export function TeamGrid({ members }: { members: Member[] }) {
                   modal is a progressive-disclosure UI, not the only copy. */}
               <p className="sr-only">{member.bio}</p>
               <div className={styles.actions}>
-                <button
-                  type="button"
-                  className="tp-btn tp-btn-secondary tp-btn-block"
-                  onClick={(e) => {
-                    lastFocused.current = e.currentTarget;
-                    setOpenId(member.id);
-                  }}
-                >
-                  View Profile
-                </button>
+                {/* The whole card is the target, not just this control: the
+                    button/link below carries a stretched ::after that covers
+                    the card, so a tap anywhere on the portrait or the name
+                    does what this says. Done this way rather than by wrapping
+                    the card in an anchor so there is still exactly one
+                    interactive element with one accessible name, and "Book
+                    Now" can sit above the stretch and stay separately
+                    clickable. */}
+                {member.profileHref ? (
+                  <Link
+                    href={member.profileHref}
+                    className={`tp-btn tp-btn-secondary tp-btn-block ${styles.cardStretch}`}
+                  >
+                    View Profile
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className={`tp-btn tp-btn-secondary tp-btn-block ${styles.cardStretch}`}
+                    onClick={(e) => {
+                      lastFocused.current = e.currentTarget;
+                      setOpenId(member.id);
+                    }}
+                  >
+                    View Profile
+                  </button>
+                )}
                 {member.bookable && (
-                  <Link href="/contact" className="tp-btn tp-btn-primary tp-btn-block">
+                  <Link
+                    href="/contact"
+                    className={`tp-btn tp-btn-primary tp-btn-block ${styles.aboveStretch}`}
+                  >
                     Book Now
                   </Link>
                 )}
