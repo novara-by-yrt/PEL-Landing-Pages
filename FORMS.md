@@ -26,6 +26,27 @@ Every form emails both of:
 
 Configurable via `FORM_NOTIFICATION_TO`.
 
+## WhatsApp
+
+`components/shared/WhatsAppButton` is a floating link, mounted site-wide in
+`app/layout.tsx` beside `StickyCallbackBar`. It is **not** one of the forms
+above and does not use this pipeline: one tap opens a `wa.me` chat with a
+pre-filled greeting, and nothing is posted anywhere.
+
+That means **Boxly never sees a WhatsApp enquiry**. A `wa.me` tap leaves no
+record on the clinic's side, so the conversation exists only in whichever
+phone answers it, and the CRM that receives every other enquiry this site
+takes learns nothing about it. The only trace the site keeps is a
+`WhatsApp Chat Started` dataLayer event (`lib/analytics/track.ts`), which
+counts departures rather than conversations. This was a deliberate choice to
+keep the channel frictionless; an earlier version put a three-field capture
+panel in front of the link and fed Boxly through `formKey: whatsapp`, and the
+git history has it if the trade-off is ever revisited.
+
+It reads `NEXT_PUBLIC_WHATSAPP_NUMBER` (international format, e.g.
+`+44 7476 544881`; punctuation and a `(0)` trunk prefix are normalised away)
+and **renders nothing at all while that is unset** — see `lib/whatsapp.ts`.
+
 ---
 
 ## Request A Call Back — 143 URLs
