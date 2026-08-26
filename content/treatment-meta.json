@@ -10,10 +10,6 @@
         "value": "1-3 Hours"
       },
       {
-        "label": "Driving",
-        "value": "2-3 Weeks"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local anesthesia with sedation or general anaesthesia"
       },
@@ -23,6 +19,10 @@
       },
       {
         "label": "Exercise",
+        "value": "2-3 Weeks"
+      },
+      {
+        "label": "Driving",
         "value": "2-3 Weeks"
       },
       {
@@ -140,10 +140,6 @@
         "value": "1-2 hours"
       },
       {
-        "label": "Driving",
-        "value": "After 1 week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "local or twilight"
       },
@@ -154,6 +150,10 @@
       {
         "label": "Exercise",
         "value": "After 3-4 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
       },
       {
         "label": "Final Results",
@@ -277,10 +277,6 @@
         "value": "1-2 Hours"
       },
       {
-        "label": "Driving",
-        "value": "After 1 week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "General"
       },
@@ -291,6 +287,10 @@
       {
         "label": "Exercise",
         "value": "After 3-4 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
       },
       {
         "label": "Final results",
@@ -403,10 +403,6 @@
         "value": "30 - 90 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 1-2 weeks"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Adults - local/general"
       },
@@ -417,6 +413,10 @@
       {
         "label": "Exercise",
         "value": "After 4 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1-2 weeks"
       },
       {
         "label": "Final results",
@@ -889,10 +889,6 @@
         "value": "10minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 1day"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -903,6 +899,10 @@
       {
         "label": "Exercise",
         "value": "After 1 day"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1day"
       },
       {
         "label": "Final results",
@@ -1016,10 +1016,6 @@
         "value": "10-30 Minute"
       },
       {
-        "label": "Driving",
-        "value": "After 1 week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -1030,6 +1026,10 @@
       {
         "label": "Exercise",
         "value": "After 2 days"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
       },
       {
         "label": "Final results",
@@ -1131,10 +1131,6 @@
         "value": "2 to 3.5 Hours"
       },
       {
-        "label": "Driving",
-        "value": "3 days"
-      },
-      {
         "label": "Anaesthesia",
         "value": "General and local"
       },
@@ -1145,6 +1141,10 @@
       {
         "label": "Exercise",
         "value": "after 2 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "3 days"
       },
       {
         "label": "Final Results",
@@ -1245,10 +1245,6 @@
         "value": "60-90 minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 1 Week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local or general"
       },
@@ -1259,6 +1255,10 @@
       {
         "label": "Exercise",
         "value": "After 4 Weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 Week"
       },
       {
         "label": "Final results",
@@ -1362,10 +1362,6 @@
         "value": "15 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical"
       },
@@ -1376,6 +1372,10 @@
       {
         "label": "Exercise",
         "value": "After 1-2 days"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -1477,10 +1477,6 @@
         "value": "60 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 1 week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local anaesthetic"
       },
@@ -1491,6 +1487,10 @@
       {
         "label": "Exercise",
         "value": "After 7-10 days"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
       },
       {
         "label": "Final results",
@@ -1592,10 +1592,6 @@
         "value": "15 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical"
       },
@@ -1606,6 +1602,10 @@
       {
         "label": "Exercise",
         "value": "24 Hours"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -1706,10 +1706,6 @@
         "value": "60 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "24 Hours"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical"
       },
@@ -1720,6 +1716,10 @@
       {
         "label": "Exercise",
         "value": "24-72 hours"
+      },
+      {
+        "label": "Driving",
+        "value": "24 Hours"
       },
       {
         "label": "Final results",
@@ -1823,10 +1823,6 @@
         "value": "30-60 minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -1836,6 +1832,10 @@
       },
       {
         "label": "Exercise",
+        "value": "Immediately"
+      },
+      {
+        "label": "Driving",
         "value": "Immediately"
       },
       {
@@ -1945,10 +1945,6 @@
         "value": "60 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical anaesthetic cream"
       },
@@ -1958,6 +1954,10 @@
       },
       {
         "label": "Exercise",
+        "value": "Immediately"
+      },
+      {
+        "label": "Driving",
         "value": "Immediately"
       },
       {
@@ -2061,10 +2061,6 @@
         "value": "15-30 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "2-3 Days"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Numbing cream"
       },
@@ -2074,6 +2070,10 @@
       },
       {
         "label": "Exercise",
+        "value": "2-3 Days"
+      },
+      {
+        "label": "Driving",
         "value": "2-3 Days"
       },
       {
@@ -2177,10 +2177,6 @@
         "value": "20 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "No anaesthesia"
       },
@@ -2191,6 +2187,10 @@
       {
         "label": "Exercise",
         "value": "After 1 day"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final Results",
@@ -2770,10 +2770,6 @@
         "value": "30 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -2784,6 +2780,10 @@
       {
         "label": "Exercise",
         "value": "After 1 Day"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -3178,10 +3178,6 @@
         "value": "45 minutes to 2.5 hours"
       },
       {
-        "label": "Driving",
-        "value": "After 3-10 days"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -3192,6 +3188,10 @@
       {
         "label": "Exercise",
         "value": "After 2-6 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 3-10 days"
       },
       {
         "label": "Final Results",
@@ -3299,10 +3299,6 @@
         "value": "30 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 24 Hours"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Not required"
       },
@@ -3312,6 +3308,10 @@
       },
       {
         "label": "Exercise",
+        "value": "After 24 Hours"
+      },
+      {
+        "label": "Driving",
         "value": "After 24 Hours"
       },
       {
@@ -3430,10 +3430,6 @@
         "value": "15 minutes to an hour"
       },
       {
-        "label": "Driving",
-        "value": "After 24 hours"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical"
       },
@@ -3443,6 +3439,10 @@
       },
       {
         "label": "Exercise",
+        "value": "After 24 hours"
+      },
+      {
+        "label": "Driving",
         "value": "After 24 hours"
       },
       {
@@ -3736,10 +3736,6 @@
         "value": "Varies by tailored plan"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -3750,6 +3746,10 @@
       {
         "label": "Exercise",
         "value": "After 1 day"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -3927,10 +3927,6 @@
         "value": "1 and 2 hours"
       },
       {
-        "label": "Driving",
-        "value": "2 Weeks"
-      },
-      {
         "label": "Anaesthesia",
         "value": "General or twilight"
       },
@@ -3940,6 +3936,10 @@
       },
       {
         "label": "Exercise",
+        "value": "2 Weeks"
+      },
+      {
+        "label": "Driving",
         "value": "2 Weeks"
       },
       {
@@ -4055,10 +4055,6 @@
         "value": "15 minutes to an hour"
       },
       {
-        "label": "Driving",
-        "value": "After 24 hours"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical"
       },
@@ -4068,6 +4064,10 @@
       },
       {
         "label": "Exercise",
+        "value": "After 24 hours"
+      },
+      {
+        "label": "Driving",
         "value": "After 24 hours"
       },
       {
@@ -4278,10 +4278,6 @@
         "value": "20-30 minutes per session"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Topical numbing cream if required"
       },
@@ -4292,6 +4288,10 @@
       {
         "label": "Exercise",
         "value": "After 24 hours"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -4458,10 +4458,6 @@
         "value": "15 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Numbing cream"
       },
@@ -4471,6 +4467,10 @@
       },
       {
         "label": "Excercise",
+        "value": "Immediately"
+      },
+      {
+        "label": "Driving",
         "value": "Immediately"
       },
       {
@@ -4573,10 +4573,6 @@
         "value": "15-20 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -4587,6 +4583,10 @@
       {
         "label": "Excercise",
         "value": "After 1 day"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -4688,10 +4688,6 @@
         "value": "Varies by tailored plan"
       },
       {
-        "label": "Driving",
-        "value": "Immediately"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -4702,6 +4698,10 @@
       {
         "label": "Excercise",
         "value": "After 1 day"
+      },
+      {
+        "label": "Driving",
+        "value": "Immediately"
       },
       {
         "label": "Final results",
@@ -4805,10 +4805,6 @@
         "value": "30 - 90 Minutes"
       },
       {
-        "label": "Driving",
-        "value": "After 1 week"
-      },
-      {
         "label": "Anaesthesia",
         "value": "Local"
       },
@@ -4819,6 +4815,10 @@
       {
         "label": "Excercise",
         "value": "After 2 weeks"
+      },
+      {
+        "label": "Driving",
+        "value": "After 1 week"
       }
     ],
     "advantages": [
