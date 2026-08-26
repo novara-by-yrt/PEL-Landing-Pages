@@ -75,7 +75,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/contact-cosmetic-eye-surgeon`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/international-patients`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/blepharoplasty-quiz`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    /* /blepharoplasty-quiz is deliberately not listed. It 301s to
+       /self-test-survey (next.config.ts), which the pages collection below
+       already contributes, so listing it advertised a redirect and named the
+       same quiz twice. A sitemap should only ever offer the URL a crawler
+       ends up on. */
     { url: `${SITE_URL}/dr-sabrina-shah-desai/philosophy`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/dr-sabrina-shah-desai/non-surgical-terms-conditions`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
