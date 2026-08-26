@@ -13,7 +13,7 @@
 
 /** The clinic's own greeting, used when the visitor adds nothing of their own. */
 export const DEFAULT_WHATSAPP_MESSAGE =
-  "Hello, I'd like to ask about treatment at Perfect Eyes Clinic.";
+  "Hello, I have a question regarding treatment at The Perfect Eyes Clinic.";
 
 /**
  * wa.me wants digits only — no `+`, spaces or punctuation — and rejects
