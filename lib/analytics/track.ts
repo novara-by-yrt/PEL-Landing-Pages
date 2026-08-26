@@ -32,3 +32,24 @@ export function trackFormSubmitted(formLabel: string) {
     event_label: formLabel,
   });
 }
+
+/**
+ * Fired when a visitor leaves for WhatsApp from the floating button.
+ *
+ * Deliberately not trackFormSubmitted: that event means "an enquiry email was
+ * sent", and the tags wired to it in GTM count it as a completed contact. A
+ * WhatsApp hand-off is a different thing — the lead does reach Boxly, but the
+ * conversation happens somewhere this site cannot observe, so it gets its own
+ * event name and the analytics owner decides what to do with it. The Meta
+ * `Lead` call matches what the forms fire, since to the pixel both are the
+ * same conversion.
+ */
+export function trackWhatsAppChat() {
+  window.fbq?.("track", "Lead");
+
+  window.dataLayer?.push({
+    event: "WhatsApp Chat Started",
+    event_action: "Chat Opened",
+    event_label: "Floating WhatsApp Button",
+  });
+}

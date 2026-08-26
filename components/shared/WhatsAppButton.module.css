@@ -1,0 +1,49 @@
+/* Floating WhatsApp link, bottom-right.
+
+   z-index matches StickyCallbackBar's 140 for the same reasons set out
+   there: below the cookie banner (150), so consent is dealt with first, and
+   below .pel-nav (200), so an open mobile drawer is never sitting behind a
+   floating button. */
+.fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 140;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  /* WhatsApp's own green. The brand mark is only recognisable in its own
+     colour, and a button that reads as "WhatsApp" at a glance is the entire
+     point of putting one on the page. */
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(20, 18, 33, 0.28), 0 2px 6px rgba(20, 18, 33, 0.18);
+  transition: transform 180ms var(--tp-ease), box-shadow 180ms var(--tp-ease),
+    background 180ms var(--tp-ease);
+}
+
+.fab:hover {
+  background: #1ebe5b;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(20, 18, 33, 0.32), 0 2px 6px rgba(20, 18, 33, 0.2);
+}
+
+.fab:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fab:hover { transform: none; }
+}
+
+/* On the narrowest phones the centred "Request a call back" pill and this
+   button would otherwise share the same strip of screen and collide; lifting
+   this one clear keeps both tappable. */
+@media (max-width: 400px) {
+  .fab { bottom: calc(max(16px, env(safe-area-inset-bottom)) + 60px); }
+}
