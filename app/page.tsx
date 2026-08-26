@@ -261,6 +261,7 @@ const HOME_FAQ: HomeFaqItem[] = [
  */
 const CLINIC_TEAM: TeamMember[] = [
   {
+    id: "sabrina",
     name: "Dr Sabrina Shah-Desai",
     role: "Board Certified Cosmetic Oculoplastic Surgeon",
     credentials: ["MS", "FRCS"],
@@ -269,16 +270,19 @@ const CLINIC_TEAM: TeamMember[] = [
     image: "/dr-sabrina-profile.png",
   },
   {
+    id: "janine",
     name: "Dr Janine",
     role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-janine.png",
   },
   {
+    id: "hemmali",
     name: "Dr Hemmali",
     role: "Dentist & Aesthetic Practitioner, Perfect Skin Studio",
     image: "/dr-hemmali.png",
   },
   {
+    id: "irvana",
     name: "Irvana",
     role: "Qualified therapist, Perfect Skin Studio",
     credentials: ["Level 4 Laser"],
