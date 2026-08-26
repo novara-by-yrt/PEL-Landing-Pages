@@ -31,6 +31,7 @@
 
 /* ── Card ───────────────────────────────────────────────────────────────── */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
@@ -115,6 +116,27 @@
   /* Brand lavender in place of the design's pink; 4.9:1 on the cream card. */
   color: var(--tp-lavender-600);
   margin: 0;
+}
+
+/* Full-card hit area. Paints nothing, so the card looks exactly as designed
+   while the whole of it opens the member's profile. It sits above the
+   portrait and the credential chips - neither is interactive, so nothing is
+   swallowed - and carries the only focusable element in the card. */
+.cardHit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: inherit;
+}
+.cardHit:focus-visible {
+  outline: 2px solid var(--tp-indigo-600);
+  /* Inset, because the card clips its own overflow and an outset ring on a
+     box the exact size of the card would be cropped away. */
+  outline-offset: -3px;
 }
 
 /* ── Arrows ─────────────────────────────────────────────────────────────── */

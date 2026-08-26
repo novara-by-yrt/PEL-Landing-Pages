@@ -2,6 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useTeamProfile } from "@/components/about/TeamProfileModal";
+import { TEAM_MEMBERS } from "@/lib/team";
 import styles from "./TeamCarousel.module.css";
 
 export interface TeamMember {
@@ -10,6 +13,12 @@ export interface TeamMember {
   image?: string;
   /** Short post-nominals shown as chips over the portrait. */
   credentials?: string[];
+  /**
+   * Ties this card to its entry in the shared roster (lib/team), which is
+   * where the biography behind the card lives. Without it the card still
+   * renders, just as a plain tile with nothing to open.
+   */
+  id?: string;
 }
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -36,6 +45,7 @@ function initials(name: string) {
 }
 
 export default function TeamCarousel({ members }: { members: TeamMember[] }) {
+  const { open, dialog } = useTeamProfile();
   const railRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -102,6 +112,32 @@ export default function TeamCarousel({ members }: { members: TeamMember[] }) {
                 <h3 className={styles.name}>{member.name}</h3>
                 <p className={styles.role}>{member.role}</p>
               </div>
+
+              {/* The whole card is the target. These cards carry no visible
+                  button to stretch, so the control is a transparent sheet
+                  over the card - one focusable element per card, carrying the
+                  member's name so it reads on its own in a list of links,
+                  and no change to how the card looks.
+                  Dr Sabrina has a profile page of her own, so hers is a link
+                  to it; everyone else opens the same bio modal the /team page
+                  uses, which is the only page-like view of their biography. */}
+              {(() => {
+                const profile = TEAM_MEMBERS.find((m) => m.id === member.id);
+                if (!profile) return null;
+                return profile.profileHref ? (
+                  <Link href={profile.profileHref} className={styles.cardHit}>
+                    <span className="sr-only">View profile: {member.name}</span>
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className={styles.cardHit}
+                    onClick={(e) => open(profile, e.currentTarget)}
+                  >
+                    <span className="sr-only">View profile: {member.name}</span>
+                  </button>
+                );
+              })()}
             </article>
           ))}
         </div>
@@ -127,6 +163,8 @@ export default function TeamCarousel({ members }: { members: TeamMember[] }) {
           <Chevron />
         </button>
       </div>
+
+      {dialog}
     </div>
   );
 }

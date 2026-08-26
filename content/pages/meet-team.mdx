@@ -20,11 +20,18 @@ showAccreditation: true
 seo:
   title: "Meet Our Aesthetic Team at Perfect Eyes Clinic"
   description: "Discover the skillful specialists dedicated to natural-looking cosmetic transformations, including personalized care for eyelids, tear troughs, and facial rejuvenation."
-  # Superseded by /team, the purpose-built team page: same people, richer
-  # markup, its own breadcrumb and schema. This URL 301s there (see
-  # content/legacy-redirects.json); the canonical records why, and keeps the
-  # page out of the sitemap and llms.txt, which must not advertise a URL that
-  # redirects.
+  # Superseded by /team, the purpose-built team page: richer markup, its own
+  # breadcrumb and schema. The canonical records that, and the noindex below
+  # is what actually keeps this page out of the sitemap, llms.txt and
+  # llms-full.txt (lib/indexable.ts disqualifies on either signal, so the
+  # noindex alone is load-bearing there).
+  #
+  # Careful: only /meet-team and /meet-the-team-v2 301 to /team
+  # (content/legacy-redirects.json). /meet-the-team is an alias that still
+  # serves this page at 200 - it is noindexed and nothing on the site links
+  # to it, but it is reachable. It is also the only page carrying Michelle,
+  # Lisa, Safiya, Lindsay, Alison and Rosa, none of whom appear on /team, so
+  # adding it to the redirects would take those six off the site entirely.
   canonicalUrl: "/team"
   robots:
     - "noindex"
