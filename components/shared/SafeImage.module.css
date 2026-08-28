@@ -35,3 +35,16 @@
   color: transparent;
   background: linear-gradient(150deg, var(--tp-lavender-100), var(--tp-lavender-050));
 }
+
+/* Intrinsic mode: the image carries its own width/height, so it is the thing
+   being shaped rather than something filling a shape. It spans the column and
+   derives its height from its own ratio - no crop, and no empty band either.
+   The tint carries over from .img for the same reason it exists there: a
+   window where the box is laid out but the pixels have not arrived. */
+.intrinsic {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: transparent;
+  background: linear-gradient(150deg, var(--tp-lavender-100), var(--tp-lavender-050));
+}

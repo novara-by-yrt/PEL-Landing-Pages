@@ -4,14 +4,12 @@ slug: "why-has-my-eyelid-dropped"
 date: "2026-08-28T09:00:00Z"
 modified: "2026-08-28T09:00:00Z"
 postType: "post"
-# Padded to exactly 16:10 (1235x772) before being committed. Both boxes a
-# post's featured image renders into - the hero here and the archive card -
-# are aspect-ratio: 16/10 with object-fit: cover, so a photograph at any
-# other ratio loses its edges. The supplied file was 1067x772 (1.38), so the
-# canvas was widened rather than the photograph cropped, with the extra
-# filled by a blurred copy of the image. cover now has nothing to trim at
-# any viewport width.
 featuredImage: "/why-has-my-eyelid-dropped.jpg"
+# Declaring the dimensions renders the hero at the photograph's own 1.38
+# ratio instead of the shared 16:10 box, so the whole frame shows with
+# nothing cropped and no padding to fill the difference.
+featuredImageWidth: 1067
+featuredImageHeight: 772
 categories:
   - "Eye Care"
 author:

@@ -27,14 +27,26 @@ export default function SafeImage({
   alt,
   sizes,
   priority = false,
+  width,
+  height,
 }: {
   src: string;
   alt: string;
   /** Layout width at each breakpoint, so the optimiser ships the right size. */
   sizes: string;
   priority?: boolean;
+  /**
+   * The source's own pixel dimensions. Pass both to size the image from the
+   * picture itself instead of filling a box the caller has shaped - the
+   * caller then gets the image's real aspect ratio, with nothing cropped and
+   * no empty band to fill. Omit both for the usual `fill` behaviour, where
+   * the caller reserves the ratio and the photo covers it.
+   */
+  width?: number;
+  height?: number;
 }) {
   const [failed, setFailed] = useState(false);
+  const intrinsic = width !== undefined && height !== undefined;
 
   if (failed) {
     return (
@@ -50,6 +62,24 @@ export default function SafeImage({
           <circle cx="24" cy="14" r="6" fill="currentColor" />
         </svg>
       </span>
+    );
+  }
+
+  if (intrinsic) {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={sizes}
+        priority={priority}
+        /* Not styles.img: that sets object-fit: cover, which only means
+           anything inside a box shaped by someone else. Here the element is
+           the shape, so it just fills the column and keeps its own ratio. */
+        className={styles.intrinsic}
+        onError={() => setFailed(true)}
+      />
     );
   }
 

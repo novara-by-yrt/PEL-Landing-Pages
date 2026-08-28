@@ -199,13 +199,25 @@ export default async function BlogPostPage({
         {/* Article content + sidebar */}
         <div className={`container ${styles.blogLayout}`}>
           <article className={styles.blogMain}>
+            {/* A post that declares its featured image's dimensions gets a
+                hero at that image's own ratio; everything else keeps the
+                16:10 box the other posts are composed around. See
+                featuredImageWidth in lib/mdx.ts for why this is opt-in. */}
             {frontmatter.featuredImage && (
-              <div className={styles.blogFeaturedImg}>
+              <div
+                className={
+                  frontmatter.featuredImageWidth && frontmatter.featuredImageHeight
+                    ? styles.blogFeaturedImgNatural
+                    : styles.blogFeaturedImg
+                }
+              >
                 <SafeImage
                   src={frontmatter.featuredImage}
                   alt={frontmatter.title}
                   sizes="(max-width: 960px) 100vw, 760px"
                   priority
+                  width={frontmatter.featuredImageWidth}
+                  height={frontmatter.featuredImageHeight}
                 />
               </div>
             )}

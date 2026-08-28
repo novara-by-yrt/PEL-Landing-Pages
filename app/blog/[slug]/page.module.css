@@ -21,6 +21,13 @@
 .blogLayout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; padding: 3rem 1.5rem 2rem; }
 .blogMain { min-width: 0; max-width: 80ch; }
 .blogFeaturedImg { border-radius: var(--tp-radius-xl); overflow: hidden; box-shadow: var(--tp-shadow-md); aspect-ratio: 16/10; position: relative; margin-bottom: 2rem; }
+/* Same frame, but with no ratio of its own: the image inside carries its
+   width and height, so the box takes its shape from the photograph. Nothing
+   is cropped to fit a ratio, and there is no leftover band to fill.
+   line-height: 0 because the image is an inline-level box by default, and the
+   strut under it would otherwise show as a sliver of background below the
+   photo inside the rounded frame. */
+.blogFeaturedImgNatural { border-radius: var(--tp-radius-xl); overflow: hidden; box-shadow: var(--tp-shadow-md); line-height: 0; margin-bottom: 2rem; }
 /* Sticky, but never taller than the space left beneath its own offset.
    Without the cap a sidebar taller than the viewport is not merely clipped,
    it is unreachable: sticky pins the top, so scrolling the page can never

@@ -117,6 +117,21 @@ export interface PostFrontmatter {
   modified: string;
   postType: string;
   featuredImage?: string;
+  /**
+   * The featured image's own pixel dimensions, set together.
+   *
+   * A blog post's hero normally renders into a fixed 16:10 box under
+   * object-fit: cover, which crops any photograph shot at another ratio.
+   * Giving both of these instead renders the hero at the image's own ratio -
+   * nothing cropped, and no letterboxing either, because the box takes its
+   * height from the picture rather than the other way round.
+   *
+   * Opt-in rather than the default: the 16:10 hero is what the other ~150
+   * posts are composed around, and switching them all to their own ratios
+   * would change every one of those pages.
+   */
+  featuredImageWidth?: number;
+  featuredImageHeight?: number;
   heroImage?: string;
   excerpt?: string;
   categories?: string[];
