@@ -152,12 +152,9 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
     href: "/non-surgical-injectables-medical-aesthetic/superior-sulcus-filler",
     blurb: "Restores volume to a hollowed upper-lid sulcus above the eye.",
   },
-  {
-    image: "/uploads/2024/09/ultraclear-laser.jpg",
-    title: "UltraClear Laser",
-    href: "/non-surgical/ultraclear-laser-treatment-uk",
-    blurb: "Cold-fibre laser resurfacing that targets texture, tone and fine lines.",
-  },
+  /* UltraClear Laser sat here. Removed while its treatment page is
+     unfinished - see NOT_READY in lib/catalogue.ts. Restore the card when the
+     page ships. */
   {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",

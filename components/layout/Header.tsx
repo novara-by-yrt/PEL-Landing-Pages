@@ -53,7 +53,9 @@ const NON_SURGICAL_TREATMENTS: SimpleLink[] = [
   { label: "Morpheus8", href: "/non-surgical/morpheus8-treatment-uk" },
   { label: "Endolift®", href: "/non-surgical/endolift-for-malar-bags-uk" },
   { label: "Sofwave™", href: "/non-surgical/sofwave-treatment-uk" },
-  { label: "UltraClear Laser", href: "/non-surgical/ultraclear-laser-treatment-uk" },
+  /* UltraClear Laser sat here. Removed while its treatment page is unfinished
+     - see NOT_READY in lib/catalogue.ts, which withholds the same treatment
+     from the /treatments index. Restore the entry when the page ships. */
   { label: "EMFACE", href: "/non-surgical/emface-treatment-uk" },
   /* Path stays /ellanse: the page has been renamed for readers, not moved,
      so its inbound links and redirects still resolve. */
