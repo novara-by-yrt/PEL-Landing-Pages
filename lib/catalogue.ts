@@ -22,6 +22,18 @@ const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMet
 const SUPERSEDED_BY_SIBLING = new Set(["ptosis-surgery-uk"]);
 
 /**
+ * Treatment pages withheld from the index because they are not finished.
+ *
+ * Separate from SUPERSEDED_BY_SIBLING above: nothing is wrong with these
+ * pages' place in the site, they are simply not ready to be sent visitors.
+ * The page stays live, indexed and in the sitemap - this only stops the
+ * catalogue advertising it, alongside the matching removals from the header
+ * menu, the home page carousel and the pages that linked to it. Delete the
+ * entry to put the card back.
+ */
+const NOT_READY = new Set(["non-surgical-ultraclear-laser-treatment-uk"]);
+
+/**
  * Cards that deliberately do not take their page's own image.
  *
  * Blind Eye Removal was set to a close-up of an eye by explicit request; its
@@ -170,7 +182,12 @@ export function getTreatmentCatalogue(): {
   nonSurgical: CatalogueCard[];
 } {
   const cards = getAllPosts("pages")
-    .filter((page) => treatmentMeta[page.slug] && !SUPERSEDED_BY_SIBLING.has(page.slug))
+    .filter(
+      (page) =>
+        treatmentMeta[page.slug] &&
+        !SUPERSEDED_BY_SIBLING.has(page.slug) &&
+        !NOT_READY.has(page.slug),
+    )
     .map((page) => {
       const meta = treatmentMeta[page.slug];
       const href = `/${TREATMENT_PATHS[page.slug] ?? page.slug}`;
