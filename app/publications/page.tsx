@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import PublicationsList from "@/components/PublicationsList";
 import publicationsData from "@/content/publications-data.json";
 import { TpIcon } from "@/components/treatment";
@@ -29,26 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default function PublicationsPage() {
-  // Build Breadcrumb & Collection JSON-LD Schema
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Publications",
-        item: `${SITE_URL}/publications`,
-      },
-    ],
-  };
-
+  // Collection JSON-LD Schema
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -78,10 +58,6 @@ export default function PublicationsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
       <div className="tp">
@@ -91,12 +67,6 @@ export default function PublicationsPage() {
           <div className={styles.pubHeroGlow} />
           <div className={styles.pubHeroInner}>
             <div className={styles.pubHeroCopy}>
-            <nav aria-label="Breadcrumb" className={styles.pubBreadcrumb}>
-              <Link href="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <span style={{ color: "rgba(255,255,255,0.9)" }}>Publications</span>
-            </nav>
-
             <span className="tp-eyebrow"><TpIcon name="sparkle" size={13} />Clinical Research &amp; Publications</span>
 
             <h1>Publications &amp; Scientific Papers</h1>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ContactSection from "@/components/home/ContactSection";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/lib/mdx";
-import { buildWebPageSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { buildWebPageSchema } from "@/lib/schema";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
@@ -72,23 +72,13 @@ export default async function BeforeAfterCasePage({
     title: p.frontmatter.title,
   }));
 
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Before & After", url: `${SITE_URL}/before-after` },
-    { name: heading, url },
-  ];
-
   const pageSchema = buildWebPageSchema(frontmatter, url);
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           eyebrow="Before & After"
           h1={heading}
           lead={frontmatter.intro?.replace(/<[^>]+>/g, "")}

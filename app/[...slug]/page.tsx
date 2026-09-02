@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs, pageExistsExact, type PostFrontmatter } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, type PostFrontmatter } from "@/lib/mdx";
 import {
   buildWebPageSchema,
   buildProductSchema,
-  buildBreadcrumbSchema,
   buildFaqSchema,
   buildMedicalProcedureSchema,
   buildPhysicianSchema,
@@ -19,13 +18,13 @@ import HomeFaq from "@/components/home/HomeFaq";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import { PATIENT_STORIES } from "@/lib/reviews";
-import pageHierarchy from "@/content/page-hierarchy.json";
-import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
-import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveRobots, resolveTitle } from "@/lib/seo";
-import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
+import { startingPrice, glanceWithPrice } from "@/lib/treatment-price";
+import SofwaveLanding from "@/components/landing/SofwaveLanding";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
+import type { TreatmentMeta } from "@/components/treatment/types";
 import {
   TreatmentHero,
   TreatmentAdvantages,
@@ -46,57 +45,44 @@ import {
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
-const childPages: Record<string, string[]> = pageHierarchy.childPages;
-const urlToMdxMap: Record<string, string> = urlMapData.urlToMdx;
 
 const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMeta>;
 const TREATMENT_SLUGS = new Set(Object.keys(treatmentMeta));
 
-/** "upper-eyelid-blepharoplasty-uk" -> "Upper Eyelid Blepharoplasty UK" */
-const ACRONYMS = new Set(["uk", "usa", "ipl", "rf", "prp"]);
-function humaniseSegment(seg: string): string {
-  return seg
-    .split("-")
-    .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
-    .join(" ");
-}
+/* One URL per page, and no others.
+ *
+ * This used to emit every path the WordPress migration knew about — the
+ * canonical treatment paths, all 168 keys of the URL map, the page hierarchy
+ * and the file slugs — which put most documents on the web at two, three or
+ * four addresses at once. That was deliberate while this was the clinic's
+ * site: the aliases kept old inbound links alive. This repository serves
+ * standalone landing pages, so it is only duplication, and 25 of those paths
+ * resolved to nothing and prerendered a 404 shell.
+ *
+ * What is emitted now is exactly the address each page already declares as
+ * its canonical (generateMetadata below): the nested path for a treatment,
+ * the file slug for everything else. Legacy URLs are still handled — the
+ * redirects in next.config.ts 301 them here — they are just no longer pages
+ * of their own.
+ */
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const fileSlugs = getPostSlugs("pages");
-  const paramsList: { slug: string[] }[] = [];
-  const addedPaths = new Set<string>();
+  const params: { slug: string[] }[] = [];
 
-  // Canonical treatment paths first — these are the indexable URLs.
-  for (const urlPath of Object.values(TREATMENT_PATHS)) {
-    if (!addedPaths.has(urlPath)) {
-      addedPaths.add(urlPath);
-      paramsList.push({ slug: urlPath.split("/") });
-    }
+  for (const fileSlug of getPostSlugs("pages")) {
+    /* A file whose own slug resolves to a different document is a duplicate
+     * of that document — the URL map points it elsewhere — so it gets no URL
+     * of its own. content/pages/about-drsabrina.mdx is the one such file: the
+     * map sends /about-drsabrina to dr-sabrina-shah-desai, and it has done
+     * since the migration, so nothing here has ever rendered it. */
+    const page = getPostBySlug("pages", fileSlug);
+    if (!page || page.slug !== fileSlug) continue;
+
+    params.push({ slug: (TREATMENT_PATHS[fileSlug] ?? fileSlug).split("/") });
   }
 
-  for (const urlPath of Object.keys(urlToMdxMap)) {
-    if (!addedPaths.has(urlPath)) {
-      addedPaths.add(urlPath);
-      paramsList.push({ slug: urlPath.split("/") });
-    }
-  }
-
-  for (const segs of Object.values(childPages)) {
-    const key = segs.join("/");
-    if (!addedPaths.has(key)) {
-      addedPaths.add(key);
-      paramsList.push({ slug: segs });
-    }
-  }
-
-  for (const fileSlug of fileSlugs) {
-    if (!addedPaths.has(fileSlug)) {
-      addedPaths.add(fileSlug);
-      paramsList.push({ slug: [fileSlug] });
-    }
-  }
-
-  return paramsList;
+  return params;
 }
 
 export async function generateMetadata({
@@ -133,7 +119,6 @@ export async function generateMetadata({
   return {
     title: metadataTitle(title),
     description,
-    robots: resolveRobots(frontmatter.seo?.robots),
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       type: (["website", "article", "book", "profile"].includes(frontmatter.seo?.og?.type || "")
@@ -167,46 +152,7 @@ export default async function CatchAllPageRoute({
   const url = `${SITE_URL}/${canonicalPath}`;
   const treatment = TREATMENT_SLUGS.has(fileSlug) ? treatmentMeta[fileSlug] : null;
 
-  /* Breadcrumbs.
-   *
-   * The trail used to be built from the URL's own segments, which on a
-   * treatment produced "Home / Surgical / Eyelid Surgery / Upper Eyelid
-   * Blepharoplasty UK" — and /surgical and /surgical/eyelid-surgery are not
-   * pages, so those two crumbs were dead text. A crumb that cannot be
-   * followed is worse than no crumb: it looks like a link, and it tells a
-   * crawler about a level of the site that does not exist.
-   *
-   * A treatment now sits under the treatments index, which is a real page and
-   * the level it genuinely belongs to. Anything else keeps the segment trail
-   * but drops the segments with nothing behind them, so every crumb that
-   * remains can be clicked.
-   */
-  const canonicalSegments = canonicalPath.split("/");
-  const breadcrumbItems = treatment
-    ? [
-        { name: "Home", url: SITE_URL },
-        { name: "Treatments", url: `${SITE_URL}/treatments` },
-        { name: treatment.h1 || frontmatter.title, url },
-      ]
-    : [
-        { name: "Home", url: SITE_URL },
-        ...canonicalSegments
-          .map((seg, i) => {
-            const segPath = canonicalSegments.slice(0, i + 1);
-            const isLast = i === canonicalSegments.length - 1;
-            return {
-              name: isLast ? frontmatter.title : humaniseSegment(seg),
-              url:
-                isLast || pageExistsExact("pages", segPath)
-                  ? `${SITE_URL}/${segPath.join("/")}`
-                  : "",
-            };
-          })
-          .filter((crumb) => crumb.url),
-      ];
-
   const pageSchema = buildWebPageSchema(frontmatter, url);
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
   const productSchema = frontmatter.schema?.productSchemaNeeded
     ? buildProductSchema(frontmatter, url)
     : null;
@@ -226,13 +172,28 @@ export default async function CatchAllPageRoute({
   const schemas = (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
       {procedureSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }} />}
       {physicianSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }} />}
     </>
   );
+
+  /* Sofwave is a landing page, not a treatment page.
+   *
+   * It is bought from a cold social feed rather than found in the site's own
+   * navigation, which changes the order of every section — proof before
+   * explanation, the enquiry form in the hero, and no similar-treatments or
+   * related-posts rails to leave through. It is its own component so the
+   * other 47 treatments keep the shared template untouched. */
+  if (fileSlug === "sofwave") {
+    return (
+      <>
+        {schemas}
+        <SofwaveLanding frontmatter={frontmatter} treatment={treatmentMeta.sofwave} />
+      </>
+    );
+  }
 
   if (treatment) {
     return (
@@ -241,7 +202,6 @@ export default async function CatchAllPageRoute({
         treatmentSlug={fileSlug}
         frontmatter={frontmatter}
         content={content}
-        breadcrumbItems={breadcrumbItems}
         schemas={schemas}
       />
     );
@@ -251,7 +211,7 @@ export default async function CatchAllPageRoute({
     return (
       <>
         {schemas}
-        <DrSabrinaBio breadcrumbItems={breadcrumbItems} siteUrl={SITE_URL} faq={frontmatter.faq} />
+        <DrSabrinaBio faq={frontmatter.faq} />
       </>
     );
   }
@@ -270,8 +230,6 @@ export default async function CatchAllPageRoute({
         {schemas}
         <div className="tp">
           <PageHero
-            breadcrumbItems={breadcrumbItems}
-            siteUrl={SITE_URL}
             eyebrow="Am I A Candidate?"
             h1="Blepharoplasty Candidacy Test"
           />
@@ -283,7 +241,7 @@ export default async function CatchAllPageRoute({
     );
   }
 
-  return <GenericPage frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;
+  return <GenericPage frontmatter={frontmatter} content={content} schemas={schemas} />;
 }
 
 // ── Treatment page layout ────────────────────────────────────────────────────
@@ -303,14 +261,12 @@ function TreatmentPage({
   treatmentSlug,
   frontmatter,
   content,
-  breadcrumbItems,
   schemas,
 }: {
   treatment: TreatmentMeta;
   treatmentSlug: string;
   frontmatter: PostFrontmatter;
   content: string;
-  breadcrumbItems: BreadcrumbItem[];
   schemas: React.ReactNode;
 }) {
   const isSurgical = treatment.type === "surgical";
@@ -347,10 +303,9 @@ function TreatmentPage({
       {schemas}
       <div className="tp">
         <TreatmentHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
+          price={startingPrice(treatment.pricing)}
           heroImage={treatment.heroImage}
           heroImageAlt={heroImageAlt}
           heroBadge={heroBadge}
@@ -358,7 +313,10 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
-        <TreatmentGlance glance={treatment.glance} title={frontmatter.title} />
+        <TreatmentGlance
+          glance={glanceWithPrice(treatment.glance, treatment.pricing)}
+          title={frontmatter.title}
+        />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
@@ -422,12 +380,10 @@ function TreatmentPage({
 function GenericPage({
   frontmatter,
   content,
-  breadcrumbItems,
   schemas,
 }: {
   frontmatter: PostFrontmatter;
   content: string;
-  breadcrumbItems: { name: string; url: string }[];
   schemas: React.ReactNode;
 }) {
   return (
@@ -435,8 +391,6 @@ function GenericPage({
       {schemas}
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           h1={frontmatter.title}
           lead={frontmatter.excerpt}
           heroImage={resolveHeroImage(frontmatter)}

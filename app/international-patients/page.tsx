@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
 import HomeFaq, { type HomeFaqItem } from "@/components/home/HomeFaq";
@@ -142,25 +141,13 @@ const NOTES: HomeFaqItem[] = [
 ];
 
 export default function InternationalPatientsPage() {
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "International Patients", url: `${SITE_URL}/international-patients` },
-  ];
-
   return (
     <div className={styles.page}>
-      <BreadcrumbSchema items={breadcrumbItems} url={`${SITE_URL}/international-patients`} />
       {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section className={styles.hero} aria-labelledby="intl-title">
         <span className={styles.heroGlow} aria-hidden="true" />
 
         <div className="container">
-          <nav className={styles.crumbs} aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">International patients</span>
-          </nav>
-
           <span className={styles.eyebrow}>Patients who travel to us</span>
           <h1 id="intl-title" className={styles.heroTitle}>
             Flying in for treatment with Dr Sabrina

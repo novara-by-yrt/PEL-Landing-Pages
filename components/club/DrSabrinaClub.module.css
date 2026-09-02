@@ -70,11 +70,11 @@
 .closingCta p { font-size: 1.0625rem; color: rgba(255,255,255,0.85); margin: 0 0 28px; }
 
 .modalOverlay {
-  /* 1000, not 100: the fixed site header (.pel-nav) is z-index 200, so a
-     lower value here lets the header paint over the top of this dialog
-     instead of behind it. Matches the z-index other fixed-position dialogs
-     in this codebase use (BeforeAfterGallery's .tpLb, Forms.module.css's
-     .overlay). */
+  /* 1000, not 100: a lower value lets the page's other fixed chrome (the
+     cookie banner at 150, the floating triggers at 140) paint over the top
+     of this dialog instead of behind it. Matches the z-index other
+     fixed-position dialogs in this codebase use (BeforeAfterGallery's .tpLb,
+     Forms.module.css's .overlay). */
   position: fixed; inset: 0; z-index: 1000; background: rgba(15,13,46,0.6);
   display: flex; align-items: center; justify-content: center; padding: 1.5rem;
 }

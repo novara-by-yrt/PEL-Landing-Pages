@@ -6,9 +6,6 @@
 }
 .blogHeroGlow { position: absolute; top: -160px; right: -120px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(188,160,221,0.35), transparent 70%); pointer-events: none; }
 .blogHeroInner { position: relative; z-index: 1; padding: 3rem 1.5rem 3.5rem; }
-.blogBreadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); flex-wrap: wrap; margin-bottom: 20px; }
-.blogBreadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
-.blogBreadcrumb a:hover { color: #fff; }
 .blogHeroMetaRow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
 .blogCategories { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .blogCategoryPill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.3rem 0.9rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
@@ -42,8 +39,8 @@
 .blogSidebar {
   --sb-gutter: 8px;
   position: sticky;
-  top: calc(var(--header-height, 72px) + 1.5rem - var(--sb-gutter));
-  max-height: calc(100dvh - var(--header-height, 72px) - 3rem + (var(--sb-gutter) * 2));
+  top: calc(1.5rem - var(--sb-gutter));
+  max-height: calc(100dvh - 3rem + (var(--sb-gutter) * 2));
   overflow-y: auto;
   /* Keeps a wheel/trackpad gesture inside the sidebar from chaining to the
      page once it hits its end. */

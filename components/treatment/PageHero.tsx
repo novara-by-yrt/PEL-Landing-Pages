@@ -4,8 +4,6 @@ import { TpIcon } from "./TpIcon";
 import styles from "./PageHero.module.css";
 
 export function PageHero({
-  breadcrumbItems,
-  siteUrl,
   eyebrow,
   h1,
   lead,
@@ -14,8 +12,6 @@ export function PageHero({
   heroBadge,
   children,
 }: {
-  breadcrumbItems: { name: string; url: string }[];
-  siteUrl: string;
   eyebrow?: string;
   h1: string;
   lead?: string;
@@ -33,19 +29,6 @@ export function PageHero({
       <div className={styles.tpPageHeroGlow} />
       <div className={`${styles.tpPageHeroInner}${hasImage ? ` ${styles.hasImage}` : ""}`}>
         <div>
-          <nav aria-label="Breadcrumb" className={styles.tpPageBreadcrumb}>
-            {breadcrumbItems.map((item, index) => (
-              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 || !item.url ? (
-                  <span style={{ color: "rgba(255,255,255,0.9)" }}>{item.name}</span>
-                ) : (
-                  <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>
-                )}
-              </span>
-            ))}
-          </nav>
-
           {eyebrow && (
             <span className="tp-eyebrow">
               <TpIcon name="sparkle" size={13} />

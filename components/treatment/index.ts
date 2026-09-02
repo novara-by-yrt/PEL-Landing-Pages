@@ -17,4 +17,4 @@ export { TreatmentVideoTestimonials } from "./TreatmentVideoTestimonials";
 export { TeamBioCarousel } from "./TeamBioCarousel";
 export { TreatmentCTA } from "./TreatmentCTA";
 export { TpIcon, glanceIconKey } from "./TpIcon";
-export type { TreatmentMeta, GlanceItem, AdvantageItem, SimilarTreatmentItem, ReviewItem, BreadcrumbItem } from "./types";
+export type { TreatmentMeta, GlanceItem, AdvantageItem, SimilarTreatmentItem, ReviewItem } from "./types";

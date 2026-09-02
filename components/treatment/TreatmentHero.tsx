@@ -1,24 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import SafeImage from "@/components/shared/SafeImage";
-import type { BreadcrumbItem } from "./types";
 import styles from "./TreatmentHero.module.css";
 
 export function TreatmentHero({
-  breadcrumbItems,
-  siteUrl,
   h1,
   subtitle,
+  price,
   heroImage,
   heroImageAlt,
   heroBadge,
   heroBg,
   heroBgOpacity,
 }: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
   h1: string;
   subtitle?: string;
+  /** Headline figure, e.g. "From £1,800". Omitted where a treatment quotes
+   *  no figure and is priced at consultation instead. */
+  price?: string | null;
   heroImage?: string;
   heroImageAlt: string;
   /** Caption chip over the hero photo. Omitted when there is nothing true to say about the image — it used to default to "Before & After", which mislabelled every hero that was a stock treatment photo. */
@@ -50,24 +49,22 @@ export function TreatmentHero({
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowB}`} />
       <div className={`container ${styles.tpHeroInner}`}>
         <div>
-          <nav aria-label="Breadcrumb" className={styles.tpBreadcrumb}>
-            {breadcrumbItems.map((item, index) => (
-              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 || !item.url ? (
-                  <span style={{ color: "var(--tp-slate)" }}>{item.name}</span>
-                ) : (
-                  <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>
-                )}
-              </span>
-            ))}
-          </nav>
-
           <h1 className={styles.tpH1}>{h1}</h1>
 
           <span className={styles.tpHeroRule} aria-hidden="true" />
 
           {subtitle && <p className={styles.tpSub}>{subtitle}</p>}
+
+          {/* The figure sits between the description and the buttons: it is
+              the question a visitor asks straight after "what is this?", and
+              answering it before the CTA rather than a full page below it is
+              what stops the scroll being the price of finding out. */}
+          {price && (
+            <p className={styles.tpHeroPrice}>
+              <span className={styles.tpHeroPriceLabel}>Price</span>
+              <span className={styles.tpHeroPriceValue}>{price}</span>
+            </p>
+          )}
 
           <div className={styles.tpHeroActions}>
             <Link href="/self-test-survey" className="tp-btn tp-btn-primary">

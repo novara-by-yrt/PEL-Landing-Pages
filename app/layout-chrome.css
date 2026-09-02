@@ -1,230 +1,16 @@
 /* =========================================================================
-   Site chrome: header, footer and shared layout animations.
+   Site chrome: footer and shared layout animations.
 
-   These are layout singletons rendered once per page, so they are plain
-   global classes rather than CSS Modules — scoping would add churn without
-   benefit. What matters is that they ship as a cached stylesheet instead of
-   ~13KB of inline <style> repeated in every HTML document.
+   This repository serves standalone landing and ad pages, so there is no
+   site header or navigation — every page is an entry point with no route
+   out of it. What is left here are the layout singletons that are still
+   rendered once per page, kept as plain global classes rather than CSS
+   Modules: scoping would add churn without benefit, and they ship as a
+   cached stylesheet instead of inline <style> repeated in every document.
    ========================================================================= */
 
-/* ── Header ───────────────────────────────────────────────────────────────
-   The bar is fixed, not sticky, and a spacer holds its full-size height in
-   the flow. Sticky keeps the element in flow, so shrinking it on scroll
-   moved every pixel of the page up by the difference — mid-scroll, mid-
-   transition, which is what juddered. Fixed + spacer means the shrink is
-   purely visual and the content underneath never moves. */
-:root{--pel-top-h:clamp(84px,10.5vw,116px);--pel-mega-col:320px;--pel-mega-col2:380px}
-.pel-nav-spacer{height:var(--pel-top-h)}
-.pel-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0px 24px;transition:padding .45s var(--tp-ease);}
-.pel-nav.at-top{padding-left:0;padding-right:0}
-.pel-pill{max-width:1340px;margin:0 auto;height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:0 12px 0 24px;border-radius:999px;background:var(--tp-glass-bg);backdrop-filter:blur(16px);border:1px solid transparent;transition:height .45s var(--tp-ease),max-width .45s var(--tp-ease),padding .45s var(--tp-ease),border-radius .45s var(--tp-ease),box-shadow .45s var(--tp-ease),border-color .45s var(--tp-ease),background .45s var(--tp-ease);}
-.pel-pill.is-top{max-width:none;height:var(--pel-top-h);border-radius:0;background:#fff;backdrop-filter:none;box-shadow:0 1px 0 var(--tp-hairline);padding-left:clamp(20px,4vw,48px);padding-right:clamp(12px,3vw,32px)}
-.pel-pill.is-solid{border-color:var(--tp-hairline);box-shadow:var(--tp-shadow-md);background:rgba(255,255,255,0.86)}
-.pel-brand{display:inline-flex;align-items:center;min-height:44px;line-height:1;text-decoration:none;flex-shrink:0}
-
-/* ── Brand ────────────────────────────────────────────────────────────────
-   The mark sits in the bar's first column, beside the nav. It is large while
-   the page is at the top and shrinks as the bar goes solid; the bar's own
-   height animates alongside it, so nothing jumps. Sized by height only, so
-   the 719:347 proportions hold. */
-.pel-logo{height:38px;width:auto;object-fit:contain;transition:height .42s var(--tp-ease)}
-.pel-nav.at-top .pel-logo{height:clamp(52px,7.5vw,84px)}
-
-@media (prefers-reduced-motion:reduce){
-  .pel-logo{transition:none}
-}
-
-.pel-wordmark{font-family:var(--tp-display);font-size:20px;font-weight:600;letter-spacing:0.03em;color:var(--tp-indigo-900);white-space:nowrap}
-.pel-wordmark-sub{font-family:var(--tp-body);font-size:8.5px;letter-spacing:0.34em;color:var(--tp-lavender-500);margin-top:4px}
-.pel-links{position:relative;display:flex;justify-content:center;align-items:center;gap:2px;min-width:0;justify-self:center;width:fit-content;max-width:100%;padding:5px 10px;border-radius:999px;background:var(--tp-lavender-050)}
-.pel-navitem{position:relative;display:flex;align-items:center}
-.pel-link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;font-family:var(--tp-body);font-size:0.875rem;font-weight:500;color:var(--tp-slate);text-decoration:none;white-space:nowrap;padding:11px 13px;border-radius:999px;background:none;border:none;cursor:pointer;transition:color 160ms var(--tp-ease)}
-.pel-link:hover{color:var(--tp-indigo-700)}
-.pel-link-has-menu svg{transition:transform 220ms var(--tp-ease)}
-.pel-navitem.has-panel .pel-link-has-menu{color:var(--tp-indigo-700)}
-
-/* Tubelight highlight: a single glowing bar that glides between nav items on
-   hover/focus, replacing what was an invisible hover background (identical
-   in colour to the pill it sat on). Position/size are written from JS
-   (Header.tsx) as inline styles — this rule only owns appearance and the
-   left/top/width/height/opacity transitions. */
-.pel-lamp{position:absolute;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--tp-paper);box-shadow:var(--tp-shadow-xs);opacity:0;pointer-events:none;z-index:0;transition:left 320ms var(--tp-ease),top 320ms var(--tp-ease),width 320ms var(--tp-ease),height 320ms var(--tp-ease),opacity 200ms var(--tp-ease)}
-.pel-lamp.is-visible{opacity:1}
-.pel-lamp::before{content:"";position:absolute;top:-3px;left:50%;width:28px;height:3px;transform:translateX(-50%);border-radius:999px;background:linear-gradient(90deg,var(--tp-indigo-700),var(--tp-lavender-300))}
-.pel-lamp::after{content:"";position:absolute;top:-11px;left:50%;width:46px;height:20px;transform:translateX(-50%);border-radius:999px;background:var(--tp-lavender-300);opacity:0.5;filter:blur(10px)}
-@media(prefers-reduced-motion:reduce){.pel-lamp{transition:opacity 200ms var(--tp-ease)}}
-.pel-navitem.has-panel .pel-link-has-menu svg{transform:rotate(-90deg)}
-.pel-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;z-index:10}
-/* Two-pane panel: centre the trigger on the FIRST column rather than on the
-   whole panel. Centring the whole panel meant revealing a category grew it
-   from 320px to 700px and slid the category list 190px to the left — the
-   list appeared to run away from the cursor. Anchoring to the first column
-   keeps that list still and lets the second pane open to its right.
-   Collapsed, the panel lands exactly where translateX(-50%) used to put it,
-   since the panel is then one column wide.
-   --pel-mega-shift is written by Header.tsx and nudges the panel back inside
-   the viewport for the right-most menu; it is constant while the menu is
-   open, so it never reintroduces movement. */
-.pel-dropdown-mega{margin-left:calc(var(--pel-mega-col) / -2 + var(--pel-mega-shift, 0px));transform:none}
-.pel-dropdown-inner{background:var(--tp-paper);border-radius:24px;box-shadow:0 30px 70px -28px rgba(24,20,64,.42),0 2px 10px rgba(24,20,64,.06);padding:0;overflow:hidden;animation:pel-panel-in 180ms var(--tp-ease) both}
-@keyframes pel-panel-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-
-/* ── Shared panel chrome ──────────────────────────────────────────────────
-   Every dropdown — flat list, condition grid and two-pane mega — uses the
-   same eyebrow, row and footer treatment, so hovering any nav item lands on
-   one recognisable surface. */
-.pel-panel{display:flex;flex-direction:column;padding:20px 16px;width:max-content;max-width:min(94vw,520px)}
-.pel-panel-simple{min-width:250px}
-.pel-panel-grid{max-width:min(94vw,520px)}
-.pel-panel-eyebrow{display:block;padding:2px 16px 12px;font-family:var(--tp-body);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tp-lavender-600)}
-.pel-panel-list{display:grid;grid-template-columns:1fr;gap:2px}
-.pel-panel-grid .pel-panel-list{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:8px}
-
-/* Rows share the accent-bar treatment with the mega panel's categories. */
-.pel-panel-link,.pel-mega2-cat{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;padding:11px 16px;background:transparent;border:0;border-radius:12px;cursor:pointer;text-align:left;text-decoration:none;font-family:var(--tp-body);font-size:.9375rem;font-weight:500;line-height:1.35;color:var(--tp-ink);transition:background 160ms var(--tp-ease),color 160ms var(--tp-ease)}
-.pel-panel-link::before,.pel-mega2-cat::before{content:"";position:absolute;inset-block:9px;inset-inline-start:5px;width:3px;border-radius:999px;background:var(--tp-indigo-700);transform:scaleY(0);transform-origin:center;transition:transform 220ms var(--tp-ease)}
-.pel-panel-link:hover,.pel-mega2-cat:hover{background:var(--tp-lavender-050);color:var(--tp-indigo-700)}
-.pel-panel-link:hover::before,.pel-mega2-cat:hover::before,.pel-mega2-cat.is-active::before{transform:scaleY(1)}
-.pel-panel-link:focus-visible,.pel-mega2-cat:focus-visible,.pel-panel-viewall:focus-visible,.pel-mega2-link:focus-visible{outline:2px solid var(--tp-indigo-700);outline-offset:-2px}
-
-/* Footer link, e.g. "View all results". */
-.pel-panel-viewall{display:flex;align-items:center;gap:9px;min-height:44px;margin-top:8px;padding:14px 16px 4px;border-top:1px solid var(--tp-hairline);font-family:var(--tp-body);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tp-ink);text-decoration:none;transition:color 160ms var(--tp-ease)}
-.pel-panel-viewall svg{flex:0 0 auto;color:var(--tp-lavender-600);transition:transform 200ms var(--tp-ease)}
-.pel-panel-viewall:hover{color:var(--tp-indigo-700)}
-.pel-panel-viewall:hover svg{transform:translateX(3px)}
-
-/* ── Two-pane mega panel ──────────────────────────────────────────────── */
-/* Both tracks are always laid out at a fixed size and only the panel's own
-   width animates, so the second pane is wiped into view (clipped by
-   .pel-dropdown-inner's overflow:hidden) instead of the grid re-flowing.
-   That keeps the first column's geometry identical in both states, which is
-   what stops it moving. */
-.pel-mega2{display:grid;grid-template-columns:var(--pel-mega-col) var(--pel-mega-col2);gap:0;padding:0;width:var(--pel-mega-col);transition:width 260ms var(--tp-ease)}
-.pel-mega2.is-expanded{width:calc(var(--pel-mega-col) + var(--pel-mega-col2))}
-.pel-mega2-left{display:flex;flex-direction:column;gap:2px;padding:20px 16px}
-.pel-mega2.is-expanded .pel-mega2-left{border-right:1px solid var(--tp-hairline)}
-.pel-mega2-cat svg{flex:0 0 auto;color:var(--tp-mist);transition:color 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
-.pel-mega2-cat:hover svg{color:var(--tp-lavender-600);transform:translateX(2px)}
-.pel-mega2-cat.is-active{background:var(--tp-lavender-050);color:var(--tp-ink)}
-.pel-mega2-cat.is-active svg{color:var(--tp-lavender-600)}
-.pel-mega2-right{padding:20px 22px;background:var(--tp-paper);animation:pel-pane-in 200ms var(--tp-ease) both}
-@keyframes pel-pane-in{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
-.pel-mega2-rlist{display:flex;flex-direction:column;gap:2px}
-.pel-mega2-link{display:block;min-height:44px;padding:12px 10px;font-family:var(--tp-body);font-size:.9375rem;line-height:1.35;color:var(--tp-slate);text-decoration:none;border-radius:10px;transition:background 160ms var(--tp-ease),color 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
-.pel-mega2-link:hover{background:var(--tp-lavender-050);color:var(--tp-indigo-700);transform:translateX(4px)}
-
-/* Narrow laptops: a slimmer second pane keeps the expanded panel inside the
-   viewport. The first column is untouched, so the anchor above still holds. */
-@media (max-width:1279px){
-  :root{--pel-mega-col2:320px}
-  .pel-panel-grid{max-width:min(92vw,460px)}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .pel-dropdown-inner,.pel-mega2-right{animation:none}
-  .pel-mega2{transition:none}
-  .pel-panel-link,.pel-panel-link::before,.pel-mega2-cat,.pel-mega2-cat::before,.pel-mega2-cat svg,.pel-mega2-link,.pel-panel-viewall,.pel-panel-viewall svg{transition:none}
-}
-.pel-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
-.pel-phone{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;color:#fff;background:var(--tp-indigo-700);border-radius:50%;text-decoration:none;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
-.pel-phone:hover{background:var(--tp-indigo-600);transform:translateY(-1px)}
-.pel-cta{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 20px;border-radius:999px;background:var(--tp-indigo-700);color:#fff;font-family:var(--tp-body);font-size:0.875rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background 160ms var(--tp-ease),transform 160ms var(--tp-ease)}
-.pel-cta:hover{background:var(--tp-indigo-600);transform:translateY(-1px)}
-.pel-cta-short{display:none}
-.pel-burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;background:none;border:none;cursor:pointer;color:var(--tp-indigo-700);border-radius:12px;flex-shrink:0}
+/* Visually hidden, still announced. Used across the page components. */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-.pel-scrim{position:fixed;inset:0;z-index:210;background:var(--tp-glass-bg-deep);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity 220ms var(--tp-ease),visibility 220ms var(--tp-ease);pointer-events:none}
-.pel-scrim.is-open{opacity:1;visibility:visible;pointer-events:auto}
-.pel-drawer{position:fixed;top:0;right:0;z-index:211;height:100%;height:100dvh;width:min(400px,86vw);display:flex;flex-direction:column;background:var(--tp-paper);box-shadow:var(--tp-shadow-lg);transform:translateX(100%);transition:transform 420ms var(--tp-ease);pointer-events:none;padding:max(20px,env(safe-area-inset-top)) 0 max(20px,env(safe-area-inset-bottom))}
-.pel-drawer.is-open{transform:translateX(0);pointer-events:auto}
-.pel-drawer-top{display:flex;align-items:center;justify-content:space-between;padding:4px 20px 20px;border-bottom:1px solid var(--tp-hairline)}
-.pel-close{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:none;cursor:pointer;color:var(--tp-indigo-700);border-radius:12px}
-.pel-drawer-links{flex:1;display:flex;flex-direction:column;padding:12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.pel-drawer-group,.pel-drawer-links>.pel-drawer-link{border-bottom:1px solid var(--tp-hairline)}
-.pel-drawer-links>*:last-child{border-bottom:0}
-.pel-drawer-link{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:54px;padding:0 14px;font-family:var(--tp-display);font-size:20px;font-weight:600;color:var(--tp-ink);text-decoration:none;background:none;border:none;cursor:pointer;text-align:left;border-radius:12px;transition:background 140ms var(--tp-ease),color 140ms var(--tp-ease)}
-.pel-drawer-link:hover{background:var(--tp-lavender-050);color:var(--tp-indigo-700)}
-.pel-drawer-group{display:flex;flex-direction:column}
-.pel-drawer-sub{display:flex;flex-direction:column;gap:2px;padding:2px 0 10px 12px;margin-left:8px;border-left:2px solid var(--tp-hairline)}
-.pel-drawer-sublink{display:flex;align-items:center;min-height:44px;padding:0 14px;font-family:var(--tp-body);font-size:0.9375rem;font-weight:500;color:var(--tp-slate);text-decoration:none;border-radius:10px;transition:background 140ms var(--tp-ease),color 140ms var(--tp-ease)}
-.pel-drawer-sublink:hover{background:var(--tp-lavender-050);color:var(--tp-indigo-700)}
-.pel-drawer-viewall{margin-top:6px;padding-top:6px;border-top:1px solid var(--tp-hairline);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tp-ink);border-radius:0}
-.pel-drawer-subgroup{display:flex;flex-direction:column;gap:2px}
-.pel-drawer-subgroup+.pel-drawer-subgroup{margin-top:4px}
-.pel-drawer-subhead{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:10px 14px;background:transparent;border:0;border-radius:10px;cursor:pointer;font-family:var(--tp-body);font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--tp-ink)}
-.pel-drawer-subhead svg{color:var(--tp-lavender-500)}
-.pel-drawer-subgroup-list{display:flex;flex-direction:column;gap:2px;padding-left:6px}
-.pel-drawer-foot{display:flex;flex-direction:column;gap:12px;padding:20px;border-top:1px solid var(--tp-hairline)}
-.pel-cta-full{width:100%;justify-content:center}
-.pel-drawer-phone{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;font-family:var(--tp-body);font-size:0.9375rem;font-weight:600;color:var(--tp-indigo-700);text-decoration:none;border:1px solid var(--tp-hairline);border-radius:999px}
-
-/* ── Drawer fitting on short screens ──────────────────────────────────────
-   The eight top-level links need 460px at their full 54px row height. On a
-   375x667 phone the drawer has 403px left for them once the brand row (77px)
-   and the CTA foot (147px) have taken their share, so the list scrolled and
-   "Blog" - the last item - sat below the fold with nothing to suggest it was
-   there. At 320x568 only 304px was left and the last three were hidden.
-
-   Rows are what gets tightened, in two stages, because eight of them multiply
-   any saving by eight; the brand row and the foot give up padding at the same
-   time. Nothing is removed and no font drops below 17px, so every option
-   stays present and legible - the point is that they are all reachable
-   without scrolling. */
-@media (max-height: 720px) {
-  .pel-drawer{padding-top:max(12px,env(safe-area-inset-top));padding-bottom:max(12px,env(safe-area-inset-bottom))}
-  .pel-drawer-top{padding:2px 16px 12px}
-  .pel-drawer-links{padding:8px}
-  .pel-drawer-link{min-height:46px;font-size:18px}
-  .pel-drawer-sublink{min-height:40px}
-  .pel-drawer-sub{padding:2px 0 8px 12px}
-  .pel-drawer-foot{padding:12px 16px;gap:8px}
-  .pel-drawer-phone{min-height:42px}
-}
-
-@media (max-height: 620px) {
-  .pel-drawer-top{padding:2px 14px 8px}
-  .pel-drawer-links{padding:6px}
-  .pel-drawer-link{min-height:40px;font-size:17px}
-  .pel-drawer-sublink{min-height:36px;font-size:0.875rem}
-  .pel-drawer-foot{padding:10px 14px;gap:6px}
-  .pel-drawer-phone{min-height:38px}
-  .pel-drawer-foot .tp-btn{padding-block:10px}
-}
-
-/* ── Nav bar fitting ──────────────────────────────────────────────────────
-   The link group sits in the pill's `1fr` grid track with min-width:0, so it
-   was allowed to be squeezed narrower than its own contents. The links are
-   white-space:nowrap and cannot shrink, so past that point they simply spilled
-   out of the lavender background — "Home" and "Blog" ran clean past the
-   rounded ends, which reads as the pill having lost its padding. It was doing
-   that everywhere from about 1300px down to the 1120px burger breakpoint, at
-   worst 34px beyond the pill's edge on each side.
-
-   Two halves to the fix. Below, the group is tightened in two stages so it
-   genuinely fits further down; and the burger now takes over at the width
-   where even the tightened group runs out of room, rather than 70px below it.
-   Measured minimum widths with a 10px clear on each side: untightened 1290px,
-   stage one 1240px, stage two 1190px. */
-@media(max-width:1300px){
-  .pel-pill{gap:16px}
-  .pel-links{gap:0}
-  .pel-link{padding:9px 10px}
-}
-@media(max-width:1250px){
-  .pel-pill{gap:14px}
-  .pel-links{padding:5px 8px}
-  .pel-link{padding:9px 8px}
-}
-@media(max-width:1190px){
-  :root{--pel-top-h:clamp(78px,13vw,104px)}
-  .pel-nav{padding:0 20px}
-  .pel-pill{grid-template-columns:1fr auto;height:64px;gap:14px;padding:0 10px 0 20px}
-  /* Tall enough to clear the enlarged mark at the top of the page. */
-  .pel-pill.is-top{height:var(--pel-top-h);padding-left:clamp(16px,4vw,28px);padding-right:clamp(8px,3vw,20px)}
-  .pel-links,.pel-actions{display:none}
-  .pel-burger{display:inline-flex}
-}
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
 
@@ -252,39 +38,19 @@
   animation-direction: reverse;
 }
 
-/* ── Reveal footer ─────────────────────────────────────────────────────────
-   The footer stays pinned to the bottom of the viewport for the whole page
-   and is uncovered only once the user has scrolled past the rest of the
-   content, like a curtain lifting, rather than simply appearing at the end
-   of the page.
+/* ── Page content layer ───────────────────────────────────────────────────
+   #main-content is given a stacking layer and an opaque background of its
+   own so the page's sections — several of which position decorative art at
+   z-index: -1 — resolve against the page rather than against the document
+   root. The footer follows it in normal flow.
 
-   How: the footer is `position: fixed`, so it never occupies flow space of
-   its own — #footer-spacer (an empty element right after #main-content)
-   reserves that scroll room instead. #main-content sits in a higher
-   stacking layer with an opaque background, so it covers the fixed footer
-   for as long as its own content is what should be on screen; once the
-   page scrolls past #main-content into the (transparent) spacer, there is
-   nothing left above the footer and it becomes visible underneath.
-
-   This only works because the footer is taken out of flow entirely: an
-   in-flow sticky/negative-margin version can't produce a real gap, since a
-   negative margin shortens where a *sibling* sits without ever shortening
-   the element's own painted box — #main-content would still visually reach
-   every pixel down to the last scrollable position and the footer would
-   never have room to appear. A spacer that genuinely adds scrollable height
-   is what creates that room.
-
-   --footer-h is written by Footer.tsx (a ResizeObserver on the footer's own
-   height, since its rendered height changes with viewport width and content
-   reflow). It defaults to 0px, so before that JS runs the spacer is zero
-   height and the footer sits flush at the bottom — no flash of broken
-   layout, just the ordinary (non-revealing) footer placement. */
+   (This used to do more: the footer was `position: fixed` and uncovered
+   like a curtain once the page had been scrolled past, with an empty
+   #footer-spacer reserving the scroll room. That was worth it for a large
+   three-column footer; the legal one that replaced it has nothing down
+   there to reward the trip, so it simply sits at the end of the page.) */
 #main-content {
   position: relative;
   z-index: 1;
   background: var(--clr-bg);
-}
-
-#footer-spacer {
-  height: var(--footer-h, 0px);
 }

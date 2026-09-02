@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import BeginJourney from "@/components/shared/BeginJourney";
-import type { BreadcrumbItem } from "@/components/treatment/types";
 import styles from "./TermsConditions.module.css";
 
 type Block =
@@ -203,13 +201,7 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
-export function TermsConditions({
-  breadcrumbItems,
-  siteUrl,
-}: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
-}) {
+export function TermsConditions() {
   return (
     <div className={styles.page}>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -225,18 +217,6 @@ export function TermsConditions({
         </div>
         <span className={styles.heroScrim} aria-hidden="true" />
         <div className="container">
-          <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
-            {breadcrumbItems.map((item, index) => (
-              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 || !item.url ? (
-                  <span>{item.name}</span>
-                ) : (
-                  <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>
-                )}
-              </span>
-            ))}
-          </nav>
           <span className={styles.eyebrow}>Legal</span>
           <h1 id="terms-title" className={styles.heroTitle}>
             Terms and Conditions

@@ -3,24 +3,15 @@ import ContactSection from "@/components/home/ContactSection";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { TreatmentCTA } from "@/components/treatment/TreatmentCTA";
-import type { BreadcrumbItem } from "@/components/treatment/types";
 import { TeamGrid } from "./TeamGrid";
 import { TEAM_MEMBERS } from "@/lib/team";
 import styles from "./TeamRoster.module.css";
 
 
-export function TeamRoster({
-  breadcrumbItems,
-  siteUrl,
-}: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
-}) {
+export function TeamRoster() {
   return (
     <div className="tp">
       <PageHero
-        breadcrumbItems={breadcrumbItems}
-        siteUrl={siteUrl}
         eyebrow="Perfect Eyes Clinic & Perfect Skin Studio"
         h1="Meet the Team"
         lead="Our exceptional practitioners and dedicated support staff work together to deliver outstanding aesthetic outcomes and an unparalleled patient experience."

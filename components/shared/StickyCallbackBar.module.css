@@ -5,9 +5,7 @@
    also fixed to the bottom edge and full width, so while consent is still
    pending it covers this button - which is the right order of business, and
    cheaper than having the two components coordinate. Once a choice is
-   recorded the banner unmounts and the button is revealed. It is likewise
-   below .pel-nav (200), so an open mobile drawer is never sitting behind a
-   floating button. */
+   recorded the banner unmounts and the button is revealed. */
 .bar {
   position: fixed;
   left: 50%;

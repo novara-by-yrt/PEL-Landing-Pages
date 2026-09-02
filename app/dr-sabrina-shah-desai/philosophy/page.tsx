@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { buildBreadcrumbSchema } from "@/lib/schema";
 import { Philosophy } from "@/components/about/Philosophy";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -21,12 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default function PhilosophyPage() {
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Dr Sabrina Shah-Desai", url: `${SITE_URL}/dr-sabrina-shah-desai` },
-    { name: "Philosophy", url: URL },
-  ];
-
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -37,12 +30,10 @@ export default function PhilosophyPage() {
     inLanguage: "en-GB",
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, URL);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Philosophy />
     </>
   );

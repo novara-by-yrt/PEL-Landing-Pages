@@ -281,18 +281,6 @@ function resolveMdxFilename(
 }
 
 /**
- * Does a page exist at exactly this path?
- *
- * Deliberately skips the fuzzy fallback, so a URL like /surgical/eyelid-surgery
- * — which has no page of its own but would substring-match an unrelated
- * treatment file — reports false. Used for breadcrumbs so intermediate
- * segments only become links when they lead somewhere real.
- */
-export function pageExistsExact(folder: string, slugInput: string | string[]): boolean {
-  return resolveMdxFilename(folder, slugInput, { allowFuzzy: false }) !== null;
-}
-
-/**
  * Read and parse a single MDX file by folder + slug (supports string or string[]).
  */
 export function getPostBySlug(folder: string, slugInput: string | string[]): Post | null {

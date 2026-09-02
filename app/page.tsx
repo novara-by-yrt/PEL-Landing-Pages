@@ -164,7 +164,7 @@ const NONSURGICAL_TREATMENTS: Treatment[] = [
   {
     image: "/uploads/2017/08/Sofwave.jpg",
     title: "Sofwave™",
-    href: "/non-surgical/sofwave-treatment-uk",
+    href: "/sofwave",
     blurb: "Ultrasound energy that lifts and tightens skin across the brow and face.",
   },
   {

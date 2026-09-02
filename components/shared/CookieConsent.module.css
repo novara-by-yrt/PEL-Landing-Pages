@@ -2,13 +2,9 @@
   position: fixed;
   inset-inline: 0;
   bottom: 0;
-  /* Above ordinary content (main 1, footer 0), but below .pel-nav (200) —
-     .pel-nav is itself a stacking-context root (position: fixed), so the
-     drawer/scrim nested inside it (their own z-index: 210/211) only ranks
-     within that context; the whole header subtree's position among body's
-     other fixed children is set by .pel-nav's z-index: 200. A banner above
-     200 would sit on top of the header's entire subtree — including an open
-     drawer — and silently swallow clicks on its footer CTA/phone link. */
+  /* Above ordinary content (main 1, footer 0) and above the floating
+     triggers (140), so consent is the first thing answered, but below the
+     modal dialogs (1000) so it never swallows clicks on an open dialog. */
   z-index: 150;
   display: flex;
   justify-content: center;

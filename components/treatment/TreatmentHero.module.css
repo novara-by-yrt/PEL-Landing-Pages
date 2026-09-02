@@ -21,12 +21,36 @@
 @media (max-width: 860px) {
   .tpHeroInner { grid-template-columns: 1fr; padding-bottom: 3rem; }
 }
-.tpBreadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tp-mist); flex-wrap: wrap; margin-bottom: 20px; }
-.tpBreadcrumb a { color: var(--tp-mist); text-decoration: none; }
-.tpBreadcrumb a:hover { color: var(--tp-indigo-700); }
 .tpH1 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.14; letter-spacing: -0.01em; color: var(--tp-ink); margin: 18px 0 0; text-wrap: balance; }
 .tpHeroRule { display: block; width: 56px; height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--tp-indigo-700), var(--tp-lavender-300)); margin: 22px 0 0; }
 .tpSub { font-size: 1.1875rem; line-height: 1.6; color: var(--tp-slate); max-width: 52ch; margin: 22px 0 28px; }
+
+/* The price, between the description and the buttons. A label-and-figure pair
+   on one baseline rather than a badge: the figure is the largest thing in the
+   hero after the h1, and a pill around it would read as a button beside the
+   two real ones directly below. The margin sits on this block when it is
+   present, so the gap above the buttons is the same either way. */
+.tpHeroPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 28px;
+}
+.tpHeroPriceLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+}
+.tpHeroPriceValue {
+  font-family: var(--tp-display);
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tp-ink);
+  font-variant-numeric: tabular-nums;
+}
 /* Full-width CTAs on the narrowest phones, side by side from 420px. */
 .tpHeroActions { display: flex; gap: 14px; flex-wrap: wrap; }
 .tpHeroActions > * { flex: 1 1 100%; }

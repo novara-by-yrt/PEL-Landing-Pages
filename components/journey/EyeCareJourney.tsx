@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import type { BreadcrumbItem } from "@/components/treatment/types";
 import styles from "./EyeCareJourney.module.css";
 
 type Tone = "paper" | "cream" | "fog";
@@ -315,7 +314,7 @@ const SECTIONS: Section[] = [
       },
       {
         title: "Sofwave",
-        href: "/non-surgical/sofwave-treatment-uk",
+        href: "/sofwave",
         body: [
           "This non-invasive ultrasound treatment targets the deeper layers of the skin to stimulate collagen without damaging the surface. Perfect for: lifting brows, under-eye tightening, subtle firming.",
           "Often called the “lunchtime lift”: painless, quick, and with zero recovery time.",
@@ -653,18 +652,10 @@ function StepSection({ section }: { section: Extract<Section, { kind: "step" }> 
   );
 }
 
-export function EyeCareJourney({
-  breadcrumbItems,
-  siteUrl,
-}: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
-}) {
+export function EyeCareJourney() {
   return (
     <div className={`tp ${styles.page}`}>
       <PageHero
-        breadcrumbItems={breadcrumbItems}
-        siteUrl={siteUrl}
         eyebrow="The Perfect360™ Experience"
         /* The old heading — "The Journey of Eye Care: A Lifelong Commitment
            to Your Vision" - was a colon, an abstract noun and a promise the

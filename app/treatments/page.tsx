@@ -6,7 +6,6 @@ import ContactSection from "@/components/home/ContactSection";
 import CatalogueGrid from "@/components/catalogue/CatalogueGrid";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { buildBreadcrumbSchema } from "@/lib/schema";
 import { getTreatmentCatalogue } from "@/lib/catalogue";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "@/components/catalogue/CataloguePage.module.css";
@@ -31,11 +30,6 @@ export const metadata: Metadata = {
 
 export default function TreatmentsIndexPage() {
   const { surgical, nonSurgical } = getTreatmentCatalogue();
-
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Treatments", url: URL },
-  ];
 
   /* An ItemList per group, so the two collections are legible to a crawler as
      lists of treatments rather than as an undifferentiated page of links. */
@@ -73,12 +67,6 @@ export default function TreatmentsIndexPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbSchema(breadcrumbItems, URL)),
-        }}
-      />
       {groups.map((group) => (
         <script
           key={group.id}
@@ -89,8 +77,6 @@ export default function TreatmentsIndexPage() {
 
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           eyebrow="Treatments"
           h1="Every treatment we offer"
           lead={`${surgical.length + nonSurgical.length} surgical and non-surgical treatments for the eyelids, the area around the eyes and the wider face - each one explained in full on its own page.`}

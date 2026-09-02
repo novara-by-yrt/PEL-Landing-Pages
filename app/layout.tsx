@@ -54,7 +54,13 @@ export const metadata: Metadata = {
   },
   description:
     "Perfect Eyes Clinic offers expert cosmetic eye surgery, non-surgical aesthetic treatments, and skincare solutions. Discover blepharoplasty, tear trough fillers, polynucleotides, and more.",
-  robots: { index: true, follow: true },
+  /* Every page here is a paid-traffic landing page, so none of them belong
+     in organic search: they would compete with the clinic's own site for the
+     same terms, on thinner copy written for one ad. Set once on the root
+     layout so a new page is noindex by default rather than by remembering.
+     robots.txt still allows crawling — a page that cannot be fetched is a
+     page whose noindex is never read. */
+  robots: { index: false, follow: false },
   openGraph: {
     type: "website",
     siteName: "Perfect Eyes Clinic",
@@ -143,7 +149,6 @@ export default function RootLayout({
         )}
         <Header />
         <main id="main-content">{children}</main>
-        <div id="footer-spacer" aria-hidden="true" />
         <Footer />
         <CookieConsent />
         {/* Persistent bottom-centre "Request a call back" trigger. Sits below

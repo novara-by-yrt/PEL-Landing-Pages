@@ -3,13 +3,12 @@ import type { MetadataRoute } from "next";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
 /**
- * Built per request, matching the sitemap.
+ * Built per request.
  *
  * Nothing here reads content, so today this produces the same bytes it did
- * when prerendered. It is dynamic so that the two files that tell a crawler
- * how to crawl the site behave the same way, and so that anything added here
- * later - a rule that depends on the environment, or on a flag rather than on
- * a rebuild - takes effect without a deploy.
+ * when prerendered. It is dynamic so that anything added here later - a rule
+ * that depends on the environment, or on a flag rather than on a rebuild -
+ * takes effect without a deploy.
  */
 export const dynamic = "force-dynamic";
 
@@ -32,6 +31,17 @@ export const dynamic = "force-dynamic";
  *    the search rules are the ones that put the clinic in ChatGPT, Claude and
  *    Perplexity answers, and they are separated from the training-data
  *    crawlers so either can be revoked without touching the other.
+ *
+ * 3. Crawling stays ALLOWED even though every page on this deployment is
+ *    `noindex, nofollow` (see app/layout.tsx). The two are not in conflict,
+ *    they are the only combination that works: a `Disallow: /` would stop a
+ *    crawler fetching the page at all, and a page that is never fetched is a
+ *    page whose noindex is never read - which is how a URL someone links to
+ *    ends up indexed anyway, listed with no title or description. Let them
+ *    in, and let the meta tag turn them away.
+ *
+ *    No `sitemap:` line, for the same reason: a sitemap exists to ask for
+ *    indexing, and there is nothing here to ask about.
  */
 export default function robots(): MetadataRoute.Robots {
   // Endpoints with nothing to index: the contact form's POST handler and the
@@ -69,7 +79,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Bytespider", disallow: "/" },
       { userAgent: "meta-externalagent", disallow: "/" },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };
 }
