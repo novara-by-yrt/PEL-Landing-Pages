@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
   // Static export support — pre-render all pages at build time
   output: "standalone",
 
+  // Don't advertise the framework in a response header. It tells an attacker
+  // which stack (and, with the version, which CVEs) to aim at, and it buys
+  // nothing back.
+  poweredByHeader: false,
+
   // Every route was shipping 4+ render-blocking <link rel="stylesheet"> tags
   // (PageSpeed: ~170ms). Inlining puts the CSS straight in the HTML <head>
   // instead, cutting the request waterfall before first paint. Trade-off:

@@ -24,13 +24,25 @@ const CQC_REGISTER_URL = "https://www.cqc.org.uk/location/1-5591490767";
  */
 const CQC_BADGE_SRC = "/uploads/2024/09/Frame-252.png";
 
+/* The header mega-menu mounts its links only once a person opens it, so a
+   crawler - which never hovers or clicks - sees just three links in the
+   <header>. That leaves the footer as the site's only crawlable global
+   navigation, and anything absent from it depends entirely on being linked
+   from body copy. /case-studies, /publications, /testimonials and the
+   philosophy page had no internal links anywhere on the site as a result.
+   They are real, substantial pages and three of them carry the clinic's
+   E-E-A-T signals, so they belong in the global nav. */
 const QUICK_LINKS = [
   { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
   /* /meet-team is a 308 to /team, so linking it sent every visitor who used
      this footer entry through a redirect. Pointing at the destination. */
   { href: "/team", label: "About the Clinic" },
+  { href: "/dr-sabrina-shah-desai/philosophy", label: "Our Philosophy" },
   { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
   { href: "/before-after", label: "Results" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/testimonials", label: "Testimonials" },
+  { href: "/publications", label: "Publications" },
   { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
   { href: "/contact", label: "Contact" },
 ];

@@ -81,6 +81,9 @@ export default function PublicationsList({ initialPublications }: PublicationsLi
 
   return (
     <section id="publications-list-section">
+      {/* Each entry title is an h3, so the list needs an h2 of its own to keep
+          the outline from skipping a level after the page h1. */}
+      <h2 className="sr-only">Published papers</h2>
 
       {/* Search and Filter Header */}
       <div className={styles.pubControls}>

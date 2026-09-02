@@ -73,6 +73,13 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
         {/* Post grid */}
         <section className="tp-section">
           <div className="container">
+            {/* The cards are h3 (correct where this grid is reused under a
+                "Related Blogs" h2), so the listing needs its own h2 or the
+                outline jumps h1 -> h3. Visually hidden: the hero above already
+                says this in larger type. */}
+            <h2 className="sr-only">
+              {currentPage === 1 ? "Latest articles" : `Articles, page ${currentPage}`}
+            </h2>
             <div className={styles.blogArchiveGrid}>
               {posts.map((post, index) => (
                 <BlogCard key={post.slug} post={post} priority={index < 3} />
