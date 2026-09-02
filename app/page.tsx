@@ -37,6 +37,12 @@ export const metadata: Metadata = {
   title: "Perfect Eyes Clinic | London's Leading Cosmetic Eye Surgeon",
   description:
     "Rejuvenate your eyes with blepharoplasty, fillers, and laser treatments by Dr Sabrina Shah-Desai, a leading cosmetic eye surgeon in London.",
+  // Bare origin, not `${SITE_URL}/`. Next resolves alternates.canonical against
+  // the `trailingSlash: false` default and strips the slash regardless of what
+  // is written here, so the sitemap entry is matched to THIS shape rather than
+  // the other way round - otherwise the sitemap advertises a URL the page does
+  // not claim. (The two forms address the same resource per RFC 3986; the point
+  // is only that both files say the same thing.)
   alternates: { canonical: SITE_URL },
   openGraph: {
     url: SITE_URL,

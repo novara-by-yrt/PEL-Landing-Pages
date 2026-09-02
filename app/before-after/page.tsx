@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import Image from "next/image";
 import Link from "next/link";
 import ContactSection from "@/components/home/ContactSection";
@@ -114,8 +115,14 @@ export default function BeforeAfterIndexPage() {
      so it can never point at a case that has been renamed or withdrawn. */
   const featured = groups[0]?.items[0];
 
+  const breadcrumbItems = [
+    { name: "Home", url: SITE_URL },
+    { name: "Results", url: `${SITE_URL}/before-after` },
+  ];
+
   return (
     <div className={styles.page}>
+      <BreadcrumbSchema items={breadcrumbItems} url={`${SITE_URL}/before-after`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -10,12 +10,20 @@ author:
 seo:
   title: "Thank You"
   description: ""
+  # noindex: this is the page the enquiry form redirects to after submission.
+  # It has no standalone search value, and indexing it lets someone arrive
+  # here straight from Google having never filled the form in - which both
+  # puts a dead end in the results and inflates the conversion count this
+  # page is used to measure.
   robots:
-    - "index"
+    - "noindex"
+    - "follow"
+# No Product schema: this page sells nothing and describes no procedure, so
+# the markup had nothing to attach to.
 schema:
-  type: "Product"
-  productSchemaNeeded: true
+  type: "WebPage"
+  productSchemaNeeded: false
 ---
-<h1>Thank You for Sharing Your Details!</h1>
+<h2>Thank You for Sharing Your Details!</h2>
 
 <p>Your responses have been successfully received, and our team now has a better understanding of your needs. You can now book your consultation with Dr Sabrina at a time that suits you by clicking the link below. We look forward to helping you feel your absolute best.</p>

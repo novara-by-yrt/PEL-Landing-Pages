@@ -62,21 +62,21 @@ export function buildProductSchema(frontmatter: PostFrontmatter, url: string) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: frontmatter.seo?.title || frontmatter.title,
-    description: frontmatter.seo?.description || "",
+    // Omitted rather than emitted empty: an empty string is a property the
+    // validator flags, whereas an absent optional property is simply absent.
+    description: frontmatter.seo?.description || undefined,
     url,
     image: frontmatter.featuredImage
       ? `${SITE_URL}${frontmatter.featuredImage}`
       : undefined,
-    /* The clinic's own rating. It used to claim 5.0 from 158, a figure that
-       appeared nowhere on the site and disagreed with the rating every page
-       displays. */
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: 4.8,
-      ratingCount: 240,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    /* No aggregateRating here, deliberately. 4.8 from 240 is the CLINIC's
+       Google rating, and it belongs on the MedicalBusiness entity (where
+       CLINIC_RATING puts it), not copied onto each treatment. Attaching it to
+       a Product asserts that this one procedure was rated 240 times, which is
+       not true of any of them, and shipping the identical figure on 66
+       different Products is exactly the self-serving, non-page-specific review
+       markup Google's review-snippet policy prohibits — a manual-action risk
+       ("spammy structured markup") rather than a ranking nuance. */
   };
 }
 
