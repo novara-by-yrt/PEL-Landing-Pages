@@ -1,14 +1,13 @@
 import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
-import RequestCallbackForm from "@/components/forms/RequestCallbackForm";
 import ClinicPhone from "@/components/shared/ClinicPhone";
-import BookConsultationModal from "@/components/forms/BookConsultationModal";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
+import ContactSection from "@/components/home/ContactSection";
 import type { GalleryItem, PostFrontmatter } from "@/lib/mdx";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import styles from "./SofwaveLanding.module.css";
@@ -128,35 +127,40 @@ const STEPS = [
    appointment that decides between them. The consultation used to sit apart
    in a dark slab below the ledger, which read as a surcharge discovered
    afterwards rather than as one of the three things a visitor is choosing
-   between. Every line here comes from treatment-meta.json's own pricing and
-   glance rows. */
+   between.
+
+   None of the three is emphasised over the others. A pricing row where one
+   card is dressed differently is a recommendation, and the honest answer to
+   which of these a visitor needs is the one Dr Shah-Desai gives at the
+   consultation, not one this page can make in advance. The brand weight is
+   spent evenly instead: the lit edge, the bloom and the indigo figure are on
+   every card.
+
+   Every line comes from treatment-meta.json's own pricing and glance rows. */
 const PRICES = [
   {
+    kind: "Treatment",
     name: "Sofwave brow lift",
     price: "£1,800",
     unit: "per session",
     note: "The periocular treatment: the brow and the skin around the eyes.",
     meta: ["About 60 minutes", "Topical anaesthetic cream", "No downtime"],
-    featured: true,
-    badge: "Most requested",
   },
   {
+    kind: "Treatment",
     name: "Sofwave full face & neck",
     price: "£3,500",
     unit: "per session",
     note: "Brow, midface, jawline and neck, treated in one appointment.",
     meta: ["One session", "Topical anaesthetic cream", "No downtime"],
-    featured: false,
-    badge: "",
   },
   {
+    kind: "Assessment",
     name: "Consultation with Dr Shah-Desai",
     price: "£300",
     unit: "one appointment",
-    note: "The assessment that decides whether either treatment above is right for you.",
+    note: "The appointment that decides whether either treatment above is right for you.",
     meta: ["Forty-five minutes", "Examination and a written plan", "Sofwave or surgery, answered"],
-    featured: false,
-    badge: "",
   },
 ];
 
@@ -447,7 +451,9 @@ export default function SofwaveLanding({
                 <div className={styles.stepBody}>
                   <h3>{step.heading}</h3>
                   <p>{step.body}</p>
-                  <p className={styles.stepMeta}>{step.meta}</p>
+                  <p className={styles.stepMeta}>
+                    <span>{step.meta}</span>
+                  </p>
                 </div>
               </li>
             ))}
@@ -524,19 +530,8 @@ export default function SofwaveLanding({
 
           <ul className={styles.priceGrid}>
             {PRICES.map((row) => (
-              <li
-                key={row.name}
-                className={`${styles.priceCard}${row.featured ? ` ${styles.priceCardFeatured}` : ""}`}
-              >
-                {/* Always rendered, hidden where there is no badge: the
-                    slot has to take the same height on all three cards or the
-                    names and the prices step down on the featured one. */}
-                <span
-                  className={`${styles.priceBadge}${row.badge ? "" : ` ${styles.priceBadgeGhost}`}`}
-                  aria-hidden={row.badge ? undefined : true}
-                >
-                  {row.badge || "\u00a0"}
-                </span>
+              <li key={row.name} className={styles.priceCard}>
+                <span className={styles.priceKind}>{row.kind}</span>
 
                 <h3 className={styles.priceName}>{row.name}</h3>
 
@@ -593,61 +588,29 @@ export default function SofwaveLanding({
         />
       )}
 
-      {/* ── Closer ────────────────────────────────────────────────────────*/}
-      <section className={styles.closer} id="callback">
-        <span className={styles.closerGlow} aria-hidden="true" />
+      {/* ── The enquiry ───────────────────────────────────────────────────
+          The home page's own contact panel, which is where every call to
+          action on this page points. It carries the same four-field callback
+          form the page already used, and adds what the bespoke closer did
+          not: the phone number, the email address, the opening hours and the
+          address, all inside one indigo panel.
+
+          The id sits on the wrapper rather than inside the shared component,
+          which has no prop for one, and the wrapper also carries the privacy
+          line. The form takes a name, an email and a phone number, and the
+          footer holds no legal links, so the notice has to be reachable from
+          the point of collection. That is also what Google Ads and Meta look
+          for on a landing page that takes personal details. */}
+      <div className={styles.closer} id="callback">
+        <ContactSection />
+
         <div className={styles.container}>
-          <div className={styles.closerGrid}>
-            <div className={styles.closerCopy}>
-              <h2 className={styles.closerTitle}>Find out whether it would work on you</h2>
-              <p className={styles.closerLead}>
-                Leave your number and a member of the clinical team will call you back. They will
-                ask what you are seeing in the mirror, tell you whether Sofwave is likely to help,
-                and book your consultation if it is.
-              </p>
-
-              <ul className={styles.closerPoints}>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  A conversation, not a sales call
-                </li>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  We will tell you if surgery is the better answer
-                </li>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  Weekdays, 9:30am to 6:00pm
-                </li>
-              </ul>
-
-              <p className={styles.closerOr}>
-                Prefer to speak now? Call <ClinicPhone className={styles.closerPhone} />, or{" "}
-                <BookConsultationModal className={styles.closerBook} label="Book a consultation">
-                  book a consultation directly
-                </BookConsultationModal>
-                .
-              </p>
-            </div>
-
-            <div className={styles.formCard}>
-              <h3 className={styles.formTitle}>Request a call back</h3>
-              <RequestCallbackForm compact submitLabel="Request my call back" />
-
-              {/* The one link on this page that is not a call to action.
-                  The form collects a name, an email and a phone number, and
-                  the footer here carries no legal links, so the privacy
-                  notice has to be reachable from the point of collection,
-                  which is also what Google Ads and Meta look for on a
-                  landing page that takes personal details. */}
-              <p className={styles.formLegal}>
-                We use your details to call you back about this enquiry. See our{" "}
-                <Link href="/privacy-notice">Privacy Notice</Link>.
-              </p>
-            </div>
-          </div>
+          <p className={styles.formLegal}>
+            We use your details to call you back about this enquiry. See our{" "}
+            <Link href="/privacy-notice">Privacy Notice</Link>.
+          </p>
         </div>
-      </section>
+      </div>
 
     </div>
   );

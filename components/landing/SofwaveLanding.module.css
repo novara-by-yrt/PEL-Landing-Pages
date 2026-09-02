@@ -476,13 +476,26 @@
   border-top: 1px solid var(--tp-line);
 }
 
-/* ── Steps ────────────────────────────────────────────────────────────── */
+/* ── Steps ────────────────────────────────────────────────────────────
+
+   Centred: the heading, and each step under it. This is the one section on
+   the page that is a sequence rather than a comparison or an argument, and
+   centring it stops three short blocks of copy reading as another left-ruled
+   list like the four around it.
+
+   One column on a phone with the steps divided by hairlines, three columns
+   from 900px with the hairlines turned on their side. */
 
 .steps {
   background: var(--tp-indigo-950);
 }
 .steps .h2 {
   color: #fff;
+}
+.steps .head {
+  max-width: 56ch;
+  margin-inline: auto;
+  text-align: center;
 }
 .stepList {
   list-style: none;
@@ -493,9 +506,9 @@
 }
 .step {
   display: grid;
-  grid-template-columns: 46px 1fr;
-  gap: 18px;
-  padding-block: clamp(22px, 3.4vw, 30px);
+  justify-items: center;
+  text-align: center;
+  padding-block: clamp(24px, 3.4vw, 32px);
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 .step:first-child {
@@ -506,25 +519,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--tp-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--tp-lavender-200);
   transition:
     border-color 240ms var(--tp-ease),
     background 240ms var(--tp-ease),
     color 240ms var(--tp-ease);
-  font-family: var(--tp-display);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--tp-lavender-200);
 }
-/* The numbered disc is the only thing that moves: the rows are ruled edge
-   to edge, so tinting a whole row would break the rule line. */
+/* The numbered disc is the only thing that moves: the steps are divided by
+   rules that run the full width of the row, so tinting a whole step would
+   break the line. */
 .step:hover .stepNum {
   border-color: var(--tp-lavender-300);
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
+}
+.stepBody {
+  max-width: 44ch;
 }
 .stepBody h3 {
   font-family: var(--tp-display);
@@ -532,19 +550,27 @@
   font-weight: 600;
   line-height: 1.3;
   color: #fff;
-  margin: 8px 0 0;
+  margin: 18px 0 0;
 }
 .stepBody p {
   font-size: 0.9375rem;
   line-height: 1.7;
   color: var(--tp-lavender-200);
-  max-width: 58ch;
   margin: 10px 0 0;
 }
+/* The paragraph is the slot; the span inside it is the pill. Two elements
+   rather than one so the slot can take the leftover height in a column while
+   the pill keeps its own padding. */
 .stepMeta {
-  font-size: 0.8125rem !important;
-  color: var(--tp-lavender-400) !important;
-  margin-top: 12px !important;
+  margin-top: 14px !important;
+}
+.stepMeta span {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.8125rem;
+  color: var(--tp-lavender-200);
 }
 
 /* ── Surgeon ──────────────────────────────────────────────────────────
@@ -659,10 +685,15 @@
 
 /* ── Pricing ──────────────────────────────────────────────────────────
 
-   Three cards, one row from 900px. Equal height whatever the copy, because
-   the call to action is the last child of a column layout with the note list
-   above it pushed apart: a row of buttons that does not line up reads as
-   three unrelated boxes rather than three prices being compared. */
+   Three cards, one row from 760px, none of them singled out. Equal height
+   whatever the copy: the note list is pushed to the foot of a column layout,
+   so the three buttons land on the same line. A row of buttons that does not
+   line up reads as three unrelated boxes rather than three prices being
+   compared.
+
+   The brand weight is in three quiet places rather than one loud one: a lit
+   edge across the top of each card, a lavender bloom behind its top corner,
+   and the figure itself set in indigo. */
 
 .pricing {
   background: var(--tp-fog);
@@ -672,14 +703,16 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 16px;
+  gap: 18px;
   align-items: stretch;
 }
 .priceCard {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: clamp(24px, 3.4vw, 32px);
+  padding: clamp(26px, 3.4vw, 36px);
   border-radius: var(--tp-radius-xl);
   border: 1px solid var(--tp-line);
   background: var(--tp-paper);
@@ -689,40 +722,58 @@
     box-shadow 260ms var(--tp-ease),
     border-color 260ms var(--tp-ease);
 }
+/* The lit edge, the same device the At a Glance panel uses along its top. */
+.priceCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  /* Faded at both ends, the way the At a Glance panel's edge is: the card's
+     32px radius clips a full-width band into tapered points, and a band that
+     is already transparent where the curve starts has nothing to clip. */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--tp-lavender-300) 18%,
+    var(--tp-indigo-600) 50%,
+    var(--tp-lavender-300) 82%,
+    transparent
+  );
+}
+/* A brand bloom behind the top corner, so the card has depth without a
+   second background colour. Behind the content: z-index -1 inside the card's
+   own stacking context, which .priceCard's isolation creates. */
+.priceCard::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -84px;
+  right: -84px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(188, 160, 221, 0.34), transparent 70%);
+  opacity: 0.85;
+  transition: opacity 260ms var(--tp-ease), transform 260ms var(--tp-ease);
+  pointer-events: none;
+}
 .priceCard:hover {
   transform: translateY(-6px);
   box-shadow: var(--tp-shadow-lg);
   border-color: var(--tp-lavender-300);
 }
-/* The page's own treatment, so it carries the brand indigo the rest of the
-   page reserves for its dark bands. One card, not two: a row where every
-   card is emphasised is a row where none is. */
-.priceCardFeatured {
-  border-color: transparent;
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(69, 61, 155, 0.5) 0%, transparent 64%),
-    linear-gradient(150deg, var(--tp-indigo-800) 0%, var(--tp-indigo-700) 54%, var(--tp-indigo-600) 100%);
-  box-shadow: var(--tp-shadow-md);
-}
-.priceCardFeatured:hover {
-  border-color: transparent;
+.priceCard:hover::after {
+  opacity: 1;
+  transform: scale(1.12);
 }
 
-.priceBadge {
-  align-self: flex-start;
-  margin-bottom: 14px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+.priceKind {
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #fff;
-}
-
-.priceBadgeGhost {
-  visibility: hidden;
+  line-height: 1.3;
+  color: var(--tp-lavender-600);
 }
 
 .priceName {
@@ -731,11 +782,8 @@
   font-weight: 600;
   line-height: 1.28;
   color: var(--tp-ink);
-  margin: 0;
+  margin: 10px 0 0;
   text-wrap: balance;
-}
-.priceCardFeatured .priceName {
-  color: #fff;
 }
 
 .priceAmount {
@@ -747,22 +795,18 @@
 }
 .priceValue {
   font-family: var(--tp-display);
-  font-size: clamp(1.875rem, 3.4vw, 2.375rem);
+  font-size: clamp(2rem, 3.6vw, 2.5rem);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.015em;
-  color: var(--tp-ink);
+  letter-spacing: -0.02em;
+  /* Indigo, not ink: the figure is the one word on the card a reader looks
+     for, and it is where the brand colour earns its place. */
+  color: var(--tp-indigo-700);
   font-variant-numeric: tabular-nums;
 }
 .priceUnit {
   font-size: 0.8125rem;
   color: var(--tp-slate);
-}
-.priceCardFeatured .priceValue {
-  color: #fff;
-}
-.priceCardFeatured .priceUnit {
-  color: var(--tp-lavender-200);
 }
 
 .priceNote {
@@ -771,72 +815,64 @@
   color: var(--tp-slate);
   margin: 12px 0 0;
 }
-.priceCardFeatured .priceNote {
-  color: var(--tp-lavender-100);
-}
 
 /* auto on top pushes the list and the button below it to the foot of the
    card, which is what lines the three buttons up across the row. */
 .priceMeta {
   list-style: none;
   margin: auto 0 0;
-  padding: clamp(18px, 2.4vw, 22px) 0 0;
+  padding: clamp(18px, 2.4vw, 24px) 0 0;
   display: grid;
-  gap: 10px;
+  gap: 11px;
 }
 .priceMeta li {
   display: grid;
-  grid-template-columns: 18px 1fr;
+  grid-template-columns: 20px 1fr;
   gap: 10px;
   align-items: start;
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--tp-slate);
 }
+/* The tick sits on a tinted disc rather than loose against the text, which
+   is what stops three plain lines reading as a receipt. */
 .priceMeta svg {
-  margin-top: 2px;
+  box-sizing: content-box;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--tp-lavender-050);
   color: var(--tp-indigo-700);
-}
-.priceCardFeatured .priceMeta li {
-  color: var(--tp-lavender-100);
-}
-.priceCardFeatured .priceMeta svg {
-  color: var(--tp-lavender-300);
 }
 
 .priceCta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  margin-top: clamp(18px, 2.4vw, 22px);
-  padding: 12px 22px;
+  min-height: 50px;
+  margin-top: clamp(20px, 2.6vw, 26px);
+  padding: 13px 22px;
   border-radius: 999px;
-  border: 1px solid var(--tp-hairline-strong);
-  background: var(--tp-paper);
+  border: 1px solid transparent;
+  background: var(--tp-indigo-700);
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--tp-indigo-700);
+  color: #fff;
   text-decoration: none;
+  box-shadow: var(--tp-shadow-sm);
   transition:
     background 200ms var(--tp-ease),
-    border-color 200ms var(--tp-ease),
-    color 200ms var(--tp-ease);
+    box-shadow 200ms var(--tp-ease);
 }
 .priceCta:hover {
-  background: var(--tp-indigo-700);
-  border-color: var(--tp-indigo-700);
-  color: #fff;
+  background: var(--tp-indigo-800);
+  box-shadow: var(--tp-shadow-md);
 }
-.priceCardFeatured .priceCta {
-  background: var(--tp-paper);
-  border-color: var(--tp-paper);
-  color: var(--tp-indigo-800);
-}
-.priceCardFeatured .priceCta:hover {
-  background: var(--tp-lavender-100);
-  border-color: var(--tp-lavender-100);
-  color: var(--tp-indigo-800);
+.priceCta:focus-visible {
+  outline: 2px solid var(--tp-indigo-700);
+  outline-offset: 3px;
 }
 
 .priceFoot {
@@ -850,114 +886,37 @@
 /* The FAQ is the home page's own accordion, HomeFaq, which brings its own
    band and styles. Nothing for this stylesheet to say. */
 
-/* ── Closer ───────────────────────────────────────────────────────────── */
+/* ── The enquiry ──────────────────────────────────────────────────────
+
+   The band is the home page's ContactSection, which brings its own padding,
+   background and indigo panel. This wrapper only carries the anchor every
+   call to action on the page points at, and the privacy line under it. */
 
 .closer {
-  position: relative;
-  overflow: hidden;
-  padding-block: clamp(44px, 7vw, 88px);
-  background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-paper) 70%);
+  background: var(--tp-paper);
+  /* The header is not fixed on this page, so a small offset is enough to
+     keep the panel's top edge off the very top of the viewport. */
   scroll-margin-top: 24px;
 }
-.closerGlow {
-  position: absolute;
-  bottom: -200px;
-  left: -160px;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(188, 160, 221, 0.26), transparent 70%);
-  pointer-events: none;
-}
-.closerGrid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: clamp(28px, 4vw, 48px);
-  align-items: start;
-}
-.closerTitle {
-  font-family: var(--tp-display);
-  font-weight: 600;
-  font-size: clamp(1.75rem, 5.4vw, 2.5rem);
-  line-height: 1.14;
-  letter-spacing: -0.01em;
-  color: var(--tp-ink);
-  margin: 0;
-  text-wrap: balance;
-}
-.closerLead {
-  font-size: 1.0625rem;
-  line-height: 1.65;
-  color: var(--tp-slate);
-  max-width: 48ch;
-  margin: 18px 0 0;
-}
-.closerPoints {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
-}
-.closerPoints li {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  font-size: 0.9375rem;
-  color: var(--tp-ink);
-}
-.closerPoints svg {
-  flex: 0 0 auto;
-  color: var(--tp-indigo-700);
-}
-.closerOr {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--tp-slate);
-  margin: 24px 0 0;
-}
-.closerPhone,
-.closerBook {
-  color: var(--tp-indigo-700);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
+/* The panel's own band pads generously below itself, which would strand the
+   privacy line a long way under the form. The wrapper takes that space back
+   and spends a little of it on the line instead. */
+.closer > section {
+  padding-bottom: clamp(20px, 2.6vw, 32px);
 }
 
-.formCard {
-  padding: clamp(22px, 3.6vw, 32px);
-  border-radius: var(--tp-radius-xl);
-  background: var(--tp-paper);
-  box-shadow: var(--tp-shadow-md);
-  border: 1px solid var(--tp-line);
-}
 .formLegal {
   font-size: 0.75rem;
   line-height: 1.55;
   color: var(--tp-slate);
   text-align: center;
-  margin: 14px 0 0;
+  margin: 0;
+  padding-bottom: clamp(28px, 4vw, 48px);
 }
 .formLegal a {
   color: var(--tp-indigo-700);
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-.formTitle {
-  font-family: var(--tp-display);
-  font-size: 1.375rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--tp-ink);
-  margin: 0 0 4px;
 }
 
 /* ══ 600px: pairs that fit side by side ═══════════════════════════════ */
@@ -1047,12 +1006,31 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 12px;
   }
-  .closerGrid {
-    grid-template-columns: 1fr 420px;
+  .stepList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .step {
-    grid-template-columns: 56px 1fr;
-    gap: 24px;
+    /* Full height, so the three dividing rules run the depth of the row and
+       the copy blocks below can push their meta pills onto one line. */
+    grid-template-rows: auto 1fr;
+    padding-block: 0;
+    padding-inline: clamp(16px, 2.2vw, 30px);
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .step:first-child {
+    border-left: 0;
+  }
+  .stepBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* auto takes the leftover height, and the padding keeps a minimum gap that
+     margin collapse would otherwise swallow in the tallest column. */
+  .stepMeta {
+    margin-top: auto !important;
+    padding-top: 18px;
   }
 }
 
