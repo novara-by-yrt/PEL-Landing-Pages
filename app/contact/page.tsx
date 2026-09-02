@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { CLINIC } from "@/lib/clinic";
@@ -41,22 +40,11 @@ const WHY_CHOOSE_US = [
 ] as const;
 
 export default function ContactPage() {
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Contact", url: `${SITE_URL}/contact` },
-  ];
-
   return (
     <>
-      <BreadcrumbSchema items={breadcrumbItems} url={`${SITE_URL}/contact`} />
       <div className="tp">
 
         <PageHero
-          breadcrumbItems={[
-            { name: "Home", url: SITE_URL },
-            { name: "Contact", url: `${SITE_URL}/contact` },
-          ]}
-          siteUrl={SITE_URL}
           eyebrow="Get In Touch"
           h1="Book a Consultation"
           lead="Fill in the form below and our team will get back to you within 24 hours to discuss your treatment options."

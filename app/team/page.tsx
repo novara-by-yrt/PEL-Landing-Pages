@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { buildBreadcrumbSchema } from "@/lib/schema";
 import { TeamRoster } from "@/components/about/TeamRoster";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -21,11 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Team", url: URL },
-  ];
-
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -36,13 +30,11 @@ export default function TeamPage() {
     inLanguage: "en-GB",
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, URL);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <TeamRoster breadcrumbItems={breadcrumbItems} siteUrl={SITE_URL} />
+      <TeamRoster />
     </>
   );
 }

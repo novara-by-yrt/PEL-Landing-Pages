@@ -25,9 +25,6 @@
 @media (min-width: 1200px) {
   .pubHeroInner { grid-template-columns: minmax(0, 1fr) 360px; }
 }
-.pubBreadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
-.pubBreadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
-.pubBreadcrumb a:hover { color: #fff; }
 .pubHero h1 { font-family: var(--tp-display); font-weight: 600; font-size: clamp(2.1rem, 5vw, 3.25rem); line-height: 1.15; color: #fff; margin: 16px 0 0; max-width: 20ch; }
 .pubHero p.pubLead { font-size: 1.0625rem; color: rgba(255,255,255,0.82); max-width: 60ch; margin: 1.1rem 0 0; line-height: 1.6; }
 .pubStats { display: flex; gap: clamp(1.5rem, 5vw, 3rem); flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid rgba(255,255,255,0.14); }

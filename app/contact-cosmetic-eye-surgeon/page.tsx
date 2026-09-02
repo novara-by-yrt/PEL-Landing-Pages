@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { PageHero, TpIcon } from "@/components/treatment";
 import BookAppointmentForm from "@/components/forms/BookAppointmentForm";
 import ClinicPhone from "@/components/shared/ClinicPhone";
@@ -23,20 +22,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactCosmeticEyeSurgeonPage() {
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Contact a Surgeon", url: `${SITE_URL}/contact-cosmetic-eye-surgeon` },
-  ];
-
   return (
     <div className="tp">
-      <BreadcrumbSchema items={breadcrumbItems} url={`${SITE_URL}/contact-cosmetic-eye-surgeon`} />
       <PageHero
-        breadcrumbItems={[
-          { name: "Home", url: SITE_URL },
-          { name: "Contact", url: "" },
-        ]}
-        siteUrl={SITE_URL}
         h1="Contact Us"
         lead="If you are interested in any of our treatments or need further information, we are here to answer. Feel free to contact us by phone, email, or by filling out the form below."
       />

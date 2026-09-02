@@ -4,7 +4,6 @@ import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import {
   buildWebPageSchema,
   buildProductSchema,
-  buildBreadcrumbSchema,
   buildFaqSchema,
   buildMedicalConditionSchema,
 } from "@/lib/schema";
@@ -89,17 +88,7 @@ export default async function ConditionPage({
   const { frontmatter, content } = post;
   const url = `${SITE_URL}/condition/${slug}`;
 
-  /* "Eye Conditions" pointed at one arbitrary condition — hooded eyelids —
-     which made the crumb a lie: it read as the level above, and led sideways
-     to a sibling. It now points at the conditions index, which is that level. */
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Eye Conditions", url: `${SITE_URL}/conditions` },
-    { name: frontmatter.title, url },
-  ];
-
   const pageSchema = buildWebPageSchema(frontmatter, url);
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
   const productSchema = frontmatter.schema?.productSchemaNeeded ? buildProductSchema(frontmatter, url) : null;
   const faqSchema = frontmatter.faq?.length ? buildFaqSchema(frontmatter.faq, url, frontmatter.title) : null;
   /* Ties the condition to Google's knowledge graph, per the pre-launch
@@ -109,14 +98,11 @@ export default async function ConditionPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(conditionSchema) }} />
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           h1={frontmatter.title}
           lead={frontmatter.excerpt}
           heroImage={resolveHeroImage(frontmatter)}

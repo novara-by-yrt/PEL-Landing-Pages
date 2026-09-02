@@ -1,12 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import SafeImage from "@/components/shared/SafeImage";
-import type { BreadcrumbItem } from "./types";
 import styles from "./TreatmentHero.module.css";
 
 export function TreatmentHero({
-  breadcrumbItems,
-  siteUrl,
   h1,
   subtitle,
   heroImage,
@@ -15,8 +12,6 @@ export function TreatmentHero({
   heroBg,
   heroBgOpacity,
 }: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
   h1: string;
   subtitle?: string;
   heroImage?: string;
@@ -50,19 +45,6 @@ export function TreatmentHero({
       <div className={`${styles.tpHeroGlow} ${styles.tpHeroGlowB}`} />
       <div className={`container ${styles.tpHeroInner}`}>
         <div>
-          <nav aria-label="Breadcrumb" className={styles.tpBreadcrumb}>
-            {breadcrumbItems.map((item, index) => (
-              <span key={`${item.url}-${index}`} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {index > 0 && <span aria-hidden="true">/</span>}
-                {index === breadcrumbItems.length - 1 || !item.url ? (
-                  <span style={{ color: "var(--tp-slate)" }}>{item.name}</span>
-                ) : (
-                  <Link href={item.url.replace(siteUrl, "") || "/"}>{item.name}</Link>
-                )}
-              </span>
-            ))}
-          </nav>
-
           <h1 className={styles.tpH1}>{h1}</h1>
 
           <span className={styles.tpHeroRule} aria-hidden="true" />

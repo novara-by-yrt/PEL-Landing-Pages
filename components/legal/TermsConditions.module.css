@@ -56,17 +56,6 @@
   background: linear-gradient(0deg, rgba(15, 13, 46, 0.92) 0%, rgba(18, 16, 54, 0.62) 45%, rgba(35, 33, 105, 0.42) 100%);
 }
 .hero .container { width: 100%; }
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 20px;
-}
-.breadcrumb a { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
-.breadcrumb a:hover { color: #fff; }
 .hero .eyebrow { color: var(--tp-lavender-300); }
 .heroTitle {
   font-family: var(--tp-display);

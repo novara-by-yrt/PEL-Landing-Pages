@@ -45,23 +45,6 @@
   min-width: 0;
 }
 
-.crumbs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--fs-caption);
-  color: var(--tp-slate);
-  margin-bottom: clamp(24px, 4vw, 36px);
-}
-.crumbs a {
-  color: var(--tp-indigo-700);
-  text-decoration: none;
-}
-.crumbs a:hover {
-  text-decoration: underline;
-}
-
 .eyebrow {
   display: block;
   font-size: var(--fs-eyebrow);

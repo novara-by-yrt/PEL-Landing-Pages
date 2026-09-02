@@ -6,7 +6,6 @@ import ContactSection from "@/components/home/ContactSection";
 import CatalogueGrid from "@/components/catalogue/CatalogueGrid";
 import { PageHero } from "@/components/treatment/PageHero";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { buildBreadcrumbSchema } from "@/lib/schema";
 import { getConditionCatalogue } from "@/lib/catalogue";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import styles from "@/components/catalogue/CataloguePage.module.css";
@@ -32,11 +31,6 @@ export const metadata: Metadata = {
 export default function ConditionsIndexPage() {
   const conditions = getConditionCatalogue();
 
-  const breadcrumbItems = [
-    { name: "Home", url: SITE_URL },
-    { name: "Eye Conditions", url: URL },
-  ];
-
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -54,19 +48,11 @@ export default function ConditionsIndexPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbSchema(breadcrumbItems, URL)),
-        }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }}
       />
 
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           eyebrow="Eye Conditions"
           h1="Conditions we treat"
           lead={`${conditions.length} conditions of the eyelids and the area around the eyes, each explained on its own page - what causes it, how it is assessed, and the treatments that address it.`}

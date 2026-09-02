@@ -729,26 +729,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 4;
 }
 
-/* ── 14. Breadcrumb ──────────────────────────────────────────────────────── */
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--clr-text-muted);
-  flex-wrap: wrap;
-  padding: var(--space-4) 0;
-}
-
-.breadcrumb a {
-  color: var(--clr-primary);
-  transition: color var(--duration-fast) var(--ease-out);
-}
-.breadcrumb a:hover { color: var(--clr-primary-dark); }
-
-.breadcrumb-sep { color: var(--clr-border); }
-
-/* ── 15. Pagination ──────────────────────────────────────────────────────── */
+/* ── 14. Pagination ──────────────────────────────────────────────────────── */
 .pagination {
   display: flex;
   align-items: center;
@@ -783,7 +764,7 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--clr-primary);
 }
 
-/* ── 16. Section spacing ─────────────────────────────────────────────────── */
+/* ── 15. Section spacing ─────────────────────────────────────────────────── */
 .section { padding: var(--space-20) 0; }
 .section-sm { padding: var(--space-12) 0; }
 .section-lg { padding: var(--space-24) 0; }
@@ -854,7 +835,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--clr-primary);
 }
 
-/* ── 17. Utility classes ─────────────────────────────────────────────────── */
+/* ── 16. Utility classes ─────────────────────────────────────────────────── */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -914,14 +895,14 @@ textarea.form-input {
   min-height: 120px;
 }
 
-/* ── 18. Focus styles (accessibility) ────────────────────────────────────── */
+/* ── 17. Focus styles (accessibility) ────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--clr-primary);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
 
-/* ── 20. WPBakery & Legacy Shortcode Design Component Styling ─────────────── */
+/* ── 19. WPBakery & Legacy Shortcode Design Component Styling ─────────────── */
 .des-box {
   background: linear-gradient(135deg, hsl(210 20% 97%) 0%, hsl(210 30% 95%) 100%);
   border: 1px solid var(--clr-border);
@@ -999,7 +980,7 @@ textarea.form-input {
   box-shadow: 0 6px 20px hsl(199 90% 32% / 0.35);
 }
 
-/* ── 21. Treatment Info Table ─────────────────────────────────────────────── */
+/* ── 20. Treatment Info Table ─────────────────────────────────────────────── */
 .treatment-info {
   width: 100%;
   border-collapse: separate;
@@ -1036,7 +1017,7 @@ textarea.form-input {
   border-bottom: none;
 }
 
-/* ── 22. Consultation Steps ──────────────────────────────────────────────── */
+/* ── 21. Consultation Steps ──────────────────────────────────────────────── */
 .step-outer {
   display: flex;
   align-items: flex-start;
@@ -1077,7 +1058,7 @@ textarea.form-input {
   margin: 0;
 }
 
-/* ── 23. Logo Gallery ────────────────────────────────────────────────────── */
+/* ── 22. Logo Gallery ────────────────────────────────────────────────────── */
 .logo-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -1151,28 +1132,28 @@ textarea.form-input {
   border-radius: var(--radius-lg, 12px);
 }
 
-/* ── 24. Treatment Card Hero Banner ──────────────────────────────────────── */
+/* ── 23. Treatment Card Hero Banner ──────────────────────────────────────── */
 .treatment-hero-banner {
   position: relative;
   background: hsl(199 90% 18%);
   padding: 3.5rem 0 2.5rem;
 }
 
-/* ── 25. Before/After Gallery Grid ──────────────────────────────────────── */
+/* ── 24. Before/After Gallery Grid ──────────────────────────────────────── */
 .ba-gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
 }
 
-/* ── 26. Blog/Post Cards ─────────────────────────────────────────────────── */
+/* ── 25. Blog/Post Cards ─────────────────────────────────────────────────── */
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
   gap: 2rem;
 }
 
-/* ── 27. Section utility ─────────────────────────────────────────────────── */
+/* ── 26. Section utility ─────────────────────────────────────────────────── */
 .section {
   padding: var(--space-20) 0;
 }
@@ -1243,12 +1224,3 @@ textarea.form-input {
   margin: 2rem 0;
 }
 
-
-/* Breadcrumb links sit at 13px, which leaves the clickable box about 22px tall —
-   just under the 24px minimum target size in WCAG 2.5.8. Pad the link vertically
-   and pull the same amount back off the margin so the crumb row does not grow. */
-nav[aria-label="Breadcrumb"] a {
-  display: inline-block;
-  padding-block: 4px;
-  margin-block: -4px;
-}

@@ -102,30 +102,6 @@ export function buildFaqSchema(faq: FaqItem[], url: string, pageTitle: string) {
 }
 
 /**
- * BreadcrumbList schema
- */
-export interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
-
-export function buildBreadcrumbSchema(items: BreadcrumbItem[], pageUrl: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${pageUrl}#breadcrumb`,
-    // A crumb with no URL (a category level that has no page of its own) is
-    // emitted name-only — schema.org allows that, but `item: ""` is invalid.
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      ...(item.url ? { item: item.url } : {}),
-    })),
-  };
-}
-
-/**
  * Organization schema — site-wide
  */
 export function buildOrganizationSchema() {

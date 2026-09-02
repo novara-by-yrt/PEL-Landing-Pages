@@ -7,7 +7,6 @@ import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import BeginJourney from "@/components/shared/BeginJourney";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { TreatmentFAQ } from "@/components/treatment/TreatmentFAQ";
-import type { BreadcrumbItem } from "@/components/treatment/types";
 import type { FaqItem } from "@/lib/mdx";
 import { PATIENT_STORIES } from "@/lib/reviews";
 import styles from "./DrSabrinaBio.module.css";
@@ -466,18 +465,7 @@ function AsideBlock({ aside }: { aside: Aside }) {
   );
 }
 
-export function DrSabrinaBio({
-  breadcrumbItems,
-  siteUrl,
-  faq,
-}: {
-  breadcrumbItems: BreadcrumbItem[];
-  siteUrl: string;
-  faq?: FaqItem[];
-}) {
-  void breadcrumbItems;
-  void siteUrl;
-
+export function DrSabrinaBio({ faq }: { faq?: FaqItem[] }) {
   return (
     <div className={styles.page}>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}

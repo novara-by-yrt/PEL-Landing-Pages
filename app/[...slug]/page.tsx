@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs, pageExistsExact, type PostFrontmatter } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs, type PostFrontmatter } from "@/lib/mdx";
 import {
   buildWebPageSchema,
   buildProductSchema,
-  buildBreadcrumbSchema,
   buildFaqSchema,
   buildMedicalProcedureSchema,
   buildPhysicianSchema,
@@ -23,7 +22,7 @@ import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
-import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
+import type { TreatmentMeta } from "@/components/treatment/types";
 import {
   TreatmentHero,
   TreatmentAdvantages,
@@ -47,15 +46,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com
 
 const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMeta>;
 const TREATMENT_SLUGS = new Set(Object.keys(treatmentMeta));
-
-/** "upper-eyelid-blepharoplasty-uk" -> "Upper Eyelid Blepharoplasty UK" */
-const ACRONYMS = new Set(["uk", "usa", "ipl", "rf", "prp"]);
-function humaniseSegment(seg: string): string {
-  return seg
-    .split("-")
-    .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
-    .join(" ");
-}
 
 /* One URL per page, and no others.
  *
@@ -160,46 +150,7 @@ export default async function CatchAllPageRoute({
   const url = `${SITE_URL}/${canonicalPath}`;
   const treatment = TREATMENT_SLUGS.has(fileSlug) ? treatmentMeta[fileSlug] : null;
 
-  /* Breadcrumbs.
-   *
-   * The trail used to be built from the URL's own segments, which on a
-   * treatment produced "Home / Surgical / Eyelid Surgery / Upper Eyelid
-   * Blepharoplasty UK" — and /surgical and /surgical/eyelid-surgery are not
-   * pages, so those two crumbs were dead text. A crumb that cannot be
-   * followed is worse than no crumb: it looks like a link, and it tells a
-   * crawler about a level of the site that does not exist.
-   *
-   * A treatment now sits under the treatments index, which is a real page and
-   * the level it genuinely belongs to. Anything else keeps the segment trail
-   * but drops the segments with nothing behind them, so every crumb that
-   * remains can be clicked.
-   */
-  const canonicalSegments = canonicalPath.split("/");
-  const breadcrumbItems = treatment
-    ? [
-        { name: "Home", url: SITE_URL },
-        { name: "Treatments", url: `${SITE_URL}/treatments` },
-        { name: treatment.h1 || frontmatter.title, url },
-      ]
-    : [
-        { name: "Home", url: SITE_URL },
-        ...canonicalSegments
-          .map((seg, i) => {
-            const segPath = canonicalSegments.slice(0, i + 1);
-            const isLast = i === canonicalSegments.length - 1;
-            return {
-              name: isLast ? frontmatter.title : humaniseSegment(seg),
-              url:
-                isLast || pageExistsExact("pages", segPath)
-                  ? `${SITE_URL}/${segPath.join("/")}`
-                  : "",
-            };
-          })
-          .filter((crumb) => crumb.url),
-      ];
-
   const pageSchema = buildWebPageSchema(frontmatter, url);
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems, url);
   const productSchema = frontmatter.schema?.productSchemaNeeded
     ? buildProductSchema(frontmatter, url)
     : null;
@@ -219,7 +170,6 @@ export default async function CatchAllPageRoute({
   const schemas = (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       {productSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />}
       {procedureSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }} />}
@@ -234,7 +184,6 @@ export default async function CatchAllPageRoute({
         treatmentSlug={fileSlug}
         frontmatter={frontmatter}
         content={content}
-        breadcrumbItems={breadcrumbItems}
         schemas={schemas}
       />
     );
@@ -244,7 +193,7 @@ export default async function CatchAllPageRoute({
     return (
       <>
         {schemas}
-        <DrSabrinaBio breadcrumbItems={breadcrumbItems} siteUrl={SITE_URL} faq={frontmatter.faq} />
+        <DrSabrinaBio faq={frontmatter.faq} />
       </>
     );
   }
@@ -263,8 +212,6 @@ export default async function CatchAllPageRoute({
         {schemas}
         <div className="tp">
           <PageHero
-            breadcrumbItems={breadcrumbItems}
-            siteUrl={SITE_URL}
             eyebrow="Am I A Candidate?"
             h1="Blepharoplasty Candidacy Test"
           />
@@ -276,7 +223,7 @@ export default async function CatchAllPageRoute({
     );
   }
 
-  return <GenericPage frontmatter={frontmatter} content={content} breadcrumbItems={breadcrumbItems} schemas={schemas} />;
+  return <GenericPage frontmatter={frontmatter} content={content} schemas={schemas} />;
 }
 
 // ── Treatment page layout ────────────────────────────────────────────────────
@@ -296,14 +243,12 @@ function TreatmentPage({
   treatmentSlug,
   frontmatter,
   content,
-  breadcrumbItems,
   schemas,
 }: {
   treatment: TreatmentMeta;
   treatmentSlug: string;
   frontmatter: PostFrontmatter;
   content: string;
-  breadcrumbItems: BreadcrumbItem[];
   schemas: React.ReactNode;
 }) {
   const isSurgical = treatment.type === "surgical";
@@ -340,8 +285,6 @@ function TreatmentPage({
       {schemas}
       <div className="tp">
         <TreatmentHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
           heroImage={treatment.heroImage}
@@ -415,12 +358,10 @@ function TreatmentPage({
 function GenericPage({
   frontmatter,
   content,
-  breadcrumbItems,
   schemas,
 }: {
   frontmatter: PostFrontmatter;
   content: string;
-  breadcrumbItems: { name: string; url: string }[];
   schemas: React.ReactNode;
 }) {
   return (
@@ -428,8 +369,6 @@ function GenericPage({
       {schemas}
       <div className="tp">
         <PageHero
-          breadcrumbItems={breadcrumbItems}
-          siteUrl={SITE_URL}
           h1={frontmatter.title}
           lead={frontmatter.excerpt}
           heroImage={resolveHeroImage(frontmatter)}

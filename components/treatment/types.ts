@@ -64,8 +64,3 @@ export interface TreatmentMeta {
   similarTreatments: SimilarTreatmentItem[];
   reviews?: ReviewItem[];
 }
-
-export interface BreadcrumbItem {
-  name: string;
-  url: string;
-}

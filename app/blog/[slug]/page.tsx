@@ -5,7 +5,6 @@ import { getPostBySlug, getPostSlugs, type ProsConsData } from "@/lib/mdx";
 import { splitContentForMidArticleCta } from "@/lib/blogContent";
 import {
   buildBlogPostingSchema,
-  buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/schema";
 import { RelatedBlogs } from "@/components/treatment";
@@ -105,14 +104,6 @@ export default async function BlogPostPage({
 
   // JSON-LD schemas
   const blogSchema = buildBlogPostingSchema(frontmatter, url);
-  const breadcrumbSchema = buildBreadcrumbSchema(
-    [
-      { name: "Home", url: SITE_URL },
-      { name: "Blog", url: `${SITE_URL}/blog` },
-      { name: frontmatter.title, url },
-    ],
-    url
-  );
   const faqSchema =
     frontmatter.faq && frontmatter.faq.length > 0
       ? buildFaqSchema(frontmatter.faq, url, frontmatter.title)
@@ -135,10 +126,6 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       {faqSchema && (
         <script
           type="application/ld+json"
@@ -151,20 +138,9 @@ export default async function BlogPostPage({
         <section className={styles.blogHero}>
           <div className={styles.blogHeroGlow} />
           <div className={`container ${styles.blogHeroInner}`}>
-            <nav aria-label="Breadcrumb" className={styles.blogBreadcrumb}>
-              <Link href="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <Link href="/blog">Blog</Link>
-              <span aria-hidden="true">/</span>
-              <span style={{ color: "rgba(255,255,255,0.9)" }}>{frontmatter.title}</span>
-            </nav>
-
-            {/* Category and share sit in one row, not paired with the
-                breadcrumb above - on mobile the breadcrumb often wraps to two
-                lines on its own, and a long breadcrumb pushed the share icons
-                onto their own orphaned row below it. Category pills and share
-                icons are both compact, so this row stays on one line at
-                virtually every width. */}
+            {/* Category pills and share icons share one row: both are
+                compact, so it stays on a single line at virtually every
+                width. */}
             <div className={styles.blogHeroMetaRow}>
               {frontmatter.categories && frontmatter.categories.length > 0 && (
                 <div className={styles.blogCategories}>
