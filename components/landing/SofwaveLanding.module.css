@@ -75,16 +75,26 @@
   width: 100%;
   max-width: 1180px;
   margin-inline: auto;
-  padding: clamp(28px, 6vw, 60px) 20px clamp(36px, 6vw, 68px);
+  /* Tighter than the rest of the page on purpose: the hero is the one band
+     a visitor reads in full, and every pixel of vertical padding here is a
+     pixel of the photograph pushed below the fold on a laptop. */
+  padding: clamp(22px, 4vw, 44px) 20px clamp(28px, 4.4vw, 48px);
   display: grid;
-  gap: clamp(28px, 5vw, 48px);
+  gap: clamp(24px, 4vw, 40px);
+}
+
+/* A column rather than a block, so the desktop rule below can distribute the
+   copy into exactly the height the photograph occupies. */
+.heroCopy {
+  display: flex;
+  flex-direction: column;
 }
 
 .heroKicker {
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--tp-lavender-600);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
 }
 
 .heroTitle {
@@ -93,8 +103,8 @@
   /* 1.95rem at 360px keeps the longest word clear of the gutter; the 2.95rem
      ceiling holds the headline to four lines in the hero's narrower desktop
      column, where 3.35rem ran to five. */
-  font-size: clamp(1.95rem, 6vw, 2.95rem);
-  line-height: 1.1;
+  font-size: clamp(1.85rem, 5.6vw, 2.7rem);
+  line-height: 1.09;
   letter-spacing: -0.015em;
   color: var(--tp-ink);
   margin: 0;
@@ -102,11 +112,11 @@
 }
 
 .heroLead {
-  font-size: 1.0625rem;
-  line-height: 1.62;
+  font-size: 1.0313rem;
+  line-height: 1.58;
   color: var(--tp-slate);
-  max-width: 46ch;
-  margin: 20px 0 0;
+  max-width: 44ch;
+  margin: 14px 0 0;
 }
 
 .heroPrice {
@@ -114,7 +124,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 14px;
-  margin-top: 24px;
+  margin-top: 18px;
 }
 .heroPriceValue {
   font-family: var(--tp-display);
@@ -132,8 +142,8 @@
 .heroActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 26px;
+  gap: 10px;
+  margin-top: 20px;
 }
 .heroActions > :global(.tp-btn) {
   flex: 1 1 100%;
@@ -169,16 +179,19 @@
   line-height: 1.55;
   color: var(--tp-slate);
   max-width: 44ch;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
 .trust {
   list-style: none;
-  margin: 26px 0 0;
-  padding: 22px 0 0;
+  /* auto on top: on desktop the copy column is a flex column taller than its
+     content, and this is the element the leftover height is given to, which
+     is what pins the last line to the photograph's bottom edge. */
+  margin: auto 0 0;
+  padding: 18px 0 0;
   border-top: 1px solid var(--tp-hairline);
   display: grid;
-  gap: 11px;
+  gap: 10px;
 }
 .trust li {
   display: flex;
@@ -197,64 +210,135 @@
   color: var(--tp-gold);
 }
 
+.heroAside {
+  display: flex;
+}
 .heroFigure {
+  position: relative;
+  display: flex;
+  width: 100%;
   margin: 0;
 }
-/* The wrapper carries the shape; SafeImage fills it and keeps its own
-   ratio. overflow:hidden is what makes the radius clip the photograph. */
+/* The wrapper carries the shape and SafeImage covers it. 1:1 on a phone,
+   which is the source file's own ratio, so the box is right before the
+   picture arrives; on desktop the ratio is dropped and the box takes the
+   copy column's height instead. overflow:hidden is what makes the radius
+   clip the photograph. */
 .heroImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: var(--tp-radius-lg);
   overflow: hidden;
   box-shadow: var(--tp-shadow-md);
   background: var(--tp-lavender-050);
   line-height: 0;
 }
+/* Over the foot of the picture rather than under it. Below the image it
+   would push the photograph's bottom edge up off the line the copy column
+   ends on, which is the alignment this hero is built around. */
 .heroFigCaption {
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--tp-slate);
-  margin-top: 12px;
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: 34px 16px 13px;
+  border-radius: 0 0 var(--tp-radius-lg) var(--tp-radius-lg);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.94);
+  background: linear-gradient(180deg, rgba(23, 20, 48, 0), rgba(23, 20, 48, 0.74));
+  pointer-events: none;
 }
 
-/* ── Problem ──────────────────────────────────────────────────────────── */
+/* ── What Sofwave is ──────────────────────────────────────────────────
 
-.problem {
+   Picture of the device on the left, the plain description on the right.
+   The two columns stretch to the same height and the photograph takes all
+   of it, so the block reads as one object rather than as a caption beside a
+   thumbnail. */
+
+.about {
   background: var(--tp-paper);
 }
-.problemGrid {
+.aboutGrid {
   display: grid;
-  gap: clamp(24px, 4vw, 40px);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: stretch;
 }
-.problemCopy p {
-  font-size: 1.0625rem;
-  line-height: 1.72;
-  color: var(--tp-slate);
-  max-width: 60ch;
-  margin: 18px 0 0;
+.aboutFigure {
+  margin: 0;
+  display: flex;
 }
-.problemTurn {
+/* 16:10 on a phone, close to the source's own 1920x1081 so almost nothing is
+   cropped; on desktop the ratio is dropped and the box matches the copy
+   column's height. */
+.aboutImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  background: var(--tp-lavender-050);
+  box-shadow: var(--tp-shadow-md);
+  line-height: 0;
+}
+.aboutCopy {
+  align-self: center;
+}
+.aboutKicker {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tp-lavender-600);
+  margin: 0 0 12px;
+}
+.aboutLead {
+  font-size: 1.0625rem !important;
+  line-height: 1.62 !important;
   color: var(--tp-ink) !important;
-  font-weight: 500;
+}
+.aboutCopy p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--tp-slate);
+  max-width: 58ch;
+  margin: 16px 0 0;
 }
 
-.problemNote {
-  align-self: start;
-  padding: clamp(20px, 3vw, 26px);
+/* The four numbers, out of the paragraphs and into a ledger. Two columns
+   even on a phone: the labels and values are short enough, and a single
+   column of four would push the section past the fold on its own. */
+.aboutFacts {
+  list-style: none;
+  margin: clamp(22px, 3vw, 30px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--tp-line);
+  border: 1px solid var(--tp-line);
   border-radius: var(--tp-radius-lg);
-  background: var(--tp-fog);
-  border-left: 3px solid var(--tp-indigo-700);
+  overflow: hidden;
 }
-.problemNoteBody {
-  font-size: 1rem;
-  line-height: 1.68;
-  color: var(--tp-ink);
-  margin: 0;
+.aboutFacts li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--tp-paper);
 }
-.problemNoteAttr {
-  font-size: 0.8125rem;
-  line-height: 1.45;
+.factLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--tp-lavender-600);
-  margin: 14px 0 0;
+}
+.factValue {
+  font-family: var(--tp-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tp-ink);
 }
 
 /* ── Proof ────────────────────────────────────────────────────────────── */
@@ -263,67 +347,8 @@
   background: var(--tp-fog);
 }
 
-/* ── Reviews ──────────────────────────────────────────────────────────── */
-
-.reviews {
-  background: var(--tp-paper);
-}
-.reviewsHead {
-  margin-bottom: clamp(26px, 4vw, 40px);
-}
-.rating {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  margin: 0 0 14px;
-}
-.ratingScore {
-  font-family: var(--tp-display);
-  font-size: 1.75rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--tp-ink);
-}
-.ratingStars {
-  display: inline-flex;
-  gap: 2px;
-  color: var(--tp-gold);
-}
-.ratingStars svg {
-  fill: currentColor;
-}
-.ratingCount {
-  font-size: 0.9375rem;
-  color: var(--tp-slate);
-}
-
-.reviewGrid {
-  display: grid;
-  gap: 16px;
-}
-.review {
-  margin: 0;
-  padding: clamp(20px, 3.4vw, 28px);
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-fog);
-  /* No shadow. Four identical shadowed cards in a row is the stock
-     template look; the tint alone separates them from the page. */
-}
-.review p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--tp-ink);
-  margin: 0;
-}
-.review cite {
-  display: block;
-  margin-top: 14px;
-  font-style: normal;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--tp-lavender-600);
-}
+/* Reviews are the home page's own rail, PatientStories, which brings its
+   own band, background and styles. Nothing for this stylesheet to say. */
 
 /* ── Benefits ─────────────────────────────────────────────────────────── */
 
@@ -616,66 +641,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ── FAQ ──────────────────────────────────────────────────────────────── */
-
-.faq {
-  background: var(--tp-paper);
-}
-.faqList {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--tp-line);
-}
-.faqItem {
-  border-bottom: 1px solid var(--tp-line);
-}
-.faqItem summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding-block: 20px;
-  cursor: pointer;
-  list-style: none;
-  font-family: var(--tp-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--tp-ink);
-}
-.faqItem summary::-webkit-details-marker {
-  display: none;
-}
-.faqItem summary:focus-visible {
-  outline: 2px solid var(--tp-indigo-700);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-.faqMark {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--tp-lavender-050);
-  color: var(--tp-indigo-700);
-  transition: transform 200ms var(--tp-ease);
-}
-.faqItem[open] .faqMark {
-  transform: rotate(45deg);
-}
-.faqAnswer {
-  padding: 0 0 22px;
-  font-size: 0.9375rem;
-  line-height: 1.72;
-  color: var(--tp-slate);
-  max-width: 68ch;
-}
-.faqAnswer :global(a) {
-  color: var(--tp-indigo-700);
-}
+/* The FAQ is the home page's own accordion, HomeFaq, which brings its own
+   band and styles. Nothing for this stylesheet to say. */
 
 /* ── Closer ───────────────────────────────────────────────────────────── */
 
@@ -800,8 +767,7 @@
     gap: 12px 24px;
   }
 
-  .candidacyGrid,
-  .reviewGrid {
+  .candidacyGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .benefitGrid {
@@ -814,13 +780,35 @@
   .trust {
     grid-template-columns: 1fr;
   }
+  /* stretch, not center: the two columns become the same height, which is
+     what lets the copy distribute into it and the photograph fill it. The
+     kicker's first line and the trust list's last line then sit on the
+     picture's top and bottom edges exactly. */
   .heroInner {
     grid-template-columns: 1.02fr 0.98fr;
-    align-items: center;
+    align-items: stretch;
   }
-  .problemGrid {
-    grid-template-columns: 1.35fr 0.65fr;
-    align-items: start;
+  .heroCopy {
+    justify-content: space-between;
+  }
+  .heroFigure {
+    height: 100%;
+  }
+  .heroImage {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .aboutGrid {
+    grid-template-columns: 0.92fr 1.08fr;
+  }
+  .aboutImage {
+    aspect-ratio: auto;
+    height: 100%;
+    /* The picture is landscape and the copy beside it is tall; without a
+       floor the row would collapse to whatever the paragraphs need on a
+       wide screen and leave the photograph a letterbox. */
+    min-height: 460px;
   }
   .surgeonGrid {
     grid-template-columns: 300px 1fr;
@@ -846,8 +834,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroCall,
-  .faqMark {
+  .heroCall {
     transition: none;
   }
 }

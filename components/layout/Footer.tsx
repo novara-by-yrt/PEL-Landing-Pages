@@ -12,6 +12,12 @@ import styles from "./Footer.module.css";
  * who is running the page and how to reach them, plus the two statements a
  * paid-traffic page has to make — the platform disclaimer, and the company
  * details the Companies Act requires on a company's website.
+ *
+ * Laid out to take as little height as it can while still holding those.
+ * The mark sits beside the address rather than above it, and the three
+ * contact rows run along one line from 760px instead of stacking, which is
+ * most of the difference: none of this content rewards a long scroll, and
+ * every pixel of it sits below the page's last call to action.
  */
 export default function Footer() {
   /* Resolved when the page is built rather than in the browser, which is what
@@ -22,7 +28,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className="container">
-        <div className={styles.brand}>
+        <div className={styles.top}>
           {/* Not a link: there is nowhere for it to go. The transparent PNG,
               not the JPEG — the JPEG carries a baked white background, which
               would show as a hard edge against the plate. The plate itself is
@@ -34,37 +40,37 @@ export default function Footer() {
               alt="The Perfect Eyes Clinic"
               width={719}
               height={347}
-              sizes="(min-width: 640px) 210px, 180px"
+              sizes="(min-width: 760px) 168px, 150px"
               className={styles.markImg}
             />
           </span>
 
-          <span className={styles.markRule} aria-hidden="true" />
+          <div className={styles.detail}>
+            <p className={styles.tagline}>
+              A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai.
+            </p>
 
-          <p className={styles.tagline}>
-            A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai.
-          </p>
-
-          <address className={styles.contact}>
-            <span className={styles.contactRow}>
-              <span className={styles.contactIcon}>
-                <TpIcon name="pin" size={16} />
+            <address className={styles.contact}>
+              <span className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="pin" size={15} />
+                </span>
+                {CLINIC.address}
               </span>
-              {CLINIC.address}
-            </span>
-            <ClinicPhone className={styles.contactRow}>
-              <span className={styles.contactIcon}>
-                <TpIcon name="phone" size={16} />
-              </span>
-              {CLINIC.phoneDisplay}
-            </ClinicPhone>
-            <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
-              <span className={styles.contactIcon}>
-                <TpIcon name="mail" size={16} />
-              </span>
-              {CLINIC.email}
-            </a>
-          </address>
+              <ClinicPhone className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="phone" size={15} />
+                </span>
+                {CLINIC.phoneDisplay}
+              </ClinicPhone>
+              <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
+                <span className={styles.contactIcon}>
+                  <TpIcon name="mail" size={15} />
+                </span>
+                {CLINIC.email}
+              </a>
+            </address>
+          </div>
         </div>
 
         <div className={styles.fine}>
