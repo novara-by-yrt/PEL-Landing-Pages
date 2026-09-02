@@ -55,8 +55,15 @@ export default function RequestCallbackForm({
      and tightens the vertical rhythm so the whole form clears a short phone
      viewport without the dialog needing to scroll. */
   compact = false,
+  /* What the button says. "Submit" names the mechanism rather than what
+     happens, which is worth avoiding wherever the surrounding copy has
+     already promised something specific — the Sofwave landing page says
+     "Request my call back". Left as-is by default so the home panel and the
+     site-wide dialog are untouched. */
+  submitLabel = "Submit",
 }: {
   compact?: boolean;
+  submitLabel?: string;
 } = {}) {
   const { status, fieldErrors, handleSubmit, pending, recaptchaRef } = useFormSubmit("callback", {
     recaptcha: true,
@@ -142,7 +149,7 @@ export default function RequestCallbackForm({
         ) : null}
 
         <button type="submit" className={`tp-btn tp-btn-primary tp-btn-lg ${styles.submit}`} disabled={pending}>
-          {pending ? "Sending…" : "Submit"}
+          {pending ? "Sending…" : submitLabel}
         </button>
       </form>
     </div>

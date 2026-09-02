@@ -22,6 +22,7 @@ import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
 import { startingPrice, glanceWithPrice } from "@/lib/treatment-price";
+import SofwaveLanding from "@/components/landing/SofwaveLanding";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import {
@@ -177,6 +178,22 @@ export default async function CatchAllPageRoute({
       {physicianSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }} />}
     </>
   );
+
+  /* Sofwave is a landing page, not a treatment page.
+   *
+   * It is bought from a cold social feed rather than found in the site's own
+   * navigation, which changes the order of every section — proof before
+   * explanation, the enquiry form in the hero, and no similar-treatments or
+   * related-posts rails to leave through. It is its own component so the
+   * other 47 treatments keep the shared template untouched. */
+  if (fileSlug === "sofwave") {
+    return (
+      <>
+        {schemas}
+        <SofwaveLanding frontmatter={frontmatter} treatment={treatmentMeta.sofwave} />
+      </>
+    );
+  }
 
   if (treatment) {
     return (
