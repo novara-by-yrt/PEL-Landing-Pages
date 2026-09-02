@@ -6,6 +6,7 @@ import styles from "./TreatmentHero.module.css";
 export function TreatmentHero({
   h1,
   subtitle,
+  price,
   heroImage,
   heroImageAlt,
   heroBadge,
@@ -14,6 +15,9 @@ export function TreatmentHero({
 }: {
   h1: string;
   subtitle?: string;
+  /** Headline figure, e.g. "From £1,800". Omitted where a treatment quotes
+   *  no figure and is priced at consultation instead. */
+  price?: string | null;
   heroImage?: string;
   heroImageAlt: string;
   /** Caption chip over the hero photo. Omitted when there is nothing true to say about the image — it used to default to "Before & After", which mislabelled every hero that was a stock treatment photo. */
@@ -50,6 +54,17 @@ export function TreatmentHero({
           <span className={styles.tpHeroRule} aria-hidden="true" />
 
           {subtitle && <p className={styles.tpSub}>{subtitle}</p>}
+
+          {/* The figure sits between the description and the buttons: it is
+              the question a visitor asks straight after "what is this?", and
+              answering it before the CTA rather than a full page below it is
+              what stops the scroll being the price of finding out. */}
+          {price && (
+            <p className={styles.tpHeroPrice}>
+              <span className={styles.tpHeroPriceLabel}>Price</span>
+              <span className={styles.tpHeroPriceValue}>{price}</span>
+            </p>
+          )}
 
           <div className={styles.tpHeroActions}>
             <Link href="/self-test-survey" className="tp-btn tp-btn-primary">

@@ -21,6 +21,7 @@ import { PATIENT_STORIES } from "@/lib/reviews";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
+import { startingPrice, glanceWithPrice } from "@/lib/treatment-price";
 import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import {
@@ -287,6 +288,7 @@ function TreatmentPage({
         <TreatmentHero
           h1={treatment.h1 || frontmatter.title}
           subtitle={treatment.subtitle}
+          price={startingPrice(treatment.pricing)}
           heroImage={treatment.heroImage}
           heroImageAlt={heroImageAlt}
           heroBadge={heroBadge}
@@ -294,7 +296,10 @@ function TreatmentPage({
           heroBgOpacity={treatment.heroBgOpacity}
         />
         <AccreditedStrip />
-        <TreatmentGlance glance={treatment.glance} title={frontmatter.title} />
+        <TreatmentGlance
+          glance={glanceWithPrice(treatment.glance, treatment.pricing)}
+          title={frontmatter.title}
+        />
         <TreatmentAdvantages
           advantages={treatment.advantages}
           title={frontmatter.title}
