@@ -6,9 +6,10 @@ import ClinicPhone from "@/components/shared/ClinicPhone";
 import BookConsultationModal from "@/components/forms/BookConsultationModal";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
+import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
-import type { PostFrontmatter } from "@/lib/mdx";
+import type { GalleryItem, PostFrontmatter } from "@/lib/mdx";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import styles from "./SofwaveLanding.module.css";
 
@@ -56,16 +57,6 @@ const TRUST = [
   { icon: "star", label: "4.8 from 240+ Google reviews" },
   { icon: "shield", label: "CQC registered, rated good" },
   { icon: "building", label: "121 Harley Street, London" },
-];
-
-/* The four facts a reader wants before any argument for the treatment. They
-   sit under the explainer copy rather than in it, so the paragraphs do not
-   have to carry numbers. */
-const FACTS = [
-  { label: "One session", value: "About 60 minutes" },
-  { label: "Downtime", value: "None" },
-  { label: "Results appear", value: "3 to 6 months" },
-  { label: "Typically lasts", value: "12 to 24 months" },
 ];
 
 const BENEFITS = [
@@ -133,9 +124,49 @@ const STEPS = [
   },
 ];
 
+/* Three cards, side by side on desktop: the two treatments and the
+   appointment that decides between them. The consultation used to sit apart
+   in a dark slab below the ledger, which read as a surcharge discovered
+   afterwards rather than as one of the three things a visitor is choosing
+   between. Every line here comes from treatment-meta.json's own pricing and
+   glance rows. */
 const PRICES = [
-  { name: "Sofwave brow lift", price: "£1,800", note: "The periocular treatment: brow and around the eyes" },
-  { name: "Sofwave full face & neck", price: "£3,500", note: "Brow, midface, jawline and neck in one session" },
+  {
+    name: "Sofwave brow lift",
+    price: "£1,800",
+    unit: "per session",
+    note: "The periocular treatment: the brow and the skin around the eyes.",
+    meta: ["About 60 minutes", "Topical anaesthetic cream", "No downtime"],
+    featured: true,
+    badge: "Most requested",
+  },
+  {
+    name: "Sofwave full face & neck",
+    price: "£3,500",
+    unit: "per session",
+    note: "Brow, midface, jawline and neck, treated in one appointment.",
+    meta: ["One session", "Topical anaesthetic cream", "No downtime"],
+    featured: false,
+    badge: "",
+  },
+  {
+    name: "Consultation with Dr Shah-Desai",
+    price: "£300",
+    unit: "one appointment",
+    note: "The assessment that decides whether either treatment above is right for you.",
+    meta: ["Forty-five minutes", "Examination and a written plan", "Sofwave or surgery, answered"],
+    featured: false,
+    badge: "",
+  },
+];
+
+/* The four lines under the portrait. Check-marked rather than ruled, because
+   at two columns the rules read as an empty table. */
+const CREDENTIALS = [
+  "GMC-registered consultant surgeon",
+  "Fellow of the Royal College of Surgeons of Edinburgh",
+  "Trainer to other doctors in oculoplastic and aesthetic technique",
+  "Practising at 121 Harley Street",
 ];
 
 function Cta({
@@ -155,9 +186,13 @@ function Cta({
 export default function SofwaveLanding({
   frontmatter,
   treatment,
+  gallery,
 }: {
   frontmatter: PostFrontmatter;
   treatment: TreatmentMeta;
+  /** Result photographs, which live in content/before-after/sofwave.mdx
+      rather than in this page's own frontmatter. */
+  gallery?: GalleryItem[];
 }) {
   return (
     <div className={`tp ${styles.page}`}>
@@ -239,7 +274,15 @@ export default function SofwaveLanding({
 
       <AccreditedStrip />
 
-      {/* ── What Sofwave is ───────────────────────────────────────────────
+      {/* ── At a Glance ───────────────────────────────────────────────────
+          The specification panel, back on the page and placed above the
+          explainer rather than below it. Someone who arrived from an ad wants
+          the six numbers before the prose: how long it takes, what the
+          anaesthetic is, when they can drive, when the result appears. The
+          shared treatment component, unchanged, fed this page's own rows. */}
+      <TreatmentGlance glance={treatment.glance} title="Sofwave™ Ultrasound" />
+
+      {/* ── What is Sofwave? ──────────────────────────────────────────────
           The device on the left, the plain description on the right. This
           page is bought from a feed rather than found in a search, so the
           reader has not typed the word and does not yet know what it names.
@@ -260,7 +303,7 @@ export default function SofwaveLanding({
 
             <div className={styles.aboutCopy}>
               <p className={styles.aboutKicker}>The treatment</p>
-              <h2 className={styles.h2}>What Sofwave™ is</h2>
+              <h2 className={styles.h2}>What is Sofwave?</h2>
 
               <p className={styles.aboutLead}>
                 Sofwave is a non-invasive device that lifts and tightens skin with focused
@@ -282,14 +325,9 @@ export default function SofwaveLanding({
                 something done.
               </p>
 
-              <ul className={styles.aboutFacts}>
-                {FACTS.map((fact) => (
-                  <li key={fact.label}>
-                    <span className={styles.factLabel}>{fact.label}</span>
-                    <strong className={styles.factValue}>{fact.value}</strong>
-                  </li>
-                ))}
-              </ul>
+              {/* No fact ledger here any more. It carried session length,
+                  downtime and when the result appears, which is three of the
+                  six rows the At a Glance panel directly above now states. */}
             </div>
           </div>
         </div>
@@ -301,7 +339,7 @@ export default function SofwaveLanding({
       <section className={`${styles.section} ${styles.proof}`}>
         <div className={styles.container}>
           <BeforeAfterGallery
-            gallery={frontmatter.gallery}
+            gallery={gallery ?? frontmatter.gallery}
             heading="Sofwave™, before and after"
             description="Photographed in the same lighting and at the same angle, untouched. Results vary between patients and are not guaranteed."
             title="Sofwave™"
@@ -311,8 +349,12 @@ export default function SofwaveLanding({
 
       {/* ── Reviews ───────────────────────────────────────────────────────
           The home page's own rail, with the shared review set, rather than a
-          second design for the same content. */}
-      <PatientStories />
+          second design for the same content. The wrapper only trims the
+          band's top padding, which is sized for the home page's own
+          neighbours; see .reviewsBand. */}
+      <div className={styles.reviewsBand}>
+        <PatientStories />
+      </div>
 
       {/* ── What it does ──────────────────────────────────────────────────
           Six, not four: the two added, the FDA figures and the surgeon
@@ -413,22 +455,32 @@ export default function SofwaveLanding({
         </div>
       </section>
 
-      {/* ── The surgeon ───────────────────────────────────────────────────*/}
+      {/* ── The surgeon ───────────────────────────────────────────────────
+          A portrait of Dr Shah-Desai in a full rectangular frame, not a
+          circular crop. The circle previously held a before-and-after photo
+          of a patient, which is not a picture of the person the section is
+          about; and a 300px disc beside four paragraphs left the column
+          hanging in whitespace. The frame is 3:4, the source file's own
+          ratio, and the two columns are centred on each other. */}
       <section className={`${styles.section} ${styles.surgeon}`}>
         <div className={styles.container}>
           <div className={styles.surgeonGrid}>
-            <div className={styles.surgeonPortrait}>
+            <figure className={styles.surgeonPortrait}>
               <div className={styles.surgeonImage}>
                 <SafeImage
-                  src="/uploads/2026/05/dr-sabrina-shah-desai-and-her-image-in-cicular-format-1.jpg"
-                  alt="Dr Sabrina Shah-Desai"
-                  width={2048}
-                  height={2048}
-                  sizes="(min-width: 900px) 300px, 60vw"
+                  src="/dr-sabrina-profile.png"
+                  alt="Dr Sabrina Shah-Desai, consultant oculoplastic surgeon"
+                  sizes="(min-width: 1080px) 420px, (min-width: 900px) 38vw, 100vw"
                 />
               </div>
-            </div>
+              <figcaption className={styles.surgeonPlate}>
+                <strong>Dr Sabrina Shah-Desai</strong>
+                <span>Consultant Oculoplastic Surgeon, MS FRCS</span>
+              </figcaption>
+            </figure>
+
             <div className={styles.surgeonCopy}>
+              <p className={styles.aboutKicker}>Your surgeon</p>
               <h2 className={styles.h2}>Who performs it</h2>
               <p className={styles.surgeonLead}>
                 Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon who has spent her career
@@ -441,10 +493,12 @@ export default function SofwaveLanding({
                 surgery if it could not.
               </p>
               <ul className={styles.credentials}>
-                <li>GMC-registered consultant surgeon</li>
-                <li>Fellow of the Royal College of Surgeons of Edinburgh</li>
-                <li>Trainer to other doctors in oculoplastic and aesthetic technique</li>
-                <li>Practising at 121 Harley Street</li>
+                {CREDENTIALS.map((item) => (
+                  <li key={item}>
+                    <TpIcon name="check" size={16} />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -452,10 +506,12 @@ export default function SofwaveLanding({
       </section>
 
       {/* ── Price ─────────────────────────────────────────────────────────
-          Both figures, plainly. The consultation fee is stated here rather
-          than discovered at the booking step: a £300 assessment reads as a
-          proper appointment with a consultant when it is explained, and as a
-          nasty surprise when it is not. */}
+          Three cards side by side from 900px: the two treatments and the
+          appointment that decides between them. The consultation fee is one
+          of the three rather than a dark slab underneath, because a £300
+          assessment reads as a proper appointment with a consultant when it
+          is priced beside the treatments, and as a nasty surprise when it
+          turns up after them. */}
       <section className={`${styles.section} ${styles.pricing}`} id="pricing">
         <div className={styles.container}>
           <div className={styles.head}>
@@ -466,28 +522,51 @@ export default function SofwaveLanding({
             </p>
           </div>
 
-          <div className={styles.priceGrid}>
+          <ul className={styles.priceGrid}>
             {PRICES.map((row) => (
-              <div key={row.name} className={styles.priceRow}>
-                <div>
-                  <h3>{row.name}</h3>
-                  <p>{row.note}</p>
-                </div>
-                <span className={styles.priceValue}>{row.price}</span>
-              </div>
-            ))}
-          </div>
+              <li
+                key={row.name}
+                className={`${styles.priceCard}${row.featured ? ` ${styles.priceCardFeatured}` : ""}`}
+              >
+                {/* Always rendered, hidden where there is no badge: the
+                    slot has to take the same height on all three cards or the
+                    names and the prices step down on the featured one. */}
+                <span
+                  className={`${styles.priceBadge}${row.badge ? "" : ` ${styles.priceBadgeGhost}`}`}
+                  aria-hidden={row.badge ? undefined : true}
+                >
+                  {row.badge || "\u00a0"}
+                </span>
 
-          <div className={styles.consultCard}>
-            <div>
-              <h3>New consultation with Dr Shah-Desai</h3>
-              <p>
-                Forty-five minutes: examination, a straight answer on whether Sofwave or surgery
-                fits what you want, and a written plan. Bookable by phone once we have spoken.
-              </p>
-            </div>
-            <span className={styles.consultPrice}>£300</span>
-          </div>
+                <h3 className={styles.priceName}>{row.name}</h3>
+
+                <p className={styles.priceAmount}>
+                  <span className={styles.priceValue}>{row.price}</span>
+                  <span className={styles.priceUnit}>{row.unit}</span>
+                </p>
+
+                <p className={styles.priceNote}>{row.note}</p>
+
+                <ul className={styles.priceMeta}>
+                  {row.meta.map((item) => (
+                    <li key={item}>
+                      <TpIcon name="check" size={15} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <a href="#callback" className={styles.priceCta}>
+                  Request a call back
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className={styles.priceFoot}>
+            Nothing is booked from this page. We call you back, and the consultation is booked by
+            phone once we have spoken.
+          </p>
         </div>
       </section>
 
