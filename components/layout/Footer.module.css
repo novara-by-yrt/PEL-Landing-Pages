@@ -1,61 +1,69 @@
-/* Clinic footer — one centred block at the end of a landing page.
+/* Clinic footer — one compact block at the end of a landing page.
 
    It sits in normal flow rather than being revealed from behind the page the
    way the old site-wide footer was: that effect existed to make a large
    three-column footer worth scrolling to, and there is nothing down here now
-   to reward the trip. */
+   to reward the trip.
+
+   Mobile-first, and built to be short. Everything in here sits below the
+   page's last call to action, so height spent here is height a visitor
+   scrolls past having already decided. The mark moves beside the address at
+   760px and the three contact rows run along one line, which takes the block
+   from five stacked rows to two. */
 
 .footer {
   background: var(--tp-indigo-950);
   color: var(--tp-lavender-200);
-  padding-block: clamp(36px, 4.5vw, 52px);
+  padding-block: clamp(24px, 3vw, 34px);
   /* Extra room at the foot for the fixed "Request a call back" pill, which
      floats over everything down here — without it the pill sits on top of
      the legal line. */
-  padding-bottom: calc(clamp(36px, 4.5vw, 52px) + 72px);
+  padding-bottom: calc(clamp(24px, 3vw, 34px) + 68px);
 }
 
-.brand {
+.top {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
   text-align: center;
 }
 
 .mark {
   display: grid;
   place-items: center;
-  padding: clamp(16px, 3vw, 22px) clamp(20px, 4vw, 28px);
-  border-radius: 18px;
+  padding: clamp(11px, 2vw, 14px) clamp(15px, 3vw, 19px);
+  border-radius: 14px;
   background: var(--tp-paper);
   box-shadow: var(--tp-shadow-md);
+  flex: 0 0 auto;
 }
 /* Sized by width, height follows the mark's 719:347 ratio. */
 .markImg {
-  width: clamp(180px, 46vw, 210px);
+  width: clamp(150px, 40vw, 168px);
   height: auto;
 }
 
-.markRule {
-  width: 60px;
-  height: 1px;
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.28);
+.detail {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
 }
 
 .tagline {
-  margin: 16px 0 0;
-  max-width: 34ch;
-  font-size: var(--fs-body-md);
-  line-height: 1.6;
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--fs-caption);
+  line-height: 1.5;
   color: var(--tp-lavender-100);
 }
 
 .contact {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  column-gap: 22px;
   /* <address> is italic by default in every browser. */
   font-style: normal;
   /* The street address and the email address have no break opportunity a
@@ -65,19 +73,19 @@
 }
 .contactRow {
   display: inline-flex;
-  /* Not center: the address wraps to two lines on a phone, and centring the
-     icon against the whole block leaves it hanging in the gap between them
-     rather than beside the street. Aligned to the top, with the icon given
-     the height of one line, it sits against the first line whether the row
-     wraps or not — so the single-line phone and email rows are unchanged. */
+  /* Not center: the address can wrap to two lines on a phone, and centring
+     the icon against the whole block leaves it hanging in the gap between
+     them rather than beside the street. Aligned to the top, with the icon
+     given the height of one line, it sits against the first line whether the
+     row wraps or not. */
   align-items: flex-start;
-  gap: 10px;
-  /* 44px of row: the phone and the email are tapped on purpose, so they get a
-     full touch target rather than a text-sized one. */
-  padding-block: 10px;
+  gap: 8px;
+  /* 44px of row: the phone and the email are tapped on purpose, so they keep
+     a full touch target even though the block around them got shorter. */
+  padding-block: 9px;
   min-height: 44px;
-  line-height: 1.55;
-  font-size: var(--fs-body-md);
+  line-height: 1.5;
+  font-size: var(--fs-caption);
   color: var(--tp-lavender-100);
   text-decoration: none;
   transition: color 180ms var(--tp-ease);
@@ -95,25 +103,39 @@ a.contactRow:focus-visible {
      with the first line's optical centre instead of its top edge. */
   display: inline-flex;
   align-items: center;
-  height: 1.55em;
+  height: 1.5em;
   color: var(--tp-lavender-400);
   flex-shrink: 0;
 }
 
 .fine {
   display: grid;
-  gap: 10px;
-  max-width: 78ch;
-  margin: clamp(24px, 3vw, 32px) auto 0;
-  padding-top: clamp(18px, 2.4vw, 24px);
+  gap: 6px;
+  max-width: 84ch;
+  margin: clamp(14px, 1.8vw, 20px) auto 0;
+  padding-top: clamp(12px, 1.6vw, 16px);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
-  font-size: var(--fs-caption);
-  line-height: 1.6;
+  font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--tp-lavender-400);
 }
 .fine p {
   margin: 0;
+}
+
+/* ══ 760px: the mark moves beside the address ═════════════════════════ */
+@media (min-width: 760px) {
+  .top {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(20px, 3vw, 32px);
+    text-align: left;
+  }
+  .contact {
+    justify-content: flex-start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

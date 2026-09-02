@@ -75,16 +75,26 @@
   width: 100%;
   max-width: 1180px;
   margin-inline: auto;
-  padding: clamp(28px, 6vw, 60px) 20px clamp(36px, 6vw, 68px);
+  /* Tighter than the rest of the page on purpose: the hero is the one band
+     a visitor reads in full, and every pixel of vertical padding here is a
+     pixel of the photograph pushed below the fold on a laptop. */
+  padding: clamp(22px, 4vw, 44px) 20px clamp(28px, 4.4vw, 48px);
   display: grid;
-  gap: clamp(28px, 5vw, 48px);
+  gap: clamp(24px, 4vw, 40px);
+}
+
+/* A column rather than a block, so the desktop rule below can distribute the
+   copy into exactly the height the photograph occupies. */
+.heroCopy {
+  display: flex;
+  flex-direction: column;
 }
 
 .heroKicker {
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--tp-lavender-600);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
 }
 
 .heroTitle {
@@ -93,8 +103,8 @@
   /* 1.95rem at 360px keeps the longest word clear of the gutter; the 2.95rem
      ceiling holds the headline to four lines in the hero's narrower desktop
      column, where 3.35rem ran to five. */
-  font-size: clamp(1.95rem, 6vw, 2.95rem);
-  line-height: 1.1;
+  font-size: clamp(1.85rem, 5.6vw, 2.7rem);
+  line-height: 1.09;
   letter-spacing: -0.015em;
   color: var(--tp-ink);
   margin: 0;
@@ -102,11 +112,11 @@
 }
 
 .heroLead {
-  font-size: 1.0625rem;
-  line-height: 1.62;
+  font-size: 1.0313rem;
+  line-height: 1.58;
   color: var(--tp-slate);
-  max-width: 46ch;
-  margin: 20px 0 0;
+  max-width: 44ch;
+  margin: 14px 0 0;
 }
 
 .heroPrice {
@@ -114,7 +124,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 14px;
-  margin-top: 24px;
+  margin-top: 18px;
 }
 .heroPriceValue {
   font-family: var(--tp-display);
@@ -132,8 +142,8 @@
 .heroActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 26px;
+  gap: 10px;
+  margin-top: 20px;
 }
 .heroActions > :global(.tp-btn) {
   flex: 1 1 100%;
@@ -169,16 +179,19 @@
   line-height: 1.55;
   color: var(--tp-slate);
   max-width: 44ch;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
 .trust {
   list-style: none;
-  margin: 26px 0 0;
-  padding: 22px 0 0;
+  /* auto on top: on desktop the copy column is a flex column taller than its
+     content, and this is the element the leftover height is given to, which
+     is what pins the last line to the photograph's bottom edge. */
+  margin: auto 0 0;
+  padding: 18px 0 0;
   border-top: 1px solid var(--tp-hairline);
   display: grid;
-  gap: 11px;
+  gap: 10px;
 }
 .trust li {
   display: flex;
@@ -197,132 +210,142 @@
   color: var(--tp-gold);
 }
 
+.heroAside {
+  display: flex;
+}
 .heroFigure {
+  position: relative;
+  display: flex;
+  width: 100%;
   margin: 0;
 }
-/* The wrapper carries the shape; SafeImage fills it and keeps its own
-   ratio. overflow:hidden is what makes the radius clip the photograph. */
+/* The wrapper carries the shape and SafeImage covers it. 1:1 on a phone,
+   which is the source file's own ratio, so the box is right before the
+   picture arrives; on desktop the ratio is dropped and the box takes the
+   copy column's height instead. overflow:hidden is what makes the radius
+   clip the photograph. */
 .heroImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: var(--tp-radius-lg);
   overflow: hidden;
   box-shadow: var(--tp-shadow-md);
   background: var(--tp-lavender-050);
   line-height: 0;
 }
+/* Over the foot of the picture rather than under it. Below the image it
+   would push the photograph's bottom edge up off the line the copy column
+   ends on, which is the alignment this hero is built around. */
 .heroFigCaption {
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--tp-slate);
-  margin-top: 12px;
-}
-
-/* ── Problem ──────────────────────────────────────────────────────────── */
-
-.problem {
-  background: var(--tp-paper);
-}
-.problemGrid {
-  display: grid;
-  gap: clamp(24px, 4vw, 40px);
-}
-.problemCopy p {
-  font-size: 1.0625rem;
-  line-height: 1.72;
-  color: var(--tp-slate);
-  max-width: 60ch;
-  margin: 18px 0 0;
-}
-.problemTurn {
-  color: var(--tp-ink) !important;
-  font-weight: 500;
-}
-
-.problemNote {
-  align-self: start;
-  padding: clamp(20px, 3vw, 26px);
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-fog);
-  border-left: 3px solid var(--tp-indigo-700);
-}
-.problemNoteBody {
-  font-size: 1rem;
-  line-height: 1.68;
-  color: var(--tp-ink);
-  margin: 0;
-}
-.problemNoteAttr {
-  font-size: 0.8125rem;
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: 34px 16px 13px;
+  border-radius: 0 0 var(--tp-radius-lg) var(--tp-radius-lg);
+  font-size: 0.75rem;
   line-height: 1.45;
+  color: rgba(255, 255, 255, 0.94);
+  background: linear-gradient(180deg, rgba(23, 20, 48, 0), rgba(23, 20, 48, 0.74));
+  pointer-events: none;
+}
+
+/* ── What Sofwave is ──────────────────────────────────────────────────
+
+   Picture of the device on the left, the plain description on the right.
+   The two columns stretch to the same height and the photograph takes all
+   of it, so the block reads as one object rather than as a caption beside a
+   thumbnail. */
+
+.about {
+  /* Fog, so the explainer separates from the At a Glance band directly above
+     it, which is paper. */
+  background: var(--tp-fog);
+}
+.aboutGrid {
+  display: grid;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: stretch;
+}
+.aboutFigure {
+  margin: 0;
+  display: flex;
+}
+/* 16:10 on a phone, close to the source's own 1920x1081 so almost nothing is
+   cropped; on desktop the ratio is dropped and the box matches the copy
+   column's height. */
+.aboutImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  background: var(--tp-lavender-050);
+  box-shadow: var(--tp-shadow-md);
+  line-height: 0;
+}
+/* A slow push in on the photograph. Long and small: the picture is not a
+   control, so the movement should register as the frame being alive rather
+   than as something offering to be clicked. */
+.aboutImage img {
+  transition: transform 700ms var(--tp-ease);
+}
+.aboutImage:hover img {
+  transform: scale(1.035);
+}
+.aboutCopy {
+  align-self: center;
+}
+.aboutKicker {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--tp-lavender-600);
-  margin: 14px 0 0;
+  margin: 0 0 12px;
+}
+.aboutLead {
+  font-size: 1.0625rem !important;
+  line-height: 1.62 !important;
+  color: var(--tp-ink) !important;
+}
+.aboutCopy p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--tp-slate);
+  max-width: 58ch;
+  margin: 16px 0 0;
 }
 
 /* ── Proof ────────────────────────────────────────────────────────────── */
 
 .proof {
-  background: var(--tp-fog);
-}
-
-/* ── Reviews ──────────────────────────────────────────────────────────── */
-
-.reviews {
+  /* Paper: the gallery's own thumbnails are fog with a hairline border, and
+     on a fog band they had nothing to sit against. */
   background: var(--tp-paper);
 }
-.reviewsHead {
-  margin-bottom: clamp(26px, 4vw, 40px);
+/* BeforeAfterGallery renders a full <section class="tp-section"> with its own
+   .container inside. Nested in this page's section and container, that is two
+   sets of vertical padding and two gutters: on desktop the band opened with
+   about 170px of nothing above the eyebrow. The outer pair wins, since it is
+   what keeps this section in step with the rest of the page. */
+.proof :global(.tp-section) {
+  padding-block: 0;
 }
-.rating {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  margin: 0 0 14px;
-}
-.ratingScore {
-  font-family: var(--tp-display);
-  font-size: 1.75rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--tp-ink);
-}
-.ratingStars {
-  display: inline-flex;
-  gap: 2px;
-  color: var(--tp-gold);
-}
-.ratingStars svg {
-  fill: currentColor;
-}
-.ratingCount {
-  font-size: 0.9375rem;
-  color: var(--tp-slate);
+.proof :global(.container) {
+  max-width: none;
+  padding-inline: 0;
 }
 
-.reviewGrid {
-  display: grid;
-  gap: 16px;
-}
-.review {
-  margin: 0;
-  padding: clamp(20px, 3.4vw, 28px);
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-fog);
-  /* No shadow. Four identical shadowed cards in a row is the stock
-     template look; the tint alone separates them from the page. */
-}
-.review p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--tp-ink);
-  margin: 0;
-}
-.review cite {
-  display: block;
-  margin-top: 14px;
-  font-style: normal;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--tp-lavender-600);
+/* ── Reviews ──────────────────────────────────────────────────────────
+   The home page's own rail, PatientStories, which brings its own band,
+   background and styles. The one thing this page changes is the top padding:
+   the rail is sized for the home page, where it follows a tight strip, and
+   here it follows a gallery that already ends on a full band of space, so
+   the two stacked read as a hole above the heading. The element selector
+   reaches the rail's own root section, the only child of this wrapper. */
+.reviewsBand > section {
+  padding-top: clamp(20px, 2.6vw, 34px);
 }
 
 /* ── Benefits ─────────────────────────────────────────────────────────── */
@@ -346,6 +369,13 @@
 .benefit {
   background: var(--tp-paper);
   padding: clamp(22px, 3.4vw, 30px);
+  transition: background 220ms var(--tp-ease);
+}
+/* The cells share 2px grid gaps that show the rule colour through, so a cell
+   cannot lift without tearing the ledger open. It tints instead, and the
+   icon does the moving. */
+.benefit:hover {
+  background: var(--tp-lavender-050);
 }
 .benefitIcon {
   display: inline-flex;
@@ -356,6 +386,11 @@
   border-radius: 12px;
   background: var(--tp-lavender-050);
   color: var(--tp-indigo-700);
+  transition: transform 240ms var(--tp-ease), background 240ms var(--tp-ease);
+}
+.benefit:hover .benefitIcon {
+  transform: translateY(-3px);
+  background: var(--tp-lavender-100);
 }
 .benefit h3 {
   font-family: var(--tp-display);
@@ -385,6 +420,15 @@
   padding: clamp(22px, 3.6vw, 32px);
   border-radius: var(--tp-radius-lg);
   border: 1px solid var(--tp-line);
+  transition:
+    transform 240ms var(--tp-ease),
+    box-shadow 240ms var(--tp-ease),
+    border-color 240ms var(--tp-ease);
+}
+.candidacyCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--tp-shadow-md);
+  border-color: var(--tp-lavender-300);
 }
 .candidacyCard h3 {
   font-family: var(--tp-display);
@@ -432,13 +476,26 @@
   border-top: 1px solid var(--tp-line);
 }
 
-/* ── Steps ────────────────────────────────────────────────────────────── */
+/* ── Steps ────────────────────────────────────────────────────────────
+
+   Centred: the heading, and each step under it. This is the one section on
+   the page that is a sequence rather than a comparison or an argument, and
+   centring it stops three short blocks of copy reading as another left-ruled
+   list like the four around it.
+
+   One column on a phone with the steps divided by hairlines, three columns
+   from 900px with the hairlines turned on their side. */
 
 .steps {
   background: var(--tp-indigo-950);
 }
 .steps .h2 {
   color: #fff;
+}
+.steps .head {
+  max-width: 56ch;
+  margin-inline: auto;
+  text-align: center;
 }
 .stepList {
   list-style: none;
@@ -449,9 +506,9 @@
 }
 .step {
   display: grid;
-  grid-template-columns: 46px 1fr;
-  gap: 18px;
-  padding-block: clamp(22px, 3.4vw, 30px);
+  justify-items: center;
+  text-align: center;
+  padding-block: clamp(24px, 3.4vw, 32px);
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 .step:first-child {
@@ -462,14 +519,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.04);
   font-family: var(--tp-display);
-  font-size: 1.125rem;
+  font-size: 1.1875rem;
   font-weight: 600;
   color: var(--tp-lavender-200);
+  transition:
+    border-color 240ms var(--tp-ease),
+    background 240ms var(--tp-ease),
+    color 240ms var(--tp-ease);
+}
+/* The numbered disc is the only thing that moves: the steps are divided by
+   rules that run the full width of the row, so tinting a whole step would
+   break the line. */
+.step:hover .stepNum {
+  border-color: var(--tp-lavender-300);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.stepBody {
+  max-width: 44ch;
 }
 .stepBody h3 {
   font-family: var(--tp-display);
@@ -477,39 +550,93 @@
   font-weight: 600;
   line-height: 1.3;
   color: #fff;
-  margin: 8px 0 0;
+  margin: 18px 0 0;
 }
 .stepBody p {
   font-size: 0.9375rem;
   line-height: 1.7;
   color: var(--tp-lavender-200);
-  max-width: 58ch;
   margin: 10px 0 0;
 }
+/* The paragraph is the slot; the span inside it is the pill. Two elements
+   rather than one so the slot can take the leftover height in a column while
+   the pill keeps its own padding. */
 .stepMeta {
-  font-size: 0.8125rem !important;
-  color: var(--tp-lavender-400) !important;
-  margin-top: 12px !important;
+  margin-top: 14px !important;
+}
+.stepMeta span {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.8125rem;
+  color: var(--tp-lavender-200);
 }
 
-/* ── Surgeon ──────────────────────────────────────────────────────────── */
+/* ── Surgeon ──────────────────────────────────────────────────────────
+
+   The portrait in a full 3:4 frame with the name plate laid over its foot,
+   and the copy centred against it. It replaced a 300px circular crop that
+   held a patient's before-and-after photo rather than the surgeon's own. */
 
 .surgeon {
   background: var(--tp-paper);
 }
 .surgeonGrid {
   display: grid;
-  gap: clamp(24px, 4vw, 44px);
+  gap: clamp(26px, 4vw, 52px);
   align-items: center;
 }
-.surgeonImage {
+.surgeonPortrait {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
   width: 100%;
-  max-width: 300px;
-  border-radius: 50%;
+  max-width: 460px;
+}
+.surgeonImage {
+  position: relative;
+  width: 100%;
+  /* The source file's own ratio, so nothing of the portrait is cropped. */
+  aspect-ratio: 3 / 4;
+  border-radius: var(--tp-radius-xl);
   overflow: hidden;
   background: var(--tp-lavender-050);
+  box-shadow: var(--tp-shadow-lg);
   line-height: 0;
 }
+.surgeonImage img {
+  transition: transform 700ms var(--tp-ease);
+}
+.surgeonPortrait:hover .surgeonImage img {
+  transform: scale(1.035);
+}
+/* Over the foot of the frame rather than under it, so the picture keeps its
+   full height and the two columns still centre on each other. */
+.surgeonPlate {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  display: grid;
+  gap: 3px;
+  padding: 52px clamp(18px, 3vw, 26px) clamp(16px, 2.4vw, 22px);
+  border-radius: 0 0 var(--tp-radius-xl) var(--tp-radius-xl);
+  background: linear-gradient(180deg, rgba(23, 20, 48, 0), rgba(23, 20, 48, 0.82) 62%);
+  pointer-events: none;
+}
+.surgeonPlate strong {
+  font-family: var(--tp-display);
+  font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff;
+}
+.surgeonPlate span {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.86);
+}
+
 .surgeonLead {
   font-size: 1.0625rem;
   line-height: 1.65;
@@ -523,268 +650,273 @@
   max-width: 58ch;
   margin: 16px 0 0;
 }
+.surgeonCopy .aboutKicker {
+  margin-bottom: 12px;
+}
+
 .credentials {
   list-style: none;
-  margin: 24px 0 0;
+  margin: clamp(22px, 3vw, 30px) 0 0;
   padding: 0;
   display: grid;
-  gap: 0;
+  gap: 10px;
 }
 .credentials li {
-  padding-block: 12px;
-  border-top: 1px solid var(--tp-line);
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 11px;
+  align-items: start;
+  padding: 11px 14px;
+  border-radius: var(--tp-radius-md);
+  background: var(--tp-fog);
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--tp-ink);
+  transition: background 200ms var(--tp-ease), transform 200ms var(--tp-ease);
+}
+.credentials li:hover {
+  background: var(--tp-lavender-050);
+  transform: translateX(3px);
+}
+.credentials svg {
+  margin-top: 2px;
+  color: var(--tp-indigo-700);
 }
 
-/* ── Pricing ──────────────────────────────────────────────────────────── */
+/* ── Pricing ──────────────────────────────────────────────────────────
+
+   Three cards, one row from 760px, none of them singled out. Equal height
+   whatever the copy: the note list is pushed to the foot of a column layout,
+   so the three buttons land on the same line. A row of buttons that does not
+   line up reads as three unrelated boxes rather than three prices being
+   compared.
+
+   The brand weight is in three quiet places rather than one loud one: a lit
+   edge across the top of each card, a lavender bloom behind its top corner,
+   and the figure itself set in indigo. */
 
 .pricing {
   background: var(--tp-fog);
 }
 .priceGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  gap: 2px;
-  background: var(--tp-line);
-  border-radius: var(--tp-radius-lg);
-  overflow: hidden;
+  gap: 18px;
+  align-items: stretch;
 }
-.priceRow {
+.priceCard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(26px, 3.4vw, 36px);
+  border-radius: var(--tp-radius-xl);
+  border: 1px solid var(--tp-line);
+  background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-sm);
+  transition:
+    transform 260ms var(--tp-ease),
+    box-shadow 260ms var(--tp-ease),
+    border-color 260ms var(--tp-ease);
+}
+/* The lit edge, the same device the At a Glance panel uses along its top. */
+.priceCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  /* Faded at both ends, the way the At a Glance panel's edge is: the card's
+     32px radius clips a full-width band into tapered points, and a band that
+     is already transparent where the curve starts has nothing to clip. */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--tp-lavender-300) 18%,
+    var(--tp-indigo-600) 50%,
+    var(--tp-lavender-300) 82%,
+    transparent
+  );
+}
+/* A brand bloom behind the top corner, so the card has depth without a
+   second background colour. Behind the content: z-index -1 inside the card's
+   own stacking context, which .priceCard's isolation creates. */
+.priceCard::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -84px;
+  right: -84px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(188, 160, 221, 0.34), transparent 70%);
+  opacity: 0.85;
+  transition: opacity 260ms var(--tp-ease), transform 260ms var(--tp-ease);
+  pointer-events: none;
+}
+.priceCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--tp-shadow-lg);
+  border-color: var(--tp-lavender-300);
+}
+.priceCard:hover::after {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+.priceKind {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--tp-lavender-600);
+}
+
+.priceName {
+  font-family: var(--tp-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--tp-ink);
+  margin: 10px 0 0;
+  text-wrap: balance;
+}
+
+.priceAmount {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 20px;
-  padding: clamp(20px, 3.2vw, 26px);
-  background: var(--tp-paper);
-}
-.priceRow h3 {
-  font-family: var(--tp-display);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--tp-ink);
-  margin: 0;
-}
-.priceRow p {
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--tp-slate);
-  margin: 6px 0 0;
-  max-width: 46ch;
+  gap: 4px 10px;
+  margin: 14px 0 0;
 }
 .priceValue {
   font-family: var(--tp-display);
-  font-size: 1.5rem;
+  font-size: clamp(2rem, 3.6vw, 2.5rem);
   font-weight: 600;
   line-height: 1;
-  color: var(--tp-ink);
+  letter-spacing: -0.02em;
+  /* Indigo, not ink: the figure is the one word on the card a reader looks
+     for, and it is where the brand colour earns its place. */
+  color: var(--tp-indigo-700);
   font-variant-numeric: tabular-nums;
 }
-
-.consultCard {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px 20px;
-  margin-top: 16px;
-  padding: clamp(20px, 3.2vw, 28px);
-  border-radius: var(--tp-radius-lg);
-  background: var(--tp-indigo-950);
-}
-.consultCard h3 {
-  font-family: var(--tp-display);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #fff;
-  margin: 0;
-}
-.consultCard p {
-  font-size: 0.875rem;
-  line-height: 1.62;
-  color: var(--tp-lavender-200);
-  margin: 8px 0 0;
-  max-width: 52ch;
-}
-.consultPrice {
-  font-family: var(--tp-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1;
-  color: #fff;
-  font-variant-numeric: tabular-nums;
-}
-
-/* ── FAQ ──────────────────────────────────────────────────────────────── */
-
-.faq {
-  background: var(--tp-paper);
-}
-.faqList {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--tp-line);
-}
-.faqItem {
-  border-bottom: 1px solid var(--tp-line);
-}
-.faqItem summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding-block: 20px;
-  cursor: pointer;
-  list-style: none;
-  font-family: var(--tp-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--tp-ink);
-}
-.faqItem summary::-webkit-details-marker {
-  display: none;
-}
-.faqItem summary:focus-visible {
-  outline: 2px solid var(--tp-indigo-700);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-.faqMark {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--tp-lavender-050);
-  color: var(--tp-indigo-700);
-  transition: transform 200ms var(--tp-ease);
-}
-.faqItem[open] .faqMark {
-  transform: rotate(45deg);
-}
-.faqAnswer {
-  padding: 0 0 22px;
-  font-size: 0.9375rem;
-  line-height: 1.72;
+.priceUnit {
+  font-size: 0.8125rem;
   color: var(--tp-slate);
-  max-width: 68ch;
-}
-.faqAnswer :global(a) {
-  color: var(--tp-indigo-700);
 }
 
-/* ── Closer ───────────────────────────────────────────────────────────── */
-
-.closer {
-  position: relative;
-  overflow: hidden;
-  padding-block: clamp(44px, 7vw, 88px);
-  background: linear-gradient(180deg, var(--tp-lavender-050), var(--tp-paper) 70%);
-  scroll-margin-top: 24px;
-}
-.closerGlow {
-  position: absolute;
-  bottom: -200px;
-  left: -160px;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(188, 160, 221, 0.26), transparent 70%);
-  pointer-events: none;
-}
-.closerGrid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: clamp(28px, 4vw, 48px);
-  align-items: start;
-}
-.closerTitle {
-  font-family: var(--tp-display);
-  font-weight: 600;
-  font-size: clamp(1.75rem, 5.4vw, 2.5rem);
-  line-height: 1.14;
-  letter-spacing: -0.01em;
-  color: var(--tp-ink);
-  margin: 0;
-  text-wrap: balance;
-}
-.closerLead {
-  font-size: 1.0625rem;
-  line-height: 1.65;
-  color: var(--tp-slate);
-  max-width: 48ch;
-  margin: 18px 0 0;
-}
-.closerPoints {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
-}
-.closerPoints li {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  font-size: 0.9375rem;
-  color: var(--tp-ink);
-}
-.closerPoints svg {
-  flex: 0 0 auto;
-  color: var(--tp-indigo-700);
-}
-.closerOr {
+.priceNote {
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--tp-slate);
-  margin: 24px 0 0;
-}
-.closerPhone,
-.closerBook {
-  color: var(--tp-indigo-700);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
+  margin: 12px 0 0;
 }
 
-.formCard {
-  padding: clamp(22px, 3.6vw, 32px);
-  border-radius: var(--tp-radius-xl);
-  background: var(--tp-paper);
-  box-shadow: var(--tp-shadow-md);
-  border: 1px solid var(--tp-line);
+/* auto on top pushes the list and the button below it to the foot of the
+   card, which is what lines the three buttons up across the row. */
+.priceMeta {
+  list-style: none;
+  margin: auto 0 0;
+  padding: clamp(18px, 2.4vw, 24px) 0 0;
+  display: grid;
+  gap: 11px;
 }
+.priceMeta li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--tp-slate);
+}
+/* The tick sits on a tinted disc rather than loose against the text, which
+   is what stops three plain lines reading as a receipt. */
+.priceMeta svg {
+  box-sizing: content-box;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--tp-lavender-050);
+  color: var(--tp-indigo-700);
+}
+
+.priceCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: clamp(20px, 2.6vw, 26px);
+  padding: 13px 22px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--tp-indigo-700);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--tp-shadow-sm);
+  transition:
+    background 200ms var(--tp-ease),
+    box-shadow 200ms var(--tp-ease);
+}
+.priceCta:hover {
+  background: var(--tp-indigo-800);
+  box-shadow: var(--tp-shadow-md);
+}
+.priceCta:focus-visible {
+  outline: 2px solid var(--tp-indigo-700);
+  outline-offset: 3px;
+}
+
+.priceFoot {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tp-slate);
+  margin: clamp(18px, 2.4vw, 24px) 0 0;
+  max-width: 62ch;
+}
+
+/* The FAQ is the home page's own accordion, HomeFaq, which brings its own
+   band and styles. Nothing for this stylesheet to say. */
+
+/* ── The enquiry ──────────────────────────────────────────────────────
+
+   The band is the home page's ContactSection, which brings its own padding,
+   background and indigo panel. This wrapper only carries the anchor every
+   call to action on the page points at, and the privacy line under it. */
+
+.closer {
+  background: var(--tp-paper);
+  /* The header is not fixed on this page, so a small offset is enough to
+     keep the panel's top edge off the very top of the viewport. */
+  scroll-margin-top: 24px;
+}
+/* The panel's own band pads generously below itself, which would strand the
+   privacy line a long way under the form. The wrapper takes that space back
+   and spends a little of it on the line instead. */
+.closer > section {
+  padding-bottom: clamp(20px, 2.6vw, 32px);
+}
+
 .formLegal {
   font-size: 0.75rem;
   line-height: 1.55;
   color: var(--tp-slate);
   text-align: center;
-  margin: 14px 0 0;
+  margin: 0;
+  padding-bottom: clamp(28px, 4vw, 48px);
 }
 .formLegal a {
   color: var(--tp-indigo-700);
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-.formTitle {
-  font-family: var(--tp-display);
-  font-size: 1.375rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--tp-ink);
-  margin: 0 0 4px;
 }
 
 /* ══ 600px: pairs that fit side by side ═══════════════════════════════ */
@@ -800,12 +932,22 @@
     gap: 12px 24px;
   }
 
-  .candidacyGrid,
-  .reviewGrid {
+  .candidacyGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .benefitGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ══ 760px: the three prices go side by side ══════════════════════════
+   Earlier than the page's other two-column breakpoints on purpose: the
+   cards are short and comparing three prices is the whole point of the
+   section, so they pair up as soon as the width allows rather than waiting
+   for the desktop layout. */
+@media (min-width: 760px) {
+  .priceGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -814,27 +956,81 @@
   .trust {
     grid-template-columns: 1fr;
   }
+  /* stretch, not center: the two columns become the same height, which is
+     what lets the copy distribute into it and the photograph fill it. The
+     kicker's first line and the trust list's last line then sit on the
+     picture's top and bottom edges exactly. */
   .heroInner {
     grid-template-columns: 1.02fr 0.98fr;
-    align-items: center;
+    align-items: stretch;
   }
-  .problemGrid {
-    grid-template-columns: 1.35fr 0.65fr;
-    align-items: start;
+  .heroCopy {
+    justify-content: space-between;
   }
+  .heroFigure {
+    height: 100%;
+  }
+  .heroImage {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .aboutGrid {
+    grid-template-columns: 0.92fr 1.08fr;
+  }
+  .aboutImage {
+    aspect-ratio: auto;
+    height: 100%;
+    /* The picture is landscape and the copy beside it is tall; without a
+       floor the row would collapse to whatever the paragraphs need on a
+       wide screen and leave the photograph a letterbox. */
+    min-height: 460px;
+  }
+  /* The portrait column is a range, not a fixed 300px: at 900px it takes a
+     little over a third and at 1180px it settles at 420px, so the frame grows
+     with the page instead of shrinking into it. */
   .surgeonGrid {
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: minmax(300px, 0.62fr) 1fr;
   }
-  .closerGrid {
-    grid-template-columns: 1fr 420px;
-  }
-  .step {
-    grid-template-columns: 56px 1fr;
-    gap: 24px;
+  /* A brand panel set back behind the frame, only where there is room in the
+     column gap for it to sit outside the picture. */
+  .surgeonPortrait::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 26px -20px -20px 26px;
+    border-radius: var(--tp-radius-xl);
+    background: linear-gradient(140deg, var(--tp-lavender-100), var(--tp-lavender-050));
   }
   .credentials {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 24px;
+    column-gap: 12px;
+  }
+  .stepList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .step {
+    /* Full height, so the three dividing rules run the depth of the row and
+       the copy blocks below can push their meta pills onto one line. */
+    grid-template-rows: auto 1fr;
+    padding-block: 0;
+    padding-inline: clamp(16px, 2.2vw, 30px);
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .step:first-child {
+    border-left: 0;
+  }
+  .stepBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* auto takes the leftover height, and the padding keeps a minimum gap that
+     margin collapse would otherwise swallow in the tallest column. */
+  .stepMeta {
+    margin-top: auto !important;
+    padding-top: 18px;
   }
 }
 
@@ -843,11 +1039,47 @@
   .benefitGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .surgeonGrid {
+    grid-template-columns: 420px 1fr;
+  }
+  /* The gallery's own grid is auto-fill at a 320px minimum, which resolves to
+     three columns in this container and strands the fourth photograph alone
+     on a second row. Four across at this width, so the set reads as one row
+     of results.
+
+     The grid is the one div child of the gallery's container that is not its
+     heading block; the third child is the disclaimer paragraph, which is why
+     this cannot be :last-child. This page's own container is a module class,
+     so the :global(.container) here only ever matches the gallery's. */
+  .proof :global(.container) > div:not(:global(.tp-head)) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
 }
 
+/* Every hover on this page is a transition on an element that is legible
+   without it, so reduced motion simply removes the movement rather than
+   needing a substitute. The colour changes go too: they ride the same
+   shorthand, and a hover that only tints is still a hover. */
 @media (prefers-reduced-motion: reduce) {
   .heroCall,
-  .faqMark {
+  .aboutImage img,
+  .benefit,
+  .benefitIcon,
+  .candidacyCard,
+  .stepNum,
+  .surgeonImage img,
+  .credentials li,
+  .priceCard,
+  .priceCta {
     transition: none;
+  }
+  .aboutImage:hover img,
+  .surgeonPortrait:hover .surgeonImage img,
+  .benefit:hover .benefitIcon,
+  .candidacyCard:hover,
+  .credentials li:hover,
+  .priceCard:hover {
+    transform: none;
   }
 }

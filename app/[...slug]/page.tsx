@@ -187,10 +187,23 @@ export default async function CatchAllPageRoute({
    * related-posts rails to leave through. It is its own component so the
    * other 47 treatments keep the shared template untouched. */
   if (fileSlug === "sofwave") {
+    /* The page's own frontmatter carries no gallery — Sofwave's result photos
+       live in content/before-after/sofwave.mdx, the same place the shared
+       treatment template reads them from. Without this the landing page's
+       proof section rendered as an empty band. */
+    const sofwaveGallery = getPostBySlug(
+      "before-after",
+      TREATMENT_BEFORE_AFTER.sofwave,
+    )?.frontmatter.gallery;
+
     return (
       <>
         {schemas}
-        <SofwaveLanding frontmatter={frontmatter} treatment={treatmentMeta.sofwave} />
+        <SofwaveLanding
+          frontmatter={frontmatter}
+          treatment={treatmentMeta.sofwave}
+          gallery={sofwaveGallery}
+        />
       </>
     );
   }

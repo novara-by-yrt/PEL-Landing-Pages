@@ -1,13 +1,14 @@
 import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
-import RequestCallbackForm from "@/components/forms/RequestCallbackForm";
 import ClinicPhone from "@/components/shared/ClinicPhone";
-import BookConsultationModal from "@/components/forms/BookConsultationModal";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
-import { PATIENT_STORIES } from "@/lib/reviews";
-import type { PostFrontmatter } from "@/lib/mdx";
+import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
+import PatientStories from "@/components/home/PatientStories";
+import HomeFaq from "@/components/home/HomeFaq";
+import ContactSection from "@/components/home/ContactSection";
+import type { GalleryItem, PostFrontmatter } from "@/lib/mdx";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import styles from "./SofwaveLanding.module.css";
 
@@ -22,30 +23,38 @@ import styles from "./SofwaveLanding.module.css";
  * What moved, and why:
  *  - The reviews rail sat fourteenth on the template, below three sections of
  *    procedure detail. A cold visitor has no reason to read that detail from
- *    a clinic they cannot yet place, so proof comes second here — the result
+ *    a clinic they cannot yet place, so proof comes second here: the result
  *    photograph and the reviews before anything is explained.
- *  - A pain-point section was added and put first. Search traffic knows what
- *    Sofwave is; social traffic has to be shown the problem before the
- *    solution means anything.
+ *  - The explainer section was rewritten as a two-column "what Sofwave is",
+ *    picture of the device beside the plain description. Social traffic does
+ *    not know the word, so the page has to say what the thing is before it
+ *    argues for it.
  *  - The callback form is in the hero on desktop and one tap away on mobile,
  *    rather than at the foot of the page.
  *  - Similar treatments and related blog posts are gone. They were the two
  *    largest exits from a page whose only job is the enquiry on it.
+ *
+ * Reviews and the FAQ are the home page's own components (PatientStories and
+ * HomeFaq) rather than local copies, so a visitor arriving from an ad sees
+ * the same rail and the same accordion the rest of the site uses, and the
+ * two only ever have to be maintained once.
  *
  * It is deliberately its own component rather than a variant of the shared
  * template: the other 47 treatment pages keep the template they have, and
  * nothing here can reach them.
  */
 
-/* ── Content ───────────────────────────────────────────────────────────────
-   Every figure below is drawn from the page's own source data — the FDA
-   study numbers and the risk language come from the frontmatter FAQ, the
-   prices from treatment-meta.json, the rating from the reviews rail. Nothing
-   is invented, and nothing promises a result. */
+/* Content note: no em dashes and no en dashes anywhere in the copy below,
+   including inside number ranges, which are written out as "3 to 6 months".
+   ...................................................................
+   Every figure is drawn from the page's own source data: the FDA study
+   numbers and the risk language come from the frontmatter FAQ, the prices
+   from treatment-meta.json, the rating from the reviews rail. Nothing is
+   invented, and nothing promises a result. */
 
 const TRUST = [
   { icon: "star", label: "4.8 from 240+ Google reviews" },
-  { icon: "shield", label: "CQC registered, rated good in all five areas" },
+  { icon: "shield", label: "CQC registered, rated good" },
   { icon: "building", label: "121 Harley Street, London" },
 ];
 
@@ -58,22 +67,22 @@ const BENEFITS = [
   {
     icon: "clock",
     title: "One hour, then back to your day",
-    body: "A session takes around 60 minutes, including an hour of numbing cream beforehand. There is no downtime — most people go straight back to work.",
+    body: "A session takes around 60 minutes, including an hour of numbing cream beforehand. There is no downtime, so most people go straight back to work.",
   },
   {
     icon: "eye",
     title: "Measured lift, in a study",
-    body: "In the FDA study, 80% of patients saw a 2–4mm lift in brow height and 70–80% saw visible tightening. Your own result is assessed at review.",
+    body: "In the FDA study, 80% of patients saw a 2 to 4mm lift in brow height and 70 to 80% saw visible tightening. Your own result is assessed at review.",
   },
   {
     icon: "pulse",
     title: "Gradual, not overnight",
-    body: "Collagen rebuilds over 3–6 months, so the change arrives slowly enough that people tend to say you look well rather than ask what you have had done.",
+    body: "Collagen rebuilds over 3 to 6 months, so the change arrives slowly enough that people tend to say you look well rather than ask what you have had done.",
   },
   {
     icon: "calendar",
-    title: "Lasts 12–24 months",
-    body: "The lift comes from collagen your own skin has made, so it fades the way collagen does — slowly — rather than wearing off on a fixed date.",
+    title: "Lasts 12 to 24 months",
+    body: "The lift comes from collagen your own skin has made, so it fades slowly, the way collagen does, rather than wearing off on a fixed date.",
   },
   {
     icon: "shield",
@@ -87,11 +96,11 @@ const SUITABLE = [
   "You are broadly healthy and typically between 40 and 80",
   "You would rather a gradual change than an obvious one",
   "You are not ready for surgery, or want to put it off for a while",
-  "You can give the result 3–6 months to appear",
+  "You can give the result 3 to 6 months to appear",
 ];
 
 const NOT_SUITABLE = [
-  "You have significant excess eyelid skin — surgery does what ultrasound cannot",
+  "You have significant excess eyelid skin, where surgery does what ultrasound cannot",
   "You want a visible difference next week",
   "You are looking for the result of a facelift without the facelift",
 ];
@@ -109,20 +118,60 @@ const STEPS = [
   },
   {
     heading: "The next three to six months",
-    body: "New collagen forms gradually and the skin firms as it does. Some people have a second session at six months to build on the first — that is a decision made at review, looking at your result, not booked in advance.",
+    body: "New collagen forms gradually and the skin firms as it does. Some people have a second session at six months to build on the first. That is a decision made at review, looking at your result, rather than booked in advance.",
     meta: "Reviewed with your surgeon",
   },
 ];
 
+/* Three cards, side by side on desktop: the two treatments and the
+   appointment that decides between them. The consultation used to sit apart
+   in a dark slab below the ledger, which read as a surcharge discovered
+   afterwards rather than as one of the three things a visitor is choosing
+   between.
+
+   None of the three is emphasised over the others. A pricing row where one
+   card is dressed differently is a recommendation, and the honest answer to
+   which of these a visitor needs is the one Dr Shah-Desai gives at the
+   consultation, not one this page can make in advance. The brand weight is
+   spent evenly instead: the lit edge, the bloom and the indigo figure are on
+   every card.
+
+   Every line comes from treatment-meta.json's own pricing and glance rows. */
 const PRICES = [
-  { name: "Sofwave brow lift", price: "£1,800", note: "The periocular treatment — brow and around the eyes" },
-  { name: "Sofwave full face & neck", price: "£3,500", note: "Brow, midface, jawline and neck in one session" },
+  {
+    kind: "Treatment",
+    name: "Sofwave brow lift",
+    price: "£1,800",
+    unit: "per session",
+    note: "The periocular treatment: the brow and the skin around the eyes.",
+    meta: ["About 60 minutes", "Topical anaesthetic cream", "No downtime"],
+  },
+  {
+    kind: "Treatment",
+    name: "Sofwave full face & neck",
+    price: "£3,500",
+    unit: "per session",
+    note: "Brow, midface, jawline and neck, treated in one appointment.",
+    meta: ["One session", "Topical anaesthetic cream", "No downtime"],
+  },
+  {
+    kind: "Assessment",
+    name: "Consultation with Dr Shah-Desai",
+    price: "£300",
+    unit: "one appointment",
+    note: "The appointment that decides whether either treatment above is right for you.",
+    meta: ["Forty-five minutes", "Examination and a written plan", "Sofwave or surgery, answered"],
+  },
 ];
 
-/* Four of the six reviews on the site-wide rail. Named, in full, stacked —
-   not a carousel: on a phone a carousel hides every review but the first
-   behind a swipe most visitors never make. */
-const REVIEWS = PATIENT_STORIES.slice(0, 4);
+/* The four lines under the portrait. Check-marked rather than ruled, because
+   at two columns the rules read as an empty table. */
+const CREDENTIALS = [
+  "GMC-registered consultant surgeon",
+  "Fellow of the Royal College of Surgeons of Edinburgh",
+  "Trainer to other doctors in oculoplastic and aesthetic technique",
+  "Practising at 121 Harley Street",
+];
 
 function Cta({
   variant = "primary",
@@ -141,17 +190,28 @@ function Cta({
 export default function SofwaveLanding({
   frontmatter,
   treatment,
+  gallery,
 }: {
   frontmatter: PostFrontmatter;
   treatment: TreatmentMeta;
+  /** Result photographs, which live in content/before-after/sofwave.mdx
+      rather than in this page's own frontmatter. */
+  gallery?: GalleryItem[];
 }) {
   return (
     <div className={`tp ${styles.page}`}>
       {/* ── Hero ──────────────────────────────────────────────────────────
           Two columns from 1000px with the form in the second, one column
-          below it with the form moved beneath the proof strip — on a phone
+          below it with the form moved beneath the proof strip: on a phone
           the headline and the result photograph earn the scroll to the form,
-          and the sticky bar keeps the action within reach the whole way. */}
+          and the sticky bar keeps the action within reach the whole way.
+
+          On desktop both columns stretch to the same height and the copy
+          column distributes into it, so the first line of the kicker and the
+          last line of the trust list sit exactly on the photograph's top and
+          bottom edges. The caption rides inside the picture for the same
+          reason: below it, it would push the image's bottom edge up off the
+          line the copy ends on. */}
       <section className={styles.hero}>
         <span className={styles.heroGlow} aria-hidden="true" />
         <div className={styles.heroInner}>
@@ -159,17 +219,17 @@ export default function SofwaveLanding({
             <p className={styles.heroKicker}>Harley Street, London</p>
 
             <h1 className={styles.heroTitle}>
-              Lift the heaviness around your eyes — without surgery, needles or downtime
+              Lift heavy, tired-looking eyes without surgery or downtime
             </h1>
 
             <p className={styles.heroLead}>
-              Sofwave™ uses focused ultrasound to rebuild collagen in the skin around your brow and
-              eyes. One 60-minute session, performed by a consultant oculoplastic surgeon.
+              Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes. One
+              60-minute session, with a consultant oculoplastic surgeon.
             </p>
 
             <div className={styles.heroPrice}>
               <span className={styles.heroPriceValue}>From £1,800</span>
-              <span className={styles.heroPriceNote}>Brow and periocular treatment</span>
+              <span className={styles.heroPriceNote}>Brow and eye area</span>
             </div>
 
             <div className={styles.heroActions}>
@@ -178,8 +238,8 @@ export default function SofwaveLanding({
             </div>
 
             <p className={styles.heroReassure}>
-              No obligation. We will call to answer your questions — and tell you honestly if
-              Sofwave is not the right treatment for you.
+              No obligation. We will tell you honestly if Sofwave is not the right treatment for
+              you.
             </p>
 
             <ul className={styles.trust}>
@@ -194,18 +254,20 @@ export default function SofwaveLanding({
 
           <div className={styles.heroAside}>
             <figure className={styles.heroFigure}>
-              {/* 1080 x 1080, the file's own dimensions, so the box is the
-                  right shape before the picture arrives and nothing shifts. */}
+              {/* Reserved 1:1 on a phone, then stretched to the copy column's
+                  height on desktop. SafeImage fills it and covers, so the box
+                  is the right shape before the picture arrives and nothing
+                  shifts either way. */}
               <div className={styles.heroImage}>
                 <SafeImage
                   src={treatment.heroImage}
                   alt="A Sofwave patient of Dr Sabrina Shah-Desai, before and after treatment"
-                  width={1080}
-                  height={1080}
                   sizes="(min-width: 900px) 46vw, 100vw"
                   priority
                 />
               </div>
+              {/* A direct child of the figure, as the spec requires, laid
+                  over the foot of the picture rather than under it. */}
               <figcaption className={styles.heroFigCaption}>
                 An actual patient of Dr Shah-Desai. Individual results vary.
               </figcaption>
@@ -216,52 +278,72 @@ export default function SofwaveLanding({
 
       <AccreditedStrip />
 
-      {/* ── The problem ───────────────────────────────────────────────────
-          First, because this page is bought from a feed rather than found in
-          a search: nobody scrolling Instagram was looking for the word
-          "Sofwave", and a solution lands on a problem the reader has not yet
-          put into words. */}
-      <section className={`${styles.section} ${styles.problem}`}>
-        <div className={styles.container}>
-          <div className={styles.problemGrid}>
-            <div className={styles.problemCopy}>
-              <h2 className={styles.h2}>It usually starts with a photograph</h2>
-              <p>
-                Someone takes a picture at an angle you did not choose, and the eyes looking back
-                are not quite the ones you expect. The lid sits lower than it used to. There is a
-                fold where there was not one. Eyeshadow gathers in a crease by lunchtime.
-              </p>
-              <p>
-                People ask whether you are tired on days you slept perfectly well. You have started
-                doing the small things — the front camera held higher, the brow lifted a little in
-                photographs, the one pair of glasses that helps.
-              </p>
-              <p className={styles.problemTurn}>
-                And when you have looked into it, everything you found was surgery. Which you are
-                not ready for, and may not need yet.
-              </p>
-            </div>
+      {/* ── At a Glance ───────────────────────────────────────────────────
+          The specification panel, back on the page and placed above the
+          explainer rather than below it. Someone who arrived from an ad wants
+          the six numbers before the prose: how long it takes, what the
+          anaesthetic is, when they can drive, when the result appears. The
+          shared treatment component, unchanged, fed this page's own rows. */}
+      <TreatmentGlance glance={treatment.glance} title="Sofwave™ Ultrasound" />
 
-            <aside className={styles.problemNote}>
-              <p className={styles.problemNoteBody}>
-                Dr Shah-Desai is a consultant oculoplastic surgeon — eyelid surgery is what she does
-                all week. Part of the consultation is her telling you whether you have reached the
-                point where surgery is the honest answer, or whether you have not.
+      {/* ── What is Sofwave? ──────────────────────────────────────────────
+          The device on the left, the plain description on the right. This
+          page is bought from a feed rather than found in a search, so the
+          reader has not typed the word and does not yet know what it names.
+          Everything after this section argues for the treatment; this one
+          only says what it is. */}
+      <section className={`${styles.section} ${styles.about}`}>
+        <div className={styles.container}>
+          <div className={styles.aboutGrid}>
+            <figure className={styles.aboutFigure}>
+              <div className={styles.aboutImage}>
+                <SafeImage
+                  src="/uploads/2017/08/Sofwave.jpg"
+                  alt="The Sofwave console and handpiece, held ready for treatment"
+                  sizes="(min-width: 900px) 46vw, 100vw"
+                />
+              </div>
+            </figure>
+
+            <div className={styles.aboutCopy}>
+              <p className={styles.aboutKicker}>The treatment</p>
+              <h2 className={styles.h2}>What is Sofwave?</h2>
+
+              <p className={styles.aboutLead}>
+                Sofwave is a non-invasive device that lifts and tightens skin with focused
+                ultrasound. It is FDA cleared for non-invasive lifting and tightening, and it is
+                used here on the brow and the skin around the eyes.
               </p>
-              <p className={styles.problemNoteAttr}>Why we lead with the assessment, not the treatment</p>
-            </aside>
+
+              <p>
+                The handpiece rests on the surface of the skin and sends parallel beams of
+                ultrasound to a depth of about 1.5mm, in the mid-dermis. That layer is heated in a
+                controlled way while the surface stays cool and intact. Nothing is cut, nothing is
+                injected, and nothing is removed.
+              </p>
+
+              <p>
+                Your skin treats the heated tissue as something to repair, and the repair is new
+                collagen and elastin. The change arrives as that collagen forms, over three to six
+                months, which is why it tends to read as looking well rather than as having had
+                something done.
+              </p>
+
+              {/* No fact ledger here any more. It carried session length,
+                  downtime and when the result appears, which is three of the
+                  six rows the At a Glance panel directly above now states. */}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Proof, before explanation ─────────────────────────────────────
-          Second on the page rather than eighth. A cold visitor has no reason
-          to read how focused ultrasound works until they believe the clinic
-          can do it. */}
+          A cold visitor has no reason to read how focused ultrasound works
+          until they believe the clinic can do it. */}
       <section className={`${styles.section} ${styles.proof}`}>
         <div className={styles.container}>
           <BeforeAfterGallery
-            gallery={frontmatter.gallery}
+            gallery={gallery ?? frontmatter.gallery}
             heading="Sofwave™, before and after"
             description="Photographed in the same lighting and at the same angle, untouched. Results vary between patients and are not guaranteed."
             title="Sofwave™"
@@ -270,36 +352,17 @@ export default function SofwaveLanding({
       </section>
 
       {/* ── Reviews ───────────────────────────────────────────────────────
-          Stacked and named. Nothing here is behind a swipe. */}
-      <section className={`${styles.section} ${styles.reviews}`}>
-        <div className={styles.container}>
-          <div className={styles.reviewsHead}>
-            <p className={styles.rating}>
-              <span className={styles.ratingScore}>4.8</span>
-              <span className={styles.ratingStars} aria-hidden="true">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <TpIcon key={i} name="star" size={17} />
-                ))}
-              </span>
-              <span className={styles.ratingCount}>from 240+ Google reviews</span>
-            </p>
-            <h2 className={styles.h2}>What patients say about the care</h2>
-          </div>
-
-          <div className={styles.reviewGrid}>
-            {REVIEWS.map((review) => (
-              <blockquote key={review.author} className={styles.review}>
-                <p>{review.quote}</p>
-                <cite>{review.author}</cite>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
+          The home page's own rail, with the shared review set, rather than a
+          second design for the same content. The wrapper only trims the
+          band's top padding, which is sized for the home page's own
+          neighbours; see .reviewsBand. */}
+      <div className={styles.reviewsBand}>
+        <PatientStories />
+      </div>
 
       {/* ── What it does ──────────────────────────────────────────────────
-          Six, not four: the two added — the FDA figures and the surgeon
-          herself — are the two a sceptical reader actually weighs. */}
+          Six, not four: the two added, the FDA figures and the surgeon
+          herself, are the two a sceptical reader actually weighs. */}
       <section className={`${styles.section} ${styles.benefits}`}>
         <div className={styles.container}>
           <div className={styles.head}>
@@ -364,7 +427,7 @@ export default function SofwaveLanding({
                 ))}
               </ul>
               <p className={styles.candidacyNote}>
-                If any of these describe you, the consultation is still worth having — it is the
+                If any of these describe you, the consultation is still worth having. It is the
                 appointment where you find out what would work instead.
               </p>
             </div>
@@ -388,7 +451,9 @@ export default function SofwaveLanding({
                 <div className={styles.stepBody}>
                   <h3>{step.heading}</h3>
                   <p>{step.body}</p>
-                  <p className={styles.stepMeta}>{step.meta}</p>
+                  <p className={styles.stepMeta}>
+                    <span>{step.meta}</span>
+                  </p>
                 </div>
               </li>
             ))}
@@ -396,38 +461,50 @@ export default function SofwaveLanding({
         </div>
       </section>
 
-      {/* ── The surgeon ───────────────────────────────────────────────────*/}
+      {/* ── The surgeon ───────────────────────────────────────────────────
+          A portrait of Dr Shah-Desai in a full rectangular frame, not a
+          circular crop. The circle previously held a before-and-after photo
+          of a patient, which is not a picture of the person the section is
+          about; and a 300px disc beside four paragraphs left the column
+          hanging in whitespace. The frame is 3:4, the source file's own
+          ratio, and the two columns are centred on each other. */}
       <section className={`${styles.section} ${styles.surgeon}`}>
         <div className={styles.container}>
           <div className={styles.surgeonGrid}>
-            <div className={styles.surgeonPortrait}>
+            <figure className={styles.surgeonPortrait}>
               <div className={styles.surgeonImage}>
                 <SafeImage
-                  src="/uploads/2026/05/dr-sabrina-shah-desai-and-her-image-in-cicular-format-1.jpg"
-                  alt="Dr Sabrina Shah-Desai"
-                  width={2048}
-                  height={2048}
-                  sizes="(min-width: 900px) 300px, 60vw"
+                  src="/dr-sabrina-profile.png"
+                  alt="Dr Sabrina Shah-Desai, consultant oculoplastic surgeon"
+                  sizes="(min-width: 1080px) 420px, (min-width: 900px) 38vw, 100vw"
                 />
               </div>
-            </div>
+              <figcaption className={styles.surgeonPlate}>
+                <strong>Dr Sabrina Shah-Desai</strong>
+                <span>Consultant Oculoplastic Surgeon, MS FRCS</span>
+              </figcaption>
+            </figure>
+
             <div className={styles.surgeonCopy}>
+              <p className={styles.aboutKicker}>Your surgeon</p>
               <h2 className={styles.h2}>Who performs it</h2>
               <p className={styles.surgeonLead}>
                 Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon who has spent her career
                 on the eyelid and the tissue around it. She teaches the techniques to other doctors.
               </p>
               <p>
-                On this treatment that specialism is not a flourish. The applicator is being used
-                millimetres from the eye, and the person judging how much the brow can be lifted —
-                and whether ultrasound can do it at all — is the same person who would perform the
+                On this treatment that specialism is not a flourish. The applicator is used
+                millimetres from the eye. The person judging how much the brow can be lifted, and
+                whether ultrasound can lift it at all, is the same person who would perform the
                 surgery if it could not.
               </p>
               <ul className={styles.credentials}>
-                <li>GMC-registered consultant surgeon</li>
-                <li>Fellow of the Royal College of Surgeons of Edinburgh</li>
-                <li>Trainer to other doctors in oculoplastic and aesthetic technique</li>
-                <li>Practising at 121 Harley Street</li>
+                {CREDENTIALS.map((item) => (
+                  <li key={item}>
+                    <TpIcon name="check" size={16} />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -435,10 +512,12 @@ export default function SofwaveLanding({
       </section>
 
       {/* ── Price ─────────────────────────────────────────────────────────
-          Both figures, plainly. The consultation fee is stated here rather
-          than discovered at the booking step: a £300 assessment reads as a
-          proper appointment with a consultant when it is explained, and as a
-          nasty surprise when it is not. */}
+          Three cards side by side from 900px: the two treatments and the
+          appointment that decides between them. The consultation fee is one
+          of the three rather than a dark slab underneath, because a £300
+          assessment reads as a proper appointment with a consultant when it
+          is priced beside the treatments, and as a nasty surprise when it
+          turns up after them. */}
       <section className={`${styles.section} ${styles.pricing}`} id="pricing">
         <div className={styles.container}>
           <div className={styles.head}>
@@ -449,117 +528,89 @@ export default function SofwaveLanding({
             </p>
           </div>
 
-          <div className={styles.priceGrid}>
+          <ul className={styles.priceGrid}>
             {PRICES.map((row) => (
-              <div key={row.name} className={styles.priceRow}>
-                <div>
-                  <h3>{row.name}</h3>
-                  <p>{row.note}</p>
-                </div>
-                <span className={styles.priceValue}>{row.price}</span>
-              </div>
-            ))}
-          </div>
+              <li key={row.name} className={styles.priceCard}>
+                <span className={styles.priceKind}>{row.kind}</span>
 
-          <div className={styles.consultCard}>
-            <div>
-              <h3>New consultation with Dr Shah-Desai</h3>
-              <p>
-                Forty-five minutes: examination, a straight answer on whether Sofwave or surgery
-                fits what you want, and a written plan. Bookable by phone once we have spoken.
-              </p>
-            </div>
-            <span className={styles.consultPrice}>£300</span>
-          </div>
+                <h3 className={styles.priceName}>{row.name}</h3>
+
+                <p className={styles.priceAmount}>
+                  <span className={styles.priceValue}>{row.price}</span>
+                  <span className={styles.priceUnit}>{row.unit}</span>
+                </p>
+
+                <p className={styles.priceNote}>{row.note}</p>
+
+                <ul className={styles.priceMeta}>
+                  {row.meta.map((item) => (
+                    <li key={item}>
+                      <TpIcon name="check" size={15} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <a href="#callback" className={styles.priceCta}>
+                  Request a call back
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className={styles.priceFoot}>
+            Nothing is booked from this page. We call you back, and the consultation is booked by
+            phone once we have spoken.
+          </p>
         </div>
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────────────────
-          The page's own questions, including the one about risk. A page that
-          answers "what could go wrong" is trusted more than one that does
-          not, and a medical page has to answer it regardless. */}
-      {frontmatter.faq && frontmatter.faq.length > 0 && (
-        <section className={`${styles.section} ${styles.faq}`}>
-          <div className={styles.container}>
-            <div className={styles.head}>
-              <h2 className={styles.h2}>Questions people ask before booking</h2>
-            </div>
+          The home page's accordion, fed this page's own questions, including
+          the one about risk. A page that answers "what could go wrong" is
+          trusted more than one that does not, and a medical page has to
+          answer it regardless.
 
-            <div className={styles.faqList}>
-              {frontmatter.faq.map((item) => (
-                <details key={item.question} className={styles.faqItem}>
-                  <summary>
-                    <span>{item.question}</span>
-                    <span className={styles.faqMark} aria-hidden="true">
-                      <TpIcon name="plus" size={16} />
-                    </span>
-                  </summary>
-                  <div
-                    className={styles.faqAnswer}
-                    dangerouslySetInnerHTML={{ __html: item.answer }}
-                  />
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+          contentIsHtml because these answers arrive from MDX frontmatter as
+          HTML, entities included. */}
+      {frontmatter.faq && frontmatter.faq.length > 0 && (
+        <HomeFaq
+          items={frontmatter.faq}
+          eyebrow="Before you book"
+          title="Questions people ask before booking"
+          lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment by your surgeon."
+          contentIsHtml
+          footer={
+            <a href="#callback" className="tp-btn tp-btn-primary">
+              Request a call back
+            </a>
+          }
+        />
       )}
 
-      {/* ── Closer ────────────────────────────────────────────────────────*/}
-      <section className={styles.closer} id="callback">
-        <span className={styles.closerGlow} aria-hidden="true" />
+      {/* ── The enquiry ───────────────────────────────────────────────────
+          The home page's own contact panel, which is where every call to
+          action on this page points. It carries the same four-field callback
+          form the page already used, and adds what the bespoke closer did
+          not: the phone number, the email address, the opening hours and the
+          address, all inside one indigo panel.
+
+          The id sits on the wrapper rather than inside the shared component,
+          which has no prop for one, and the wrapper also carries the privacy
+          line. The form takes a name, an email and a phone number, and the
+          footer holds no legal links, so the notice has to be reachable from
+          the point of collection. That is also what Google Ads and Meta look
+          for on a landing page that takes personal details. */}
+      <div className={styles.closer} id="callback">
+        <ContactSection />
+
         <div className={styles.container}>
-          <div className={styles.closerGrid}>
-            <div className={styles.closerCopy}>
-              <h2 className={styles.closerTitle}>Find out whether it would work on you</h2>
-              <p className={styles.closerLead}>
-                Leave your number and a member of the clinical team will call you back. They will
-                ask what you are seeing in the mirror, tell you whether Sofwave is likely to help,
-                and book your consultation if it is.
-              </p>
-
-              <ul className={styles.closerPoints}>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  A conversation, not a sales call
-                </li>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  We will tell you if surgery is the better answer
-                </li>
-                <li>
-                  <TpIcon name="check" size={17} />
-                  Weekdays, 9:30am to 6:00pm
-                </li>
-              </ul>
-
-              <p className={styles.closerOr}>
-                Prefer to speak now? <ClinicPhone className={styles.closerPhone} /> — or{" "}
-                <BookConsultationModal className={styles.closerBook} label="Book a consultation">
-                  book a consultation directly
-                </BookConsultationModal>
-                .
-              </p>
-            </div>
-
-            <div className={styles.formCard}>
-              <h3 className={styles.formTitle}>Request a call back</h3>
-              <RequestCallbackForm compact submitLabel="Request my call back" />
-
-              {/* The one link on this page that is not a call to action.
-                  The form collects a name, an email and a phone number, and
-                  the footer here carries no legal links, so the privacy
-                  notice has to be reachable from the point of collection —
-                  which is also what Google Ads and Meta look for on a
-                  landing page that takes personal details. */}
-              <p className={styles.formLegal}>
-                We use your details to call you back about this enquiry. See our{" "}
-                <Link href="/privacy-notice">Privacy Notice</Link>.
-              </p>
-            </div>
-          </div>
+          <p className={styles.formLegal}>
+            We use your details to call you back about this enquiry. See our{" "}
+            <Link href="/privacy-notice">Privacy Notice</Link>.
+          </p>
         </div>
-      </section>
+      </div>
 
     </div>
   );
