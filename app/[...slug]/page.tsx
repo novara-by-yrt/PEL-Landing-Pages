@@ -19,8 +19,6 @@ import HomeFaq from "@/components/home/HomeFaq";
 import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import { PATIENT_STORIES } from "@/lib/reviews";
-import pageHierarchy from "@/content/page-hierarchy.json";
-import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
@@ -46,8 +44,6 @@ import {
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
 
-const childPages: Record<string, string[]> = pageHierarchy.childPages;
-const urlToMdxMap: Record<string, string> = urlMapData.urlToMdx;
 
 const treatmentMeta = treatmentMetaRaw as unknown as Record<string, TreatmentMeta>;
 const TREATMENT_SLUGS = new Set(Object.keys(treatmentMeta));
@@ -61,42 +57,40 @@ function humaniseSegment(seg: string): string {
     .join(" ");
 }
 
+/* One URL per page, and no others.
+ *
+ * This used to emit every path the WordPress migration knew about — the
+ * canonical treatment paths, all 168 keys of the URL map, the page hierarchy
+ * and the file slugs — which put most documents on the web at two, three or
+ * four addresses at once. That was deliberate while this was the clinic's
+ * site: the aliases kept old inbound links alive. This repository serves
+ * standalone landing pages, so it is only duplication, and 25 of those paths
+ * resolved to nothing and prerendered a 404 shell.
+ *
+ * What is emitted now is exactly the address each page already declares as
+ * its canonical (generateMetadata below): the nested path for a treatment,
+ * the file slug for everything else. Legacy URLs are still handled — the
+ * redirects in next.config.ts 301 them here — they are just no longer pages
+ * of their own.
+ */
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  const fileSlugs = getPostSlugs("pages");
-  const paramsList: { slug: string[] }[] = [];
-  const addedPaths = new Set<string>();
+  const params: { slug: string[] }[] = [];
 
-  // Canonical treatment paths first — these are the indexable URLs.
-  for (const urlPath of Object.values(TREATMENT_PATHS)) {
-    if (!addedPaths.has(urlPath)) {
-      addedPaths.add(urlPath);
-      paramsList.push({ slug: urlPath.split("/") });
-    }
+  for (const fileSlug of getPostSlugs("pages")) {
+    /* A file whose own slug resolves to a different document is a duplicate
+     * of that document — the URL map points it elsewhere — so it gets no URL
+     * of its own. content/pages/about-drsabrina.mdx is the one such file: the
+     * map sends /about-drsabrina to dr-sabrina-shah-desai, and it has done
+     * since the migration, so nothing here has ever rendered it. */
+    const page = getPostBySlug("pages", fileSlug);
+    if (!page || page.slug !== fileSlug) continue;
+
+    params.push({ slug: (TREATMENT_PATHS[fileSlug] ?? fileSlug).split("/") });
   }
 
-  for (const urlPath of Object.keys(urlToMdxMap)) {
-    if (!addedPaths.has(urlPath)) {
-      addedPaths.add(urlPath);
-      paramsList.push({ slug: urlPath.split("/") });
-    }
-  }
-
-  for (const segs of Object.values(childPages)) {
-    const key = segs.join("/");
-    if (!addedPaths.has(key)) {
-      addedPaths.add(key);
-      paramsList.push({ slug: segs });
-    }
-  }
-
-  for (const fileSlug of fileSlugs) {
-    if (!addedPaths.has(fileSlug)) {
-      addedPaths.add(fileSlug);
-      paramsList.push({ slug: [fileSlug] });
-    }
-  }
-
-  return paramsList;
+  return params;
 }
 
 export async function generateMetadata({
