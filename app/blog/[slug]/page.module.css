@@ -42,8 +42,8 @@
 .blogSidebar {
   --sb-gutter: 8px;
   position: sticky;
-  top: calc(var(--header-height, 72px) + 1.5rem - var(--sb-gutter));
-  max-height: calc(100dvh - var(--header-height, 72px) - 3rem + (var(--sb-gutter) * 2));
+  top: calc(1.5rem - var(--sb-gutter));
+  max-height: calc(100dvh - 3rem + (var(--sb-gutter) * 2));
   overflow-y: auto;
   /* Keeps a wheel/trackpad gesture inside the sidebar from chaining to the
      page once it hits its end. */

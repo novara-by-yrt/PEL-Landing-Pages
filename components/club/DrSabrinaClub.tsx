@@ -108,9 +108,9 @@ export function DrSabrinaClub() {
   };
 
   /* The dialog is portalled to <body> so its z-index competes with the
-     site's fixed header (.pel-nav, z-index 200) on equal footing — nested
-     inline it lost that contest, since this overlay's z-index (100) is
-     lower and the two sit in the same stacking context.
+     page's other fixed chrome on equal footing — nested inline it lost that
+     contest, since this overlay's z-index (100) is lower and the two sit in
+     the same stacking context.
      Read once during render rather than in an effect: the portal only ever
      renders after a click, so the server's null and the client's body element
      never disagree at hydration. */

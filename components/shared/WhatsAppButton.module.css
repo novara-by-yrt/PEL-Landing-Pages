@@ -1,9 +1,7 @@
 /* Floating WhatsApp link, bottom-right.
 
-   z-index matches StickyCallbackBar's 140 for the same reasons set out
-   there: below the cookie banner (150), so consent is dealt with first, and
-   below .pel-nav (200), so an open mobile drawer is never sitting behind a
-   floating button. */
+   z-index matches StickyCallbackBar's 140 for the same reason set out
+   there: below the cookie banner (150), so consent is dealt with first. */
 .fab {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
