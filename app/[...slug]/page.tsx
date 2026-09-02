@@ -24,7 +24,7 @@ import urlMapData from "@/content/url-map.json";
 import treatmentMetaRaw from "@/content/treatment-meta.json";
 import { TREATMENT_PATHS } from "@/lib/treatment-urls";
 import { TREATMENT_BEFORE_AFTER } from "@/lib/treatment-before-after";
-import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveRobots, resolveTitle } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import type { TreatmentMeta, BreadcrumbItem } from "@/components/treatment/types";
 import {
   TreatmentHero,
@@ -133,7 +133,6 @@ export async function generateMetadata({
   return {
     title: metadataTitle(title),
     description,
-    robots: resolveRobots(frontmatter.seo?.robots),
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       type: (["website", "article", "book", "profile"].includes(frontmatter.seo?.og?.type || "")

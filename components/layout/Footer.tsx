@@ -1,73 +1,22 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { TpIcon } from "@/components/treatment/TpIcon";
 import ClinicPhone from "@/components/shared/ClinicPhone";
-import { CLINIC, SOCIALS } from "@/lib/clinic";
+import { CLINIC } from "@/lib/clinic";
 import styles from "./Footer.module.css";
 
-/** The clinic's own entry on the CQC register — the same location the home
- *  page's "good rating in all 5 key areas" line points at. */
+/** The clinic's own entry on the CQC register. */
 const CQC_REGISTER_URL = "https://www.cqc.org.uk/location/1-5591490767";
 
-/**
- * The CQC badge the treatment pages already use.
- *
- * ⚠️ It is served from /uploads, which rewrites to the WordPress origin — the
- * origin this migration exists to switch off. Once the artwork is copied into
- * public/ (or UPLOADS_ORIGIN is repointed at R2), change this to the local
- * path. Until then the footer degrades to text alone rather than showing a
- * broken image on every page of the site, which is what the onError below is
- * for.
- */
-const CQC_BADGE_SRC = "/uploads/2024/09/Frame-252.png";
+/* Legal only. These are standalone landing pages, so the footer carries no
+   navigation: the page has one job and every link out of it is a way to
+   leave without converting. What stays is what a landing page still has to
+   say — who is running it, how to reach them, and where the privacy notice
+   and terms are. Google Ads and Meta both check for a reachable privacy
+   policy, and a CQC-registered provider has to publish its rating, so those
+   three links earn their place where a "Popular treatments" column does not.
 
-/* The header mega-menu mounts its links only once a person opens it, so a
-   crawler - which never hovers or clicks - sees just three links in the
-   <header>. That leaves the footer as the site's only crawlable global
-   navigation, and anything absent from it depends entirely on being linked
-   from body copy. /case-studies, /publications, /testimonials and the
-   philosophy page had no internal links anywhere on the site as a result.
-   They are real, substantial pages and three of them carry the clinic's
-   E-E-A-T signals, so they belong in the global nav. */
-const QUICK_LINKS = [
-  { href: "/dr-sabrina-shah-desai", label: "Meet Dr Shah-Desai" },
-  /* /meet-team is a 308 to /team, so linking it sent every visitor who used
-     this footer entry through a redirect. Pointing at the destination. */
-  { href: "/team", label: "About the Clinic" },
-  { href: "/dr-sabrina-shah-desai/philosophy", label: "Our Philosophy" },
-  { href: "/journey-of-eye-care", label: "The Eye Care Journey" },
-  { href: "/before-after", label: "Results" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/testimonials", label: "Testimonials" },
-  { href: "/publications", label: "Publications" },
-  { href: "/contact-cosmetic-eye-surgeon", label: "Book a Consultation" },
-  { href: "/contact", label: "Contact" },
-];
-
-const POPULAR_TREATMENTS = [
-  {
-    href: "/surgical/eyelid-surgery/upper-eyelid-blepharoplasty-uk",
-    label: "Upper Eyelid Blepharoplasty",
-  },
-  {
-    href: "/surgical/eyelid-surgery/eye-bag-removal-blepharoplasty-uk",
-    label: "Eye Bag Removal Blepharoplasty",
-  },
-  { href: "/surgical/eyelid-surgery/droppy-eye-ptosis-surgery-uk", label: "Ptosis Surgery" },
-  { href: "/surgical/browlift-treatment-uk", label: "Browlift Treatment" },
-  { href: "/non-surgical/tear-trough-fillers-uk", label: "Tear Trough Fillers" },
-];
-
-/* Both privacy links used to point at /privacy-notice-1 and -2, which are
-   superseded drafts of /privacy-notice and are excluded from the index - so
-   every page linked twice to pages search engines are told to ignore, and
-   neither was the live notice. One link, pointing at the real one.
-
-   The terms link was also wrong: /non-surgical-terms-conditions 404s. The
-   page lives under the surgeon's path. */
+   Both targets are live: /privacy-notice (content/pages/privacy-notice.mdx —
+   not the -1/-2 drafts, which are superseded and excluded from the index)
+   and the terms page under the surgeon's path. */
 const LEGAL_LINKS = [
   { href: "/privacy-notice", label: "Privacy Notice" },
   {
@@ -76,223 +25,53 @@ const LEGAL_LINKS = [
   },
 ];
 
-const SOCIAL_ICONS: Record<string, React.ReactNode> = {
-  Instagram: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  "X / Twitter": (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.6 3h6.2l4.2 5.6L17.5 3z" />
-    </svg>
-  ),
-};
-
 export default function Footer() {
+  /* Resolved when the page is built rather than in the browser, which is what
+     lets this stay a server component — the pages are rebuilt often enough
+     for the year to keep up. */
   const currentYear = new Date().getFullYear();
-  const footerRef = useRef<HTMLElement>(null);
-  /* The badge lives on an origin that is on its way out; if it does not load,
-     the registration statement stands on its own rather than sitting beside a
-     broken image on every page. */
-  const [badgeFailed, setBadgeFailed] = useState(false);
-
-  /* Publishes the footer's own rendered height as a CSS custom property, so
-     #footer-spacer (layout-chrome.css) can reserve exactly that much scroll
-     room for the reveal effect. A ResizeObserver rather than a one-off
-     measurement, since the footer's height changes with viewport width
-     (columns stack on mobile) and with content reflow (e.g. a webfont
-     swapping in).
-
-     The reveal only works while the footer fits on screen: it is
-     `position: fixed`, so any part of it taller than the viewport sits above
-     the top edge and can never be scrolled to. Stacked into one column on a
-     phone the footer runs ~1450px against a ~640-850px viewport, which left
-     the top third - the whole Quick links column - permanently unreachable.
-     So measure against the viewport and, when it cannot fit, hand the footer
-     back to normal flow (`data-reveal="off"`) and zero the spacer. */
-  useEffect(() => {
-    const el = footerRef.current;
-    if (!el) return;
-
-    const sync = () => {
-      /* Nothing is fixed over the top of these pages, so the room the footer
-         has is the whole viewport. (This used to subtract the height of the
-         fixed site header, which no longer exists here.) */
-      const fits = el.offsetHeight <= window.innerHeight;
-      el.dataset.reveal = fits ? "on" : "off";
-      document.documentElement.style.setProperty(
-        "--footer-h",
-        fits ? `${el.offsetHeight}px` : "0px",
-      );
-    };
-
-    sync();
-    const observer = new ResizeObserver(sync);
-    observer.observe(el);
-    /* Rotating a phone changes the viewport without necessarily changing the
-       footer's own height, so the observer alone would miss it. */
-    window.addEventListener("resize", sync);
-    window.addEventListener("orientationchange", sync);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", sync);
-      window.removeEventListener("orientationchange", sync);
-    };
-  }, []);
 
   return (
-    <footer ref={footerRef} className={styles.footer} role="contentinfo">
+    <footer className={styles.footer} role="contentinfo">
       <div className="container">
-        <div className={styles.grid}>
-          <nav className={styles.colStart} aria-label="Quick links">
-            <h2 className={styles.colHead}>Quick links</h2>
-            <ul className={styles.list}>
-              {QUICK_LINKS.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className={styles.link}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div className={styles.row}>
+          <p className={styles.clinic}>{CLINIC.name}</p>
 
-          <div className={styles.brand}>
-            {/* The transparent PNG, not the JPEG: the JPEG carries a baked
-                white background, which would show as a hard white block if
-                the card behind it ever changes. */}
-            <Link href="/" className={styles.mark} aria-label="The Perfect Eyes Clinic, home">
-              <Image
-                src="/PEL_logo_without_background.png"
-                alt="The Perfect Eyes Clinic"
-                width={719}
-                height={347}
-                sizes="(min-width: 640px) 210px, 180px"
-                className={styles.markImg}
-              />
-            </Link>
+          <ClinicPhone className={styles.phone} icon />
 
-            <span className={styles.markRule} aria-hidden="true" />
-
-            <p className={styles.tagline}>
-              A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai.
-            </p>
-
-            <div className={styles.socials}>
-              {SOCIALS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.social}
-                  /* Icon only, so the link needs its own accessible name. */
-                  aria-label={`${social.label} (opens in a new tab)`}
-                >
-                  {SOCIAL_ICONS[social.label]}
-                </a>
-              ))}
-            </div>
-
-            <address className={styles.contact}>
-              <span className={styles.contactRow}>
-                <span className={styles.contactIcon}>
-                  <TpIcon name="pin" size={16} />
-                </span>
-                {CLINIC.address}
-              </span>
-              <ClinicPhone className={styles.contactRow}>
-                <span className={styles.contactIcon}>
-                  <TpIcon name="phone" size={16} />
-                </span>
-                {CLINIC.phoneDisplay}
-              </ClinicPhone>
-              <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
-                <span className={styles.contactIcon}>
-                  <TpIcon name="mail" size={16} />
-                </span>
-                {CLINIC.email}
-              </a>
-            </address>
-          </div>
-
-          <nav className={styles.colEnd} aria-label="Popular treatments">
-            <h2 className={styles.colHead}>Popular treatments</h2>
-            <ul className={styles.list}>
-              {POPULAR_TREATMENTS.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className={styles.link}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        <div className={styles.bottom}>
-          {/* The regulatory badge and the legal links share one row: they are
-              the same kind of statement, and giving each its own centred line
-              left the bar reading as three unrelated things stacked up with
-              nothing lining up against anything. Side by side they bracket
-              the row - badge to one edge, links to the other - and the fine
-              print sits under both. */}
-          <div className={styles.bottomRow}>
-            {/* Regulatory registration. Links out to the clinic's own entry
-                on the CQC register, so the claim can be checked rather than
-                just read.
-
-                The badge sits on a white plate: it is the artwork the
-                treatment pages use, drawn for those pages' pale background,
-                and the footer is dark. The plate keeps it legible whatever
-                its ink, the same way the Google mark is handled on the dark
-                review cards. */}
+          <nav className={styles.legal} aria-label="Legal">
+            {LEGAL_LINKS.map((item) => (
+              <Link key={item.href} href={item.href} className={styles.legalLink}>
+                {item.label}
+              </Link>
+            ))}
             <a
               href={CQC_REGISTER_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.cqc}
+              className={styles.legalLink}
             >
-              {badgeFailed ? null : (
-                <span className={styles.cqcPlate}>
-                  <Image
-                    src={CQC_BADGE_SRC}
-                    alt=""
-                    width={190}
-                    height={31}
-                    className={styles.cqcMark}
-                    onError={() => setBadgeFailed(true)}
-                  />
-                </span>
-              )}
-              <span className={styles.cqcCopy}>
-                <span className={styles.cqcText}>CQC registered</span>
-                <span className={styles.cqcMeta}>Rated good in all five key areas</span>
-              </span>
+              CQC registered
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
+          </nav>
+        </div>
 
-            <nav className={styles.legal} aria-label="Legal">
-              {LEGAL_LINKS.map((item) => (
-                <Link key={item.href} href={item.href} className={styles.legalLink}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        <div className={styles.fine}>
+          {/* One template string rather than text interleaved with {…} holes:
+              JSX decides for itself which spaces around an expression survive,
+              and this line lost the one after the year. It also keeps React
+              from stitching the sentence together out of half a dozen text
+              nodes separated by <!-- --> markers in the HTML.
 
-          <div className={styles.fine}>
-            <p>
-              {/* Registered name, not CLINIC.name (the trading name) — this
-                  line makes a statement about the actual Companies House
-                  entity, which must carry its "Ltd" suffix. See lib/clinic.ts. */}
-              © {currentYear} Perfect Eyes Ltd. All rights reserved. Registered in England &amp;
-              Wales, company no. {CLINIC.companyNumber}.
-            </p>
-            <p>{CLINIC.addressShort}</p>
-          </div>
+              "Perfect Eyes Ltd", not CLINIC.name (the trading name) — this
+              line makes a statement about the actual Companies House entity,
+              which must carry its "Ltd" suffix. See lib/clinic.ts. */}
+          <p>
+            {`© ${currentYear} Perfect Eyes Ltd. All rights reserved. ` +
+              `Registered in England & Wales, company no. ${CLINIC.companyNumber}. ` +
+              `${CLINIC.addressShort}.`}
+          </p>
         </div>
       </div>
     </footer>

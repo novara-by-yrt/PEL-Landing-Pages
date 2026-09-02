@@ -13,7 +13,7 @@ import { BlogCtaBox } from "@/components/blog/BlogCtaBox";
 import { BlogSidebarForm } from "@/components/forms/BlogSidebarForm";
 import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogShareIcons } from "@/components/blog/BlogShareIcons";
-import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveRobots, resolveTitle } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import SafeImage from "@/components/shared/SafeImage";
 import HomeFaq from "@/components/home/HomeFaq";
 import { ProsCons } from "@/components/blog/ProsCons";
@@ -75,7 +75,6 @@ export async function generateMetadata({
     keywords: frontmatter.seo?.focusKeyword
       ? [frontmatter.seo.focusKeyword]
       : undefined,
-    robots: resolveRobots(frontmatter.seo?.robots),
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       type: "article",

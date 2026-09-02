@@ -16,7 +16,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import PatientStories from "@/components/home/PatientStories";
 import ContactSection from "@/components/home/ContactSection";
 import { PATIENT_STORIES } from "@/lib/reviews";
-import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveRobots, resolveTitle } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, metadataTitle, resolveDescription, resolveTitle } from "@/lib/seo";
 import {
   PageHero,
   TreatmentOverview,
@@ -52,7 +52,6 @@ export async function generateMetadata({
   return {
     title: metadataTitle(title),
     description,
-    robots: resolveRobots(frontmatter.seo?.robots),
     alternates: { canonical: frontmatter.seo?.canonicalUrl || url },
     openGraph: {
       url,

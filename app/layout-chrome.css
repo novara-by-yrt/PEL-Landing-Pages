@@ -38,39 +38,19 @@
   animation-direction: reverse;
 }
 
-/* ── Reveal footer ─────────────────────────────────────────────────────────
-   The footer stays pinned to the bottom of the viewport for the whole page
-   and is uncovered only once the user has scrolled past the rest of the
-   content, like a curtain lifting, rather than simply appearing at the end
-   of the page.
+/* ── Page content layer ───────────────────────────────────────────────────
+   #main-content is given a stacking layer and an opaque background of its
+   own so the page's sections — several of which position decorative art at
+   z-index: -1 — resolve against the page rather than against the document
+   root. The footer follows it in normal flow.
 
-   How: the footer is `position: fixed`, so it never occupies flow space of
-   its own — #footer-spacer (an empty element right after #main-content)
-   reserves that scroll room instead. #main-content sits in a higher
-   stacking layer with an opaque background, so it covers the fixed footer
-   for as long as its own content is what should be on screen; once the
-   page scrolls past #main-content into the (transparent) spacer, there is
-   nothing left above the footer and it becomes visible underneath.
-
-   This only works because the footer is taken out of flow entirely: an
-   in-flow sticky/negative-margin version can't produce a real gap, since a
-   negative margin shortens where a *sibling* sits without ever shortening
-   the element's own painted box — #main-content would still visually reach
-   every pixel down to the last scrollable position and the footer would
-   never have room to appear. A spacer that genuinely adds scrollable height
-   is what creates that room.
-
-   --footer-h is written by Footer.tsx (a ResizeObserver on the footer's own
-   height, since its rendered height changes with viewport width and content
-   reflow). It defaults to 0px, so before that JS runs the spacer is zero
-   height and the footer sits flush at the bottom — no flash of broken
-   layout, just the ordinary (non-revealing) footer placement. */
+   (This used to do more: the footer was `position: fixed` and uncovered
+   like a curtain once the page had been scrolled past, with an empty
+   #footer-spacer reserving the scroll room. That was worth it for a large
+   three-column footer; the legal one that replaced it has nothing down
+   there to reward the trip, so it simply sits at the end of the page.) */
 #main-content {
   position: relative;
   z-index: 1;
   background: var(--clr-bg);
-}
-
-#footer-spacer {
-  height: var(--footer-h, 0px);
 }
