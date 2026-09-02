@@ -1,128 +1,123 @@
-/* Legal footer — one quiet band at the end of a landing page.
+/* Clinic footer — one centred block at the end of a landing page.
 
    It sits in normal flow rather than being revealed from behind the page the
    way the old site-wide footer was: that effect existed to make a large
-   three-column footer worth scrolling to, and there is no longer anything
-   down here to reward the trip. */
+   three-column footer worth scrolling to, and there is nothing down here now
+   to reward the trip. */
 
 .footer {
   background: var(--tp-indigo-950);
   color: var(--tp-lavender-200);
-  padding-block: clamp(28px, 3.5vw, 40px);
+  padding-block: clamp(36px, 4.5vw, 52px);
   /* Extra room at the foot for the fixed "Request a call back" pill, which
      floats over everything down here — without it the pill sits on top of
      the legal line. */
-  padding-bottom: calc(clamp(28px, 3.5vw, 40px) + 72px);
+  padding-bottom: calc(clamp(36px, 4.5vw, 52px) + 72px);
 }
 
-/* Mobile-first: the three items stack and centre. From 900px they sit on one
-   line, with the legal links pushed to the opposite edge from the name. */
-.row {
+.brand {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
   text-align: center;
 }
 
-.clinic {
-  margin: 0;
-  font-family: var(--tp-display);
-  font-size: var(--fs-body-lg);
-  font-weight: 600;
-  color: #fff;
+.mark {
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 22px) clamp(20px, 4vw, 28px);
+  border-radius: 18px;
+  background: var(--tp-paper);
+  box-shadow: var(--tp-shadow-md);
+}
+/* Sized by width, height follows the mark's 719:347 ratio. */
+.markImg {
+  width: clamp(180px, 46vw, 210px);
+  height: auto;
 }
 
-.phone {
-  display: inline-flex;
+.markRule {
+  width: 60px;
+  height: 1px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.tagline {
+  margin: 16px 0 0;
+  max-width: 34ch;
+  font-size: var(--fs-body-md);
+  line-height: 1.6;
+  color: var(--tp-lavender-100);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 9px;
-  /* 44px: the number is the one thing here anyone taps on purpose, so it gets
-     a full touch target rather than the link-sized one the legal row uses. */
+  margin-top: 10px;
+  /* <address> is italic by default in every browser. */
+  font-style: normal;
+  /* The street address and the email address have no break opportunity a
+     browser will take by default. Letting them break anywhere is what keeps
+     either from running past the edge on a narrow phone. */
+  overflow-wrap: anywhere;
+}
+.contactRow {
+  display: inline-flex;
+  /* Not center: the address wraps to two lines on a phone, and centring the
+     icon against the whole block leaves it hanging in the gap between them
+     rather than beside the street. Aligned to the top, with the icon given
+     the height of one line, it sits against the first line whether the row
+     wraps or not — so the single-line phone and email rows are unchanged. */
+  align-items: flex-start;
+  gap: 10px;
+  /* 44px of row: the phone and the email are tapped on purpose, so they get a
+     full touch target rather than a text-sized one. */
+  padding-block: 10px;
   min-height: 44px;
+  line-height: 1.55;
   font-size: var(--fs-body-md);
   color: var(--tp-lavender-100);
   text-decoration: none;
   transition: color 180ms var(--tp-ease);
 }
-.phone:hover {
+a.contactRow:hover {
   color: #fff;
 }
-.phone svg {
-  color: var(--tp-lavender-400);
-}
-
-.legal {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0 20px;
-}
-.legalLink {
-  position: relative;
-  display: inline-block;
-  padding: 9px 0;
-  font-size: var(--fs-body-sm);
-  color: var(--tp-lavender-100);
-  text-decoration: none;
-}
-.legalLink:hover {
-  color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.legalLink:focus-visible,
-.phone:focus-visible {
+a.contactRow:focus-visible {
   outline: 2px solid var(--tp-lavender-300);
   outline-offset: 3px;
   border-radius: 4px;
 }
+.contactIcon {
+  /* One line box tall, with the glyph centred inside it, so the icon lines up
+     with the first line's optical centre instead of its top edge. */
+  display: inline-flex;
+  align-items: center;
+  height: 1.55em;
+  color: var(--tp-lavender-400);
+  flex-shrink: 0;
+}
 
 .fine {
-  margin-top: clamp(14px, 2vw, 18px);
-  padding-top: clamp(14px, 2vw, 18px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 10px;
+  max-width: 78ch;
+  margin: clamp(24px, 3vw, 32px) auto 0;
+  padding-top: clamp(18px, 2.4vw, 24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   font-size: var(--fs-caption);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--tp-lavender-400);
 }
 .fine p {
   margin: 0;
 }
 
-@media (min-width: 900px) {
-  .row {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 12px 28px;
-    text-align: left;
-  }
-  .legal {
-    justify-content: flex-end;
-  }
-
-  /* Dot between each link, so they read as one legal line rather than three
-     separate things. Only here: the separator is drawn to the LEFT of every
-     link but the first, so as soon as the set wraps — which it does on any
-     phone — the dot leads the second line and reads as a bullet. 900px is
-     where the row goes horizontal and the set is measured to fit unwrapped. */
-  .legalLink + .legalLink::before {
-    content: "";
-    position: absolute;
-    left: -10px;
-    top: 50%;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.32);
-    transform: translateY(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .phone {
+  .contactRow {
     transition: none;
   }
 }

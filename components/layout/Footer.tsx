@@ -1,30 +1,18 @@
-import Link from "next/link";
+import Image from "next/image";
 import ClinicPhone from "@/components/shared/ClinicPhone";
+import { TpIcon } from "@/components/treatment/TpIcon";
 import { CLINIC } from "@/lib/clinic";
 import styles from "./Footer.module.css";
 
-/** The clinic's own entry on the CQC register. */
-const CQC_REGISTER_URL = "https://www.cqc.org.uk/location/1-5591490767";
-
-/* Legal only. These are standalone landing pages, so the footer carries no
-   navigation: the page has one job and every link out of it is a way to
-   leave without converting. What stays is what a landing page still has to
-   say — who is running it, how to reach them, and where the privacy notice
-   and terms are. Google Ads and Meta both check for a reachable privacy
-   policy, and a CQC-registered provider has to publish its rating, so those
-   three links earn their place where a "Popular treatments" column does not.
-
-   Both targets are live: /privacy-notice (content/pages/privacy-notice.mdx —
-   not the -1/-2 drafts, which are superseded and excluded from the index)
-   and the terms page under the surgeon's path. */
-const LEGAL_LINKS = [
-  { href: "/privacy-notice", label: "Privacy Notice" },
-  {
-    href: "/dr-sabrina-shah-desai/non-surgical-terms-conditions",
-    label: "Terms & Conditions",
-  },
-];
-
+/**
+ * The clinic, and nothing else.
+ *
+ * These are standalone ad landing pages: every link out of one is a way to
+ * leave without converting, so the footer carries none. What is left says
+ * who is running the page and how to reach them, plus the two statements a
+ * paid-traffic page has to make — the platform disclaimer, and the company
+ * details the Companies Act requires on a company's website.
+ */
 export default function Footer() {
   /* Resolved when the page is built rather than in the browser, which is what
      lets this stay a server component — the pages are rebuilt often enough
@@ -34,39 +22,67 @@ export default function Footer() {
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className="container">
-        <div className={styles.row}>
-          <p className={styles.clinic}>{CLINIC.name}</p>
+        <div className={styles.brand}>
+          {/* Not a link: there is nowhere for it to go. The transparent PNG,
+              not the JPEG — the JPEG carries a baked white background, which
+              would show as a hard edge against the plate. The plate itself is
+              there because the mark is drawn in dark ink for pale pages and
+              this footer is not one. */}
+          <span className={styles.mark}>
+            <Image
+              src="/PEL_logo_without_background.png"
+              alt="The Perfect Eyes Clinic"
+              width={719}
+              height={347}
+              sizes="(min-width: 640px) 210px, 180px"
+              className={styles.markImg}
+            />
+          </span>
 
-          <ClinicPhone className={styles.phone} icon />
+          <span className={styles.markRule} aria-hidden="true" />
 
-          <nav className={styles.legal} aria-label="Legal">
-            {LEGAL_LINKS.map((item) => (
-              <Link key={item.href} href={item.href} className={styles.legalLink}>
-                {item.label}
-              </Link>
-            ))}
-            <a
-              href={CQC_REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.legalLink}
-            >
-              CQC registered
-              <span className="sr-only"> (opens in a new tab)</span>
+          <p className={styles.tagline}>
+            A Harley Street clinic for eyes, face and skin, led by Dr Sabrina Shah-Desai.
+          </p>
+
+          <address className={styles.contact}>
+            <span className={styles.contactRow}>
+              <span className={styles.contactIcon}>
+                <TpIcon name="pin" size={16} />
+              </span>
+              {CLINIC.address}
+            </span>
+            <ClinicPhone className={styles.contactRow}>
+              <span className={styles.contactIcon}>
+                <TpIcon name="phone" size={16} />
+              </span>
+              {CLINIC.phoneDisplay}
+            </ClinicPhone>
+            <a href={`mailto:${CLINIC.email}`} className={styles.contactRow}>
+              <span className={styles.contactIcon}>
+                <TpIcon name="mail" size={16} />
+              </span>
+              {CLINIC.email}
             </a>
-          </nav>
+          </address>
         </div>
 
         <div className={styles.fine}>
+          {/* The platform disclaimer paid-traffic pages carry: an ad that runs
+              on Google or Meta must not read as one endorsed BY them. */}
+          <p>
+            This page is not part of the Google or Meta websites, and is not endorsed by,
+            affiliated with or sponsored by Google LLC or Meta Platforms, Inc. Google is a
+            trademark of Google LLC. Meta, Facebook and Instagram are trademarks of Meta
+            Platforms, Inc.
+          </p>
           {/* One template string rather than text interleaved with {…} holes:
               JSX decides for itself which spaces around an expression survive,
-              and this line lost the one after the year. It also keeps React
-              from stitching the sentence together out of half a dozen text
-              nodes separated by <!-- --> markers in the HTML.
+              and this line lost the one after the year.
 
-              "Perfect Eyes Ltd", not CLINIC.name (the trading name) — this
-              line makes a statement about the actual Companies House entity,
-              which must carry its "Ltd" suffix. See lib/clinic.ts. */}
+              "Perfect Eyes Ltd", not CLINIC.name (the trading name) — the
+              Companies Act asks for the registered entity, which must carry
+              its "Ltd" suffix. See lib/clinic.ts. */}
           <p>
             {`© ${currentYear} Perfect Eyes Ltd. All rights reserved. ` +
               `Registered in England & Wales, company no. ${CLINIC.companyNumber}. ` +
