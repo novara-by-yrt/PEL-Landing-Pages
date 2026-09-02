@@ -17,7 +17,7 @@ const URL = `${SITE_URL}/treatments`;
 export const metadata: Metadata = {
   title: "All Treatments | Surgical & Non-Surgical",
   description:
-    "Every surgical and non-surgical treatment at Perfect Eyes Clinic, from blepharoplasty and ptosis surgery to tear trough fillers, polynucleotides and laser resurfacing.",
+    "Every surgical and non-surgical treatment at Perfect Eyes Clinic, from blepharoplasty and ptosis surgery to tear trough fillers, polynucleotides and laser.",
   alternates: { canonical: URL },
   openGraph: {
     url: URL,

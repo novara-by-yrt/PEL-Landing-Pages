@@ -23,12 +23,16 @@ export function BlogCtaBox({
   ctaHref = "/contact",
 }: BlogCtaBoxProps) {
   return (
-    <div className={styles.blogCtaBox}>
+    /* <aside>, not <div>, and the title is a styled <p> rather than a heading:
+       this box is a promotion dropped between two article sections, so putting
+       an <h4> in it both skipped a level (the surrounding copy runs h2/h3) and
+       announced a section of the article that does not exist. */
+    <aside className={styles.blogCtaBox} aria-label="Book a consultation">
       <div className={styles.blogCtaImg}>
         <SafeImage src={image} alt="" sizes="(max-width: 700px) 40vw, 220px" />
       </div>
       <div>
-        <h4>{title}</h4>
+        <p className={styles.blogCtaTitle}>{title}</p>
         <ul>
           {points.map((point) => (
             <li key={point}>
@@ -39,6 +43,6 @@ export function BlogCtaBox({
         </ul>
         <Link href={ctaHref} className="tp-btn tp-btn-primary">{ctaLabel}</Link>
       </div>
-    </div>
+    </aside>
   );
 }

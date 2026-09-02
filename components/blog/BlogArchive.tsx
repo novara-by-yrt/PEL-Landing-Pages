@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAllPosts, type Post } from "@/lib/mdx";
 import { TpIcon } from "@/components/treatment";
 import { BlogCard } from "@/components/blog/BlogCard";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import styles from "@/app/blog/page.module.css";
 
 export const POSTS_PER_PAGE = 12;
@@ -44,8 +45,21 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
     (n) => n === 1 || n === totalPages || Math.abs(n - currentPage) <= 1
   );
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://perfecteyesltd.com";
+  /* Page 1 is /blog; the rest are /blog/page/N and get a third crumb, so the
+     trail describes the page the reader is actually on rather than pointing
+     every paginated page at the archive root. */
+  const archiveUrl = `${SITE_URL}/blog`;
+  const pageUrl = currentPage === 1 ? archiveUrl : `${archiveUrl}/page/${currentPage}`;
+  const crumbs = [
+    { name: "Home", url: SITE_URL },
+    { name: "Blog", url: archiveUrl },
+    ...(currentPage === 1 ? [] : [{ name: `Page ${currentPage}`, url: pageUrl }]),
+  ];
+
   return (
     <>
+      <BreadcrumbSchema items={crumbs} url={pageUrl} />
       <div className="tp">
 
         {/* Hero */}
@@ -59,6 +73,13 @@ export default function BlogArchive({ currentPage }: { currentPage: number }) {
         {/* Post grid */}
         <section className="tp-section">
           <div className="container">
+            {/* The cards are h3 (correct where this grid is reused under a
+                "Related Blogs" h2), so the listing needs its own h2 or the
+                outline jumps h1 -> h3. Visually hidden: the hero above already
+                says this in larger type. */}
+            <h2 className="sr-only">
+              {currentPage === 1 ? "Latest articles" : `Articles, page ${currentPage}`}
+            </h2>
             <div className={styles.blogArchiveGrid}>
               {posts.map((post, index) => (
                 <BlogCard key={post.slug} post={post} priority={index < 3} />

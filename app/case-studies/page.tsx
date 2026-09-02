@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { getAllPosts } from "@/lib/mdx";
 import { TpIcon, TreatmentCTA } from "@/components/treatment";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -25,8 +26,14 @@ export default function CaseStudiesPage() {
     (p) => !p.frontmatter.seo?.robots?.includes("noindex") && p.frontmatter.categories?.includes("Case Study")
   );
 
+  const breadcrumbItems = [
+    { name: "Home", url: SITE_URL },
+    { name: "Case Studies", url: `${SITE_URL}/case-studies` },
+  ];
+
   return (
     <div className="tp">
+      <BreadcrumbSchema items={breadcrumbItems} url={`${SITE_URL}/case-studies`} />
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <span className="tp-eyebrow">
@@ -41,6 +48,9 @@ export default function CaseStudiesPage() {
 
       <section className="tp-section">
         <div className="container">
+          {/* BlogCard titles are h3; without an h2 here the outline runs
+              h1 -> h3. Hidden because the hero already carries the label. */}
+          <h2 className="sr-only">Patient case studies</h2>
           <div className={styles.grid}>
             {caseStudies.map((post) => (
               <BlogCard key={post.slug} post={post} />

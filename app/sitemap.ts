@@ -63,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // explicit so a new landing page is a deliberate addition, not a surprise.
   // /dr-sabrina-club is intentionally absent — the page itself is noindex.
   const staticRoutes: MetadataRoute.Sitemap = [
+    // Bare origin, byte-identical to the homepage canonical Next emits.
     { url: SITE_URL, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/before-after`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },

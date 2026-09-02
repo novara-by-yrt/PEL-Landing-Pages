@@ -6,7 +6,7 @@
 @media (max-width: 560px) { .blogCtaBox { grid-template-columns: 1fr; } }
 .blogCtaImg { position: relative; border-radius: var(--tp-radius-lg); overflow: hidden; aspect-ratio: 1; box-shadow: var(--tp-shadow-sm); }
 .blogCtaImg img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.blogCtaBox h4 { font-family: var(--tp-display); font-weight: 600; font-size: 1.25rem; color: var(--tp-ink); margin: 0 0 0.9rem; }
+.blogCtaBox .blogCtaTitle { font-family: var(--tp-display); font-weight: 600; font-size: 1.25rem; color: var(--tp-ink); margin: 0 0 0.9rem; }
 .blogCtaBox ul { list-style: none; margin: 0 0 1.25rem; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .blogCtaBox li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.9rem; color: var(--tp-slate); line-height: 1.5; }
 .blogCtaBox li svg { flex-shrink: 0; margin-top: 2px; color: var(--tp-indigo-700); }
