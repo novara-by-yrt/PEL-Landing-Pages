@@ -3,6 +3,7 @@ import { Work_Sans, Newsreader } from "next/font/google";
 import "./globals.css";
 import "./design-system.css";
 import "./layout-chrome.css";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
 import Tracking from "@/components/analytics/Tracking";
@@ -146,6 +147,7 @@ export default function RootLayout({
             />
           </noscript>
         )}
+        <Header />
         <main id="main-content">{children}</main>
         <Footer />
         <CookieConsent />
