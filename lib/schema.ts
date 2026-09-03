@@ -69,14 +69,15 @@ export function buildProductSchema(frontmatter: PostFrontmatter, url: string) {
     image: frontmatter.featuredImage
       ? `${SITE_URL}${frontmatter.featuredImage}`
       : undefined,
-    /* No aggregateRating here, deliberately. 4.8 from 240 is the CLINIC's
-       Google rating, and it belongs on the MedicalBusiness entity (where
-       CLINIC_RATING puts it), not copied onto each treatment. Attaching it to
-       a Product asserts that this one procedure was rated 240 times, which is
-       not true of any of them, and shipping the identical figure on 66
-       different Products is exactly the self-serving, non-page-specific review
-       markup Google's review-snippet policy prohibits — a manual-action risk
-       ("spammy structured markup") rather than a ranking nuance. */
+    /* No aggregateRating, here or anywhere else. The pages no longer show a
+       score, only the number of reviews, and structured data that asserts a
+       rating the page does not display is the mismatch Google treats as
+       spammy review markup. Two further reasons it never belonged on a
+       Product: attaching the clinic's Google rating to one procedure claims
+       that procedure was rated 240 times, which is true of none of them, and
+       shipping the identical figure on 66 different Products is the
+       self-serving, non-page-specific markup the review-snippet policy
+       prohibits outright. */
   };
 }
 
@@ -130,16 +131,6 @@ const CLINIC_ADDRESS = {
   addressCountry: "GB",
 };
 
-/** The reviews rail states 4.8 from 240+ Google reviews. Keep the two in
-    step: structured data that disagrees with the page it is on is the kind of
-    mismatch Google treats as spammy review markup. */
-const CLINIC_RATING = {
-  "@type": "AggregateRating",
-  ratingValue: "4.8",
-  reviewCount: "240",
-  bestRating: "5",
-};
-
 /**
  * MedicalBusiness — the clinic as a medical entity, for the home and contact
  * pages. A plain Organization does not tell a search engine that this is a
@@ -168,7 +159,6 @@ export function buildMedicalBusinessSchema() {
         closes: "18:00",
       },
     ],
-    aggregateRating: CLINIC_RATING,
     sameAs: [
       "https://www.instagram.com/drsabrinashahdesaiofficial/",
       "https://twitter.com/perfecteyesltd",
@@ -206,7 +196,6 @@ export function buildPhysicianSchema() {
       { "@type": "Organization", name: "Royal College of Surgeons of England" },
       { "@type": "Organization", name: "British Oculoplastic Surgery Society (BOPSS)" },
     ],
-    aggregateRating: CLINIC_RATING,
   };
 }
 

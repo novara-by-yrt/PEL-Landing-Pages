@@ -187,22 +187,15 @@ export default async function CatchAllPageRoute({
    * related-posts rails to leave through. It is its own component so the
    * other 47 treatments keep the shared template untouched. */
   if (fileSlug === "sofwave") {
-    /* The page's own frontmatter carries no gallery — Sofwave's result photos
-       live in content/before-after/sofwave.mdx, the same place the shared
-       treatment template reads them from. Without this the landing page's
-       proof section rendered as an empty band. */
-    const sofwaveGallery = getPostBySlug(
-      "before-after",
-      TREATMENT_BEFORE_AFTER.sofwave,
-    )?.frontmatter.gallery;
-
     return (
       <>
         {schemas}
         <SofwaveLanding
           frontmatter={frontmatter}
           treatment={treatmentMeta.sofwave}
-          gallery={sofwaveGallery}
+          /* The notice's own body, so the form's privacy link can open a
+             dialog over the page instead of navigating away from the form. */
+          privacyNotice={getPostBySlug("pages", "privacy-notice")?.content ?? ""}
         />
       </>
     );

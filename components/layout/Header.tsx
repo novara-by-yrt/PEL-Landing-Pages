@@ -1,7 +1,5 @@
 import Image from "next/image";
-import ClinicPhone from "@/components/shared/ClinicPhone";
-import BookConsultationModal from "@/components/forms/BookConsultationModal";
-import { CLINIC } from "@/lib/clinic";
+import CallbackDialog from "@/components/forms/CallbackDialog";
 import styles from "./Header.module.css";
 
 /**
@@ -14,8 +12,11 @@ import styles from "./Header.module.css";
  * a 28KB client component. What is left needs no state, so this renders on
  * the server.
  *
- * The CTA opens the booking dialog rather than linking to the contact page,
- * which keeps the visitor on the page they landed on.
+ * The CTA opens the callback dialog rather than linking to the contact page,
+ * which keeps the visitor on the page they landed on. It is the same dialog
+ * the pinned pill and every button on a landing page open: this used to be
+ * the booking form, a different set of fields, so which button a visitor
+ * happened to press decided what they were asked. See CallbackDialog.
  */
 export default function Header() {
   return (
@@ -40,16 +41,10 @@ export default function Header() {
         </span>
 
         <div className={styles.actions}>
-          {/* The number is hidden below 560px rather than dropped, so the
-              link keeps its accessible name when only the icon shows. */}
-          <ClinicPhone className={styles.phone} icon iconSize={18}>
-            <span className={styles.phoneNumber}>{CLINIC.phoneDisplay}</span>
-          </ClinicPhone>
-
-          <BookConsultationModal className={styles.cta} label="Book a Consultation">
-            <span className={styles.ctaLong}>Book a Consultation</span>
-            <span className={styles.ctaShort}>Book</span>
-          </BookConsultationModal>
+          <CallbackDialog className={styles.cta} label="Begin your journey">
+            <span className={styles.ctaLong}>Begin your journey</span>
+            <span className={styles.ctaShort}>Begin</span>
+          </CallbackDialog>
         </div>
       </div>
     </header>

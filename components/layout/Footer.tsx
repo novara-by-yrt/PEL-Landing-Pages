@@ -74,14 +74,6 @@ export default function Footer() {
         </div>
 
         <div className={styles.fine}>
-          {/* The platform disclaimer paid-traffic pages carry: an ad that runs
-              on Google or Meta must not read as one endorsed BY them. */}
-          <p>
-            This page is not part of the Google or Meta websites, and is not endorsed by,
-            affiliated with or sponsored by Google LLC or Meta Platforms, Inc. Google is a
-            trademark of Google LLC. Meta, Facebook and Instagram are trademarks of Meta
-            Platforms, Inc.
-          </p>
           {/* One template string rather than text interleaved with {…} holes:
               JSX decides for itself which spaces around an expression survive,
               and this line lost the one after the year.

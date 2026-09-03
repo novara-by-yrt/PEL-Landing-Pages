@@ -234,21 +234,6 @@
   background: var(--tp-lavender-050);
   line-height: 0;
 }
-/* Over the foot of the picture rather than under it. Below the image it
-   would push the photograph's bottom edge up off the line the copy column
-   ends on, which is the alignment this hero is built around. */
-.heroFigCaption {
-  position: absolute;
-  inset: auto 0 0 0;
-  z-index: 1;
-  padding: 34px 16px 13px;
-  border-radius: 0 0 var(--tp-radius-lg) var(--tp-radius-lg);
-  font-size: 0.75rem;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.94);
-  background: linear-gradient(180deg, rgba(23, 20, 48, 0), rgba(23, 20, 48, 0.74));
-  pointer-events: none;
-}
 
 /* ── What Sofwave is ──────────────────────────────────────────────────
 
@@ -320,21 +305,66 @@
 /* ── Proof ────────────────────────────────────────────────────────────── */
 
 .proof {
-  /* Paper: the gallery's own thumbnails are fog with a hairline border, and
-     on a fog band they had nothing to sit against. */
   background: var(--tp-paper);
 }
-/* BeforeAfterGallery renders a full <section class="tp-section"> with its own
-   .container inside. Nested in this page's section and container, that is two
-   sets of vertical padding and two gutters: on desktop the band opened with
-   about 170px of nothing above the eyebrow. The outer pair wins, since it is
-   what keeps this section in step with the rest of the page. */
-.proof :global(.tp-section) {
-  padding-block: 0;
+/* Centred from 600px up, which covers tablet and desktop. Below that the
+   heading stays left, in step with every other section on the page: a phone
+   column is narrow enough that centred body copy reads as ragged on both
+   edges. */
+.proofHead {
+  margin-inline: 0;
 }
-.proof :global(.container) {
-  max-width: none;
-  padding-inline: 0;
+
+.proofFigure {
+  margin: 0;
+}
+/* The two results side by side from 700px, stacked below it. Stacked they
+   are full width, which is what a phone wants for a picture whose whole
+   point is a pair of faces compared. */
+.proofPair {
+  display: grid;
+  gap: clamp(12px, 2.4vw, 20px);
+}
+/* The wrapper carries the shape and SafeImage fills it, the same pairing the
+   hero uses. 1:1 is the source file's own ratio, so the box is right before
+   the picture arrives and nothing shifts as it loads. */
+.proofImage {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--tp-shadow-md);
+  background: var(--tp-lavender-050);
+  line-height: 0;
+}
+.proofCaption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tp-slate);
+  margin-top: 12px;
+}
+
+@media (min-width: 700px) {
+  .proofPair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 600px) {
+  .proofHead {
+    max-width: 62ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+  /* 920px for the pair, not the full column: the photographs are square, so
+     two of them at half of a 1140px container would still stand taller than
+     a laptop viewport and push the next section off screen. */
+  .proofFigure {
+    max-width: 920px;
+    margin-inline: auto;
+  }
+  .proofCaption {
+    text-align: center;
+  }
 }
 
 /* ── Reviews ──────────────────────────────────────────────────────────
@@ -587,6 +617,10 @@
   gap: clamp(26px, 4vw, 52px);
   align-items: center;
 }
+/* The two portraits, side by side at every width. They stay a pair rather
+   than stacking on a phone: at 44vw each they are still legible, and stacked
+   they would push the copy a full screen further down. */
+
 .surgeonPortrait {
   position: relative;
   isolation: isolate;
@@ -857,10 +891,14 @@
   border-radius: 999px;
   border: 1px solid transparent;
   background: var(--tp-indigo-700);
+  /* A button now, not an anchor, since it opens the callback dialog. A button
+     does not inherit the page's font, so the face is named here. */
+  font-family: var(--tp-body);
   font-size: 0.9375rem;
   font-weight: 600;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
   box-shadow: var(--tp-shadow-sm);
   transition:
     background 200ms var(--tp-ease),
@@ -903,6 +941,24 @@
    and spends a little of it on the line instead. */
 .closer > section {
   padding-bottom: clamp(20px, 2.6vw, 32px);
+}
+
+/* A button, because it opens a dialog rather than going anywhere, styled as
+   the link it replaced so nothing about the sentence changes visually. */
+.formLegalLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--tp-indigo-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.formLegalLink:focus-visible {
+  outline: 2px solid var(--tp-indigo-700);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 .formLegal {

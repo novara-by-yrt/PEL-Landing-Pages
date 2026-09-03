@@ -4,7 +4,7 @@ import { TpIcon } from "@/components/treatment/TpIcon";
 import RequestCallbackForm from "@/components/forms/RequestCallbackForm";
 import styles from "./ContactSection.module.css";
 
-import { CLINIC, MAPS_URL } from "@/lib/clinic";
+import { CLINIC } from "@/lib/clinic";
 
 /* The social accounts are not linked here — the footer carries them on every
    page, so repeating them in this panel was a second copy of the same links
@@ -79,14 +79,6 @@ export default function ContactSection() {
                 <span>
                   <span className={styles.rowLabel}>Our location</span>
                   <span className={styles.rowValue}>{CLINIC.address}</span>
-                  <a
-                    href={MAPS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.directions}
-                  >
-                    Get directions
-                  </a>
                 </span>
               </div>
             </div>

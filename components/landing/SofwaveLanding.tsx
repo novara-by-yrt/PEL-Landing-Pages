@@ -1,14 +1,16 @@
-import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
+import PrivacyNoticeModal from "@/components/shared/PrivacyNoticeModal";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
+import { TEAM_MEMBERS } from "@/lib/team";
+import ImageSlideshow from "./ImageSlideshow";
+import CallbackDialog from "@/components/forms/CallbackDialog";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
 import ContactSection from "@/components/home/ContactSection";
-import type { GalleryItem, PostFrontmatter } from "@/lib/mdx";
+import type { PostFrontmatter } from "@/lib/mdx";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import styles from "./SofwaveLanding.module.css";
 
@@ -53,7 +55,7 @@ import styles from "./SofwaveLanding.module.css";
    invented, and nothing promises a result. */
 
 const TRUST = [
-  { icon: "star", label: "4.8 from 240+ Google reviews" },
+  { icon: "star", label: "240+ Google reviews" },
   { icon: "shield", label: "CQC registered, rated good" },
   { icon: "building", label: "121 Harley Street, London" },
 ];
@@ -86,8 +88,8 @@ const BENEFITS = [
   },
   {
     icon: "shield",
-    title: "Done by an eye surgeon",
-    body: "Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon. Periocular safety measures protect the eye itself, which is why who holds the applicator matters here.",
+    title: "Done by a laser-qualified team",
+    body: "Irvana is a Level 4 laser-qualified therapist and Dr Janine is an advanced aesthetic practitioner. Periocular safety measures protect the eye itself, which is why who holds the applicator matters here.",
   },
 ];
 
@@ -108,8 +110,8 @@ const NOT_SUITABLE = [
 const STEPS = [
   {
     heading: "Your consultation",
-    body: "Forty-five minutes with Dr Shah-Desai at Harley Street. She examines the skin and the brow position, and tells you which of the two answers applies: Sofwave, or surgery. If it is surgery, she will say so.",
-    meta: "£300, with Dr Sabrina Shah-Desai",
+    body: "An appointment with Dr Janine or Irvana at Harley Street. They assess the skin and the brow position and tell you whether Sofwave is likely to help. If what you want needs surgery instead, they will say so and refer you to the clinic's surgical team.",
+    meta: "£300, with Dr Janine or Irvana",
   },
   {
     heading: "The treatment",
@@ -119,7 +121,7 @@ const STEPS = [
   {
     heading: "The next three to six months",
     body: "New collagen forms gradually and the skin firms as it does. Some people have a second session at six months to build on the first. That is a decision made at review, looking at your result, rather than booked in advance.",
-    meta: "Reviewed with your surgeon",
+    meta: "Reviewed with your practitioner",
   },
 ];
 
@@ -131,8 +133,8 @@ const STEPS = [
 
    None of the three is emphasised over the others. A pricing row where one
    card is dressed differently is a recommendation, and the honest answer to
-   which of these a visitor needs is the one Dr Shah-Desai gives at the
-   consultation, not one this page can make in advance. The brand weight is
+   which of these a visitor needs is the one given at the consultation, not
+   one this page can make in advance. The brand weight is
    spent evenly instead: the lit edge, the bloom and the indigo figure are on
    every card.
 
@@ -156,23 +158,49 @@ const PRICES = [
   },
   {
     kind: "Assessment",
-    name: "Consultation with Dr Shah-Desai",
+    name: "Consultation with Dr Shah-Desai's team",
     price: "£300",
     unit: "one appointment",
     note: "The appointment that decides whether either treatment above is right for you.",
-    meta: ["Forty-five minutes", "Examination and a written plan", "Sofwave or surgery, answered"],
+    meta: ["With Dr Janine or Irvana", "Skin and brow assessed", "Suitability answered honestly"],
   },
 ];
+
+/* The clinic's Sofwave result photographs. Local files with URL-safe names:
+   the originals arrived as "Sofwave BA1 new.png", and a space in an image src
+   has to survive percent-encoding through next/image's optimiser and the URL
+   itself, which is a needless way for a picture to go missing. Both are
+   1254x1254, so one ratio covers the hero frame and the pair below. */
+const RESULTS = [
+  {
+    src: "/sofwave-ba-1.png",
+    alt: "A Sofwave patient at Perfect Eyes Clinic, before and after treatment",
+  },
+  {
+    src: "/sofwave-ba-2.png",
+    alt: "A second Sofwave patient at Perfect Eyes Clinic, before and after treatment",
+  },
+];
+
+/* The two practitioners who deliver this treatment, named and pictured from
+   the site's own team record so the page cannot drift from it. */
+const TEAM = TEAM_MEMBERS.filter((m) => m.name === "Dr Janine" || m.name === "Irvana");
 
 /* The four lines under the portrait. Check-marked rather than ruled, because
    at two columns the rules read as an empty table. */
 const CREDENTIALS = [
-  "GMC-registered consultant surgeon",
-  "Fellow of the Royal College of Surgeons of Edinburgh",
-  "Trainer to other doctors in oculoplastic and aesthetic technique",
+  "Dental Surgeon and advanced aesthetic practitioner",
+  "Practising aesthetics since 2018",
+  "Level 4 laser-qualified beauty therapist",
   "Practising at 121 Harley Street",
 ];
 
+/* Every call to action on this page opens the callback dialog. They were
+   anchors to the panel at the foot of the page, which on a phone is a long
+   scroll away and a longer one back if the visitor changes their mind, and
+   which put the whole page between someone who was ready to enquire and the
+   four fields that take the enquiry. The panel is still there for anyone who
+   reaches it; nothing sends them to it. */
 function Cta({
   variant = "primary",
   children,
@@ -181,22 +209,24 @@ function Cta({
   children: React.ReactNode;
 }) {
   return (
-    <a href="#callback" className={`tp-btn ${variant === "inverse" ? "tp-btn-inverse" : "tp-btn-primary"}`}>
+    <CallbackDialog
+      className={`tp-btn ${variant === "inverse" ? "tp-btn-inverse" : "tp-btn-primary"}`}
+    >
       {children}
-    </a>
+    </CallbackDialog>
   );
 }
 
 export default function SofwaveLanding({
   frontmatter,
   treatment,
-  gallery,
+  privacyNotice,
 }: {
   frontmatter: PostFrontmatter;
   treatment: TreatmentMeta;
-  /** Result photographs, which live in content/before-after/sofwave.mdx
-      rather than in this page's own frontmatter. */
-  gallery?: GalleryItem[];
+  /** The privacy notice body, read on the server from its own MDX so the
+      dialog under the form opens without a request or a page change. */
+  privacyNotice: string;
 }) {
   return (
     <div className={`tp ${styles.page}`}>
@@ -223,8 +253,9 @@ export default function SofwaveLanding({
             </h1>
 
             <p className={styles.heroLead}>
-              Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes. One
-              60-minute session, with a consultant oculoplastic surgeon.
+              Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes, and
+              across the face and neck. One 60-minute session with Dr Janine or Irvana at our
+              Harley Street clinic.
             </p>
 
             <div className={styles.heroPrice}>
@@ -233,7 +264,7 @@ export default function SofwaveLanding({
             </div>
 
             <div className={styles.heroActions}>
-              <Cta>Request a call back</Cta>
+              <Cta>Begin your journey</Cta>
               <ClinicPhone className={styles.heroCall} icon iconSize={18} />
             </div>
 
@@ -255,22 +286,23 @@ export default function SofwaveLanding({
           <div className={styles.heroAside}>
             <figure className={styles.heroFigure}>
               {/* Reserved 1:1 on a phone, then stretched to the copy column's
-                  height on desktop. SafeImage fills it and covers, so the box
-                  is the right shape before the picture arrives and nothing
-                  shifts either way. */}
+                  height on desktop, so the box is the right shape before the
+                  first picture arrives and nothing shifts either way. Both
+                  results run here rather than one: the hero is the only place
+                  most of this page's visitors look, and a second case is the
+                  cheapest proof there is. */}
               <div className={styles.heroImage}>
-                <SafeImage
-                  src={treatment.heroImage}
-                  alt="A Sofwave patient of Dr Sabrina Shah-Desai, before and after treatment"
+                <ImageSlideshow
+                  slides={RESULTS}
                   sizes="(min-width: 900px) 46vw, 100vw"
+                  label="Sofwave results, before and after"
                   priority
                 />
               </div>
-              {/* A direct child of the figure, as the spec requires, laid
-                  over the foot of the picture rather than under it. */}
-              <figcaption className={styles.heroFigCaption}>
-                An actual patient of Dr Shah-Desai. Individual results vary.
-              </figcaption>
+              {/* No caption over the photographs. Nothing is laid on top of
+                  the pictures here now bar the slideshow's own controls; the
+                  results disclaimer runs under the pair in the before and
+                  after band, where there is room to read it. */}
             </figure>
           </div>
         </div>
@@ -284,7 +316,11 @@ export default function SofwaveLanding({
           the six numbers before the prose: how long it takes, what the
           anaesthetic is, when they can drive, when the result appears. The
           shared treatment component, unchanged, fed this page's own rows. */}
-      <TreatmentGlance glance={treatment.glance} title="Sofwave™ Ultrasound" />
+      <TreatmentGlance
+        glance={treatment.glance}
+        title="Sofwave™ Ultrasound"
+        heading="Quick Overview"
+      />
 
       {/* ── What is Sofwave? ──────────────────────────────────────────────
           The device on the left, the plain description on the right. This
@@ -342,12 +378,37 @@ export default function SofwaveLanding({
           until they believe the clinic can do it. */}
       <section className={`${styles.section} ${styles.proof}`}>
         <div className={styles.container}>
-          <BeforeAfterGallery
-            gallery={gallery ?? frontmatter.gallery}
-            heading="Sofwave™, before and after"
-            description="Photographed in the same lighting and at the same angle, untouched. Results vary between patients and are not guaranteed."
-            title="Sofwave™"
-          />
+          <div className={`${styles.head} ${styles.proofHead}`}>
+            <h2 className={styles.h2}>Sofwave™, before and after</h2>
+            <p className={styles.headLead}>
+              Photographed in the same lighting and at the same angle, untouched. Results vary
+              between patients and are not guaranteed.
+            </p>
+          </div>
+
+          {/* Both result photographs the clinic has for this treatment, as a
+              pair rather than a grid of thumbnails: at two, side by side is
+              the whole gallery, and there is nothing to open a lightbox for.
+              One caption under the pair, since it says the same thing about
+              each of them. */}
+          <figure className={styles.proofFigure}>
+            <div className={styles.proofPair}>
+              {RESULTS.map((result) => (
+                <div key={result.src} className={styles.proofImage}>
+                  <SafeImage
+                    src={result.src}
+                    alt={result.alt}
+                    width={1254}
+                    height={1254}
+                    sizes="(min-width: 700px) 440px, 100vw"
+                  />
+                </div>
+              ))}
+            </div>
+            <figcaption className={styles.proofCaption}>
+              Actual patients of the clinic. Individual results vary.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -461,42 +522,62 @@ export default function SofwaveLanding({
         </div>
       </section>
 
-      {/* ── The surgeon ───────────────────────────────────────────────────
-          A portrait of Dr Shah-Desai in a full rectangular frame, not a
-          circular crop. The circle previously held a before-and-after photo
-          of a patient, which is not a picture of the person the section is
-          about; and a 300px disc beside four paragraphs left the column
-          hanging in whitespace. The frame is 3:4, the source file's own
-          ratio, and the two columns are centred on each other. */}
+      {/* ── Who performs it ───────────────────────────────────────────────
+          Two portraits rather than one, because two people deliver this
+          treatment and a page that pictures one of them is answering a
+          different question from the one a visitor is asking. Both source
+          files are 3:4, so the frames match without cropping either.
+
+          The copy states what each of them actually is. Sofwave is an
+          energy-based device treatment, and "Level 4 laser-qualified" is the
+          qualification that speaks to it, so the claim here is narrower than
+          it would be on a surgical page and true of the people named. */}
       <section className={`${styles.section} ${styles.surgeon}`}>
         <div className={styles.container}>
+          {/* One frame taking both practitioners in turn, rather than two
+              side by side. At two-up each portrait had half a column and
+              neither read as a person you were being introduced to; one
+              frame gives each of them the full width, and the name plate
+              changes with the picture.
+
+              A div rather than a figure, and the plate a div rather than a
+              figcaption: a figcaption has to be the figure's own first or
+              last child, and here the plate lives inside the slideshow so it
+              can change per slide. */}
           <div className={styles.surgeonGrid}>
-            <figure className={styles.surgeonPortrait}>
+            <div className={styles.surgeonPortrait}>
               <div className={styles.surgeonImage}>
-                <SafeImage
-                  src="/dr-sabrina-profile.png"
-                  alt="Dr Sabrina Shah-Desai, consultant oculoplastic surgeon"
+                <ImageSlideshow
+                  slides={TEAM.map((person) => ({
+                    src: person.image,
+                    alt: `${person.name}, ${person.role}`,
+                    overlay: (
+                      <div className={styles.surgeonPlate}>
+                        <strong>{person.name}</strong>
+                        <span>{person.role}</span>
+                      </div>
+                    ),
+                  }))}
                   sizes="(min-width: 1080px) 420px, (min-width: 900px) 38vw, 100vw"
+                  label="The practitioners who deliver Sofwave"
                 />
               </div>
-              <figcaption className={styles.surgeonPlate}>
-                <strong>Dr Sabrina Shah-Desai</strong>
-                <span>Consultant Oculoplastic Surgeon, MS FRCS</span>
-              </figcaption>
-            </figure>
+            </div>
 
             <div className={styles.surgeonCopy}>
-              <p className={styles.aboutKicker}>Your surgeon</p>
+              <p className={styles.aboutKicker}>Your practitioners</p>
               <h2 className={styles.h2}>Who performs it</h2>
               <p className={styles.surgeonLead}>
-                Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon who has spent her career
-                on the eyelid and the tissue around it. She teaches the techniques to other doctors.
+                Sofwave at Harley Street is carried out by Dr Janine Rothburn and Irvana, who
+                between them cover the two things this treatment asks for: judgement about the
+                face, and the handling of an energy-based device.
               </p>
               <p>
-                On this treatment that specialism is not a flourish. The applicator is used
-                millimetres from the eye. The person judging how much the brow can be lifted, and
-                whether ultrasound can lift it at all, is the same person who would perform the
-                surgery if it could not.
+                Dr Janine is a dental surgeon and advanced aesthetic practitioner who has worked
+                in aesthetics since 2018, with a deliberately restrained approach to facial
+                balance. Irvana is a Level 4 laser-qualified therapist with seventeen years in
+                clinical and luxury skincare. The applicator is used millimetres from the eye,
+                which is why the qualification of the person holding it is worth stating.
               </p>
               <ul className={styles.credentials}>
                 {CREDENTIALS.map((item) => (
@@ -551,9 +632,9 @@ export default function SofwaveLanding({
                   ))}
                 </ul>
 
-                <a href="#callback" className={styles.priceCta}>
-                  Request a call back
-                </a>
+                <CallbackDialog className={styles.priceCta}>
+                  Begin your journey
+                </CallbackDialog>
               </li>
             ))}
           </ul>
@@ -578,12 +659,12 @@ export default function SofwaveLanding({
           items={frontmatter.faq}
           eyebrow="Before you book"
           title="Questions people ask before booking"
-          lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment by your surgeon."
+          lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment at the clinic."
           contentIsHtml
           footer={
-            <a href="#callback" className="tp-btn tp-btn-primary">
-              Request a call back
-            </a>
+            <CallbackDialog className="tp-btn tp-btn-primary">
+              Begin your journey
+            </CallbackDialog>
           }
         />
       )}
@@ -607,7 +688,10 @@ export default function SofwaveLanding({
         <div className={styles.container}>
           <p className={styles.formLegal}>
             We use your details to call you back about this enquiry. See our{" "}
-            <Link href="/privacy-notice">Privacy Notice</Link>.
+            <PrivacyNoticeModal html={privacyNotice} className={styles.formLegalLink}>
+              Privacy Notice
+            </PrivacyNoticeModal>
+            .
           </p>
         </div>
       </div>

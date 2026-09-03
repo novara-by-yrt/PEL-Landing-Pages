@@ -8,15 +8,26 @@ author:
   name: "Vishnu S"
   slug: "vishnu"
 seo:
-  title: "Sofwave Treatment in London, UK - PEL"
-  description: "Tired of sagging skin? Sofwave is your solution! This non-invasive treatment tightens and lifts skin without surgery. Book your consultation at PEL in London."
+  # The title is brand-free: the root layout appends "| Perfect Eyes Clinic"
+  # to it, so a suffix here would name the clinic twice. 54 characters
+  # rendered, inside what a result listing shows.
+  title: "Sofwave Brow Lift, Harley Street"
+  # Every claim in here is on the page: the treatment, the area treated, the
+  # session length, the downtime and the entry price. The line it replaced
+  # told the reader to book a consultation, which is not what this page does
+  # any more - nothing is booked from it, the team call you back. The same
+  # string feeds the WebPage, Product and MedicalProcedure JSON-LD.
+  description: "Sofwave lifts and tightens the skin around the brow and eyes with focused ultrasound. One 60-minute session at Harley Street, no downtime, from £1,800."
   focusKeyword: "Sofwave"
   robots:
     - "index"
   isPillar: true
   og:
-    title: "Sofwave Treatment in London, UK - PEL"
-    description: "Tired of sagging skin? Sofwave is your solution! This non-invasive treatment tightens and lifts skin without surgery. Book your consultation at PEL in London."
+    # The clinic is named here because og:site_name does not survive this
+    # route's own openGraph object, so a share card would otherwise carry no
+    # brand at all.
+    title: "Sofwave Brow Lift at Perfect Eyes Clinic, Harley Street"
+    description: "Sofwave lifts and tightens the skin around the brow and eyes with focused ultrasound. One 60-minute session at Harley Street, no downtime, from £1,800."
 schema:
   type: "Product"
   productSchemaNeeded: true
