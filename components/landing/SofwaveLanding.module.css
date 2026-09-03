@@ -327,21 +327,53 @@
 /* ── Proof ────────────────────────────────────────────────────────────── */
 
 .proof {
-  /* Paper: the gallery's own thumbnails are fog with a hairline border, and
-     on a fog band they had nothing to sit against. */
   background: var(--tp-paper);
 }
-/* BeforeAfterGallery renders a full <section class="tp-section"> with its own
-   .container inside. Nested in this page's section and container, that is two
-   sets of vertical padding and two gutters: on desktop the band opened with
-   about 170px of nothing above the eyebrow. The outer pair wins, since it is
-   what keeps this section in step with the rest of the page. */
-.proof :global(.tp-section) {
-  padding-block: 0;
+/* Centred from 600px up, which covers tablet and desktop. Below that the
+   heading stays left, in step with every other section on the page: a phone
+   column is narrow enough that centred body copy reads as ragged on both
+   edges. */
+.proofHead {
+  margin-inline: 0;
 }
-.proof :global(.container) {
-  max-width: none;
-  padding-inline: 0;
+
+.proofFigure {
+  margin: 0;
+}
+/* The wrapper carries the shape and SafeImage fills it, the same pairing the
+   hero uses. 1:1 is the source file's own ratio, so the box is right before
+   the picture arrives and nothing shifts as it loads. */
+.proofImage {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--tp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--tp-shadow-md);
+  background: var(--tp-lavender-050);
+  line-height: 0;
+}
+.proofCaption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tp-slate);
+  margin-top: 12px;
+}
+
+@media (min-width: 600px) {
+  .proofHead {
+    max-width: 62ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+  /* 560px, not the full column: the photograph is square, and run to a
+     1140px container it would stand taller than the viewport on a laptop and
+     push the section that follows entirely off screen. */
+  .proofFigure {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+  .proofCaption {
+    text-align: center;
+  }
 }
 
 /* ── Reviews ──────────────────────────────────────────────────────────

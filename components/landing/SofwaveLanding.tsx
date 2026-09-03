@@ -3,12 +3,11 @@ import SafeImage from "@/components/shared/SafeImage";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
-import { BeforeAfterGallery } from "@/components/treatment/BeforeAfterGallery";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
 import ContactSection from "@/components/home/ContactSection";
-import type { GalleryItem, PostFrontmatter } from "@/lib/mdx";
+import type { PostFrontmatter } from "@/lib/mdx";
 import type { TreatmentMeta } from "@/components/treatment/types";
 import styles from "./SofwaveLanding.module.css";
 
@@ -190,13 +189,9 @@ function Cta({
 export default function SofwaveLanding({
   frontmatter,
   treatment,
-  gallery,
 }: {
   frontmatter: PostFrontmatter;
   treatment: TreatmentMeta;
-  /** Result photographs, which live in content/before-after/sofwave.mdx
-      rather than in this page's own frontmatter. */
-  gallery?: GalleryItem[];
 }) {
   return (
     <div className={`tp ${styles.page}`}>
@@ -342,12 +337,34 @@ export default function SofwaveLanding({
           until they believe the clinic can do it. */}
       <section className={`${styles.section} ${styles.proof}`}>
         <div className={styles.container}>
-          <BeforeAfterGallery
-            gallery={gallery ?? frontmatter.gallery}
-            heading="Sofwave™, before and after"
-            description="Photographed in the same lighting and at the same angle, untouched. Results vary between patients and are not guaranteed."
-            title="Sofwave™"
-          />
+          <div className={`${styles.head} ${styles.proofHead}`}>
+            <h2 className={styles.h2}>Sofwave™, before and after</h2>
+            <p className={styles.headLead}>
+              Photographed in the same lighting and at the same angle, untouched. Results vary
+              between patients and are not guaranteed.
+            </p>
+          </div>
+
+          {/* One photograph, the same one the hero opens with. It is a single
+              result rather than a grid because a single result is what the
+              clinic has photographed for this treatment: the gallery it used
+              to read from held one genuine Sofwave case and three portraits
+              of the surgeon, which a visitor scanning a "before and after"
+              band would reasonably have taken for results. */}
+          <figure className={styles.proofFigure}>
+            <div className={styles.proofImage}>
+              <SafeImage
+                src={treatment.heroImage}
+                alt="A Sofwave patient of Dr Sabrina Shah-Desai, before and after treatment"
+                width={1080}
+                height={1080}
+                sizes="(min-width: 900px) 560px, 100vw"
+              />
+            </div>
+            <figcaption className={styles.proofCaption}>
+              An actual patient of Dr Shah-Desai. Individual results vary.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
