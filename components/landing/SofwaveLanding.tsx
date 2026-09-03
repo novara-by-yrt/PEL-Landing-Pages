@@ -4,6 +4,7 @@ import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { TEAM_MEMBERS } from "@/lib/team";
+import ImageSlideshow from "./ImageSlideshow";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
@@ -276,21 +277,24 @@ export default function SofwaveLanding({
           <div className={styles.heroAside}>
             <figure className={styles.heroFigure}>
               {/* Reserved 1:1 on a phone, then stretched to the copy column's
-                  height on desktop. SafeImage fills it and covers, so the box
-                  is the right shape before the picture arrives and nothing
-                  shifts either way. */}
+                  height on desktop, so the box is the right shape before the
+                  first picture arrives and nothing shifts either way. Both
+                  results run here rather than one: the hero is the only place
+                  most of this page's visitors look, and a second case is the
+                  cheapest proof there is. */}
               <div className={styles.heroImage}>
-                <SafeImage
-                  src={RESULTS[0].src}
-                  alt={RESULTS[0].alt}
+                <ImageSlideshow
+                  slides={RESULTS}
                   sizes="(min-width: 900px) 46vw, 100vw"
+                  label="Sofwave results, before and after"
                   priority
                 />
               </div>
               {/* A direct child of the figure, as the spec requires, laid
-                  over the foot of the picture rather than under it. */}
+                  over the head of the picture. It reserves room on its right
+                  for the slideshow's controls, which share that corner. */}
               <figcaption className={styles.heroFigCaption}>
-                An actual patient of the clinic. Individual results vary.
+                An actual patient of the clinic. Results vary.
               </figcaption>
             </figure>
           </div>
@@ -523,23 +527,34 @@ export default function SofwaveLanding({
           it would be on a surgical page and true of the people named. */}
       <section className={`${styles.section} ${styles.surgeon}`}>
         <div className={styles.container}>
+          {/* One frame taking both practitioners in turn, rather than two
+              side by side. At two-up each portrait had half a column and
+              neither read as a person you were being introduced to; one
+              frame gives each of them the full width, and the name plate
+              changes with the picture.
+
+              A div rather than a figure, and the plate a div rather than a
+              figcaption: a figcaption has to be the figure's own first or
+              last child, and here the plate lives inside the slideshow so it
+              can change per slide. */}
           <div className={styles.surgeonGrid}>
-            <div className={styles.teamPair}>
-              {TEAM.map((person) => (
-                <figure key={person.name} className={styles.surgeonPortrait}>
-                  <div className={styles.surgeonImage}>
-                    <SafeImage
-                      src={person.image}
-                      alt={`${person.name}, ${person.role}`}
-                      sizes="(min-width: 900px) 220px, 44vw"
-                    />
-                  </div>
-                  <figcaption className={styles.surgeonPlate}>
-                    <strong>{person.name}</strong>
-                    <span>{person.role}</span>
-                  </figcaption>
-                </figure>
-              ))}
+            <div className={styles.surgeonPortrait}>
+              <div className={styles.surgeonImage}>
+                <ImageSlideshow
+                  slides={TEAM.map((person) => ({
+                    src: person.image,
+                    alt: `${person.name}, ${person.role}`,
+                    overlay: (
+                      <div className={styles.surgeonPlate}>
+                        <strong>{person.name}</strong>
+                        <span>{person.role}</span>
+                      </div>
+                    ),
+                  }))}
+                  sizes="(min-width: 1080px) 420px, (min-width: 900px) 38vw, 100vw"
+                  label="The practitioners who deliver Sofwave"
+                />
+              </div>
             </div>
 
             <div className={styles.surgeonCopy}>

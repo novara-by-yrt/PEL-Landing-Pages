@@ -248,7 +248,9 @@
      the frame is plain wall in both halves of the photograph. */
   inset: 0 0 auto 0;
   z-index: 1;
-  padding: 13px 16px 34px;
+  /* The right inset is not symmetric: the slideshow's control pill sits in
+     that corner, and without the reserved room the caption ran under it. */
+  padding: 15px 116px 34px 16px;
   border-radius: var(--tp-radius-lg) var(--tp-radius-lg) 0 0;
   font-size: 0.75rem;
   line-height: 1.45;
@@ -642,21 +644,13 @@
 /* The two portraits, side by side at every width. They stay a pair rather
    than stacking on a phone: at 44vw each they are still legible, and stacked
    they would push the copy a full screen further down. */
-.teamPair {
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 2.4vw, 18px);
-  width: 100%;
-  max-width: 460px;
-}
 
 .surgeonPortrait {
   position: relative;
   isolation: isolate;
   margin: 0;
   width: 100%;
+  max-width: 460px;
 }
 .surgeonImage {
   position: relative;
@@ -1074,11 +1068,9 @@
   .surgeonGrid {
     grid-template-columns: minmax(300px, 0.62fr) 1fr;
   }
-  /* A brand panel set back behind the pair, only where there is room in the
-     column gap for it to sit outside the pictures. Behind the pair and not
-     behind each portrait: one panel per frame put the left portrait's panel
-     in the gap between them, where it read as a misprint rather than depth. */
-  .teamPair::before {
+  /* A brand panel set back behind the frame, only where there is room in the
+     column gap for it to sit outside the picture. */
+  .surgeonPortrait::before {
     content: "";
     position: absolute;
     z-index: -1;
