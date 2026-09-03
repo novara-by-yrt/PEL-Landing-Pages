@@ -3,6 +3,7 @@ import PrivacyNoticeModal from "@/components/shared/PrivacyNoticeModal";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
+import { TEAM_MEMBERS } from "@/lib/team";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
@@ -85,8 +86,8 @@ const BENEFITS = [
   },
   {
     icon: "shield",
-    title: "Done by an eye surgeon",
-    body: "Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon. Periocular safety measures protect the eye itself, which is why who holds the applicator matters here.",
+    title: "Done by a laser-qualified team",
+    body: "Irvana is a Level 4 laser-qualified therapist and Dr Janine is an advanced aesthetic practitioner. Periocular safety measures protect the eye itself, which is why who holds the applicator matters here.",
   },
 ];
 
@@ -107,8 +108,8 @@ const NOT_SUITABLE = [
 const STEPS = [
   {
     heading: "Your consultation",
-    body: "Forty-five minutes with Dr Shah-Desai at Harley Street. She examines the skin and the brow position, and tells you which of the two answers applies: Sofwave, or surgery. If it is surgery, she will say so.",
-    meta: "£300, with Dr Sabrina Shah-Desai",
+    body: "An appointment with Dr Janine or Irvana at Harley Street. They assess the skin and the brow position and tell you whether Sofwave is likely to help. If what you want needs surgery instead, they will say so and refer you to the clinic's surgical team.",
+    meta: "£100, with Dr Janine or Irvana",
   },
   {
     heading: "The treatment",
@@ -118,7 +119,7 @@ const STEPS = [
   {
     heading: "The next three to six months",
     body: "New collagen forms gradually and the skin firms as it does. Some people have a second session at six months to build on the first. That is a decision made at review, looking at your result, rather than booked in advance.",
-    meta: "Reviewed with your surgeon",
+    meta: "Reviewed with your practitioner",
   },
 ];
 
@@ -130,8 +131,8 @@ const STEPS = [
 
    None of the three is emphasised over the others. A pricing row where one
    card is dressed differently is a recommendation, and the honest answer to
-   which of these a visitor needs is the one Dr Shah-Desai gives at the
-   consultation, not one this page can make in advance. The brand weight is
+   which of these a visitor needs is the one given at the consultation, not
+   one this page can make in advance. The brand weight is
    spent evenly instead: the lit edge, the bloom and the indigo figure are on
    every card.
 
@@ -155,20 +156,24 @@ const PRICES = [
   },
   {
     kind: "Assessment",
-    name: "Consultation with Dr Shah-Desai",
-    price: "£300",
+    name: "Consultation with the team",
+    price: "£100",
     unit: "one appointment",
     note: "The appointment that decides whether either treatment above is right for you.",
-    meta: ["Forty-five minutes", "Examination and a written plan", "Sofwave or surgery, answered"],
+    meta: ["With Dr Janine or Irvana", "Skin and brow assessed", "Suitability answered honestly"],
   },
 ];
+
+/* The two practitioners who deliver this treatment, named and pictured from
+   the site's own team record so the page cannot drift from it. */
+const TEAM = TEAM_MEMBERS.filter((m) => m.name === "Dr Janine" || m.name === "Irvana");
 
 /* The four lines under the portrait. Check-marked rather than ruled, because
    at two columns the rules read as an empty table. */
 const CREDENTIALS = [
-  "GMC-registered consultant surgeon",
-  "Fellow of the Royal College of Surgeons of Edinburgh",
-  "Trainer to other doctors in oculoplastic and aesthetic technique",
+  "Dental Surgeon and advanced aesthetic practitioner",
+  "Practising aesthetics since 2018",
+  "Level 4 laser-qualified beauty therapist",
   "Practising at 121 Harley Street",
 ];
 
@@ -223,8 +228,8 @@ export default function SofwaveLanding({
 
             <p className={styles.heroLead}>
               Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes, and
-              across the face and neck. One 60-minute session, with a consultant oculoplastic
-              surgeon.
+              across the face and neck. One 60-minute session with Dr Janine or Irvana at our
+              Harley Street clinic.
             </p>
 
             <div className={styles.heroPrice}>
@@ -261,7 +266,7 @@ export default function SofwaveLanding({
               <div className={styles.heroImage}>
                 <SafeImage
                   src={treatment.heroImage}
-                  alt="A Sofwave patient of Dr Sabrina Shah-Desai, before and after treatment"
+                  alt="A Sofwave patient at Perfect Eyes Clinic, before and after treatment"
                   sizes="(min-width: 900px) 46vw, 100vw"
                   priority
                 />
@@ -269,7 +274,7 @@ export default function SofwaveLanding({
               {/* A direct child of the figure, as the spec requires, laid
                   over the foot of the picture rather than under it. */}
               <figcaption className={styles.heroFigCaption}>
-                An actual patient of Dr Shah-Desai. Individual results vary.
+                An actual patient of the clinic. Individual results vary.
               </figcaption>
             </figure>
           </div>
@@ -364,14 +369,14 @@ export default function SofwaveLanding({
             <div className={styles.proofImage}>
               <SafeImage
                 src={treatment.heroImage}
-                alt="A Sofwave patient of Dr Sabrina Shah-Desai, before and after treatment"
+                alt="A Sofwave patient at Perfect Eyes Clinic, before and after treatment"
                 width={1080}
                 height={1080}
                 sizes="(min-width: 900px) 560px, 100vw"
               />
             </div>
             <figcaption className={styles.proofCaption}>
-              An actual patient of Dr Shah-Desai. Individual results vary.
+              An actual patient of the clinic. Individual results vary.
             </figcaption>
           </figure>
         </div>
@@ -487,42 +492,51 @@ export default function SofwaveLanding({
         </div>
       </section>
 
-      {/* ── The surgeon ───────────────────────────────────────────────────
-          A portrait of Dr Shah-Desai in a full rectangular frame, not a
-          circular crop. The circle previously held a before-and-after photo
-          of a patient, which is not a picture of the person the section is
-          about; and a 300px disc beside four paragraphs left the column
-          hanging in whitespace. The frame is 3:4, the source file's own
-          ratio, and the two columns are centred on each other. */}
+      {/* ── Who performs it ───────────────────────────────────────────────
+          Two portraits rather than one, because two people deliver this
+          treatment and a page that pictures one of them is answering a
+          different question from the one a visitor is asking. Both source
+          files are 3:4, so the frames match without cropping either.
+
+          The copy states what each of them actually is. Sofwave is an
+          energy-based device treatment, and "Level 4 laser-qualified" is the
+          qualification that speaks to it, so the claim here is narrower than
+          it would be on a surgical page and true of the people named. */}
       <section className={`${styles.section} ${styles.surgeon}`}>
         <div className={styles.container}>
           <div className={styles.surgeonGrid}>
-            <figure className={styles.surgeonPortrait}>
-              <div className={styles.surgeonImage}>
-                <SafeImage
-                  src="/dr-sabrina-profile.png"
-                  alt="Dr Sabrina Shah-Desai, consultant oculoplastic surgeon"
-                  sizes="(min-width: 1080px) 420px, (min-width: 900px) 38vw, 100vw"
-                />
-              </div>
-              <figcaption className={styles.surgeonPlate}>
-                <strong>Dr Sabrina Shah-Desai</strong>
-                <span>Consultant Oculoplastic Surgeon, MS FRCS</span>
-              </figcaption>
-            </figure>
+            <div className={styles.teamPair}>
+              {TEAM.map((person) => (
+                <figure key={person.name} className={styles.surgeonPortrait}>
+                  <div className={styles.surgeonImage}>
+                    <SafeImage
+                      src={person.image}
+                      alt={`${person.name}, ${person.role}`}
+                      sizes="(min-width: 900px) 220px, 44vw"
+                    />
+                  </div>
+                  <figcaption className={styles.surgeonPlate}>
+                    <strong>{person.name}</strong>
+                    <span>{person.role}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
 
             <div className={styles.surgeonCopy}>
-              <p className={styles.aboutKicker}>Your surgeon</p>
+              <p className={styles.aboutKicker}>Your practitioners</p>
               <h2 className={styles.h2}>Who performs it</h2>
               <p className={styles.surgeonLead}>
-                Dr Sabrina Shah-Desai is a consultant oculoplastic surgeon who has spent her career
-                on the eyelid and the tissue around it. She teaches the techniques to other doctors.
+                Sofwave at Harley Street is carried out by Dr Janine Rothburn and Irvana, who
+                between them cover the two things this treatment asks for: judgement about the
+                face, and the handling of an energy-based device.
               </p>
               <p>
-                On this treatment that specialism is not a flourish. The applicator is used
-                millimetres from the eye. The person judging how much the brow can be lifted, and
-                whether ultrasound can lift it at all, is the same person who would perform the
-                surgery if it could not.
+                Dr Janine is a dental surgeon and advanced aesthetic practitioner who has worked
+                in aesthetics since 2018, with a deliberately restrained approach to facial
+                balance. Irvana is a Level 4 laser-qualified therapist with seventeen years in
+                clinical and luxury skincare. The applicator is used millimetres from the eye,
+                which is why the qualification of the person holding it is worth stating.
               </p>
               <ul className={styles.credentials}>
                 {CREDENTIALS.map((item) => (
@@ -604,7 +618,7 @@ export default function SofwaveLanding({
           items={frontmatter.faq}
           eyebrow="Before you book"
           title="Questions people ask before booking"
-          lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment by your surgeon."
+          lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment at the clinic."
           contentIsHtml
           footer={
             <a href="#callback" className="tp-btn tp-btn-primary">
