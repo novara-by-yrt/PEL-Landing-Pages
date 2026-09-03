@@ -5,6 +5,7 @@ import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
 import { TEAM_MEMBERS } from "@/lib/team";
 import ImageSlideshow from "./ImageSlideshow";
+import CallbackDialog from "@/components/forms/CallbackDialog";
 import { TreatmentGlance } from "@/components/treatment/TreatmentGlance";
 import PatientStories from "@/components/home/PatientStories";
 import HomeFaq from "@/components/home/HomeFaq";
@@ -157,7 +158,7 @@ const PRICES = [
   },
   {
     kind: "Assessment",
-    name: "Consultation with the team",
+    name: "Consultation with Dr Shah-Desai's team",
     price: "£100",
     unit: "one appointment",
     note: "The appointment that decides whether either treatment above is right for you.",
@@ -194,6 +195,12 @@ const CREDENTIALS = [
   "Practising at 121 Harley Street",
 ];
 
+/* Every call to action on this page opens the callback dialog. They were
+   anchors to the panel at the foot of the page, which on a phone is a long
+   scroll away and a longer one back if the visitor changes their mind, and
+   which put the whole page between someone who was ready to enquire and the
+   four fields that take the enquiry. The panel is still there for anyone who
+   reaches it; nothing sends them to it. */
 function Cta({
   variant = "primary",
   children,
@@ -202,9 +209,11 @@ function Cta({
   children: React.ReactNode;
 }) {
   return (
-    <a href="#callback" className={`tp-btn ${variant === "inverse" ? "tp-btn-inverse" : "tp-btn-primary"}`}>
+    <CallbackDialog
+      className={`tp-btn ${variant === "inverse" ? "tp-btn-inverse" : "tp-btn-primary"}`}
+    >
       {children}
-    </a>
+    </CallbackDialog>
   );
 }
 
@@ -290,12 +299,10 @@ export default function SofwaveLanding({
                   priority
                 />
               </div>
-              {/* A direct child of the figure, as the spec requires, laid
-                  over the head of the picture. It reserves room on its right
-                  for the slideshow's controls, which share that corner. */}
-              <figcaption className={styles.heroFigCaption}>
-                An actual patient of the clinic. Results vary.
-              </figcaption>
+              {/* No caption over the photographs. Nothing is laid on top of
+                  the pictures here now bar the slideshow's own controls; the
+                  results disclaimer runs under the pair in the before and
+                  after band, where there is room to read it. */}
             </figure>
           </div>
         </div>
@@ -625,9 +632,9 @@ export default function SofwaveLanding({
                   ))}
                 </ul>
 
-                <a href="#callback" className={styles.priceCta}>
+                <CallbackDialog className={styles.priceCta}>
                   Begin your journey
-                </a>
+                </CallbackDialog>
               </li>
             ))}
           </ul>
@@ -655,9 +662,9 @@ export default function SofwaveLanding({
           lead="If yours is not here, ask it on the call. Nothing on this page replaces an assessment at the clinic."
           contentIsHtml
           footer={
-            <a href="#callback" className="tp-btn tp-btn-primary">
+            <CallbackDialog className="tp-btn tp-btn-primary">
               Begin your journey
-            </a>
+            </CallbackDialog>
           }
         />
       )}

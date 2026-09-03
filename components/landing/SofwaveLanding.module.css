@@ -234,30 +234,6 @@
   background: var(--tp-lavender-050);
   line-height: 0;
 }
-/* Over the foot of the picture rather than under it. Below the image it
-   would push the photograph's bottom edge up off the line the copy column
-   ends on, which is the alignment this hero is built around. */
-.heroFigCaption {
-  position: absolute;
-  /* Over the head of the picture, not its foot. Still an overlay, because
-     below the image it would push the photograph's bottom edge up off the
-     line the copy column ends on, which is the alignment this hero is built
-     around. But the foot is where the source file has "Before" and "After"
-     burned into it, and the caption landed straight on top of them: two
-     pieces of white text on the same pixels, neither readable. The head of
-     the frame is plain wall in both halves of the photograph. */
-  inset: 0 0 auto 0;
-  z-index: 1;
-  /* The right inset is not symmetric: the slideshow's control pill sits in
-     that corner, and without the reserved room the caption ran under it. */
-  padding: 15px 116px 34px 16px;
-  border-radius: var(--tp-radius-lg) var(--tp-radius-lg) 0 0;
-  font-size: 0.75rem;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.94);
-  background: linear-gradient(180deg, rgba(23, 20, 48, 0.74), rgba(23, 20, 48, 0));
-  pointer-events: none;
-}
 
 /* ── What Sofwave is ──────────────────────────────────────────────────
 
@@ -915,10 +891,14 @@
   border-radius: 999px;
   border: 1px solid transparent;
   background: var(--tp-indigo-700);
+  /* A button now, not an anchor, since it opens the callback dialog. A button
+     does not inherit the page's font, so the face is named here. */
+  font-family: var(--tp-body);
   font-size: 0.9375rem;
   font-weight: 600;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
   box-shadow: var(--tp-shadow-sm);
   transition:
     background 200ms var(--tp-ease),
