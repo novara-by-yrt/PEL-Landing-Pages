@@ -111,7 +111,7 @@ const STEPS = [
   {
     heading: "Your consultation",
     body: "An appointment with Dr Janine or Irvana at Harley Street. They assess the skin and the brow position and tell you whether Sofwave is likely to help. If what you want needs surgery instead, they will say so and refer you to the clinic's surgical team.",
-    meta: "£100, with Dr Janine or Irvana",
+    meta: "£300, with Dr Janine or Irvana",
   },
   {
     heading: "The treatment",
@@ -159,7 +159,7 @@ const PRICES = [
   {
     kind: "Assessment",
     name: "Consultation with Dr Shah-Desai's team",
-    price: "£100",
+    price: "£300",
     unit: "one appointment",
     note: "The appointment that decides whether either treatment above is right for you.",
     meta: ["With Dr Janine or Irvana", "Skin and brow assessed", "Suitability answered honestly"],
