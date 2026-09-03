@@ -25,7 +25,10 @@
   width: min(440px, 100%);
   background: var(--tp-paper);
   border-radius: var(--tp-radius-lg);
-  padding: clamp(18px, 4vw, 28px);
+  /* Three values, not one: the heading needs more room above it than the
+     sides need, and the four px it used to sit in read as the title being
+     pushed against the top edge rather than placed. */
+  padding: clamp(26px, 5vw, 34px) clamp(18px, 4vw, 28px) clamp(20px, 4vw, 28px);
   box-shadow: 0 24px 60px rgba(20, 18, 33, 0.28);
   animation: popIn 220ms var(--tp-ease) both;
   /* The safety valve, not the plan. The compact form is built to clear the
@@ -65,15 +68,18 @@
   font-family: var(--tp-display);
   font-weight: 600;
   font-size: clamp(1.2rem, 4vw, 1.4rem);
+  line-height: 1.25;
   color: var(--tp-ink);
-  margin: 0 0 4px;
-  padding-right: 2.25rem;
+  margin: 0 0 10px;
+  /* Clear of the close button, which is 34px wide inset 10px from the right
+     edge. 2.25rem was under that and the longest title ran beneath it. */
+  padding-right: 2.75rem;
 }
 .dialogLead {
   font-size: var(--fs-caption);
   color: var(--tp-slate);
   line-height: 1.5;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 
 @keyframes fadeIn {
@@ -101,11 +107,13 @@
    Google's 304x78 widget, which never renders in a local build. */
 @media (max-height: 740px) {
   .dialog {
-    padding: 16px 16px 18px;
+    padding: 24px 16px 18px;
   }
   .dialogTitle {
     font-size: 1.1rem;
-    margin-bottom: 2px;
+    /* The lead is hidden at this height, so this margin is the whole gap
+       between the heading and the first field. */
+    margin-bottom: 16px;
   }
   /* The form's own fields say what this is; the sentence is the first thing
      that can go. */
@@ -126,6 +134,12 @@
   }
   .dialog {
     max-height: calc(100dvh - 16px);
-    padding: 14px 14px 16px;
+    padding: 18px 14px 16px;
+  }
+  /* Still a gap, but the smallest one that reads as deliberate. Below this
+     height the dialog is already scrolling on a landscape phone, and every
+     px of chrome here is a px of form pushed under the fold. */
+  .dialogTitle {
+    margin-bottom: 10px;
   }
 }
