@@ -340,6 +340,13 @@
 .proofFigure {
   margin: 0;
 }
+/* The two results side by side from 700px, stacked below it. Stacked they
+   are full width, which is what a phone wants for a picture whose whole
+   point is a pair of faces compared. */
+.proofPair {
+  display: grid;
+  gap: clamp(12px, 2.4vw, 20px);
+}
 /* The wrapper carries the shape and SafeImage fills it, the same pairing the
    hero uses. 1:1 is the source file's own ratio, so the box is right before
    the picture arrives and nothing shifts as it loads. */
@@ -358,17 +365,23 @@
   margin-top: 12px;
 }
 
+@media (min-width: 700px) {
+  .proofPair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 600px) {
   .proofHead {
     max-width: 62ch;
     margin-inline: auto;
     text-align: center;
   }
-  /* 560px, not the full column: the photograph is square, and run to a
-     1140px container it would stand taller than the viewport on a laptop and
-     push the section that follows entirely off screen. */
+  /* 920px for the pair, not the full column: the photographs are square, so
+     two of them at half of a 1140px container would still stand taller than
+     a laptop viewport and push the next section off screen. */
   .proofFigure {
-    max-width: 560px;
+    max-width: 920px;
     margin-inline: auto;
   }
   .proofCaption {

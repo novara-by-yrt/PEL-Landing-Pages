@@ -164,6 +164,22 @@ const PRICES = [
   },
 ];
 
+/* The clinic's Sofwave result photographs. Local files with URL-safe names:
+   the originals arrived as "Sofwave BA1 new.png", and a space in an image src
+   has to survive percent-encoding through next/image's optimiser and the URL
+   itself, which is a needless way for a picture to go missing. Both are
+   1254x1254, so one ratio covers the hero frame and the pair below. */
+const RESULTS = [
+  {
+    src: "/sofwave-ba-1.png",
+    alt: "A Sofwave patient at Perfect Eyes Clinic, before and after treatment",
+  },
+  {
+    src: "/sofwave-ba-2.png",
+    alt: "A second Sofwave patient at Perfect Eyes Clinic, before and after treatment",
+  },
+];
+
 /* The two practitioners who deliver this treatment, named and pictured from
    the site's own team record so the page cannot drift from it. */
 const TEAM = TEAM_MEMBERS.filter((m) => m.name === "Dr Janine" || m.name === "Irvana");
@@ -265,8 +281,8 @@ export default function SofwaveLanding({
                   shifts either way. */}
               <div className={styles.heroImage}>
                 <SafeImage
-                  src={treatment.heroImage}
-                  alt="A Sofwave patient at Perfect Eyes Clinic, before and after treatment"
+                  src={RESULTS[0].src}
+                  alt={RESULTS[0].alt}
                   sizes="(min-width: 900px) 46vw, 100vw"
                   priority
                 />
@@ -359,24 +375,27 @@ export default function SofwaveLanding({
             </p>
           </div>
 
-          {/* One photograph, the same one the hero opens with. It is a single
-              result rather than a grid because a single result is what the
-              clinic has photographed for this treatment: the gallery it used
-              to read from held one genuine Sofwave case and three portraits
-              of the surgeon, which a visitor scanning a "before and after"
-              band would reasonably have taken for results. */}
+          {/* Both result photographs the clinic has for this treatment, as a
+              pair rather than a grid of thumbnails: at two, side by side is
+              the whole gallery, and there is nothing to open a lightbox for.
+              One caption under the pair, since it says the same thing about
+              each of them. */}
           <figure className={styles.proofFigure}>
-            <div className={styles.proofImage}>
-              <SafeImage
-                src={treatment.heroImage}
-                alt="A Sofwave patient at Perfect Eyes Clinic, before and after treatment"
-                width={1080}
-                height={1080}
-                sizes="(min-width: 900px) 560px, 100vw"
-              />
+            <div className={styles.proofPair}>
+              {RESULTS.map((result) => (
+                <div key={result.src} className={styles.proofImage}>
+                  <SafeImage
+                    src={result.src}
+                    alt={result.alt}
+                    width={1254}
+                    height={1254}
+                    sizes="(min-width: 700px) 440px, 100vw"
+                  />
+                </div>
+              ))}
             </div>
             <figcaption className={styles.proofCaption}>
-              An actual patient of the clinic. Individual results vary.
+              Actual patients of the clinic. Individual results vary.
             </figcaption>
           </figure>
         </div>
