@@ -944,6 +944,24 @@
   padding-bottom: clamp(20px, 2.6vw, 32px);
 }
 
+/* A button, because it opens a dialog rather than going anywhere, styled as
+   the link it replaced so nothing about the sentence changes visually. */
+.formLegalLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--tp-indigo-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.formLegalLink:focus-visible {
+  outline: 2px solid var(--tp-indigo-700);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 .formLegal {
   font-size: 0.75rem;
   line-height: 1.55;

@@ -190,7 +190,13 @@ export default async function CatchAllPageRoute({
     return (
       <>
         {schemas}
-        <SofwaveLanding frontmatter={frontmatter} treatment={treatmentMeta.sofwave} />
+        <SofwaveLanding
+          frontmatter={frontmatter}
+          treatment={treatmentMeta.sofwave}
+          /* The notice's own body, so the form's privacy link can open a
+             dialog over the page instead of navigating away from the form. */
+          privacyNotice={getPostBySlug("pages", "privacy-notice")?.content ?? ""}
+        />
       </>
     );
   }

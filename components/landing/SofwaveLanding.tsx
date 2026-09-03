@@ -1,5 +1,5 @@
-import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
+import PrivacyNoticeModal from "@/components/shared/PrivacyNoticeModal";
 import AccreditedStrip from "@/components/shared/AccreditedStrip";
 import ClinicPhone from "@/components/shared/ClinicPhone";
 import { TpIcon } from "@/components/treatment/TpIcon";
@@ -52,7 +52,7 @@ import styles from "./SofwaveLanding.module.css";
    invented, and nothing promises a result. */
 
 const TRUST = [
-  { icon: "star", label: "4.8 from 240+ Google reviews" },
+  { icon: "star", label: "240+ Google reviews" },
   { icon: "shield", label: "CQC registered, rated good" },
   { icon: "building", label: "121 Harley Street, London" },
 ];
@@ -189,9 +189,13 @@ function Cta({
 export default function SofwaveLanding({
   frontmatter,
   treatment,
+  privacyNotice,
 }: {
   frontmatter: PostFrontmatter;
   treatment: TreatmentMeta;
+  /** The privacy notice body, read on the server from its own MDX so the
+      dialog under the form opens without a request or a page change. */
+  privacyNotice: string;
 }) {
   return (
     <div className={`tp ${styles.page}`}>
@@ -218,8 +222,9 @@ export default function SofwaveLanding({
             </h1>
 
             <p className={styles.heroLead}>
-              Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes. One
-              60-minute session, with a consultant oculoplastic surgeon.
+              Sofwave™ uses focused ultrasound to rebuild collagen around the brow and eyes, and
+              across the face and neck. One 60-minute session, with a consultant oculoplastic
+              surgeon.
             </p>
 
             <div className={styles.heroPrice}>
@@ -628,7 +633,10 @@ export default function SofwaveLanding({
         <div className={styles.container}>
           <p className={styles.formLegal}>
             We use your details to call you back about this enquiry. See our{" "}
-            <Link href="/privacy-notice">Privacy Notice</Link>.
+            <PrivacyNoticeModal html={privacyNotice} className={styles.formLegalLink}>
+              Privacy Notice
+            </PrivacyNoticeModal>
+            .
           </p>
         </div>
       </div>

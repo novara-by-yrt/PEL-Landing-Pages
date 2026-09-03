@@ -1,7 +1,5 @@
 import Image from "next/image";
-import ClinicPhone from "@/components/shared/ClinicPhone";
 import BookConsultationModal from "@/components/forms/BookConsultationModal";
-import { CLINIC } from "@/lib/clinic";
 import styles from "./Header.module.css";
 
 /**
@@ -40,12 +38,6 @@ export default function Header() {
         </span>
 
         <div className={styles.actions}>
-          {/* The number is hidden below 560px rather than dropped, so the
-              link keeps its accessible name when only the icon shows. */}
-          <ClinicPhone className={styles.phone} icon iconSize={18}>
-            <span className={styles.phoneNumber}>{CLINIC.phoneDisplay}</span>
-          </ClinicPhone>
-
           <BookConsultationModal className={styles.cta} label="Book a Consultation">
             <span className={styles.ctaLong}>Book a Consultation</span>
             <span className={styles.ctaShort}>Book</span>
