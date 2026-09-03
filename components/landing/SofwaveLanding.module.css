@@ -239,14 +239,21 @@
    ends on, which is the alignment this hero is built around. */
 .heroFigCaption {
   position: absolute;
-  inset: auto 0 0 0;
+  /* Over the head of the picture, not its foot. Still an overlay, because
+     below the image it would push the photograph's bottom edge up off the
+     line the copy column ends on, which is the alignment this hero is built
+     around. But the foot is where the source file has "Before" and "After"
+     burned into it, and the caption landed straight on top of them: two
+     pieces of white text on the same pixels, neither readable. The head of
+     the frame is plain wall in both halves of the photograph. */
+  inset: 0 0 auto 0;
   z-index: 1;
-  padding: 34px 16px 13px;
-  border-radius: 0 0 var(--tp-radius-lg) var(--tp-radius-lg);
+  padding: 13px 16px 34px;
+  border-radius: var(--tp-radius-lg) var(--tp-radius-lg) 0 0;
   font-size: 0.75rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.94);
-  background: linear-gradient(180deg, rgba(23, 20, 48, 0), rgba(23, 20, 48, 0.74));
+  background: linear-gradient(180deg, rgba(23, 20, 48, 0.74), rgba(23, 20, 48, 0));
   pointer-events: none;
 }
 
