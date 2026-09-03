@@ -16,10 +16,15 @@ import styles from "./TreatmentGlance.module.css";
 export function TreatmentGlance({
   glance = [],
   title,
+  /* The panel's own heading. Defaulted rather than hard-coded so a page can
+     name the panel something else without the other 47 treatments that
+     render it changing too. */
+  heading = "At a Glance",
 }: {
   glance?: GlanceItem[];
   /** Shown above the heading, as the reference layout does. */
   title?: string;
+  heading?: string;
 }) {
   if (glance.length === 0) return null;
 
@@ -32,7 +37,7 @@ export function TreatmentGlance({
           <div className={styles.head}>
             {title ? <span className={styles.eyebrow}>{title}</span> : null}
             <h2 id="glance-heading" className={styles.title}>
-              At a Glance
+              {heading}
             </h2>
             <span className={styles.rule} aria-hidden="true" />
           </div>

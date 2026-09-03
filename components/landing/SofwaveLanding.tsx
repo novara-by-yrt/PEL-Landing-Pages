@@ -228,7 +228,7 @@ export default function SofwaveLanding({
             </div>
 
             <div className={styles.heroActions}>
-              <Cta>Request a call back</Cta>
+              <Cta>Begin your journey</Cta>
               <ClinicPhone className={styles.heroCall} icon iconSize={18} />
             </div>
 
@@ -279,7 +279,11 @@ export default function SofwaveLanding({
           the six numbers before the prose: how long it takes, what the
           anaesthetic is, when they can drive, when the result appears. The
           shared treatment component, unchanged, fed this page's own rows. */}
-      <TreatmentGlance glance={treatment.glance} title="Sofwave™ Ultrasound" />
+      <TreatmentGlance
+        glance={treatment.glance}
+        title="Sofwave™ Ultrasound"
+        heading="Quick Overview"
+      />
 
       {/* ── What is Sofwave? ──────────────────────────────────────────────
           The device on the left, the plain description on the right. This
@@ -569,7 +573,7 @@ export default function SofwaveLanding({
                 </ul>
 
                 <a href="#callback" className={styles.priceCta}>
-                  Request a call back
+                  Begin your journey
                 </a>
               </li>
             ))}
@@ -599,7 +603,7 @@ export default function SofwaveLanding({
           contentIsHtml
           footer={
             <a href="#callback" className="tp-btn tp-btn-primary">
-              Request a call back
+              Begin your journey
             </a>
           }
         />
